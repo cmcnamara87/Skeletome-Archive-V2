@@ -230,6 +230,7 @@ myApp.services.factory('auth', function($http, $q, $cookies, tokenUrl, connectUr
 
     return {
         login: function(credentials) {
+            console.log("logging in");
             var defer = $q.defer();
 
             // login with credentials (username, password)
