@@ -10,10 +10,26 @@ myApp.services = angular.module('myApp.services', ['ngResource']);
 
 myApp.services.value('version', '0.1');
 
-myApp.services.value('tokenUrl', 'http://localhost:8888/skelarchv2/drupal/services/session/token');
-myApp.services.value('connectUrl', 'http://localhost:8888/skelarchv2/drupal/api/system/connect.json');
-myApp.services.value('apiUrl', 'http://localhost\\:8888/skelarchv2/drupal/api/');
-myApp.services.value('apiUrl2', 'http://localhost:8888/skelarchv2/drupal/api/');
+myApp.services.factory('baseUrl', function() {
+    if (!window.location.origin) {
+        return window.location.protocol+"//"+window.location.host;
+    } else {
+        return window.location.origin;
+    }
+});
+
+myApp.services.factory('tokenUrl', function(baseUrl) {
+    return baseUrl + '/drupal/services/session/token';
+});
+myApp.services.factory('connectUrl', function() {
+    return baseUrl + '/drupal/api/system/connect.json';
+});
+myApp.services.factory('apiUrl', function() {
+    return baseUrl + '/drupal/api/';
+});
+myApp.services.factory('apiUrl2', function() {
+    return baseUrl + '/drupal/api/';
+});
 
 myApp.services.factory('UserModel', function ($resource, apiUrl) {
     return $resource(apiUrl + 'user/:id', {
