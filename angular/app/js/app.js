@@ -305,7 +305,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         });
 
         $routeProvider.otherwise({
-            redirectTo: '/patients'
+            redirectTo: '/home'
         });
     }]);
 
