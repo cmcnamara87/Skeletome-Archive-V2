@@ -21,13 +21,13 @@ myApp.services.factory('baseUrl', function() {
 myApp.services.factory('tokenUrl', function(baseUrl) {
     return baseUrl + '/drupal/services/session/token';
 });
-myApp.services.factory('connectUrl', function() {
+myApp.services.factory('connectUrl', function(baseUrl) {
     return baseUrl + '/drupal/api/system/connect.json';
 });
-myApp.services.factory('apiUrl', function() {
+myApp.services.factory('apiUrl', function(baseUrl) {
     return baseUrl + '/drupal/api/';
 });
-myApp.services.factory('apiUrl2', function() {
+myApp.services.factory('apiUrl2', function(baseUrl) {
     return baseUrl + '/drupal/api/';
 });
 
