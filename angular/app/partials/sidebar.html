@@ -4,12 +4,18 @@
         <a href="#/home"><img src="img/Group.png" alt=""/></a> <button class="pull-right btn-search"><i class="icon icon-search"></i></button>
     </div>
 
-    <div class="sidebar-tabs">
+
+    <a ng-show="tab=='patient'" class="sidebar-section sidebar-section-back" href="#/patients/my-patients"><i class="icon icon-chevron-left"></i> My Patients</a>
+
+
+    <div ng-show="tab!='patient'" class="sidebar-tabs">
+
         <a class="sidebar-tab" ng-class="{'active': tab=='home'}" href="#/home"><i class="icon icon-th-list"></i></a><!--
             --><a class="sidebar-tab" ng-class="{'active': tab=='patient' || tab=='patients'}" href="#/patients/my-patients"><i class="icon icon-stethoscope"></i></a><!--
             --><a class="sidebar-tab" ng-class="{'active': tab=='group' || tab=='groups'}" href="#/groups/my-groups"><i class="icon icon-group"></i></a><!--
             --><a class="sidebar-tab" ng-class="{'active': tab=='user' || tab=='user'}" href="#/user"><i class="icon icon-user"></i></a>
     </div>
+
 
     <!--<div class="sidebar-section" >
         <a href=""><i class="icon icon-chevron-left"></i> Back to Patients</a>
@@ -41,6 +47,9 @@
 
         </div>
         <div ng-switch-when="patient">
+
+
+
             <h1 class="sidebar-section sidebar-section-heading">
                 Patient {{ subs[0] }}
             </h1>

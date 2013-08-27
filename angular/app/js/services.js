@@ -11,11 +11,18 @@ myApp.services = angular.module('myApp.services', ['ngResource']);
 myApp.services.value('version', '0.1');
 
 myApp.services.factory('baseUrl', function() {
+    var baseUrl = "";
     if (!window.location.origin) {
-        return window.location.protocol+"//"+window.location.host;
+        baseUrl = window.location.protocol+"//"+window.location.host;
     } else {
-        return window.location.origin;
+        baseUrl = window.location.origin;
     }
+
+    if(baseUrl == "http://localhost:8888") {
+        baseUrl += "/skelarchv2"
+    }
+
+    return baseUrl;
 });
 
 myApp.services.factory('tokenUrl', function(baseUrl) {
@@ -25,8 +32,14 @@ myApp.services.factory('connectUrl', function(baseUrl) {
     return baseUrl + '/drupal/api/system/connect.json';
 });
 myApp.services.factory('apiUrl', function(baseUrl) {
-    return baseUrl + '/drupal/api/';
+    var escapedUrl = baseUrl.replace(":8888","\\\:8888");
+    console.log("escaped url", escapedUrl);
+    return escapedUrl + '/drupal/api/';
 });
+
+
+
+
 myApp.services.factory('apiUrl2', function(baseUrl) {
     return baseUrl + '/drupal/api/';
 });
