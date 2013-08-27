@@ -5,6 +5,8 @@ package = A - Resources
 core = 7.x
 
 dependencies[] = patientresource
+dependencies[] = entity
+dependencies[] = rest_server
 
 files[] = groupresource.inc
 files[] = groupresource.module
