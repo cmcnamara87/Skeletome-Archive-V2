@@ -1,0 +1,453 @@
+<?php
+// $Id: contact_information.install $
+
+function contact_information_install() {
+  $t = get_t();
+
+  $patient = array(
+    'type' => 'contact_information',
+    'name' => $t('Contact information'),
+    'base' => 'node_content',
+    'description' => $t('The Contact information content type.'),
+    'title_label' => $t('Title'),
+  );
+
+  $content_type = node_type_set_defaults($patient);
+  node_type_save($content_type);
+
+  foreach (_contact_information_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_contact_information_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $patient['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_contact_information', COMMENT_NODE_CLOSED);
+  variable_set('node_options_contact_information', array('status'));
+  variable_set('node_preview_contact_information', DRUPAL_DISABLED);
+  variable_set('node_submitted_contact_information', FALSE);
+}
+
+function _contact_information_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_patient_firstname' => array(
+      'field_name'	=> 'field_patient_firstname',
+      'label'		=> $t('First name'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_lastname' => array(
+      'field_name'	=> 'field_patient_lastname',
+      'label'		=> $t('Last name'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_alias' => array(
+      'field_name'	=> 'field_patient_alias',
+      'label'		=> $t('Alias'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_gender' => array(
+      'field_name'	=> 'field_patient_gender',
+      'label'		=> $t('Gender'),
+      'cardinality'	=> 1,
+      'type'		=> 'list_boolean',
+      'settings'	=> array(
+        'allowed_values' => array(
+	  '1' => 'Male',
+	  '0' => 'Female',
+	),
+      )
+    ),
+    'field_patient_ethnicity' => array(
+      'field_name'	=> 'field_patient_ethnicity',
+      'label'		=> $t('Ethnicity'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_dob' => array(
+      'field_name'	=> 'field_patient_dob',
+      'label'		=> $t('Date of birth'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+    'field_patient_addressstreet' => array(
+      'field_name'	=> 'field_patient_addressstreet',
+      'label'		=> $t('Street'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_addresscity' => array(
+      'field_name'	=> 'field_patient_addresscity',
+      'label'		=> $t('City'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_addressstate' => array(
+      'field_name'	=> 'field_patient_addressstate',
+      'label'		=> $t('State'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_addresspostcode' => array(
+      'field_name'	=> 'field_patient_addresspostcode',
+      'label'		=> $t('Postcode'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_patient_addresscountry' => array(
+      'field_name'	=> 'field_patient_addresscountry',
+      'label'		=> $t('Country'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_ci_patient' => array(
+      'field_name'	=> 'field_ci_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'patient' => 'patient'
+	)
+      )
+    ),
+  );
+}
+
+function _contact_information_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_patient_firstname' => array(
+      'field_name' => 'field_patient_firstname',
+      'label'       => $t('First name'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_lastname' => array(
+      'field_name' => 'field_patient_lastname',
+      'label'       => $t('Last name'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_alias' => array(
+      'field_name' => 'field_patient_alias',
+      'label'       => $t('Alias'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_dob' => array(
+      'field_name' => 'field_patient_dob',
+      'label'       => $t('Date of birth'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_gender' => array(
+      'field_name' => 'field_patient_gender',
+      'label'       => $t('Gender'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'options_buttons',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_ethnicity' => array(
+      'field_name' => 'field_patient_ethnicity',
+      'label'       => $t('Ethnicity'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_addressstreet' => array(
+      'field_name' => 'field_patient_addressstreet',
+      'label'       => $t('Street'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_addresscity' => array(
+      'field_name' => 'field_patient_addresscity',
+      'label'       => $t('City'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_addressstate' => array(
+      'field_name' => 'field_patient_addressstate',
+      'label'       => $t('State'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_addresspostcode' => array(
+      'field_name' => 'field_patient_addresspostcode',
+      'label'       => $t('Postcode'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_patient_addresscountry' => array(
+      'field_name' => 'field_patient_addresscountry',
+      'label'       => $t('Country'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+
+    'field_ci_patient' => array(
+      'field_name'	=> 'field_ci_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+  );
+}
+
+function contact_information_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'contact_information'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_contact_information_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'contact_information');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('contact_information');
+
+  field_purge_batch(1000);
+}

@@ -1,0 +1,10 @@
+name = Post Resource
+description = Posts / Discussions for the Skeletome Archive
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+
+files[] = post_resource.inc
+files[] = post_resource.module

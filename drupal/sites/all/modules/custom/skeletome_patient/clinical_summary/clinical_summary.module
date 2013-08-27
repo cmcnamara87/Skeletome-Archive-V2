@@ -1,0 +1,289 @@
+<?php
+// $Id: clinical_summary.module $
+
+//TODO: THIS IS FOR SEMI-AUTOMATIC EXTRACTION
+
+define('__CS_PREFIX__', 'http://skeletome.org/clinicalsummary/');
+
+/*function clinical_summary_init() {
+  drupal_add_js(array('skeletomeBase' => base_path()), 'setting');
+  drupal_add_js(array('ncbo_active' => variable_get('NCBO_ACTIVE')), 'setting');
+  drupal_add_js(drupal_get_path('module', 'clinical_summary') .'/clinical_summary.js', array('group' => JS_DEFAULT));
+}*/
+
+/*function clinical_summary_menu() {
+  $items['clinicalsummary/recommend_tags'] = array(
+    'title' => 'Tag recommendation',
+    'description' => 'Suggests tags based using the NCBO annotator',
+    'page callback' => 'recommend_tags',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}*/
+
+/*function recommend_tags()
+{
+    $text = $_POST['text'];
+    $output = '';
+    if ($text != '') {
+        $unique_concepts = _annotate_text($text);
+        $clean_concepts = _preprocess_concepts($unique_concepts);
+        $tags = _get_tags($clean_concepts);
+        foreach ($tags as $tag_tid => $tag) {
+            $output .= l($tag['value'], "taxonomy/term/" . $tag['tid'],
+                array('attributes' => array('class' => "weighted_suggestions tag name level1",
+                    'id' => $tag['tid'],
+                    'rel' => 'tag',
+                    'title' => $tag['value']
+                ),
+                    'html' => TRUE,
+                )
+            );
+        }
+
+    }
+    echo $output;
+    exit;
+}*/
+
+/*function _annotate_text($text)
+{
+    $unique_concepts = array();
+    $annotator = new NCBOAnnotator();
+    $annot_test = $annotator->annotate($text);
+
+    $code = $annot_test->code;
+    $data = $annot_test->data;
+
+    $xmlObj = simplexml_load_string($data);
+    $arrObjData = get_object_vars($xmlObj);
+
+    if ($code == 200) {
+        $data = get_object_vars($arrObjData['data']);
+        $annotated_data = get_object_vars($data['annotatorResultBean']);
+        $annotations = get_object_vars($annotated_data['annotations']);
+
+        if (!empty($annotations)) {
+            foreach ($annotations as $annot_bean) {
+                if (gettype($annot_bean) === 'array') {
+                    foreach ($annot_bean as $annot_bean_item) {
+                        $annot_bean_array = get_object_vars($annot_bean_item);
+                        $concept = get_object_vars($annot_bean_array['concept']);
+                        $context = get_object_vars($annot_bean_array['context']);
+
+                        $own_concept = array(
+                            'from' => $context['from'],
+                            'to' => $context['to'],
+                            'uri' => $concept['fullId'],
+                            'value' => $concept['preferredName'],
+                        );
+                        $unique_concepts[] = $own_concept;
+                    }
+                } else {
+                    $annot_bean_array = get_object_vars($annot_bean);
+                    $concept = get_object_vars($annot_bean_array['concept']);
+                    $context = get_object_vars($annot_bean_array['context']);
+
+                    $own_concept = array(
+                        'from' => $context['from'],
+                        'to' => $context['to'],
+                        'uri' => $concept['fullId'],
+                        'value' => $concept['preferredName'],
+                    );
+                    $unique_concepts[] = $own_concept;
+                }
+            }
+        }
+    }
+
+    return $unique_concepts;
+}
+
+function _preprocess_concepts($concepts)
+{
+    $unique_concepts = $concepts;
+    // SORT
+
+    for ($i = 0; $i < count($unique_concepts) - 1; $i++) {
+        for ($j = $i + 1; $j < count($unique_concepts); $j++) {
+            if ($unique_concepts[$j]['from'] < $unique_concepts[$i]['from']) {
+                $temp = $unique_concepts[$i];
+                $unique_concepts[$i] = $unique_concepts[$j];
+                $unique_concepts[$j] = $temp;
+            }
+        }
+    }
+
+    // SUBSUMPTION
+
+    $subsumed = array();
+    for ($i = 0; $i < count($unique_concepts) - 1; $i++) {
+        if (!in_array($i, $subsumed)) {
+            $current_i = $unique_concepts[$i];
+            for ($j = $i + 1; $j < count($unique_concepts); $j++) {
+                $current_j = $unique_concepts[$j];
+                if (($current_j['from'] >= $current_i['from']) && ($current_j['to'] <= $current_i['to'])) {
+                    $subsumed[] = $j;
+                }
+                if (($current_i['from'] >= $current_j['from']) && ($current_i['to'] <= $current_j['to'])) {
+                    $subsumed[] = $i;
+                    break;
+                }
+
+            }
+        }
+    }
+
+    // UN-SUBSUMED
+
+    $clean_concepts = array();
+    for ($i = 0; $i < count($unique_concepts); $i++) {
+        if (!in_array($i, $subsumed)) {
+            $clean_concepts[] = $unique_concepts[$i];
+        }
+    }
+
+    return $clean_concepts;
+}
+
+function _get_tags($concepts)
+{
+    $cs_term_uris = _get_csterm_uris();
+    $cs_term_names = _get_csterm_names();
+
+    $tags = array();
+    foreach ($concepts as $concept) {
+        if (array_key_exists($concept['uri'], $cs_term_uris) && !array_key_exists($cs_term_uris[$concept['uri']], $tags)) {
+            $tag_name = $cs_term_names[$cs_term_uris[$concept['uri']]];
+
+            $tag = array(
+                'uri' => $concept['uri'],
+                'value' => $tag_name,
+                'tid' => $cs_term_uris[$concept['uri']]
+            );
+
+            $tags[$cs_term_uris[$concept['uri']]] = $tag;
+        }
+    }
+
+    return $tags;
+}
+
+function _get_csterm_names()
+{
+    $cs_vid = -1;
+    $sql = 'SELECT vid, machine_name FROM {taxonomy_vocabulary} tv WHERE tv.machine_name = :machine_name';
+    $result = db_query($sql, array(':machine_name' => 'skeletome_vocabulary'));
+    foreach ($result as $row) {
+        $cs_vid = $row->vid;
+    }
+
+    $term_names = array();
+    $sql = 'SELECT tid, vid, name FROM {taxonomy_term_data} ttd WHERE ttd.vid = :vid';
+    $result = db_query($sql, array(':vid' => $cs_vid));
+    foreach ($result as $row) {
+        $term_names[$row->tid] = $row->name;
+    }
+
+    return $term_names;
+}
+
+function _get_csterm_uris()
+{
+    $term_uris = array();
+
+    $sql = 'SELECT entity_id, field_term_uri_value FROM {field_data_field_term_uri}';
+    $result = db_query($sql, array());
+    foreach ($result as $r) {
+        $term_uris[$r->field_term_uri_value] = $r->entity_id;
+    }
+
+    return $term_uris;
+}
+
+function clinical_summary_form_clinical_summary_node_form_alter(&$form, &$form_state, $form_id)
+{
+    if (isset($form['type']) && isset($form['#node'])) {
+        if ('clinical_summary_node_form' == $form_id) {
+            $form['field_cs_patient']['#access'] = FALSE;
+            $form['group_audience']['#access'] = FALSE;
+            $form['group_content_access']['#access'] = FALSE;
+            $form['field_cs_uri']['#access'] = FALSE;
+            $form['field_skeletome_tags']['#access'] = FALSE;
+
+            $form['#node']->title = 'Clinical summary';
+            $form['title']['#default_value'] = 'Clinical summary';
+            $form['title']['#access'] = FALSE;
+
+            $ncbo_active = variable_get('NCBO_ACTIVE');
+            if ($ncbo_active) {
+                $html_tags_4node = '';
+                $form['Tag Recommendations'] = array(
+                    '#markup' => "<div><b>" . t('Suggested HPO terms') . "</b><br/></div><div class=\"weighted_tag_suggestions\">$html_tags_4node</div>",
+                    '#weight' => 2,
+                );
+            }
+        }
+    }
+}
+
+function clinical_summary_node_presave($node)
+{
+    if (property_exists($node, 'type')) {
+        if ($node->type == 'clinical_summary') {
+
+            $case_title = NULL;
+
+            if (arg(3) != NULL) {
+                $patient_node = node_load(arg(3));
+                $node->field_cs_patient['und'][0]['nid'] = $patient_node->nid;
+                $node->group_content_access['und'][0]['value'] = $patient_node->group_content_access['und'][0]['value'];
+                trasfer_group_membership($patient_node, $node);
+            }
+
+            if (property_exists($node, 'field_skeletome_tags')) {
+                if (array_key_exists('und', $node->field_skeletome_tags)) {
+                    unset($node->field_skeletome_tags['und']);
+                }
+            }
+
+            if (property_exists($node, 'field_cs_tags')) {
+                if (array_key_exists('und', $node->field_cs_tags)) {
+                    $count = 0;
+                    foreach ($node->field_cs_tags['und'] as $tag) {
+                        $node->field_skeletome_tags['und'][$count++]['tid'] = $tag['tid'];
+                    }
+                }
+            }
+        }
+    }
+}
+
+function clinical_summary_node_insert($node)
+{
+    if ($node->type == 'clinical_summary') {
+        $patient_node = node_load(arg(3));
+        $patient_node->field_patient_clinicalsummary['und'][0]['nid'] = $node->nid;
+        node_save($patient_node);
+    }
+}
+
+function clinical_summary_node_view($node, $view_mode)
+{
+    if ($node->type == 'clinical_summary' && $view_mode == 'full' && node_is_page($node)) {
+        drupal_goto('node/' . $node->field_cs_patient['und'][0]['nid'] . '/clinical-summary');
+    }
+
+    return $node;
+}
+
+function clinical_summary_node_delete($node)
+{
+    if ($node->type == 'clinical_summary') {
+        $patient_nid = $node->field_cs_patient['und'][0]['nid'];
+        $patient_node = node_load($patient_nid);
+        $patient_node->field_patient_clinicalsummary = array();
+        node_save($patient_node);
+    }
+}*/

@@ -1,0 +1,174 @@
+<?php
+// patientresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function patientresource_schema() {
+    $schema['patients'] = array(
+        'description' => t('Stores information about patients.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a patient.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the note.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'first_name' => array(
+                'description' => t('The first name of the patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'last_name' => array(
+                'description' => t('The last name of the patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'alias' => array(
+                'description' => t('Alias for a patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'dob' => array(
+                'description' => t('Date of birthday'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'gender' => array(
+                'description' => t('Gender of the patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'ethnicity' => array(
+                'description' => t('Ethnicity of the patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'clinical_summary' => array(
+                'description' => t('Ethnicity of the patient'),
+                'type' => 'text',
+                'size' => 'medium',
+            )
+        ),
+        'foreign keys' => array(
+            'owner' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+
+    $schema['addresses'] = array(
+        'description' => t('Stores street addresses.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a patient.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'street' => array(
+                'description' => t('Street address'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'city' => array(
+                'description' => t('Name of city'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'state' => array(
+                'description' => t('State'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'postcode' => array(
+                'description' => t('Postcode'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'country' => array(
+                'description' => t('Country'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient with the address.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+
+    $schema['identifiers'] = array(
+        'description' => t('Stores information about patients.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a patient.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The name of the identifer e.g. PubMed ID'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'identifier' => array(
+                'description' => t('The identifier'),
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient with the address.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+
+    return $schema;
+}

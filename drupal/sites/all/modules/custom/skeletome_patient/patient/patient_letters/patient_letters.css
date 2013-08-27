@@ -1,0 +1,10 @@
+#letterslist {
+  padding: 0;
+  margin: 0;
+}
+
+#letterslist li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

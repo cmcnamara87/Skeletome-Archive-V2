@@ -1,0 +1,172 @@
+<?php
+// genemutationresource.install
+
+/**
+ * Implementation of hook_schema().
+ */
+function gene_mutation_resource_schema() {
+
+    $schema['gene_mutations'] = array(
+        'description' => t('Stores gene mutations for a patient.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a gene mutation.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the gene mutation was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the gene mutation was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the post.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The mutation g.100G>C'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'gene_id' => array(
+                'description' => t('The gene the mutation is in.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'mutation_type_id' => array(
+                'description' => t('The type of the mutation.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'patient_id' => array(
+                'description' => t('The id of the patient.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'pathogenic' => array(
+                'description' => t('Pathogenicity of the mutation e.g. highly unlikely to highly likely'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'foreign keys' => array(
+            'creator' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'gene' => array(
+                'table' => 'genes',
+                'columns' => array('id' => 'gene_id'),
+            ),
+            'mutation_type' => array(
+                'table' => 'mutation_types',
+                'columns' => array('id' => 'mutation_type_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['genes'] = array(
+        'description' => t('Stores all the genes.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a gene.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The name of the Gene e.g. FGFR3'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'foreign keys' => array(
+            'creator' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['mutation_types'] = array(
+        'description' => t('Stores all the gene mutation types.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a gene mutation type.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The type of gene mutations e.g. point mutation'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'foreign keys' => array(
+            'creator' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}
+
+/**
+ * Implements hook_install()
+ */
+function gene_mutation_resource_install() {
+
+    // Install some genes
+    global $user;
+
+    $genes = array(
+        'FGFR3',
+        'CUL7',
+    );
+    foreach($genes as $gene) {
+        $data = array();
+        $data['name'] = $gene;
+        drupal_write_record('genes', $data);
+    }
+
+    $mutation_types = array(
+        'Missense mutations',
+        'Silent mutations',
+    );
+    foreach($mutation_types as $mutation_type) {
+        $data = array();
+        $data['name'] = $mutation_type;
+        drupal_write_record('mutation_types', $data);
+    }
+
+}
+

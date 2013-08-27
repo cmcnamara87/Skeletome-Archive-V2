@@ -1,0 +1,62 @@
+textarea {
+  border-color: black;
+  border-style: solid;
+  border-width: thin;
+  padding: 3px;
+  min-height: 100px;
+  min-width: 450px;
+}
+
+.ui-button.ui-widget {
+  height: 22px;
+  margin-bottom: 5px;
+}
+
+.ui-button.ui-widget .ui-button-text { 
+  position: relative;
+  bottom: 4px;
+}
+
+#group_list .ui-selecting { 
+  background: #066ab7;
+}
+
+#group_list .ui-selected { 
+  background: #054b81; color: white;
+}
+
+#group_list { 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%; 
+}
+
+#group_list li { 
+  margin: 3px; 
+  padding: 0.4em; 
+  font-weight: bold;
+  height: 16px; 
+}
+
+#nonmember_group_list .ui-selecting { 
+  background: #066ab7;
+}
+
+#nonmember_group_list .ui-selected { 
+  background: #054b81; color: white;
+}
+
+#nonmember_group_list { 
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%; 
+}
+
+#nonmember_group_list li { 
+  margin: 3px; 
+  padding: 0.4em; 
+  font-weight: bold;
+  height: 16px; 
+}

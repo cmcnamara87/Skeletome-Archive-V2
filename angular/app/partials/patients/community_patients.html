@@ -1,0 +1,46 @@
+<div>
+    <h2>Community Patients</h2>
+
+    <div class="col-md-9">
+
+
+        <div ng-repeat="membership in memberships">
+            <h3>{{ membership.group.name }}</h3>
+
+            <table ng-show="membership.shares.length > 0" class="table table-info">
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Physician</th>
+                    <th>Diagnoses</th>
+                    <th>Discussion</th>
+                    <th>More</th>
+                </tr>
+                <tr ng-repeat="share in membership.shares">
+                    <td><a href="#/patient/{{ share.patient.id }}">{{ share.patient.id }}</a></td>
+                    <td><a href="#/patient/{{ share.patient.id }}">{{ share.patient.ownerName }}</a></td>
+                    <td>Achondroplasia</td>
+                    <td>3</td>
+                    <td>
+                        <div class="dropdown">
+                            <a data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div ng-show="membership.shares.length == 0" class="block-info">
+                No shared patients.
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

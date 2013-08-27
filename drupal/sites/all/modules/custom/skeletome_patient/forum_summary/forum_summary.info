@@ -1,0 +1,11 @@
+; $Id: forum_summary.info $
+
+name = Forum summary
+description = Provides the implementation for the Forum summary.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = forum_summary.module
+files[] = forum_summary.install

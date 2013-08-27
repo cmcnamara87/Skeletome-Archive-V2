@@ -1,0 +1,167 @@
+<?php
+// diagnosis_resource.install
+/**
+ * Implementation of hook_schema().
+ */
+function diagnosis_resource_schema() {
+    $schema['diagnoses'] = array(
+        'description' => t('Stores the community diagnoses for a patient.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a diagnosis.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the diagnosis was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the diagnosis was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the diagnosis.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'disorder_id' => array(
+                'description' => t('The disorder chosen for the diagnosis.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'share_id' => array(
+                'description' => t('The share that has this diagnosis.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'poster' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'disorder' => array(
+                'table' => 'disorders',
+                'columns' => array('id' => 'disorder_id'),
+            ),
+            'share' => array(
+                'table' => 'shares',
+                'columns' => array('id' => 'share_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['disorders'] = array(
+        'description' => t('Disorders a user could be diagnosed with'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a disorder.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The name of the disorder'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['votes'] = array(
+        'description' => t('Votes for a diagnosis for a patient'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a vote.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the diagnosis was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the diagnosis was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'vote' => array(
+                'description' => t('1 or -1 for the vote'),
+                'type' => 'int',
+                'unsigned' => FALSE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user who voted.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'diagnosis_id' => array(
+                'description' => t('The diagnosis voted for.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'voter' => array(
+                'table' => 'users',
+                'columns' => array('id' => 'uid'),
+            ),
+            'diagnosis' => array(
+                'table' => 'diagnoses',
+                'columns' => array('id' => 'diagnosis_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}
+
+/**
+ * Implements hook_install()
+ */
+function diagnosis_resource_install() {
+    global $user;
+
+    // Install some default types
+    $disorders = array(
+        'Achondroplasia',
+        'Pseudoachondroplasia',
+        'Spondyloperipheral dysplasia',
+        'Cartilage-Hair-Hypoplasia',
+    );
+
+    foreach($disorders as $disorder) {
+        $data = array();
+        $data['name'] = $disorder;
+        drupal_write_record('disorders', $data);
+    }
+
+}

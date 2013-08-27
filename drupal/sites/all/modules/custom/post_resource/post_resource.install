@@ -1,0 +1,188 @@
+<?php
+// groupresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function post_resource_schema() {
+    $schema['posts'] = array(
+        'description' => t('Stores users posts.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a post.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the post was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the post was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'text' => array(
+                'description' => t('The text of the post'),
+                'type' => 'text',
+                'size' => 'small',
+            ),
+            'type_id' => array(
+                'description' => t('The type of the post e.g. general, diagnosis, xray'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the post.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'share_id' => array(
+                'description' => t('The patient share the post is attached to.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'poster' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'type' => array(
+                'table' => 'post_types',
+                'columns' => array('id' => 'type_id'),
+            ),
+            'share' => array(
+                'table' => 'shares',
+                'columns' => array('id' => 'share_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['post_types'] = array(
+        'description' => t('Stores the type of a post.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a post.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the post was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the post was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The type of the post e.g. general, diagnosis, xray'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+
+
+
+    $schema['replies'] = array(
+        'description' => t('Stores comment reply on a post.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a comment.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the comment was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the comment was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'text' => array(
+                'description' => t('The text of the comment'),
+                'type' => 'text',
+                'size' => 'small',
+            ),
+            'uid' => array(
+                'description' => t('The user that created the comment.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'post_id' => array(
+                'description' => t('The post the comment is attached to.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            )
+        ),
+        'foreign keys' => array(
+            'commenter' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'post' => array(
+                'table' => 'posts',
+                'columns' => array('id' => 'post_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}
+
+/**
+ * Implements hook_install()
+ */
+function post_resource_install() {
+    global $user;
+
+    // Install some default types
+    $post_types = array(
+        'General',
+        'X-Rays',
+        'Gene Mutations',
+        'Diagnoses',
+    );
+
+    foreach($post_types as $post_type) {
+        $data = array();
+        $data['name'] = $post_type;
+        $data['created'] = time();
+        $data['modified'] = time();
+        drupal_write_record('post_types', $data);
+    }
+
+}

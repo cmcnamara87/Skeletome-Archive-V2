@@ -1,0 +1,10 @@
+name = Gene Mutation Resource
+description = Gene Mutation Resource for the Skeletome Archive
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+
+files[] = genemutationresource.inc
+files[] = genemutationresource.module

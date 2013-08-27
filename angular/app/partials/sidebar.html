@@ -1,0 +1,80 @@
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+        <a href="#/home"><img src="img/Group.png" alt=""/></a> <button class="pull-right btn-search"><i class="icon icon-search"></i></button>
+    </div>
+
+    <div class="sidebar-tabs">
+        <a class="sidebar-tab" ng-class="{'active': tab=='home'}" href="#/home"><i class="icon icon-th-list"></i></a><!--
+            --><a class="sidebar-tab" ng-class="{'active': tab=='patient' || tab=='patients'}" href="#/patients/my-patients"><i class="icon icon-stethoscope"></i></a><!--
+            --><a class="sidebar-tab" ng-class="{'active': tab=='group' || tab=='groups'}" href="#/groups/my-groups"><i class="icon icon-group"></i></a><!--
+            --><a class="sidebar-tab" ng-class="{'active': tab=='user' || tab=='user'}" href="#/user"><i class="icon icon-user"></i></a>
+    </div>
+
+    <!--<div class="sidebar-section" >
+        <a href=""><i class="icon icon-chevron-left"></i> Back to Patients</a>
+    </div>-->
+
+    <div ng-switch on="tab">
+
+        <div ng-switch-when="groups">
+            <h1 class="sidebar-section sidebar-section-heading">
+                Groups
+            </h1>
+            <a ng-class="{'active': subs[0] == 'my-groups'}" href="#/groups/my-groups" class="sidebar-section">My Groups</a>
+            <a ng-class="{'active': subs[0] == 'all-groups'}" href="#/groups/all-groups" class="sidebar-section">All Groups</a>
+        </div>
+
+        <div ng-switch-when="group">
+            <h1 class="sidebar-section sidebar-section-heading">
+                {{ group.name }}
+            </h1>
+            <a ng-class="{'active': subs[1] == 'cases'}" href="#/group/{{ subs[0] }}/cases" class="sidebar-section">Shared Cases</a>
+            <a ng-class="{'active': subs[1] == 'members'}" href="#/group/{{ subs[0] }}/members" class="sidebar-section">Members</a>
+        </div>
+        <div ng-switch-when="patients">
+            <h1 class="sidebar-section sidebar-section-heading">
+                Patients
+            </h1>
+            <a ng-class="{'active': subs[0] == 'my-patients'}" href="#/patients/my-patients" class="sidebar-section">My Patients</a>
+            <a ng-class="{'active': subs[0] == 'community-patients'}" href="#/patients/community-patients" class="sidebar-section">Community Patients</a>
+
+        </div>
+        <div ng-switch-when="patient">
+            <h1 class="sidebar-section sidebar-section-heading">
+                Patient {{ subs[0] }}
+            </h1>
+
+            <a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section">Case Summary</a>
+
+            <a ng-class="{'active': subs[1] == 'case-details'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/case-details">Case Details</a>
+
+            <!--<div class="sidebar-section-inner">
+                <a class="sidebar-section sidebar-section-item" href="">Clinical Summary</a>
+                <a class="sidebar-section sidebar-section-item" href="">X-Rays</a>
+                <a class="sidebar-section sidebar-section-item" href="">Gene Mutations</a>
+            </div>-->
+
+
+            <a ng-class="{'active': subs[1] == 'patient-details'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/patient-details">Patient Details</a>
+
+            <!--<div class="sidebar-section-inner">
+                <a class="sidebar-section sidebar-section-item" href="">Contact Details</a>
+                <a class="sidebar-section sidebar-section-item" href="">Addresses</a>
+                <a class="sidebar-section sidebar-section-item" href="">Other IDs</a>
+                <a class="sidebar-section sidebar-section-item" href="">Consent Form</a>
+            </div>-->
+
+            <a ng-class="{'active': subs[1] == 'community'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/community">Community</a>
+
+            <div class="sidebar-section-inner">
+                <div ng-repeat="share in shares">
+                    <a class="sidebar-section sidebar-section-item" href="">{{ share.group.name }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>

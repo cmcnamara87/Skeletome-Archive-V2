@@ -1,0 +1,11 @@
+; $Id: patient_note.info $
+
+name = Patient note
+description = Provides the implementation for the Patient note content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = patient_note.module
+files[] = patient_note.install

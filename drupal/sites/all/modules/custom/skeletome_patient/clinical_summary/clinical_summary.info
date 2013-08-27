@@ -1,0 +1,12 @@
+; $Id: clinical_summary.info $
+
+name = Clinical summary
+description = Provides the implementation for the Clinical summary content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+dependencies[] = taxonomy
+
+files[] = clinical_summary.module
+files[] = clinical_summary.install

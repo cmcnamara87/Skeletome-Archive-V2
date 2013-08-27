@@ -1,0 +1,382 @@
+<?php
+// post_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function post_resource_entity_info() {
+    return array(
+        'post' => array(
+            'label' => t('Post'),
+            'base table' => 'posts',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'PostController',
+        ),
+        'reply' => array(
+            'label' => t('Reply'),
+            'base table' => 'replies',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+    );
+}
+
+
+class PostController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->user = user_load($entity->uid);
+            unset($entity->user->password);
+        }
+        return $entities;
+
+    } // Nothing to see here,
+}
+
+
+
+function reply_load($id, $reset = FALSE) {
+    return array_shift(post_load_multiple(array($id), $reset));
+}
+function reply_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('reply', $ids, $conditions, $reset);
+}
+function reply_save($entity) {
+    entity_save('reply', $entity);
+}
+function reply_delete($id) {
+    entity_delete('reply', $id);
+}
+//
+//
+//function comment_load($cid, $reset = FALSE) {
+//    $comment = comment_load_multiple(array($cid), array(), $reset);
+//    return $comment ? $comment[$cid] : FALSE;
+//}
+//
+//function node_load($nid = NULL, $vid = NULL, $reset = FALSE) {
+//    $nids = (isset($nid) ? array($nid) : array());
+//    $conditions = (isset($vid) ? array('vid' => $vid) : array());
+//    $node = node_load_multiple($nids, $conditions, $reset);
+//    return $node ? reset($node) : FALSE;
+//}
+//
+
+
+
+function post_load($id, $reset = FALSE) {
+    $post = post_load_multiple(array($id), array(), $reset);
+    return $post ? $post[$id] : FALSE;
+}
+function post_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('post', $ids, $conditions, $reset);
+}
+function post_save($entity) {
+    entity_save('post', $entity);
+}
+function post_delete($id) {
+    entity_delete('post', $id);
+}
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function post_resource_services_resources() {
+    $resources = array();
+
+    $resources['post_type'] = array(
+        'index' => array(
+            'help' => 'List all post types',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_type'),
+            'callback' => '_post_resource_type_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resources['post'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a post',
+            'file' => array('file' => 'inc', 'module' => 'post_resource'),
+            'callback' => '_post_resource_retrieve',
+            'access callback' => '_post_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the discussion to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a discussion',
+            'file' => array('file' => 'inc', 'module' => 'post_resource'),
+            'callback' => '_post_resource_create',
+            'access arguments' => array('discussion resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The discussion object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a discussion',
+            'file' => array('file' => 'inc', 'module' => 'post_resource'),
+            'callback' => '_post_resource_update',
+            'access callback' => '_post_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The discussion data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a discussion',
+            'file' => array('file' => 'inc', 'module' => 'post_resource'),
+            'callback' => '_post_resource_delete',
+            'access callback' => '_post_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the discussion to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource'),
+            'callback' => '_post_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resources['reply'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a reply to a post',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
+            'callback' => '_post_resource_reply_retrieve',
+            'access callback' => '_post_resource_reply_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the reply to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a discussion',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
+            'callback' => '_post_resource_reply_create',
+            'access arguments' => array('discussion resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The reply object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a discussion',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
+            'callback' => '_post_resource_reply_update',
+            'access callback' => '_post_resource_reply_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The reply data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a reply',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
+            'callback' => '_post_resource_reply_delete',
+            'access callback' => '_post_resource_reply_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the reply to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
+            'callback' => '_post_resource_reply_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+
+
+    return $resources;
+}
+
+

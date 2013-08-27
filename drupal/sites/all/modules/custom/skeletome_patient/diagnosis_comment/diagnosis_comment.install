@@ -1,0 +1,141 @@
+<?php
+// $Id: diagnosis_comment.install $
+
+function diagnosis_comment_install() {
+  $t = get_t();
+
+  $diagnosis_comment = array(
+    'type' => 'diagnosis_comment',
+    'name' => $t('Diagnosis comment'),
+    'base' => 'node_content',
+    'description' => $t('The Diagnosis comment content type.'),
+    'title_label' => $t('Title'),
+  );
+
+  $content_type = node_type_set_defaults($diagnosis_comment);
+  node_add_body_field($content_type);
+  node_type_save($content_type);
+
+  $body_instance = field_info_instance('node', 'body', 'diagnosis_comment');
+  $body_instance['type'] = 'text_long';
+  $body_instance['label'] = 'Comment';
+
+  field_update_instance($body_instance);
+
+  foreach (_diagnosis_comment_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_diagnosis_comment_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $diagnosis_comment['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('diagnosis_comment_summary', COMMENT_NODE_CLOSED);
+  variable_set('node_options_diagnosis_comment', array('status'));
+  variable_set('node_preview_diagnosis_comment', DRUPAL_DISABLED);
+  variable_set('node_submitted_diagnosis_comment', FALSE);
+}
+
+function _diagnosis_comment_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_diagnosiscomment_diagnosis' => array(
+      'field_name'	=> 'field_diagnosiscomment_diagnosis',
+      'label'		=> $t('Diagnosis'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'diagnosis' => 'diagnosis'
+	)
+      )
+    ),
+    'field_diagnosiscomment_patient' => array(
+      'field_name'	=> 'field_diagnosiscomment_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'patient' => 'patient'
+	)
+      )
+    ),
+  );
+}
+
+function _diagnosis_comment_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_diagnosiscomment_diagnosis' => array(
+      'field_name'	=> 'field_diagnosiscomment_diagnosis',
+      'label'		=> $t('Diagnosis'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_diagnosiscomment_patient' => array(
+      'field_name'	=> 'field_diagnosiscomment_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+  );
+}
+
+function diagnosis_comment_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'diagnosis_comment'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_diagnosis_comment_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'diagnosis_comment');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('diagnosis_comment');
+
+  field_purge_batch(1000);
+}

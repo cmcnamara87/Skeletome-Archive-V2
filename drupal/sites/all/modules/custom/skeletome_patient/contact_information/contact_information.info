@@ -1,0 +1,13 @@
+; $Id: contact_information.info $
+
+name = Contact information
+description = Provides the implementation for the Contact information content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+dependencies[] = link
+dependencies[] = date
+
+files[] = contact_information.module
+files[] = contact_information.install

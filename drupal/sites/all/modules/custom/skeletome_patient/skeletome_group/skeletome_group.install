@@ -1,0 +1,73 @@
+<?php
+// $Id: skeletome_group.install $
+
+function skeletome_group_install() {
+  $t = get_t();
+
+  $skeletome_group = array(
+    'type' => 'skeletome_group',
+    'name' => $t('SKELETOME Group'),
+    'base' => 'node_content',
+    'description' => $t('The SKELETOME Group content type.'),
+    'body_label' => $t('Description')
+  );
+
+  $content_type = node_type_set_defaults($skeletome_group);
+  node_add_body_field($content_type);
+  node_type_save($content_type);
+
+  $body_instance = field_info_instance('node', 'body', 'skeletome_group');
+  $body_instance['type'] = 'text_long';
+  $body_instance['label'] = 'Description';
+
+  field_update_instance($body_instance);
+
+  foreach (_skeletome_group_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_skeletome_group_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $clinical_summary['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_skeletome_group', COMMENT_NODE_CLOSED);
+  variable_set('node_options_skeletome_group', array('status'));
+  variable_set('node_preview_skeletome_group', DRUPAL_DISABLED);
+  variable_set('node_submitted_skeletome_group', FALSE);
+}
+
+function _skeletome_group_installed_fields() {
+  $t = get_t();
+  return array();
+}
+
+function _skeletome_group_installed_instances() {
+  $t = get_t();
+  return array();
+}
+
+function skeletome_group_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'skeletome_group'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_skeletome_group_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'skeletome_group');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('skeletome_group');
+
+  field_purge_batch(1000);
+}

@@ -1,0 +1,547 @@
+<?php
+// diagnosis_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function diagnosis_resource_entity_info() {
+    return array(
+        'diagnosis' => array(
+            'label' => t('Diagnosis'),
+            'base table' => 'diagnoses',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'DiagnosisController',
+        ),
+        'disorder' => array(
+            'label' => t('Disorder'),
+            'base table' => 'disorders',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'vote' => array(
+            'label' => t('Vote'),
+            'base table' => 'votes',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'VoteController',
+        ),
+    );
+}
+
+
+class DiagnosisController extends EntityAPIController {
+
+    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
+        $query = parent::buildQuery($ids, $conditions, $revision_id);
+        return $query;
+    }
+
+    private function addRelated(&$entity) {
+        $entity->disorder = disorder_load($entity->disorder_id);
+
+        $entity->user = user_load($entity->uid);
+        unset($entity->user->password);
+
+        $entity->share = share_load($entity->share_id);
+
+        // Add in the votes
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'vote');
+        $query->propertyCondition('diagnosis_id', $entity->id);
+        $result = $query->execute();
+        $ids = array_keys($result['vote']);
+        $entity->votes = vote_load_multiple($ids);
+    }
+
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+        self::addRelated($entity);
+    }
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+        foreach($entities as &$entity) {
+            self::addRelated($entity);
+        }
+        return $entities;
+
+    }
+}
+
+class VoteController extends EntityAPIController {
+
+    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
+        $query = parent::buildQuery($ids, $conditions, $revision_id);
+        return $query;
+    }
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->user = user_load($entity->uid);
+            unset($entity->user->password);
+        }
+        return $entities;
+    }
+}
+
+
+
+
+
+
+function diagnosis_load($id, $reset = FALSE) {
+    return array_shift(diagnosis_load_multiple(array($id), $reset));
+}
+function diagnosis_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('diagnosis', $ids, $conditions, $reset);
+}
+function diagnosis_save($entity) {
+    entity_save('diagnosis', $entity);
+}
+function diagnosis_delete($id) {
+    entity_delete('diagnosis', $id);
+}
+
+function disorder_load($id, $reset = FALSE) {
+    return array_shift(disorder_load_multiple(array($id), $reset));
+}
+function disorder_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('disorder', $ids, $conditions, $reset);
+}
+function disorder_save($entity) {
+    entity_save('disorder', $entity);
+}
+function disorder_delete($id) {
+    entity_delete('disorder', $id);
+}
+
+
+function vote_load($id, $reset = FALSE) {
+    return array_shift(vote_load_multiple(array($id), $reset));
+}
+function vote_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('vote', $ids, $conditions, $reset);
+}
+function vote_save($entity) {
+    entity_save('vote', $entity);
+}
+function vote_delete($id) {
+    entity_delete('vote', $id);
+}
+
+
+
+function diagnosis_resource_permission() {
+    return array(
+        'diagnosis resource vote create' => array(
+            'title' => t('Create vote'),
+        ),
+        'diagnosis resource disorder create' => array(
+            'title' => t('Create disorder'),
+        ),
+        'diagnosis resource create' => array(
+            'title' => t('Create diagnosis'),
+        )
+    );
+}
+
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function diagnosis_resource_services_resources() {
+    $resources = array();
+
+    $resources['diagnosis'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a diagnosis',
+            'file' => array('file' => 'inc', 'module' => 'diagnosis_resource'),
+            'callback' => '_diagnosis_resource_retrieve',
+            'access callback' => '_diagnosis_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the diagnosis to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a diagnosis',
+            'file' => array('file' => 'inc', 'module' => 'diagnosis_resource'),
+            'callback' => '_diagnosis_resource_create',
+            'access arguments' => array('diagnosis resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The diagnosis object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a diagnosis',
+            'file' => array('file' => 'inc', 'module' => 'diagnosis_resource'),
+            'callback' => '_diagnosis_resource_update',
+            'access callback' => '_diagnosis_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The diagnosis data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a diagnosis',
+            'file' => array('file' => 'inc', 'module' => 'diagnosis_resource'),
+            'callback' => '_diagnosis_resource_delete',
+            'access callback' => '_diagnosis_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the diagnosis to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource'),
+            'callback' => '_diagnosis_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        )
+    );
+
+    $resources['vote'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a vote',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_vote'
+            ),
+            'callback' => '_diagnosis_resource_vote_retrieve',
+            'access callback' => '_diagnosis_resource_vote_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the vote to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a vote',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_vote'
+            ),
+            'callback' => '_diagnosis_resource_vote_create',
+            'access arguments' => array('diagnosis resource vote create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The vote object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a diagnosis',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_vote'
+            ),
+            'callback' => '_diagnosis_resource_vote_update',
+            'access callback' => '_diagnosis_resource_vote_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the vote to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The vote data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a diagnosis',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_vote'
+            ),
+            'callback' => '_diagnosis_resource_vote_delete',
+            'access callback' => '_diagnosis_resource_vote_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the vote to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource_vote'),
+            'callback' => '_diagnosis_resource_vote_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        )
+    );
+
+    $resources['disorder'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a disorder',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_disorder'
+            ),
+            'callback' => '_diagnosis_resource_disorder_retrieve',
+            'access callback' => '_diagnosis_resource_disorder_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the disorder to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a disorder',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_disorder'
+            ),
+            'callback' => '_diagnosis_resource_disorder_create',
+            'access arguments' => array('diagnosis resource disorder create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The disorder object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a diagnosis',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_disorder'
+            ),
+            'callback' => '_diagnosis_resource_disorder_update',
+            'access callback' => '_diagnosis_resource_disorder_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the disorder to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The disorder data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a diagnosis',
+            'file' => array('type' => 'inc',
+                'module' => 'diagnosis_resource',
+                'name' => 'diagnosis_resource_disorder'
+            ),
+            'callback' => '_diagnosis_resource_disorder_delete',
+            'access callback' => '_diagnosis_resource_disorder_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the disorder to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource_disorder'),
+            'callback' => '_diagnosis_resource_disorder_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+
+
+    return $resources;
+}
+
+

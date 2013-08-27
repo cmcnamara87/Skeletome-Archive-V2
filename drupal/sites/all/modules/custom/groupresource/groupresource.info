@@ -1,0 +1,10 @@
+name = Group Resource
+description = Groups for the Skeletome Archive
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+
+files[] = groupresource.inc
+files[] = groupresource.module

@@ -1,0 +1,20 @@
+<div >
+    <div class="section">
+        <h1>New Patient</h1>
+
+        <form>
+            <label>First Name <input class="form-control" type="type" ng-model="patient.first_name"/></label>
+            <label>Last Name <input class="form-control" type="type" ng-model="patient.last_name"/></label>
+            <label>Alias <input class="form-control" type="type" ng-model="patient.alias"/></label>
+            <label>Date of Birth <input class="form-control" type="type" ng-model="patient.dob"/></label>
+            <label>Gender <input class="form-control" type="type" ng-model="patient.gender"/></label>
+            <label>Ethnicity <input class="form-control" type="type" ng-model="patient.ethnicity"/></label>
+
+
+            <label>Clinical Summary <textarea class="form-control" ng-model="patient.clinical_summary" rows="20"></textarea></label>
+
+            <input type="submit" ng-click="createPatient(patient)"/>
+        </form>
+    </div>
+</div>
+

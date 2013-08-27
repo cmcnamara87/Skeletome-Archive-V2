@@ -1,0 +1,71 @@
+<div>
+    <h2>Community</h2>
+
+
+    <div class="col-md-9">
+        <div class="group-item">
+            <h3>Sharing</h3>
+
+            <div class="block-info" ng-repeat="share in shares">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" value="" checked>
+                        {{ share.group.name }}
+                    </label>
+                </div>
+            </div>
+            <div class="block-info">
+                <a class="btn btn-primary" href="#/patient/{{ patient.id }}/share">Share</a>
+            </div>
+        </div>
+
+
+        <div ng-repeat="share in shares">
+            <h3>{{ share.group.name }}</h3>
+
+            <h4>Diagnoses</h4>
+
+            <div class="block-info">
+                <select ng-model="share.disorder" ng-options="disorder.name for disorder in disorders"></select>
+                <button class="btn btn-primary" ng-click="createDiagnosis(share.disorder, share)">Add Diagnosis</button>
+            </div>
+            <div class="block-info" ng-repeat="diagnosis in share.diagnoses">
+                Tally: {{ diagnosis.tally() }}
+                <button ng-click="createVote(diagnosis, 1)">Up</button>
+                <button ng-click="createVote(diagnosis, -1)">Down</button>
+                {{ diagnosis.disorder.name }}
+            </div>
+
+            <h4>Discussions</h4>
+
+            <div class="block-info">Filters:
+                <span ng-repeat="type in postTypes">
+                    <button>{{ type.name }}</button>
+                </span>
+            </div>
+
+
+            <div class="block-info">
+                <textarea ng-model="share.post.text" placeholder="Add a post" class="form-control"></textarea>
+
+                <select ng-model="share.post.type" ng-init="" ng-options="type.name for type in postTypes"></select>
+
+                <button class="btn btn-primary" ng-click="createPost(share.post, share)">Post</button>
+            </div>
+
+            <div class="block-info" ng-repeat="post in share.posts">
+                <div>
+                    <b>{{ post.user.name }}</b>
+                    {{ post.text }}
+                </div>
+                <div ng-repeat="reply in post.replies">
+                    {{ reply.text }}
+                </div>
+
+                <textarea class="form-control" ng-model="post.reply.text"></textarea>
+                <button class="btn btn-primary" ng-click="createReply(post.reply, post)">Comment</button>
+            </div>
+        </div>
+    </div>
+
+</div>

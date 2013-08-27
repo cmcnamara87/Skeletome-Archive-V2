@@ -1,0 +1,12 @@
+; $Id: genetic_report.info $
+
+name = Genetic report
+description = Provides the implementation for the Genetic report content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+dependencies[] = link
+
+files[] = genetic_report.module
+files[] = genetic_report.install

@@ -1,0 +1,247 @@
+<?php
+// $Id: diagnosis.install $
+
+function diagnosis_install() {
+  $t = get_t();
+
+  $patient = array(
+    'type' => 'diagnosis',
+    'name' => $t('Diagnosis'),
+    'base' => 'node_content',
+    'description' => $t('The Diagnosis content type.'),
+    'title_label' => $t('Bone Dysplasia'),
+    'body_label' => $t('Comment')
+  );
+
+  $content_type = node_type_set_defaults($patient);
+  node_add_body_field($content_type);
+  node_type_save($content_type);
+
+  $body_instance = field_info_instance('node', 'body', 'diagnosis');
+  $body_instance['type'] = 'text_long';
+  $body_instance['label'] = 'Comment';
+
+  field_update_instance($body_instance);
+
+  foreach (_diagnosis_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_diagnosis_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $patient['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_diagnosis', COMMENT_NODE_CLOSED);
+  variable_set('node_options_diagnosis', array('status'));
+  variable_set('node_preview_diagnosis', DRUPAL_DISABLED);
+  variable_set('node_submitted_diagnosis', FALSE);
+}
+
+function _diagnosis_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_diagnosis_bd' => array(
+      'field_name'	=> 'field_diagnosis_bd',
+      'label'		=> $t('Bone Dysplasia'),
+      'cardinality'	=> 1,
+      'type'		=> 'taxonomy_term_reference',
+      'settings'	=> array(
+        'allowed_values' => array(
+          array(
+            'vocabulary' => 'bone_dysplasia_vocabulary',
+            'parent' => '0',
+          ),
+	)
+      )
+    ),
+    'field_diagnosis_date' => array(
+      'field_name'	=> 'field_diagnosis_date',
+      'label'		=> $t('Date of entry'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+    'field_diagnosis_confidence' => array(
+      'field_name'	=> 'field_diagnosis_confidence',
+      'label'		=> $t('Confidence'),
+      'cardinality'	=> 1,
+      'type'		=> 'fivestar',
+      'settings' => array(
+	'axis' => 'vote',
+      ),
+    ),
+    'field_diagnosis_patient' => array(
+      'field_name'	=> 'field_diagnosis_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'patient' => 'patient'
+	)
+      )
+    ),
+    'field_diagnosis_diagcomment' => array(
+      'field_name'	=> 'field_diagnosis_diagcomment',
+      'label'		=> $t('Comment'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'diagnosis_comment' => 'diagnosis_comment'
+	)
+      )
+    ),
+  );
+}
+
+function _diagnosis_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_diagnosis_bd' => array(
+      'field_name'	=> 'field_diagnosis_bd',
+      'label'		=> $t('Bone Dysplasia'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_diagnosis_confidence' => array(
+      'field_name'	=> 'field_diagnosis_confidence',
+      'label'		=> $t('Confidence'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'exposed',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_diagnosis_date' => array(
+      'field_name' => 'field_diagnosis_date',
+      'label'       => $t('Date of entry'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_diagnosis_patient' => array(
+      'field_name'	=> 'field_diagnosis_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_diagnosis_diagcomment' => array(
+      'field_name'	=> 'field_diagnosis_diagcomment',
+      'label'		=> $t('Comment'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+  );
+}
+
+function diagnosis_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'diagnosis'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_diagnosis_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'diagnosis');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('diagnosis');
+
+  field_purge_batch(1000);
+}

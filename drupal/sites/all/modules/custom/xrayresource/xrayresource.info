@@ -1,0 +1,10 @@
+name = XRay Resource
+description = The XRays for a patient
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+
+files[] = xrayresource.inc
+files[] = xrayresource.module

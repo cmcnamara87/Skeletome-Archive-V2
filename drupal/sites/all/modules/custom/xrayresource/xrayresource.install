@@ -1,0 +1,70 @@
+<?php
+// xrayresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function xrayresource_schema() {
+    $schema['xrays'] = array(
+        'description' => t('Stores information about xrays.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a xray.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the note.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'file' => array(
+                'description' => t('The file url'),
+                'type' => 'varchar',
+                'not null' => TRUE,
+                'length' => 255,
+            ),
+            'description' => array(
+                'description' => t('Description of the xray'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient who owns the xray.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'owner' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

@@ -1,0 +1,10 @@
+name = Clinical Feature
+description = Clinical Feature for the Skeletome Archive
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+
+files[] = clinical_feature.inc
+files[] = clinical_feature.module

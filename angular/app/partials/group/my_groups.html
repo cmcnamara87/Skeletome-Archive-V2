@@ -1,0 +1,20 @@
+<div>
+    <h2>My Groups <a class="btn btn-primary" href="#/group">New Group</a></h2>
+
+    <div class="col-md-9">
+        <table class="table table-info">
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Cases</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="membership in memberships">
+                <td><a href="#/group/{{ membership.group.id }}">{{ membership.group.name }}</a></td>
+                <td>{{ membership.group.location }}</td>
+                <td>23</td>
+                <td><a class="btn btn-primary" href ng-click="leaveGroup(membership)">Leave</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

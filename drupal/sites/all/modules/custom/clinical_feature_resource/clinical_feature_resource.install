@@ -1,0 +1,103 @@
+<?php
+// clinical_featureresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function clinical_feature_resource_schema() {
+    $schema = array();
+    $schema['clinical_features'] = array(
+        'description' => t('Stores the clinical_features.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a clinical_feature.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The name of the clinical_feature'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['clinical_features_patients'] = array(
+        'description' => t('Patients with clinical features'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a clinical feature patient.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'uid' => array(
+                'description' => t('The user that is a member.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'clinical_feature_id' => array(
+                'description' => t('The clinical_feature the patient has.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0, d
+            ),
+        ),
+        'foreign keys' => array(
+            'member' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'clinical_feature' => array(
+                'table' => 'clinical_features',
+                'columns' => array('id' => 'clinical_feature_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

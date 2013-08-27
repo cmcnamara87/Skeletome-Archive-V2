@@ -1,0 +1,11 @@
+name = Diagnosis
+description = Diagnosis resource for SkelArch
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = post_resource
+dependencies[] = patientresource
+
+files[] = diagnosis_resource.inc
+files[] = diagnosis_resource.module

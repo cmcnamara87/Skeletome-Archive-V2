@@ -1,0 +1,171 @@
+<?php
+// groupresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function groupresource_schema() {
+    $schema['groups'] = array(
+        'description' => t('Stores the groups.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a group.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The name of the group'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'location' => array(
+                'description' => t('The location of the group'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the note.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'administrator_id' => array(
+                'description' => t('The group with the address.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'owner' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'administrator' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'administrator_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['members'] = array(
+        'description' => t('Members for a group'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a group.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the note was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the note was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'user_id' => array(
+                'description' => t('The user that is a member.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'group_id' => array(
+                'description' => t('The group that the user is a member of.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'member' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'user_id'),
+            ),
+            'group' => array(
+                'table' => 'groups',
+                'columns' => array('id' => 'group_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['shares'] = array(
+        'description' => t('Patients shared with the group'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a share.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the share was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the share was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient shared.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'group_id' => array(
+                'description' => t('The group the patient is shared with.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'group' => array(
+                'table' => 'groups',
+                'columns' => array('id' => 'group_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

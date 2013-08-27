@@ -1,0 +1,240 @@
+<?php
+// $Id: genetic_report.install $
+
+function genetic_report_install() {
+  $t = get_t();
+
+  $genetic_report = array(
+    'type' => 'genetic_report',
+    'name' => $t('Genetic report'),
+    'base' => 'node_content',
+    'description' => $t('The Genetic report content type.'),
+  );
+
+  $content_type = node_type_set_defaults($genetic_report);
+  node_type_save($content_type);
+
+  foreach (_genetic_report_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_genetic_report_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $genetic_report['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_genetic_report', COMMENT_NODE_CLOSED);
+  variable_set('node_options_genetic_report', array('status'));
+  variable_set('node_preview_genetic_report', DRUPAL_DISABLED);
+  variable_set('node_submitted_genetic_report', FALSE);
+}
+
+function _genetic_report_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_genrep_date' => array(
+      'field_name'	=> 'field_genrep_date',
+      'label'		=> $t('Date'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+    'field_genrep_attachment' => array(
+      'field_name'	=> 'field_genrep_attachment',
+      'label'		=> $t('Attachment'),
+      'cardinality'	=> -1,
+      'type'		=> 'file',
+      'settings'	=> array(
+	'display_field' => '1',
+	'uri_scheme' => 'private'
+      )
+    ),
+    'field_genrep_refno' => array(
+      'field_name'	=> 'field_genrep_refno',
+      'label'		=> $t('Reference no.'),
+      'cardinality'	=> -1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 120,
+      )
+    ),
+    'field_genrep_patient' => array(
+      'field_name'	=> 'field_genrep_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'patient' => 'patient'
+	)
+      )
+    ),
+    'field_genrep_uri' => array(
+      'field_name'	=> 'field_genrep_uri',
+      'label'		=> $t('URI'),
+      'cardinality'	=> 1,
+      'type'		=> 'text',
+      'settings'	=> array(
+        'max_length' => 500,
+      )
+    ),
+
+    'field_genrep_gm' => array(
+      'field_name'	=> 'field_genrep_gm',
+      'label'		=> $t('Gene Mutation'),
+      'cardinality'	=> -1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'gene_mutation' => 'gene_mutation'
+	)
+      )
+    )
+  );
+}
+
+function _genetic_report_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_genrep_date' => array(
+      'field_name' => 'field_genrep_date',
+      'label'       => $t('Date'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type' => 'date_default',
+	  'label' => 'inline',
+	)
+      )
+    ),
+    'field_genrep_attachment' => array(
+      'field_name' => 'field_genrep_attachment',
+      'label'       => $t('Attachment'),
+      'cardinality' => -1,
+      'widget'      => array(
+        'type'    => 'file_generic',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type' => 'field_file_display',
+	  'label' => 'inline',
+	)
+      ),
+      'settings' => array(
+        'file_extensions' => 'pdf',
+        'file_directory' => 'patient_genetic_reports'
+      )
+    ),
+
+    'field_genrep_refno' => array(
+      'field_name' => 'field_genrep_refno',
+      'label'       => $t('Reference no.'),
+      'cardinality' => -1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'text',
+	  'label' => 'inline',
+	)
+      )
+    ),
+    'field_genrep_patient' => array(
+      'field_name'	=> 'field_genrep_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'entityreference_default',
+	  'label' => 'inline',
+	)
+      )
+    ),
+    'field_genrep_uri' => array(
+      'field_name' => 'field_genrep_uri',
+      'label'       => $t('URI'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'text_textfield',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+
+    'field_genrep_gm' => array(
+      'field_name'	=> 'field_genrep_gm',
+      'label'		=> $t('Gene Mutation'),
+      'cardinality'	=> -1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    )
+  );
+}
+
+function genetic_report_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'genetic_report'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_genetic_report_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'genetic_report');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('genetic_report');
+
+  field_purge_batch(1000);
+}

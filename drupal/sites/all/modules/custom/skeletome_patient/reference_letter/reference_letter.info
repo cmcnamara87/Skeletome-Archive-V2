@@ -1,0 +1,11 @@
+; $Id: reference_letter.info $
+
+name = Reference letter
+description = Provides the implementation for the Reference letter
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = reference_letter.module
+files[] = reference_letter.install

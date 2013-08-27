@@ -1,0 +1,147 @@
+<?php
+// xrayresource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function xrayresource_entity_info() {
+    return array(
+        'xray' => array(
+            'label' => t('xray'),
+            'base table' => 'xrays',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+    );
+}
+
+function xray_load($id, $reset = FALSE) {
+    return array_shift(xray_load_multiple(array($id), $reset));
+}
+function xray_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('xray', $ids, $conditions, $reset);
+}
+function xray_save($entity) {
+    entity_save('xray', $entity);
+}
+function xray_delete($id) {
+    entity_delete('xray', $id);
+}
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function xrayresource_services_resources() {
+    return array(
+        'xray' => array(
+            'retrieve' => array(
+                'help' => 'Retrieves a xray',
+                'file' => array('file' => 'inc', 'module' => 'xrayresource'),
+                'callback' => '_xray_resource_retrieve',
+                'access callback' => '_xray_resource_access',
+                'access arguments' => array('view'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the xray to get',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'create' => array(
+                'help' => 'Creates a xray',
+                'file' => array('file' => 'inc', 'module' => 'xrayresource'),
+                'callback' => '_xray_resource_create',
+                'access arguments' => array('xray resource create'),
+                'access arguments append' => FALSE,
+                'args' => array(
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The xray object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'update' => array(
+                'help' => 'Updates a xray',
+                'file' => array('file' => 'inc', 'module' => 'xrayresource'),
+                'callback' => '_xray_resource_update',
+                'access callback' => '_xray_resource_access',
+                'access arguments' => array('update'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the node to update',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The xray data object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'help' => 'Deletes a xray',
+                'file' => array('file' => 'inc', 'module' => 'xrayresource'),
+                'callback' => '_xray_resource_delete',
+                'access callback' => '_xray_resource_access',
+                'access arguments' => array('delete'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'nid',
+                        'type' => 'int',
+                        'description' => 'The id of the xray to delete',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'index' => array(
+                'help' => 'Retrieves a listing of xrays',
+                'file' => array('file' => 'inc', 'module' => 'xrayresource'),
+                'callback' => '_xray_resource_index',
+                'access callback' => 'user_access',
+                'access arguments' => array('access content'),
+                'access arguments append' => FALSE,
+                'args' => array(
+                    array(
+                        'name' => 'page',
+                        'type' => 'int',
+                        'description' => '',
+                        'source' => array(
+                            'param' => 'page',
+                        ),
+                        'optional' => TRUE,
+                        'default value' => 0,
+                    ),
+                    array(
+                        'name' => 'parameters',
+                        'type' => 'array',
+                        'description' => '',
+                        'source' => 'param',
+                        'optional' => TRUE,
+                        'default value' => array(),
+                    ),
+                ),
+            ),
+        ),
+    );
+}
+
+

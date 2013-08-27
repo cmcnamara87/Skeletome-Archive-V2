@@ -1,0 +1,11 @@
+; $Id: xray_description.info $
+
+name = X-Ray Description
+description = Provides the implementation for the X-Ray Description.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = xray_description.module
+files[] = xray_description.install

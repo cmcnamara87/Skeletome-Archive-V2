@@ -1,0 +1,17 @@
+#box-table-b
+{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	width: 480px;
+	text-align: center;
+	border-collapse: collapse;
+	border-top: 3px solid #b8b8b8;
+	border-bottom: 3px solid #b8b8b8;
+}
+#box-table-b td
+{
+	padding: 5px;
+	background: #e8edff; 
+	border-right: 1px solid #b8b8b8;
+	border-left: 1px solid #b8b8b8;
+}

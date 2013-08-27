@@ -1,0 +1,162 @@
+<?php
+// clinical_feature.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function clinical_feature_resource_entity_info() {
+    return array(
+        'clinical_feature' => array(
+            'label' => t('Clinical Features'),
+            'base table' => 'groups',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+        ),
+    );
+}
+
+
+///** Gets a clinical_feature object by id.
+// *
+// * @param int $id
+// * @return object
+// */
+//function clinical_feature_get_clinical_feature($id) {
+//    return db_query('SELECT * FROM {clinical_features} WHERE id=:id', array(':id' => $id))
+//        ->fetchAll();
+//}
+//
+///** Writes a clinical_feature to the database
+// *
+// * @param object $clinical_feature
+// * @return void
+// */
+//function clinical_feature_write_clinical_feature($clinical_feature) {
+//    $primary_key = !empty($clinical_feature->id) ? array('id') : NULL;
+//    drupal_write_record('clinical_features', $clinical_feature, $primary_key);
+//}
+//
+///**
+// * Deletes a clinical_feature from the database.
+// *
+// * @param int $id
+// * @return void
+// */
+//function clinical_feature_delete_clinical_feature($id) {
+//    db_query('DELETE FROM {clinical_features} WHERE id=:id', array(':id' => $id));
+//}
+
+///**
+// * Implementation of hook_services_resources().
+// */
+//function clinical_feature_services_resources() {
+//    return array(
+//        'clinical_feature' => array(
+//            'retrieve' => array(
+//                'help' => 'Retrieves a clinical_feature',
+//                'file' => array('file' => 'inc', 'module' => 'clinical_feature'),
+//                'callback' => '_clinical_feature_retrieve',
+//                'access callback' => '_clinical_feature_access',
+//                'access arguments' => array('view'),
+//                'access arguments append' => TRUE,
+//                'args' => array(
+//                    array(
+//                        'name' => 'id',
+//                        'type' => 'int',
+//                        'description' => 'The id of the clinical_feature to get',
+//                        'source' => array('path' => '0'),
+//                        'optional' => FALSE,
+//                    ),
+//                ),
+//            ),
+//            'create' => array(
+//                'help' => 'Creates a clinical_feature',
+//                'file' => array('file' => 'inc', 'module' => 'clinical_feature'),
+//                'callback' => '_clinical_feature_create',
+//                'access arguments' => array('clinical_feature resource create'),
+//                'access arguments append' => FALSE,
+//                'args' => array(
+//                    array(
+//                        'name' => 'data',
+//                        'type' => 'struct',
+//                        'description' => 'The clinical_feature object',
+//                        'source' => 'data',
+//                        'optional' => FALSE,
+//                    ),
+//                ),
+//            ),
+//            'update' => array(
+//                'help' => 'Updates a clinical_feature',
+//                'file' => array('file' => 'inc', 'module' => 'clinical_feature'),
+//                'callback' => '_clinical_feature_update',
+//                'access callback' => '_clinical_feature_access',
+//                'access arguments' => array('update'),
+//                'access arguments append' => TRUE,
+//                'args' => array(
+//                    array(
+//                        'name' => 'id',
+//                        'type' => 'int',
+//                        'description' => 'The id of the node to update',
+//                        'source' => array('path' => '0'),
+//                        'optional' => FALSE,
+//                    ),
+//                    array(
+//                        'name' => 'data',
+//                        'type' => 'struct',
+//                        'description' => 'The clinical_feature data object',
+//                        'source' => 'data',
+//                        'optional' => FALSE,
+//                    ),
+//                ),
+//            ),
+//            'delete' => array(
+//                'help' => 'Deletes a clinical_feature',
+//                'file' => array('file' => 'inc', 'module' => 'clinical_feature'),
+//                'callback' => '_clinical_feature_delete',
+//                'access callback' => '_clinical_feature_access',
+//                'access arguments' => array('delete'),
+//                'access arguments append' => TRUE,
+//                'args' => array(
+//                    array(
+//                        'name' => 'nid',
+//                        'type' => 'int',
+//                        'description' => 'The id of the clinical_feature to delete',
+//                        'source' => array('path' => '0'),
+//                        'optional' => FALSE,
+//                    ),
+//                ),
+//            ),
+//            'index' => array(
+//                'help' => 'Retrieves a listing of clinical_features',
+//                'file' => array('file' => 'inc', 'module' => 'clinical_feature'),
+//                'callback' => '_clinical_feature_index',
+//                'access callback' => 'user_access',
+//                'access arguments' => array('access content'),
+//                'access arguments append' => FALSE,
+//                'args' => array(
+//                    array(
+//                        'name' => 'page',
+//                        'type' => 'int',
+//                        'description' => '',
+//                        'source' => array(
+//                            'param' => 'page',
+//                        ),
+//                        'optional' => TRUE,
+//                        'default value' => 0,
+//                    ),
+//                    array(
+//                        'name' => 'parameters',
+//                        'type' => 'array',
+//                        'description' => '',
+//                        'source' => 'param',
+//                        'optional' => TRUE,
+//                        'default value' => array(),
+//                    ),
+//                ),
+//            ),
+//        ),
+//    );
+//}
+//
+//

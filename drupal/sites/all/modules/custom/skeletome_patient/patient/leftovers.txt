@@ -1,0 +1,54 @@
+function _patient_get_node_access_for_user($node_owner, $node_type) {
+  global $user;
+
+  $permissions = array();
+  $perms = user_role_permissions($user->roles);
+
+  foreach ($perms as $role => $perm_array) {
+    foreach($perm_array as $permission => $val) {
+      $pos = strpos($permission, $node_type);
+      if ($pos !== false && !in_array($permission, $permissions)) {
+	$permissions[] = $permission;
+      }
+    }
+  }
+
+  $result = array(
+    'edit' => 0,
+    'delete' => 0,
+    'create' => 0,
+  );
+  foreach ($permissions as $permission) {
+    if (substr($permission, 0, 4) == 'edit') {
+      $left = substr($permission, 5, strlen($permission) - 5);
+      if (substr($left, 0, 3) == 'own') {
+        if ($user->uid == $node_owner) {
+          $result['edit'] = 1;
+        }
+      } else {
+        if ($user->uid != $node_owner) {
+          $result['edit'] = 1;
+        }
+      }
+    }
+    if (substr($permission, 0, 6) == 'delete') {
+      $left = substr($permission, 7, strlen($permission) - 7);
+      if (substr($left, 0, 3) == 'own') {
+        if ($user->uid == $node_owner) {
+          $result['delete'] = 1;
+        }
+      } else {
+        if ($user->uid != $node_owner) {
+          $result['delete'] = 1;
+        }
+      }
+    }
+    if (substr($permission, 0, 6) == 'create') {
+      $left = substr($permission, 7, strlen($permission) - 7);
+      if (substr($left, 0, strlen($node_type)) == $node_type) {
+	$result['create'] = 1;
+      }
+    }
+  }
+  return $result;
+}

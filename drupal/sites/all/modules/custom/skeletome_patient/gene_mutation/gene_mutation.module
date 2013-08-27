@@ -1,0 +1,89 @@
+<?php
+// $Id: gene_mutation.module $
+
+function gene_mutation_init() {
+}
+
+function gene_mutation_menu() {
+}
+
+function gene_mutation_node_view($node, $view_mode) {
+  if ($node->type == 'gene_mutation' && $view_mode == 'full' && node_is_page($node)) {
+     drupal_goto('node/' . $node->field_gene_mutation_genrep['und'][0]['nid']);
+ }
+
+  return $node;
+}
+
+function gene_mutation_form_gene_mutation_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['type']) && isset($form['#node'])) {
+      if ('gene_mutation_node_form' == $form_id) {
+	$form['field_gene_mutation_uri']['#access'] = FALSE;
+	$form['field_gene_mutation_genrep']['#access'] = FALSE;
+	$form['group_audience']['#access'] = FALSE;
+	$form['group_content_access']['#access'] = FALSE;
+    }
+  }
+}
+
+function gene_mutation_node_insert($node) {
+  if ($node->type == 'gene_mutation') {
+    if (arg(3) != NULL) {
+      $genrep_node = node_load(arg(3));
+      if (array_key_exists('und', $genrep_node->field_genrep_gm)) {
+	$count = count($genrep_node->field_genrep_gm['und']);
+      } else {
+	$count = 0;
+      }
+
+      $genrep_node->field_genrep_gm['und'][$count]['nid'] = $node->nid;
+      node_save($genrep_node);
+    }
+  }
+}
+
+
+function gene_mutation_node_presave($node) {
+  if ($node->type == 'gene_mutation') {
+    if (arg(3) != NULL) {
+      if (property_exists($node, 'field_gene_mutation_genrep')) {
+	$node->field_gene_mutation_genrep['und'][0]['nid'] = arg(3);
+
+	$genrep_node = node_load(arg(3));
+	$node->group_content_access['und'][0]['value'] = $genrep_node->group_content_access['und'][0]['value']; 
+
+	if (array_key_exists('und', $genrep_node->group_audience)) {
+	  $group_audience = $genrep_node->group_audience['und'];
+	  $count = 0;
+	  foreach ($group_audience as $ga) {
+	    $node->group_audience['und'][$count]['gid'] = $ga['gid'];
+	    $node->group_audience['und'][$count]['state'] = $ga['state'];
+	    $node->group_audience['und'][$count]['created'] = $ga['created'];
+	    $count++;
+	  }
+	}
+      }
+    }
+  }
+}
+
+function gene_mutation_node_delete($node) {
+  if ($node->type == 'gene_mutation') {
+    if (!empty($node->field_gene_mutation_genrep['und'])) {
+      $genrep_node = node_load($node->field_gene_mutation_genrep['und'][0]['nid']);
+      $gms = $genrep_node->field_genrep_gm['und'];
+
+      $idx = -1;
+      foreach ($gms as $pos => $val) {
+	if ($val['nid'] == $node->nid) {
+	  $idx = $pos;
+	  break;
+	}
+      }
+      if ($idx != -1) {
+	array_splice($genrep_node->field_genrep_gm['und'], $idx, 1);
+	node_save($genrep_node);
+      }
+    }
+  }
+}

@@ -1,0 +1,74 @@
+<?php
+// $Id: reference_letter.module $
+
+function reference_letter_node_view($node, $view_mode) {
+  if ($node->type == 'reference_letter' && $view_mode == 'full' && node_is_page($node)) {
+    drupal_goto('node/' . $node->field_referenceletter_patient['und'][0]['nid'] . '/letters');
+  }
+}
+
+function reference_letter_form_reference_letter_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['type']) && isset($form['#node'])) {
+    if ('reference_letter_node_form' == $form_id) {
+
+      $form['group_content_access']['#access'] = FALSE;
+      $form['group_audience']['#access'] = FALSE;
+      $form['field_referenceletter_patient']['#access'] = FALSE;
+
+    }
+  }
+}
+
+function reference_letter_node_presave($node) {
+  if ($node->type == 'reference_letter') {
+    if (arg(3) != NULL) {
+      if (is_numeric(arg(3))) {
+	$patient_node = node_load(arg(3));
+
+	if (gettype($patient_node) === 'object') {
+	  if (property_exists($patient_node, 'type')) {
+	
+	    if ($patient_node->type === 'patient') {
+	      if (property_exists($node, 'field_referenceletter_patient')) {
+		$node->field_referenceletter_patient['und'][0]['nid'] = $patient_node->nid;
+		$node->group_content_access['und'][0]['value'] = $patient_node->group_content_access['und'][0]['value']; 
+	      }
+	    }
+	  }
+	}
+      }
+    }
+  }
+}
+
+function reference_letter_node_insert($node) {
+  if ($node->type == 'reference_letter') {
+    if (arg(3) != NULL) {
+      $patient_node = node_load(arg(3));
+      $count = 0;
+      if (array_key_exists('und', $patient_node->field_patient_letter)) {
+	$count = count($patient_node->field_patient_letter['und']);
+      }
+
+      $patient_node->field_patient_letter['und'][$count]['nid'] = $node->nid;
+      node_save($patient_node);
+    }
+  }
+}
+
+function reference_letter_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+
+  if ($type === 'reference_letter') {
+    if (arg(0) == 'node') {
+      if (arg(1) != NULL) {
+	if (is_numeric(arg(1))) {
+	  $node_node = node_load(arg(1));
+	  if ($node_node->uid !== $account->uid) {
+	    return NODE_ACCESS_DENY;
+	  }
+	}
+      }
+    }
+  }
+}

@@ -1,0 +1,501 @@
+<?php
+// groupresource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function groupresource_entity_info() {
+    return array(
+        'group' => array(
+            'label' => t('Group'),
+            'base table' => 'groups',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'membership' => array(
+            'label' => t('Membership'),
+            'base table' => 'members',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'share' => array(
+            'label' => t('Share'),
+            'base table' => 'shares',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+    );
+}
+
+//class MembershipController extends EntityAPIController {
+//
+//    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
+//        $query = parent::buildQuery($ids, $conditions, $revision_id);
+//
+//        // Specify additional fields from the user and node tables.
+//        $query->innerJoin('users', 'u', 'base.user_id = u.uid');
+//        $query->fields('u');
+//
+//        return $query;
+//    }
+//
+//    public function load($ids = array(), $conditions = array()) {
+//        $entities = parent::load($ids, $conditions);
+//
+//
+//    return $entities;
+//
+//} // Nothing to see here,
+
+function group_load($id, $reset = FALSE) {
+    return array_shift(group_load_multiple(array($id), $reset));
+}
+function group_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('group', $ids, $conditions, $reset);
+}
+function group_save($entity) {
+    entity_save('group', $entity);
+}
+function group_delete($id) {
+    entity_delete('group', $id);
+}
+
+function membership_load($id, $reset = FALSE) {
+    return array_shift(membership_load_multiple(array($id), $reset));
+}
+function membership_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('membership', $ids, $conditions, $reset);
+}
+function membership_save($entity) {
+    entity_save('membership', $entity);
+}
+function membership_delete($id) {
+    entity_delete('membership', $id);
+}
+
+
+function share_load($id, $reset = FALSE) {
+    return array_shift(share_load_multiple(array($id), $reset));
+}
+function share_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('share', $ids, $conditions, $reset);
+}
+function share_save($entity) {
+    entity_save('share', $entity);
+}
+function share_delete($id) {
+    entity_delete('share', $id);
+}
+
+
+
+function groupresource_permission() {
+    return array(
+        'group resource share create' => array(
+            'title' => t('Create Share'),
+        ),
+        'group resource membership create' => array(
+            'title' => t('Create Membership'),
+        ),
+        'group resource create' => array(
+            'title' => t('Create Group'),
+        )
+    );
+}
+
+
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function groupresource_services_resources() {
+    return array(
+        'share' => array(
+            'retrieve' => array(
+                'help' => 'Retrieves a share',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_share'
+                ),
+                'callback' => '_groupresource_share_retrieve',
+                'access callback' => '_groupresource_share_access',
+                'access arguments' => array('view'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the share to get',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'create' => array(
+                'help' => 'Creates a Share',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_share'
+                ),
+                'callback' => '_groupresource_share_create',
+                'access arguments' => array('group resource share create'),
+                'access arguments append' => FALSE,
+                'args' => array(
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The share object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'update' => array(
+                'help' => 'Updates a group',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_share'
+                ),
+                'callback' => '_groupresource_share_update',
+                'access callback' => '_groupresource_share_access',
+                'access arguments' => array('update'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the share to update',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The share data object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'help' => 'Deletes a group',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_share'
+                ),
+                'callback' => '_groupresource_share_delete',
+                'access callback' => '_groupresource_share_access',
+                'access arguments' => array('delete'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the share to delete',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'index' => array(
+                'help' => 'List all nodes',
+                'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'group_resource_share'),
+                'callback' => '_groupresource_share_index',
+                'args' => array(
+                    array(
+                        'name' => 'page',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'The zero-based index of the page to get, defaults to 0.',
+                        'default value' => 0,
+                        'source' => array('param' => 'page'),
+                    ),
+                    array(
+                        'name' => 'fields',
+                        'optional' => TRUE,
+                        'type' => 'string',
+                        'description' => 'The fields to get.',
+                        'default value' => '*',
+                        'source' => array('param' => 'fields'),
+                    ),
+                    array(
+                        'name' => 'parameters',
+                        'optional' => TRUE,
+                        'type' => 'array',
+                        'description' => 'Parameters array',
+                        'default value' => array(),
+                        'source' => array('param' => 'parameters'),
+                    ),
+                    array(
+                        'name' => 'pagesize',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'Number of records to get per page.',
+                        'default value' => variable_get('services_node_index_page_size', 20),
+                        'source' => array('param' => 'pagesize'),
+                    ),
+                ),
+                'access arguments' => array('access content'),
+            ),
+        ),
+
+
+        'membership' => array(
+            'retrieve' => array(
+                'help' => 'Retrieves a membership',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_membership'
+                ),
+                'callback' => '_groupresource_membership_retrieve',
+                'access callback' => '_groupresource_membership_access',
+                'access arguments' => array('view'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the membership to get',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'create' => array(
+                'help' => 'Creates a Membership',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_membership'
+                ),
+                'callback' => '_groupresource_membership_create',
+                'access arguments' => array('group resource membership create'),
+                'access arguments append' => FALSE,
+                'args' => array(
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The membership object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'update' => array(
+                'help' => 'Updates a group',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_membership'
+                ),
+                'callback' => '_groupresource_membership_update',
+                'access callback' => '_groupresource_membership_access',
+                'access arguments' => array('update'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the membership to update',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The membership data object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'help' => 'Deletes a group',
+                'file' => array('type' => 'inc',
+                    'module' => 'groupresource',
+                    'name' => 'group_resource_membership'
+                ),
+                'callback' => '_groupresource_membership_delete',
+                'access callback' => '_groupresource_membership_access',
+                'access arguments' => array('delete'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the membership to delete',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'index' => array(
+                'help' => 'List all nodes',
+                'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'group_resource_membership'),
+                'callback' => '_groupresource_membership_index',
+                'args' => array(
+                    array(
+                        'name' => 'page',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'The zero-based index of the page to get, defaults to 0.',
+                        'default value' => 0,
+                        'source' => array('param' => 'page'),
+                    ),
+                    array(
+                        'name' => 'fields',
+                        'optional' => TRUE,
+                        'type' => 'string',
+                        'description' => 'The fields to get.',
+                        'default value' => '*',
+                        'source' => array('param' => 'fields'),
+                    ),
+                    array(
+                        'name' => 'parameters',
+                        'optional' => TRUE,
+                        'type' => 'array',
+                        'description' => 'Parameters array',
+                        'default value' => array(),
+                        'source' => array('param' => 'parameters'),
+                    ),
+                    array(
+                        'name' => 'pagesize',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'Number of records to get per page.',
+                        'default value' => variable_get('services_node_index_page_size', 20),
+                        'source' => array('param' => 'pagesize'),
+                    ),
+                ),
+                'access arguments' => array('access content'),
+            ),
+        ),
+
+
+        'group' => array(
+            'retrieve' => array(
+                'help' => 'Retrieves a group',
+                'file' => array('file' => 'inc', 'module' => 'groupresource'),
+                'callback' => '_groupresource_retrieve',
+                'access callback' => '_groupresource_access',
+                'access arguments' => array('view'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the group to get',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'create' => array(
+                'help' => 'Creates a group',
+                'file' => array('file' => 'inc', 'module' => 'groupresource'),
+                'callback' => '_groupresource_create',
+                'access arguments' => array('group resource create'),
+                'access arguments append' => FALSE,
+                'args' => array(
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The group object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'update' => array(
+                'help' => 'Updates a group',
+                'file' => array('file' => 'inc', 'module' => 'groupresource'),
+                'callback' => '_groupresource_update',
+                'access callback' => '_groupresource_access',
+                'access arguments' => array('update'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'id',
+                        'type' => 'int',
+                        'description' => 'The id of the node to update',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                    array(
+                        'name' => 'data',
+                        'type' => 'struct',
+                        'description' => 'The group data object',
+                        'source' => 'data',
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'delete' => array(
+                'help' => 'Deletes a group',
+                'file' => array('file' => 'inc', 'module' => 'groupresource'),
+                'callback' => '_groupresource_delete',
+                'access callback' => '_groupresource_access',
+                'access arguments' => array('delete'),
+                'access arguments append' => TRUE,
+                'args' => array(
+                    array(
+                        'name' => 'nid',
+                        'type' => 'int',
+                        'description' => 'The id of the group to delete',
+                        'source' => array('path' => '0'),
+                        'optional' => FALSE,
+                    ),
+                ),
+            ),
+            'index' => array(
+                'help' => 'List all nodes',
+                'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'groupresource'),
+                'callback' => '_groupresource_index',
+                'args' => array(
+                    array(
+                        'name' => 'page',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'The zero-based index of the page to get, defaults to 0.',
+                        'default value' => 0,
+                        'source' => array('param' => 'page'),
+                    ),
+                    array(
+                        'name' => 'fields',
+                        'optional' => TRUE,
+                        'type' => 'string',
+                        'description' => 'The fields to get.',
+                        'default value' => '*',
+                        'source' => array('param' => 'fields'),
+                    ),
+                    array(
+                        'name' => 'parameters',
+                        'optional' => TRUE,
+                        'type' => 'array',
+                        'description' => 'Parameters array',
+                        'default value' => array(),
+                        'source' => array('param' => 'parameters'),
+                    ),
+                    array(
+                        'name' => 'pagesize',
+                        'optional' => TRUE,
+                        'type' => 'int',
+                        'description' => 'Number of records to get per page.',
+                        'default value' => variable_get('services_node_index_page_size', 20),
+                        'source' => array('param' => 'pagesize'),
+                    ),
+                ),
+                'access arguments' => array('access content'),
+            ),
+        ),
+    );
+}
+
+

@@ -1,0 +1,370 @@
+<?php
+// gene_mutation_resource.module
+
+/**
+ * Implements hook_entity_info().
+ */
+function gene_mutation_resource_entity_info() {
+    return array(
+        'gene' => array(
+            'label' => t('Genes'),
+            'base table' => 'genes',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'mutation_type' => array(
+            'label' => t('Mutation Types'),
+            'base table' => 'mutation_types',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'gene_mutation' => array(
+            'label' => t('Gene Mutations'),
+            'base table' => 'gene_mutations',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'GeneMutationController',
+        ),
+    );
+}
+
+class GeneticReportController extends EntityAPIController {
+
+    private function addRelated(&$entity) {
+        $entity->gene_mutation = gene_mutation_load($entity->gene_mutation_id);
+        $entity->user = user_load($entity->uid);
+        unset($entity->user->password);
+    }
+
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+        self::addRelated($entity);
+    }
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+        foreach($entities as &$entity) {
+            self::addRelated($entity);
+        }
+        return $entities;
+
+    }
+}
+
+class GeneMutationController extends EntityAPIController {
+
+    private function addRelated(&$entity) {
+        $entity->gene = gene_load($entity->gene_id);
+        $entity->mutation_type = mutation_type_load($entity->mutation_type_id);
+    }
+
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+        self::addRelated($entity);
+    }
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+        foreach($entities as &$entity) {
+            self::addRelated($entity);
+        }
+        return $entities;
+
+    }
+}
+
+function gene_load($id, $reset = FALSE) {
+    return array_shift(gene_load_multiple(array($id), $reset));
+}
+function gene_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('gene', $ids, $conditions, $reset);
+}
+function gene_save($entity) {
+    entity_save('gene', $entity);
+}
+function gene_delete($id) {
+    entity_delete('gene=', $id);
+}
+
+function mutation_type_load($id, $reset = FALSE) {
+    return array_shift(mutation_type_load_multiple(array($id), $reset));
+}
+function mutation_type_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('mutation_type', $ids, $conditions, $reset);
+}
+function mutation_type_save($entity) {
+    entity_save('mutation_type', $entity);
+}
+function mutation_type_delete($id) {
+    entity_delete('mutation_type', $id);
+}
+
+function gene_mutation_load($id, $reset = FALSE) {
+    return array_shift(gene_mutation_load_multiple(array($id), $reset));
+}
+function gene_mutation_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    return entity_load('gene_mutation', $ids, $conditions, $reset);
+}
+function gene_mutation_save($entity) {
+    entity_save('gene_mutation', $entity);
+}
+function gene_mutation_delete($id) {
+    entity_delete('gene_mutation', $id);
+}
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function gene_mutation_resource_services_resources() {
+    $resources = array();
+
+    $resources['mutation_type'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a Mutation Type',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_mutation_type'),
+            'callback' => '_gene_mutation_resource_mutation_type_retrieve',
+            'access callback' => '_gene_mutation_resource_mutation_type_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the mutation type to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_mutation_type'),
+            'callback' => '_gene_mutation_resource_mutation_type_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        )
+    );
+
+    $resources['gene'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a Gene',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_gene'),
+            'callback' => '_gene_mutation_resource_gene_retrieve',
+            'access callback' => '_gene_mutation_resource_gene_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the gene to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_gene'),
+            'callback' => '_gene_mutation_resource_gene_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        )
+    );
+
+    $resources['gene_mutation'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a Gene Mutation',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
+            'callback' => '_gene_mutation_resource_retrieve',
+            'access callback' => '_gene_mutation_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the gene mutation to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a Gene Mutation',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
+            'callback' => '_gene_mutation_resource_create',
+            'access arguments' => array('gene mutation resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The gene mutation object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a Gene Mutation',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
+            'callback' => '_gene_mutation_resource_update',
+            'access callback' => '_gene_mutation_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The gene mutation data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a Gene Mutation',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
+            'callback' => '_gene_mutation_resource_delete',
+            'access callback' => '_gene_mutation_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the gene mutation to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
+            'callback' => '_gene_mutation_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        )
+    );
+
+
+    return $resources;
+}
+
+

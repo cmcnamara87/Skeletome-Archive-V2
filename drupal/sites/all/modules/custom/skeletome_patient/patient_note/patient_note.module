@@ -1,0 +1,18 @@
+<?php
+// $Id: patient_note.module $
+
+function patient_note_form_patient_note_node_form_alter(&$form, &$form_state, $form_id) {
+if (isset($form['type']) && isset($form['#node'])) {
+    if ('patient_note_node_form' == $form_id) {
+      $form['field_patientnote_patient']['#access'] = FALSE;
+    }
+  }
+}
+
+function patient_note_node_view($node, $view_mode) {
+  if ($node->type == 'patient_note' && $view_mode == 'full' && node_is_page($node)) {
+    drupal_goto('node/' . $node->field_patientnote_patient['und'][0]['nid'] . '/notes');
+  }  
+
+  return $node;
+}

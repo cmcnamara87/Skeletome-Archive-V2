@@ -1,0 +1,487 @@
+<?php
+// patientresource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function patientresource_entity_info() {
+    return array(
+        'patient' => array(
+            'label' => t('Patient'),
+            'base table' => 'patients',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'PatientController',
+        ),
+        'identifier' => array(
+            'label' => t('Patient IDs'),
+            'base table' => 'identifiers',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'address' => array(
+            'label' => t('Address'),
+            'base table' => 'addresses',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+    );
+}
+
+class PatientController extends EntityAPIController {
+
+    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
+        $query = parent::buildQuery($ids, $conditions, $revision_id);
+
+        // Specify additional fields from the user and node tables.
+        $query->innerJoin('users', 'u', 'base.uid = u.uid');
+        $query->addField('u', 'name', 'ownerName');
+        return $query;
+    }
+}
+
+
+function patient_load($id, $reset = FALSE) {
+    return array_shift(patient_load_multiple(array($id), $reset));
+}
+function patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $patient = entity_load('patient', $ids, $conditions, $reset);;
+    return $patient;
+}
+function patient_save($entity) {
+    entity_save('patient', $entity);
+}
+function patient_delete($id) {
+    entity_delete('patient', $id);
+}
+
+function identifier_load($id, $reset = FALSE) {
+    return array_shift(identifier_load_multiple(array($id), $reset));
+}
+function identifier_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $identifier = entity_load('identifier', $ids, $conditions, $reset);;
+    return $identifier;
+}
+function identifier_save($entity) {
+    entity_save('identifier', $entity);
+}
+function identifier_delete($id) {
+    entity_delete('identifier', $id);
+}
+
+function address_load($id, $reset = FALSE) {
+    return array_shift(address_load_multiple(array($id), $reset));
+}
+function address_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $address = entity_load('address', $ids, $conditions, $reset);;
+    return $address;
+}
+function address_save($entity) {
+    entity_save('address', $entity);
+}
+function address_delete($id) {
+    entity_delete('address', $id);
+}
+
+
+function patientresource_permission() {
+    return array(
+        'patient resource view any patient' => array(
+            'title' => t('View Any Patient'),
+        ),
+        'patient resource create' => array(
+            'title' => t('Create Patients'),
+        )
+    );
+}
+
+
+//function patientresource_field_access($op, $field, $entity_type, $entity, $account) {
+//    echo "<div style='color:red; font-size:20px'>doing field access</div>";
+//}
+//
+//
+//echo "<pre>";
+////print_r(entity_get_info());
+////
+//print_r(drupal_schema_fields_sql('patient'));
+//
+//$my_array = entity_load('patient');
+//
+//print_r($my_array);
+//echo "<h1>field access</h1>";
+//print_r(field_access('view', 'subject', 'patient'));
+////
+//echo "</pre>";
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function patientresource_services_resources() {
+    $resource = array();
+
+    $resource['address'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a patient address',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
+            'callback' => '_patientresource_address_retrieve',
+            'access callback' => '_patientresource_address_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the patient address to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
+            'callback' => '_patientresource_address_create',
+            'access arguments' => array('patient resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient address object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
+            'callback' => '_patientresource_address_update',
+            'access callback' => '_patientresource_address_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient address data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
+            'callback' => '_patientresource_address_delete',
+            'access callback' => '_patientresource_address_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
+            'callback' => '_patientresource_address_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resource['identifier'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a patient identifier',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
+            'callback' => '_patientresource_identifier_retrieve',
+            'access callback' => '_patientresource_identifier_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the patient identifier to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
+            'callback' => '_patientresource_identifier_create',
+            'access arguments' => array('patient resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient identifier object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
+            'callback' => '_patientresource_identifier_update',
+            'access callback' => '_patientresource_identifier_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient identifier data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a patient',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
+            'callback' => '_patientresource_identifier_delete',
+            'access callback' => '_patientresource_identifier_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
+            'callback' => '_patientresource_identifier_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resource['patient'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a patient',
+            'file' => array('file' => 'inc', 'module' => 'patientresource'),
+            'callback' => '_patientresource_retrieve',
+            'access callback' => '_patientresource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a patient',
+            'file' => array('file' => 'inc', 'module' => 'patientresource'),
+            'callback' => '_patientresource_create',
+            'access arguments' => array('patient resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a patient',
+            'file' => array('file' => 'inc', 'module' => 'patientresource'),
+            'callback' => '_patientresource_update',
+            'access callback' => '_patientresource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a patient',
+            'file' => array('file' => 'inc', 'module' => 'patientresource'),
+            'callback' => '_patientresource_delete',
+            'access callback' => '_patientresource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource'),
+            'callback' => '_patientresource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    return $resource;
+}
+
+

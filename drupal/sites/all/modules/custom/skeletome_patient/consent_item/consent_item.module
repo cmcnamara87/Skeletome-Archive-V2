@@ -1,0 +1,74 @@
+<?php
+// $Id: consent_item.module $
+
+function consent_item_node_view($node, $view_mode) {
+  if ($node->type == 'consent_item' && $view_mode == 'full' && node_is_page($node)) {
+    drupal_goto('node/' . $node->field_consentitem_patient['und'][0]['nid'] . '/consent');
+  }
+}
+
+function consent_item_form_consent_item_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['type']) && isset($form['#node'])) {
+    if ('consent_item_node_form' == $form_id) {
+
+      $form['group_content_access']['#access'] = FALSE;
+      $form['group_audience']['#access'] = FALSE;
+      $form['field_consentitem_patient']['#access'] = FALSE;
+
+    }
+  }
+}
+
+function consent_item_node_presave($node) {
+  if ($node->type == 'consent_item') {
+    if (arg(3) != NULL) {
+      if (is_numeric(arg(3))) {
+	$patient_node = node_load(arg(3));
+
+	if (gettype($patient_node) === 'object') {
+	  if (property_exists($patient_node, 'type')) {
+	
+	    if ($patient_node->type === 'patient') {
+	      if (property_exists($node, 'field_consentitem_patient')) {
+		$node->field_consentitem_patient['und'][0]['nid'] = $patient_node->nid;
+		$node->group_content_access['und'][0]['value'] = $patient_node->group_content_access['und'][0]['value']; 
+	      }
+	    }
+	  }
+	}
+      }
+    }
+  }
+}
+
+function consent_item_node_insert($node) {
+  if ($node->type == 'consent_item') {
+    if (arg(3) != NULL) {
+      $patient_node = node_load(arg(3));
+      $count = 0;
+      if (array_key_exists('und', $patient_node->field_patient_consent)) {
+	$count = count($patient_node->field_patient_consent['und']);
+      }
+
+      $patient_node->field_patient_consent['und'][$count]['nid'] = $node->nid;
+      node_save($patient_node);
+    }
+  }
+}
+
+function consent_item_node_access($node, $op, $account) {
+  $type = is_string($node) ? $node : $node->type;
+
+  if ($type === 'consent_item') {
+    if (arg(0) == 'node') {
+      if (arg(1) != NULL) {
+	if (is_numeric(arg(1))) {
+	  $node_node = node_load(arg(1));
+	  if ($node_node->uid !== $account->uid) {
+	    return NODE_ACCESS_DENY;
+	  }
+	}
+      }
+    }
+  }
+}

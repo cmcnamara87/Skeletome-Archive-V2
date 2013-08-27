@@ -1,0 +1,11 @@
+name = Patient Resource
+description = Stores the patient resource
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+dependencies[] = groupresource
+
+files[] = patientresource.inc
+files[] = patientresource.module

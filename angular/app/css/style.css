@@ -1,0 +1,232 @@
+body {
+    background-color: #E8E8E8;
+    color: #576667;
+    font-family: "Source Sans Pro";
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.btn-search {
+    background-color: transparent;
+    border: 0;
+    color: #81A0A2;
+    font-size: 14px;
+    position: relative;
+    top: 10px;
+    left: 5px;
+}
+.sidebar {
+    width: 260px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+
+    background-color: #133134;
+
+    color: #F3F3F3;
+}
+.sidebar-logo {
+    padding: 14px 21px;
+
+    background-color: #376264;
+}
+.sidebar-tabs {
+    background-color: #376264;
+}
+.sidebar-tab {
+    display: inline-block;
+    margin: 0;
+    padding: 14px;
+
+    background-color: #295557;
+    border: none;
+
+    color: white;
+
+    text-decoration: none;
+    text-align: center;
+    width: 25%;
+    font-size: 21px;
+}
+.sidebar-tab:hover {
+    background-color: #1D494B;
+    text-decoration: none;
+    color: white;
+}
+
+.sidebar-tab.active {
+    background-color: #1D494B;
+    color: white;
+}
+
+.sidebar-section {
+    display: block;
+    padding: 14px 21px;
+    font-weight: 300;
+    background-color: #143F41;
+    color: white;
+}
+a.sidebar-section:hover {
+    border-right: 7px solid #3b8a7d;
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar-section.active {
+    border-right: 7px solid #47AA9A;
+    color: white;
+    text-decoration: none;
+}
+
+.sidebar-section-heading {
+    margin: 0;
+    padding: 14px 21px;
+
+    background-color: #1D494B;
+    font-size: 21px;
+    font-weight: 200;
+}
+
+.sidebar-section-inner {
+    background-color: #0D3336;
+}
+.sidebar-section-item {
+    padding: 7px 28px;
+    margin-bottom: 0px;
+    background-color: transparent;
+}
+
+
+.main {
+    padding-left: 260px;
+}
+.main-inner {
+    padding: 0px;
+}
+.section {
+    background-color: white;
+    padding: 21px;
+    margin-bottom: 21px;
+}
+
+label {
+    display: block;
+}
+
+a {
+    color: #279399;
+}
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    font-family: "Source Sans Pro" !important;
+}
+h1 {
+    font-weight: 300;
+}
+h2 {
+    font-weight: 300;
+    color: #616C6D;
+    font-size: 28px;
+
+    margin: 0px;
+    margin-bottom: 7px;
+
+    padding: 20px;
+    background-color: white;
+}
+h3 {
+    font-weight: 300;
+    color: #909898;
+    font-size: 21px;
+}
+h4 {
+    font-weight: 300;
+    color: #a4aeae;
+}
+
+header {
+    background-color: #376264;
+}
+
+.section {
+
+}
+.group {
+    margin: 21px;
+    margin-bottom: 42px;
+}
+.group-item {
+    margin-bottom: 28px;
+}
+.group-item:last-of-type {
+    margin-bottom: 0;
+}
+
+
+.btn.btn-primary {
+    background-color: #2EB7BE;
+    border: none;
+    border-radius: 100px;
+    padding: 6px 18px;
+    font-size: 10px;
+    padding: 2px 5px;
+}
+.btn.btn-action {
+    border: none;
+    background-color: transparent;
+    color: #fff;
+    padding: 0 7px;
+}
+td:hover .btn.btn-action {
+    color: #bbb;
+}
+tr:hover .btn.btn-action.btn-action-remove {
+    color: #bbb;
+}
+
+.navbar-archive {
+    border-radius: 0px;
+    background-color: #376264;
+    color: #C1D2D3;
+    margin-bottom: 0;
+    height: 75px;
+}
+.navbar-nav-archive>li>a {
+    color: #C1D2D3;
+    padding-top: 26px;
+    padding-bottom: 26px;
+}
+
+
+.block-info {
+    background-color: #ffffff;
+    padding: 14px;
+    border-top: 1px solid #E8E8E8;
+}
+
+
+.table-info tr {
+    background-color: #FFF;
+}
+.table-info.table tbody>tr>td, .table-info.table tbody>tr>th {
+    padding: 14px;
+}
+.table-info.table tbody>tr>th {
+    background-color: #E8E8E8;
+    color: #B5B5B5;
+    border-top: none;
+    font-weight: 300;
+    text-transform: uppercase;
+    padding-top: 7px;
+}
+.table-info-key {
+    font-weight: bold;
+}

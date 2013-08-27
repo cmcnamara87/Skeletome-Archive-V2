@@ -1,0 +1,245 @@
+<?php
+// $Id: xray_description.install $
+
+function xray_description_install() {
+  $t = get_t();
+
+  $xray_description = array(
+    'type' => 'xray_description',
+    'name' => $t('X-Ray Description'),
+    'base' => 'node_content',
+    'description' => $t('The X-Ray Description content type.'),
+    'title_label' => $t('Title'),
+  );
+
+  $content_type = node_type_set_defaults($xray_description);
+  node_add_body_field($content_type);
+  node_type_save($content_type);
+
+  $body_instance = field_info_instance('node', 'body', 'xray_description');
+  $body_instance['type'] = 'text_long';
+  $body_instance['label'] = 'Description';
+
+  field_update_instance($body_instance);
+
+  foreach (_xray_description_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_xray_description_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $xray_description['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_xray_description', COMMENT_NODE_CLOSED);
+  variable_set('node_options_xray_description', array('status'));
+  variable_set('node_preview_xray_description', DRUPAL_DISABLED);
+  variable_set('node_submitted_xray_description', FALSE);
+}
+
+function _xray_description_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_xray_description_tags' => array(
+      'field_name'	=> 'field_xray_description_tags',
+      'label'		=> $t('Tags'),
+      'cardinality'	=> -1,
+      'type'		=> 'taxonomy_term_reference',
+      'settings'	=> array(
+        'allowed_values' => array(
+          array(
+            'vocabulary' => 'skeletome_vocabulary',
+            'parent' => '0',
+          ),
+	)
+      )
+    ),
+    'field_xray_description_media' => array(
+      'field_name'	=> 'field_xray_description_media',
+      'label'		=> $t('X-Ray File'),
+      'cardinality'	=> 1,
+      'type'		=> 'media',
+    ),
+    'field_xray_description_xray' => array(
+      'field_name'	=> 'field_xray_description_xray',
+      'label'		=> $t('X-Ray Object'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'x_ray' => 'x_ray'
+	)
+      )
+    ),
+    'field_xray_description_dc' => array(
+      'field_name'	=> 'field_xray_description_dc',
+      'label'		=> $t('Date created'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+    'field_xray_description_dm' => array(
+      'field_name'	=> 'field_xray_description_dm',
+      'label'		=> $t('Date modified'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+  );
+}
+
+function _xray_description_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_xray_description_tags' => array(
+      'field_name' => 'field_xray_description_tags',
+      'label'       => $t('Tags'),
+      'cardinality' => -1,
+      'widget'      => array(
+        'type'    => 'taxonomy_autocomplete',
+      ),
+    ),
+    'field_xray_description_media' => array(
+      'field_name'	=> 'field_xray_description_media',
+      'label'		=> $t('X-Ray File'),
+      'cardinality'	=> 1,
+      'widget' => array(
+        'type' => 'media_generic',
+        'settings' => array(
+          // Eventually other media types will be allowed.
+          'allowed_types' => array('image' => 'image'),
+          'allowed_schemes' => array('public' => 'public', 'private' => 'private'),
+        ),
+      ),
+      'display' => array(
+        'default' => array(
+          'type' => 'media_gallery',
+          'settings' => array('file_view_mode' => 'media_gallery_thumbnail'),
+          'label' => 'hidden',
+          'weight' => 2,
+        ),
+        'full' => array(
+          'type' => 'media_gallery',
+          'settings' => array('file_view_mode' => 'media_gallery_thumbnail'),
+          'label' => 'hidden',
+          'weight' => 2,
+        ),
+        'teaser' => array(
+          'type' => 'media_gallery',
+          'settings' => array('file_view_mode' => 'media_gallery_thumbnail'),
+          'label' => 'hidden',
+          'weight' => 2,
+        ),
+      ),
+    ),
+    'field_xray_description_xray' => array(
+      'field_name'	=> 'field_xray_description_xray',
+      'label'		=> $t('X-Ray Object'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_xray_description_dc' => array(
+      'field_name' => 'field_xray_description_dc',
+      'label'       => $t('Date created'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_xray_description_dm' => array(
+      'field_name' => 'field_xray_description_dm',
+      'label'       => $t('Date modified'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+  );
+}
+
+function xray_description_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'xray_description'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_xray_description_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'xray_description');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('xray_description');
+
+  field_purge_batch(1000);
+}

@@ -1,0 +1,11 @@
+; $Id: consent_item.info $
+
+name = Consent item
+description = Provides the implementation for the Consent item.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = consent_item.module
+files[] = consent_item.install

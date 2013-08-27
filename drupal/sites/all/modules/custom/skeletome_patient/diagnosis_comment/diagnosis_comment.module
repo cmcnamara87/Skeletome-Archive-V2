@@ -1,0 +1,10 @@
+<?php
+// $Id: diagnosis_comment.module $
+
+function diagnosis_comment_node_view($node, $view_mode) {
+  if ($node->type == 'diagnosis_comment' && $view_mode == 'full' && node_is_page($node)) {
+    drupal_goto('node/' . $node->field_diagnosiscomment_diagnosis['und'][0]['nid']);
+  }  
+  
+  return $node;
+}

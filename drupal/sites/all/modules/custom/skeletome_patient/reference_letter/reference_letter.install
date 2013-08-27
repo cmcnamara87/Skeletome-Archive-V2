@@ -1,0 +1,183 @@
+<?php
+// $Id: reference_letter.install $
+
+function reference_letter_install() {
+  $t = get_t();
+
+  $reference_letter = array(
+    'type' => 'reference_letter',
+    'name' => $t('Reference letter'),
+    'base' => 'node_content',
+    'description' => $t('The Reference letter content type.'),
+    'title_label' => $t('Source'),
+  );
+
+  $content_type = node_type_set_defaults($reference_letter);
+  node_add_body_field($content_type);
+  node_type_save($content_type);
+
+  $body_instance = field_info_instance('node', 'body', 'reference_letter');
+  $body_instance['type'] = 'text_long';
+  $body_instance['label'] = 'Observations';
+
+  field_update_instance($body_instance);
+
+  foreach (_reference_letter_installed_fields() as $field) {
+    field_create_field($field);
+  }
+
+  foreach (_reference_letter_installed_instances() as $instance) {
+    $instance['entity_type'] = 'node';
+    $instance['bundle'] = $reference_letter['type'];
+    field_create_instance($instance);
+  }
+
+  variable_set('comment_reference_letter', COMMENT_NODE_CLOSED);
+  variable_set('node_options_reference_letter', array('status'));
+  variable_set('node_preview_reference_letter', DRUPAL_DISABLED);
+  variable_set('node_submitted_reference_letter', FALSE);
+}
+
+function _reference_letter_installed_fields() {
+  $t = get_t();
+  return array(
+    'field_referenceletter_patient' => array(
+      'field_name'	=> 'field_referenceletter_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'type'		=> 'entityreference',
+      'settings'	=> array(
+	'referenceable_types' => array(
+	  'patient' => 'patient'
+	)
+      )
+    ),
+    'field_referenceletter_file' => array(
+      'field_name'	=> 'field_referenceletter_file',
+      'label'		=> $t('File'),
+      'cardinality'	=> -1,
+      'type'		=> 'file',
+      'settings'	=> array(
+	'display_field' => '1',
+	'uri_scheme' => 'private'
+      )
+    ),
+    'field_referenceletter_date' => array(
+      'field_name'	=> 'field_referenceletter_date',
+      'label'		=> $t('Date'),
+      'cardinality'	=> 1,
+      'type'		=> 'date',
+      'settings'	=> array(
+	'todate' => '',
+	'repeat' => 0,
+	'granularity' => drupal_map_assoc(array('year', 'month', 'day')),
+	'tz_handling' => 'site',
+	'timezone_db' => 'UTC',
+      )
+    ),
+  );
+}
+
+function _reference_letter_installed_instances() {
+  $t = get_t();
+  return array(
+    'field_referenceletter_date' => array(
+      'field_name' => 'field_referenceletter_date',
+      'label'       => $t('Date'),
+      'cardinality' => 1,
+      'widget'      => array(
+        'type'    => 'date_popup',
+	'settings' => array(
+	  'year_range' => '-50:+50',
+	),
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_referenceletter_patient' => array(
+      'field_name'	=> 'field_referenceletter_patient',
+      'label'		=> $t('Patient'),
+      'cardinality'	=> 1,
+      'widget'		=> array(
+        'type'    => 'entityreference_autocomplete',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      )
+    ),
+    'field_referenceletter_file' => array(
+      'field_name' => 'field_referenceletter_file',
+      'label'       => $t('File'),
+      'cardinality' => -1,
+      'widget'      => array(
+        'type'    => 'file_generic',
+      ),
+      'display' => array(
+	'default' => array(
+	  'type'  => 'hidden',
+	  'label' => 'hidden',
+	),
+        'full' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+        'teaser' => array(
+          'type' => 'hidden',
+          'label' => 'hidden',
+        ),
+      ),
+      'settings' => array(
+        'file_extensions' => 'pdf jpg txt doc docx ppt pptx',
+        'file_directory' => 'patient_reference_letters'
+      )
+    ),
+
+  );
+}
+
+function reference_letter_uninstall() {
+  $sql = 'SELECT nid FROM {node} n WHERE n.type = :type';
+  $result = db_query($sql, array(':type' => 'reference_letter'));
+  $nids = array();
+  foreach ($result as $row) {
+    $nids[] = $row->nid;
+  }
+
+  node_delete_multiple($nids);
+
+  foreach (array_keys(_reference_letter_installed_fields()) as $field) {
+    field_delete_field($field);
+  }
+
+  $instances = field_info_instances('node', 'reference_letter');
+  foreach ($instances as $instance_name => $instance) {
+    field_delete_instance($instance);
+  }
+
+  node_type_delete('reference_letter');
+
+  field_purge_batch(1000);
+}

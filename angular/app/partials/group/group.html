@@ -1,0 +1,31 @@
+<div>
+    <h2>{{ group.name }}</h2>
+
+    <div class="col-md-9">
+        <div>
+            <dl>
+                <dt>Location</dt>
+                <dd>{{ group.location }}</dd>
+            </dl>
+        </div>
+
+        <div>
+            <h2>Members</h2>
+            <ul>
+                <li ng-repeat="member in members">
+                    <a href="#/user/member.user.id">{{ member.user.name || "Anonymous" }}</a>
+                </li>
+            </ul>
+
+            <h3>Add Member</h3>
+            <!-- List of users in system -->
+            <input type="text" ng-model="model.addMemberInput"/>
+            <ul ng-show="model.addMemberInput.length">
+                <li ng-repeat="user in users | filter:model.addMemberInput ">
+                    <div>{{ user.name || 'anonymous' }} <a href ng-click="addMembership(user)">Add</a></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,11 @@
+; $Id: x_ray.info $
+
+name = X-Ray
+description = Provides the implementation for the X-Ray content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = x_ray.module
+files[] = x_ray.install

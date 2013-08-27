@@ -1,0 +1,154 @@
+<div>
+    <h2>Patient Details <span style="color: #ccc; font-size: 21px; margin-left: 7px">Patient {{ patient.id }}  </span></h2>
+
+    <div class="col-md-9">
+        <h3>Contact Details</h3>
+        <table class="table table-info">
+            <tr>
+                <td class="table-info-key">First Name</td>
+                <td>
+                    <value-block value="patient.first_name" model="patient"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-info-key">Last Name</td>
+                <td>
+                    <value-block value="patient.last_name" model="patient"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-info-key">Alias</td>
+                <td>
+                    <value-block value="patient.alias" model="patient"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-info-key">Date of Birth</td>
+                <td>
+                    <value-block value="patient.dob" model="patient"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-info-key">Gender</td>
+                <td>
+                    <value-block value="patient.gender" model="patient"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td class="table-info-key">Ethnicity</td>
+                <td>
+                    <value-block value="patient.ethnicity" model="patient"></value-block>
+                </td>
+            </tr>
+        </table>
+
+
+        <h3>Addresses
+            <button class="btn btn-primary" ng-click="addAddress()"><i class="icon icon-plus"></i></button>
+        </h3>
+
+        <table class="table table-info" ng-repeat="address in addresses">
+            <tr>
+                <th>
+                </th>
+                <th>
+
+                </th>
+            </tr>
+            <tr>
+                <td><b>Street</b></td>
+                <td>
+                    <value-block value="address.street" model="address"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td><b>City</b></td>
+                <td>
+                    <value-block value="address.city" model="address"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>State</b>
+                </td>
+                <td>
+                    <value-block value="address.state" model="address"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Post Code</b>
+                </td>
+                <td>
+                    <value-block value="address.postcode" model="address"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>Country</b>
+                </td>
+                <td>
+                    <value-block value="address.country" model="address"></value-block>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Controls
+                </td>
+                <td>
+                    <button ng-show="!address.id" ng-click="createAddress(address)">
+                        <i class="icon icon-save"></i>
+                    </button>
+
+                    <button ng-click="deleteAddress(address)" class="btn btn-action btn-action-remove">
+                        <i class="icon icon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+
+        <h3>Other IDs
+            <button class="btn btn-primary" ng-click="addIdentifier()"><i class="icon icon-plus"></i></button>
+        </h3>
+        <table class="table table-info">
+            <tr>
+                <th>Source</th>
+                <th>ID</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="identifier in identifiers">
+                <td>
+                    <value-block value="identifier.name" model="identifier"></value-block>
+                </td>
+                <td>
+                    <value-block value="identifier.identifier" model="identifier"></value-block>
+                </td>
+                <td>
+                    <button ng-show="!identifier.id" ng-click="createIdentifier(identifier)">
+                        <i class="icon icon-save"></i>
+                    </button>
+
+                    <button ng-click="deleteIdentifier(identifier)" class="btn btn-action btn-action-remove">
+                        <i class="icon icon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
+        <h3>Consent Form</h3>
+
+        <div class="block-info">
+            Consent Form in here
+        </div>
+        <div class="block-info">
+            Consent Level?
+        </div>
+
+
+
+
+    </div>
+
+
+</div>

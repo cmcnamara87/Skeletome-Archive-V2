@@ -1,0 +1,18 @@
+<div>
+    <h2>All Groups</h2>
+
+    <div class="col-md-9">
+        <table class="table table-info">
+            <tr>
+                <th>Name</th>
+                <th>Location</th>
+                <th>Status</th>
+            </tr>
+            <tr ng-repeat="group in groups">
+                <td><a href="#/group/{{ group.id }}">{{ group.name }}</a></td>
+                <td>{{ group.location }}</td>
+                <td><a class="btn btn-primary" href ng-click="joinGroup(group)">Join</a></td>
+            </tr>
+        </table>
+    </div>
+</div>

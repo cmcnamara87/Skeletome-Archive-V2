@@ -1,0 +1,203 @@
+<?php
+// $Id: skeletome_group.module $
+
+function skeletome_group_init() {
+  module_load_include('inc', 'skeletome_group', 'skeletome_group');
+  drupal_add_js(array('skeletomeBase' => base_path()), 'setting');
+}
+
+function skeletome_group_menu() {
+  $items['node/%node/subscribe/%'] = array(
+    'title' => 'Subscribe user',
+    'page callback' => 'subscribe_callback',
+    'page arguments' => array(1, 3),
+    'type' => MENU_CALLBACK,
+    'access callback' => 'is_node_of_type',
+    'access arguments' => array(1, 'skeletome_group'),
+  );
+
+  $items['node/%node/unsubscribe/%'] = array(
+    'title' => 'Unsubscribe user',
+    'page callback' => 'unsubscribe_callback',
+    'page arguments' => array(1, 3),
+    'type' => MENU_CALLBACK,
+    'access callback' => 'is_node_of_type',
+    'access arguments' => array(1, 'skeletome_group'),
+  );
+
+  return $items;
+}
+
+
+function skeletome_group_node_view($node, $view_mode) {
+  if ($node->type == 'skeletome_group' && $view_mode == 'full' && node_is_page($node)) {
+    global $user;
+    global $base_path;
+    $group_id = get_gid_for_group($node->nid);
+
+    $user_groups = get_groups_for_entity($user->uid, 'user');
+    $is_member = FALSE;
+    foreach ($user_groups as $gid) {
+      if ($gid === $group_id) {
+	$is_member = TRUE;
+	break;
+      }
+    }
+
+    drupal_add_library('system', 'ui.button');
+    drupal_add_library('system', 'ui.dialog');
+    drupal_add_js(array('groupNodeId' => $node->nid), 'setting');
+    drupal_add_js(array('userId' => $user->uid), 'setting');
+    drupal_add_js(drupal_get_path('module', 'skeletome_group') .'/skeletome_group.js', array('group' => JS_DEFAULT));
+    $subscribe_dialog_html = '<div id="subscribe-dialog" title="Subscribe to group?">
+	<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are about to subscribe to the ' . $node->title . ' group. Are you sure?</div>';
+    $unsubscribe_dialog_html = '<div id="unsubscribe-dialog" title="Unsubscribe from group?">
+	<span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>You are about to unsubscribe from the ' . $node->title . ' group. Are you sure?</div>';
+
+    if ($is_member) {
+      $title_html = '<div class="block-title"><h2 class="title">Shared patients</h2></div>';
+      if (group_has_patients($group_id)) {
+	$view_body = views_embed_view('group_all_patients', 'all_patients_block');
+      } else {
+	$view_body = '<i>The group has currently no shared patients.</i>';
+      }
+      $hr = '<hr style="border:dashed #CCCCCC; border-width:1px 0 0; height:0;" />';
+      $node->content['patients'] = array(
+	'#suffix' => $title_html . $view_body . $hr,
+	'#weight' => 4
+      );
+
+      $title_html = '<div class="block-title"><h2 class="title">Patient discussions</h2></div>';
+      $forum_nodes = get_group_forum_nodes($group_id);
+      if (count($forum_nodes) > 0) {
+	$view_body = create_forum_table($node->nid, $forum_nodes);
+      } else {
+	$view_body = '<i>There are no discussions currently shared with the group.</i>';
+      }
+      $hr = '<hr style="border:dashed #CCCCCC; border-width:1px 0 0; height:0;" />';
+      $node->content['patients_under_discussion'] = array(
+	'#suffix' => $title_html . $view_body . $hr,
+	'#weight' => 5
+      );
+
+      $group = og_get_group('node', $node->nid);
+      $manager = $group->user();
+      if ($manager->uid != $user->uid) {
+	$title_html = '<div class="block-title"><h2 class="title">Subscription</h2></div>';
+	$text_html = 'To unsubscribe from this group <strong><a href="javascript:void(0)" onclick="jQuery(\'#unsubscribe-dialog\').dialog( \'open\' );">click here</a></strong>.';
+	$hr = '<hr style="border:dashed #CCCCCC; border-width:1px 0 0; height:0;" />';
+	$node->content['subscription'] = array(
+	  '#suffix' => $unsubscribe_dialog_html. $title_html . $text_html . $hr,
+	  '#weight' => 6
+	);
+      } else {
+	$title_html = '<div class="block-title"><h2 class="title">Group management</h2></div>';
+	$text_html = 'To access the group management page <strong><a href="' . $base_path . 'node/' . $node->nid . '/group" >click here</a></strong>. To edit the group description and set the group\'s privacy settings <a href="' . $base_path . 'node/' . $node->nid . '/edit">click here</a>.';
+	$hr = '<hr style="border:dashed #CCCCCC; border-width:1px 0 0; height:0;" />';
+	$node->content['management'] = array(
+	  '#suffix' => $title_html . $text_html . $hr,
+	  '#weight' => 6
+	);
+      }
+    } else {
+      $title_html = '<div class="block-title"><h2 class="title">Subscription</h2></div>';
+      if (is_currentuser_status_pending($group_id)) {
+	$text_html = 'You have already applied for subscription to this group. Your request is currently under assessment by the group manager.';
+      } else {
+	$text_html = 'To subscribe to this group <strong><a href="javascript:void(0)" onclick="jQuery(\'#subscribe-dialog\').dialog( \'open\' );">click here</a></strong>. Your request will be subject to the group\'s manager decision.';
+      }
+      $hr = '<hr style="border:dashed #CCCCCC; border-width:1px 0 0; height:0;" />';
+      $node->content['subscription'] = array(
+	'#suffix' => $subscribe_dialog_html. $title_html . $text_html . $hr,
+	'#weight' => 6
+      );
+    }
+  }
+}
+
+function skeletome_group_form_skeletome_group_node_form_alter(&$form, &$form_state, $form_id) {
+if (isset($form['type']) && isset($form['#node'])) {
+    if ('skeletome_group_node_form' == $form_id) {
+      $form['group_group']['#access'] = FALSE;
+      $form['og_roles_permissions']['und']['#required'] = FALSE;
+      $form['og_roles_permissions']['#access'] = FALSE;
+    }
+  }
+}
+
+function skeletome_group_node_presave($node) {
+  if ($node->type == 'skeletome_group') {
+    $node->og_roles_permissions['und'][0]['value'] = '0';
+  }
+}
+
+function skeletome_group_node_insert($node) {
+  if ($node->type == 'skeletome_group') {
+    $tid = create_new_forum($node->title . ' forum');
+    $term = taxonomy_term_load($tid);
+    $term->field_forum_group['und'][0]['nid'] = $node->nid;
+    taxonomy_term_save($term);
+  }
+}
+
+function skeletome_group_node_delete($node) {
+  if ($node->type == 'skeletome_group') {
+  }
+}
+
+function create_forum_table($node_nid, $forum_nodes) {
+  $html = '';
+
+  $html .= '<div class="view-content"><table class="views-table cols-2" ><thead><tr>';
+  $html .= '<th class="views-field views-field-title" ><a href="/skelarch/node/' . $node_nid . '?order=title&amp;sort=asc" title="sort by " class="active"></a></th>';
+  $html .= '<th class="views-field views-field-group-owner" ><a href="/skelarch/node/' . $node_nid . '?order=views-field-group-owner&amp;sort=asc" title="sort by Group owner" class="active">Group owner</a></th>';
+  $html .= '</tr></thead>';
+  $html .= '<tbody>';
+
+  $count = 1;
+  foreach($forum_nodes as $forum_nid) {
+    $forum_node = node_load($forum_nid);
+    $tid = $forum_node->taxonomy_forums['und'][0]['tid'];
+    $group_nid = get_group_for_forum($tid);
+    $group_node = node_load($group_nid);
+
+    $row = '';
+
+    if ($count == 1) {
+      if (count($forum_nodes) > 1) {
+	$row .= '<tr class="odd views-row-first">';
+      } else {
+	$row .= '<tr class="odd views-row-first views-row-last">';
+      }
+      $row .= '<td class="views-field views-field-title" ><a href="/skelarch/node/' . $forum_nid . '">' . $forum_node->title . '</a></td>';
+      $row .= '<td class="views-field views-field-group-owner" ><a href="/skelarch/node/' . $group_nid . '">' . $group_node->title . '</a></td>';
+      $row .= '</tr>';
+    } else {
+      $mod = $count % 2;
+
+      if ($mod == 1) {
+	if ($count == count($forum_nodes) - 1) {
+	  $row .= '<tr class="odd views-row-last">';
+	} else {
+	  $row .= '<tr class="odd">';
+	}
+      } else {
+	if ($count == count($forum_nodes) - 1) {
+	  $row .= '<tr class="even views-row-last">';
+	} else {
+	  $row .= '<tr class="even">';
+	}
+      }
+
+      $row .= '<td class="views-field views-field-title" ><a href="/skelarch/node/' . $forum_nid . '">' . $forum_node->title . '</a></td>';
+      $row .= '<td class="views-field views-field-group-owner" ><a href="/skelarch/node/' . $group_nid . '">' . $group_node->title . '</a></td>';
+      $row .= '</tr>';
+    }
+
+    $html .= $row;
+    $count++;
+  }
+
+  $html .= '</tbody></table></div>';
+  return $html;
+}

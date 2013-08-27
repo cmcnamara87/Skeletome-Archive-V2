@@ -1,0 +1,13 @@
+; $Id: patient.info $
+
+name = Patient
+description = Provides the implementation for the Patient content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+dependencies[] = link
+dependencies[] = date
+
+files[] = patient.module
+files[] = patient.install

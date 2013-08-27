@@ -1,0 +1,11 @@
+; $Id: diagnosis_comment.info $
+
+name = Diagnosis comment
+description = Provides the implementation for the Diagnosis comment.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+
+files[] = diagnosis_comment.module
+files[] = diagnosis_comment.install

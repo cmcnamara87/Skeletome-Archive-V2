@@ -1,0 +1,116 @@
+<?php
+// $Id: xray_description.module $
+
+function xray_description_init() {
+}
+
+function xray_description_menu() {
+  $items['node/%node/delete-description'] = array(
+    'title' => 'Delete description',
+    'page callback' => 'delete_desc_callback',
+    'page arguments' => array(1),
+    'type' => MENU_CALLBACK,
+    'access callback' => 'is_node_of_type',
+    'access arguments' => array(1, 'xray_description'),
+  );
+
+  return $items;
+}
+
+function xray_description_form_xray_description_node_form_alter(&$form, &$form_state, $form_id) {
+if (isset($form['type']) && isset($form['#node'])) {
+    if ('xray_description_node_form' == $form_id) {
+      $form['group_audience']['#access'] = FALSE;
+      $form['group_content_access']['#access'] = FALSE;
+      $form['field_skeletome_tags']['#access'] = FALSE;
+
+      $form['field_xray_description_media']['#access'] = FALSE;
+      $form['field_xray_description_dc']['#access'] = FALSE;
+      $form['field_xray_description_dm']['#access'] = FALSE;
+      $form['field_xray_description_xray']['#access'] = FALSE;
+
+      $form['#node']->title = 'X-Ray Description';
+      $form['title']['#default_value'] = 'X-Ray Description';
+      $form['title']['#access'] = FALSE;
+    }
+  }
+}
+
+function xray_description_node_view($node, $view_mode) {
+  if ($node->type == 'xray_description' && $view_mode == 'full' && node_is_page($node)) {
+    drupal_goto('node/' . $node->field_xray_description_xray['und'][0]['nid']);
+  }  
+
+  return $node;
+}
+
+function xray_description_node_presave($node) {
+  if (property_exists($node, 'type')) {
+    if ($node->type == 'xray_description') {
+      if ($node->nid === NULL) {
+	if (arg(3) !== NULL && arg(4) !== NULL) {
+	  if (is_numeric(arg(3)) && is_numeric(arg(4))) {
+	    $node->field_xray_description_xray['und'][0]['nid'] = arg(3);
+	    $node->field_xray_description_media['und'][0]['fid'] = arg(4);
+
+	    $date = new DateObject();
+	    $node->field_xray_description_dc['und'][0]['value'] = $date->format(DATE_FORMAT_ISO);
+	    $node->field_xray_description_dc['und'][0]['value2'] = $date->format(DATE_FORMAT_ISO);
+	    
+	    $node->field_xray_description_dm['und'][0]['value'] = $date->format(DATE_FORMAT_ISO);
+	    $node->field_xray_description_dm['und'][0]['value2'] = $date->format(DATE_FORMAT_ISO);
+
+	    $xray_node = node_load(arg(3));
+	    trasfer_group_membership($xray_node, $node);
+
+	    $node->title = $xray_node->title;
+	  }
+	}
+      } else {
+	if (array_key_exists('und', $node->field_skeletome_tags)) {
+	  unset($node->field_skeletome_tags['und']);
+	}
+	if (array_key_exists('und', $node->field_xray_description_tags)) {
+	  $count = 0;
+	  foreach($node->field_xray_description_tags['und'] as $tag) {
+	    $node->field_skeletome_tags['und'][$count++]['tid'] = $tag['tid'];
+	  }
+	}
+
+	$date = new DateObject();
+	$node->field_xray_description_dm['und'][0]['value'] = $date->format(DATE_FORMAT_ISO);
+	$node->field_xray_description_dm['und'][0]['value2'] = $date->format(DATE_FORMAT_ISO);
+      }
+    }
+  }
+}
+
+function xray_description_node_insert($node) {
+  if ($node->type == 'xray_description') {
+    if (arg(3) !== NULL && arg(4) !== NULL) {
+      if (is_numeric(arg(3)) && is_numeric(arg(4))) {
+	$xray_node = node_load(arg(3));
+	if (array_key_exists('und', $xray_node->field_xray_xraydescription)) {
+	  $count = count($xray_node->field_xray_xraydescription['und']);
+	} else {
+	  $count = 0;
+	}
+
+	$xray_node->field_xray_xraydescription['und'][$count]['nid'] = $node->nid;
+	node_save($xray_node);
+      }
+    }
+  }
+}
+
+function xray_description_node_delete($node) {
+  if ($node->type == 'xray_description') {
+    $xray_node = node_load($node->field_xray_description_xray['und'][0]['nid']);
+    remove_from_array($xray_node, 'field_xray_xraydescription', 'nid', $node->nid, TRUE);
+  }
+}
+
+function delete_desc_callback($desc_node) {
+  node_delete($desc_node->nid);
+  exit;
+}

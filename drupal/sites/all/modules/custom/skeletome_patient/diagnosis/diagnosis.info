@@ -1,0 +1,13 @@
+; $Id: diagnosis.info $
+
+name = Diagnosis
+description = Provides the implementation for the Diagnosis content type.
+package = SKELETOME Patient
+
+core = 7.x
+dependencies[] = entityreference
+dependencies[] = link
+dependencies[] = date
+
+files[] = diagnosis.module
+files[] = diagnosis.install

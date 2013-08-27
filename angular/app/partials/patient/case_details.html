@@ -1,0 +1,64 @@
+<div>
+
+    <h2>Case Details <span style="color: #ccc; font-size: 21px; margin-left: 7px">Patient {{ patient.id }}  </span></h2>
+
+    <div class="col-md-9">
+        <div class="group-item">
+            <h3>Clinical Summary </h3>
+
+            <div class="block-info">
+                <text-block value="patient.clinical_summary" model="patient"></text-block>
+            </div>
+        </div>
+
+        <div class="group-item">
+            <h3>X-Rays </h3>
+
+            <div ng-repeat="xray in xrays" class="block-info">
+                {{ xray | json }}
+            </div>
+        </div>
+
+        <div class="group-item">
+            <h3>Genetic Report
+                <button ng-click="addGeneMutation()" class="btn btn-primary"><i class="icon icon-plus"></i></button>
+            </h3>
+
+            <!-- Button trigger modal -->
+
+            <table class="table table-info">
+                <tr>
+                    <th>Description</th>
+                    <th>Gene</th>
+                    <th>Mutation Type</th>
+                    <th>Pathogenicity</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="geneMutation in geneMutations">
+                    <td>
+                        <value-block value="geneMutation.name" model="geneMutation"></value-block>
+                    </td>
+                    <td>
+                        <select-block value="geneMutation.gene_id" model="geneMutation"></select-block>
+                    </td>
+                    <td>
+                        <value-block value="geneMutation.mutation_type_id" model="geneMutation"></value-block>
+                    </td>
+                    <td>
+                        <value-block value="geneMutation.pathogenic" model="geneMutation"></value-block>
+                    </td>
+                    <td>
+                        <button ng-show="!geneMutation.id" ng-click="createGeneMutation(geneMutation)">
+                            <i class="icon icon-save"></i>
+                        </button>
+
+                        <button ng-click="deleteGeneMutation(geneMutation)" class="btn btn-action btn-action-remove">
+                            <i class="icon icon-trash"></i>
+                        </button>
+                    </td>
+
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
