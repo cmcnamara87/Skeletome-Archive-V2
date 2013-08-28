@@ -16,8 +16,8 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         /**
          * Not logged in page
          */
-        $routeProvider.when('/splash', {
-            templateUrl: 'partials/splash.html'
+        $routeProvider.when('/login', {
+            templateUrl: 'partials/login.html'
         });
 
 
@@ -305,7 +305,7 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         });
 
         $routeProvider.otherwise({
-            redirectTo: '/home'
+            redirectTo: '/login'
         });
     }]);
 

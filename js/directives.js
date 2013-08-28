@@ -24,7 +24,7 @@ myApp.directives.directive('login', function() {
         },
         template: '<div>\n    <div ng-show="isLoading">\n        Loading...\n    </div>\n    <div ng-show="!isLoading">\n        <div ng-show="currentUser">\n            {{ currentUser.name }}\n            <button ng-click="logout()">Logout</button>\n        </div>\n\n        <form ng-show="!currentUser">\n            <label>\n                Username\n                <input type="type" ng-model="credentials.username"/>\n            </label>\n            <label >\n                Password\n                <input type="password" ng-model="credentials.password"/>\n            </label>\n\n            <input type="submit" ng-click="login(credentials)"/>\n        </form>\n    </div>\n    \n</div>',
         replace: true,
-        controller: function ( $scope, auth) {
+        controller: function ( $scope, auth, $location) {
             $scope.credentials = {};
 
             $scope.isLoading = true;
@@ -40,11 +40,13 @@ myApp.directives.directive('login', function() {
             auth.checkCurrentUser().then(function(currentUser) {
                 $scope.isLoading = false;
                 $scope.currentUser = auth.getUser();
+                $location.path('/home');
             });
 
             $scope.login = function(credentials) {
                 auth.login(credentials).then(function(response) {
                     $scope.currentUser = auth.getUser();
+
                 });
             }
 
