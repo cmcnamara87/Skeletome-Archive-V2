@@ -5,7 +5,7 @@ myApp.directives.directive('sidebar', function() {
         },
         templateUrl: 'partials/sidebar.html',
         replace: true,
-        controller: function ( $scope, auth, $location, GroupModel) {
+        controller: function ( $scope, auth, $location, GroupModel, PatientModel) {
 
             $scope.$watch(function() {
                 return $location.path()
@@ -20,6 +20,12 @@ myApp.directives.directive('sidebar', function() {
 
                 if($scope.tab == "group") {
                     $scope.group = GroupModel.get({id: $scope.subs[0]});
+                }
+                if($scope.tab == "patient") {
+                    if(!$scope.patient || $scope.subs[0] != $scope.patient.id) {
+                        $scope.patient = PatientModel.get({id: $scope.subs[0]});
+                    }
+
                 }
 
                 console.log("url changed to" + parts);

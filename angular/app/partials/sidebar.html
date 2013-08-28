@@ -24,9 +24,9 @@
     <div ng-switch on="tab">
 
         <div ng-switch-when="groups">
-            <h1 class="sidebar-section sidebar-section-heading">
-                Groups
-            </h1>
+            <!--<h1 class="sidebar-section sidebar-section-heading">-->
+                <!--Groups-->
+            <!--</h1>-->
             <a ng-class="{'active': subs[0] == 'my-groups'}" href="#/groups/my-groups" class="sidebar-section">My Groups</a>
             <a ng-class="{'active': subs[0] == 'all-groups'}" href="#/groups/all-groups" class="sidebar-section">All Groups</a>
         </div>
@@ -39,9 +39,9 @@
             <a ng-class="{'active': subs[1] == 'members'}" href="#/group/{{ subs[0] }}/members" class="sidebar-section">Members</a>
         </div>
         <div ng-switch-when="patients">
-            <h1 class="sidebar-section sidebar-section-heading">
-                Patients
-            </h1>
+            <!--<h1 class="sidebar-section sidebar-section-heading">-->
+                <!--Patients-->
+            <!--</h1>-->
             <a ng-class="{'active': subs[0] == 'my-patients'}" href="#/patients/my-patients" class="sidebar-section">My Patients</a>
             <a ng-class="{'active': subs[0] == 'community-patients'}" href="#/patients/community-patients" class="sidebar-section">Community Patients</a>
 
@@ -50,11 +50,12 @@
 
 
 
-            <h1 class="sidebar-section sidebar-section-heading">
-                Patient {{ subs[0] }}
-            </h1>
+            <a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section sidebar-section-heading">
+                {{ patient.first_name }} {{ patient.last_name }}
+                <!--Patient {{ subs[0] }}-->
+            </a>
 
-            <a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section">Case Summary</a>
+            <!--<a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section">Case Summary</a>-->
 
             <a ng-class="{'active': subs[1] == 'case-details'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/case-details">Case Details</a>
 
