@@ -5,10 +5,7 @@
     </div>
 
 
-    <a ng-show="tab=='patient'" class="sidebar-section sidebar-section-back" href="#/patients/my-patients"><i class="icon icon-chevron-left"></i> My Patients</a>
-
-
-    <div ng-show="tab!='patient'" class="sidebar-tabs">
+    <div class="sidebar-tabs">
 
         <a class="sidebar-tab" ng-class="{'active': tab=='home'}" href="#/home"><i class="icon icon-th-list"></i></a><!--
             --><a class="sidebar-tab" ng-class="{'active': tab=='patient' || tab=='patients'}" href="#/patients/my-patients"><i class="icon icon-stethoscope"></i></a><!--
@@ -48,34 +45,42 @@
         </div>
         <div ng-switch-when="patient">
 
+            <a ng-class="{'active': subs[0] == 'my-patients'}" href="#/patients/my-patients" class="sidebar-section">My Patients</a>
+
+            <div class="sidebar-section-inner">
+
+                <a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section sidebar-section-heading sidebar-section-item">
+                    {{ patient.first_name }} {{ patient.last_name }}
+                    <!--Patient {{ subs[0] }}-->
+                </a>
+
+                <div class="sidebar-section-inner">
+
+                    <!--<a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section">Case Summary</a>-->
+
+                    <a ng-class="{'active': subs[1] == 'case-details'}" class="sidebar-section sidebar-section-item" href="#/patient/{{ subs[0] }}/case-details">Case Details</a>
+
+                    <!---->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Clinical Summary</a>-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">X-Rays</a>-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Gene Mutations</a>-->
+                    <!--</div>-->
 
 
-            <a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section sidebar-section-heading">
-                <i class="icon icon-stethoscope"></i> {{ patient.first_name }} {{ patient.last_name }}
-                <!--Patient {{ subs[0] }}-->
-            </a>
+                    <a ng-class="{'active': subs[1] == 'patient-details'}" class="sidebar-section sidebar-section-item" href="#/patient/{{ subs[0] }}/patient-details">Patient Details</a>
 
-            <!--<a ng-class="{'active': subs[1] == 'case-summary'}" href="#/patient/{{ subs[0] }}/case-summary" class="sidebar-section">Case Summary</a>-->
+                    <!--<div class="sidebar-section-inner">-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Contact Details</a>-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Addresses</a>-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Other IDs</a>-->
+                        <!--<a class="sidebar-section sidebar-section-item" href="">Consent Form</a>-->
+                    <!--</div>-->
 
-            <a ng-class="{'active': subs[1] == 'case-details'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/case-details">Case Details</a>
+                    <a ng-class="{'active': subs[1] == 'community'}" class="sidebar-section sidebar-section-item" href="#/patient/{{ subs[0] }}/community">Community</a>
+                </div>
+            </div>
 
-            <!--<div class="sidebar-section-inner">-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Clinical Summary</a>-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">X-Rays</a>-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Gene Mutations</a>-->
-            <!--</div>-->
-
-
-            <a ng-class="{'active': subs[1] == 'patient-details'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/patient-details">Patient Details</a>
-
-            <!--<div class="sidebar-section-inner">-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Contact Details</a>-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Addresses</a>-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Other IDs</a>-->
-                <!--<a class="sidebar-section sidebar-section-item" href="">Consent Form</a>-->
-            <!--</div>-->
-
-            <a ng-class="{'active': subs[1] == 'community'}" class="sidebar-section" href="#/patient/{{ subs[0] }}/community">Community</a>
+            <a ng-class="{'active': subs[0] == 'community-patients'}" href="#/patients/community-patients" class="sidebar-section">Community Patients</a>
 
             <div class="sidebar-section-inner">
                 <div ng-repeat="share in shares">

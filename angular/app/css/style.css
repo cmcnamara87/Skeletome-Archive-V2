@@ -82,7 +82,7 @@ a.sidebar-section:hover {
 
 .sidebar-section.active {
     /*background-color: #376769;*/
-    border-left: 7px solid #EC5858;
+    border-right: 7px solid #EC5858;
     color: white;
     text-decoration: none;
     font-weight: 400;
@@ -101,16 +101,17 @@ a.sidebar-section:hover {
     background-color: #1D494B;
 }
 .sidebar-section-heading {
-    margin: 0;
-    padding: 14px 21px;
+    /*margin: 0;*/
+    /*padding: 14px 21px;*/
 
-    background-color: #1D494B;
-    font-size: 21px;
-    font-weight: 300;
+    /*background-color: #1D494B;*/
+    /*font-size: 21px;*/
+    font-weight: 400;
 }
 
 .sidebar-section-inner {
-    background-color: #0D3336;
+    padding-left: 14px;
+    background-color: #193e40;
 }
 .sidebar-section-item {
     padding: 7px 28px;
