@@ -1,17 +1,17 @@
 <div>
 
-    <h2>
+    <h1>
         <span style="font-size: 14px">
             <a href="#/patients/my-patients">My Patients</a> <i class="icon icon-angle-right"></i> <a href="#/patient/{{ patient.id }}">Patient {{ patient.id }}</a> <i class="icon icon-angle-right"></i>
         </span>
         <br/>
-        Case Details</h2>
+        Case Details</h1>
 
-    <div class="col-md-9">
-        <div class="group-item">
-            <h3>Clinical Summary </h3>
+    <div class="col-md-9" style="padding: 0px 21px">
+        <div class="group-item" style="background-color: white; border-radius: 1px; border: 1px solid #ddd">
+            <h3 style="margin: 0; padding: 14px 21px; ">Clinical Summary <button ng-click="edit()"><i class="icon icon-pencil"></i></button> </h3>
 
-            <div class="block-info">
+            <div class="block-info" style="padding: 21px; line-height: 28px ">
                 <text-block value="patient.clinical_summary" model="patient"></text-block>
             </div>
         </div>
@@ -24,8 +24,8 @@
             </div>
         </div>
 
-        <div class="group-item">
-            <h3>Genetic Report
+        <div class="group-item" style="background-color: white; border-radius: 1px; border: 1px solid #ddd">
+            <h3 style="margin: 0; padding: 14px 21px; ">Genetic Report
                 <button ng-click="addGeneMutation()" class="btn btn-primary"><i class="icon icon-plus"></i></button>
             </h3>
 
@@ -64,6 +64,23 @@
 
                 </tr>
             </table>
+        </div>
+
+        <div class="group-item">
+            <h3 >Diagnoses
+                <button ng-click="addPatientDiagnosis()" class="btn btn-primary"><i class="icon icon-plus"></i></button>
+            </h3>
+
+            <div ng-repeat="diagnosis in diagnoses" class="block-info">
+                <div ng-show="diagnosis.id">
+                    {{ diagnosis.disorder.name  }}
+                    <button ng-click="deletePatientDiagnosis(diagnosis)">Delete</button>
+                </div>
+                <div ng-show="!diagnosis.id">
+                    <select ng-model="diagnosis.disorder_id" ng-options="disorder.id as disorder.name for disorder in disorders"></select>
+                    <button ng-click="createPatientDiagnosis(diagnosis)">Add</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -41,6 +41,7 @@ function diagnosis_resource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
+            /** NOTE!! A diagnosis is either attached to a share, or a patient, not both. */
             'share_id' => array(
                 'description' => t('The share that has this diagnosis.'),
                 'type' => 'int',
@@ -48,6 +49,14 @@ function diagnosis_resource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
+            'patient_id' => array(
+                'description' => t('The patient that has this diagnosis.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+
         ),
         'foreign keys' => array(
             'poster' => array(
@@ -61,6 +70,10 @@ function diagnosis_resource_schema() {
             'share' => array(
                 'table' => 'shares',
                 'columns' => array('id' => 'share_id'),
+            ),
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
             ),
         ),
         'primary key' => array('id'),

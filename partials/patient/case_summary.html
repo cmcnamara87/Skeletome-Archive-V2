@@ -1,41 +1,102 @@
 <div>
-    <h2>
+    <h1>
         <span style="font-size: 14px">
             <a href="#/patients/my-patients">My Patients</a> <i class="icon icon-angle-right"></i> <a href="#/patient/{{ patient.id }}">Patient {{ patient.id }}</a> <i class="icon icon-angle-right"></i>
         </span>
         <br/>
-        {{ patient.first_name }} {{ patient.last_name }} Summary<span style="color: #ccc; font-size: 21px; margin-left: 7px">  </span>
-    </h2>
+        {{ patient.id }}: {{ patient.first_name }} {{ patient.last_name }} Summary<span style="color: #ccc; font-size: 21px; margin-left: 7px">  </span>
+    </h1>
 
-    <div class="col-md-9">
+    <div class="col-md-12">
 
-        <h3>Case Owner <a class="btn btn-primary" href="">Contact Case Owner</a></h3>
-        <table class="table table-info">
-            <tr>
-                <td class="table-info-key">Skeletome ID</td>
-                <td>{{ patient.id }}</td>
-            </tr>
-            <tr>
-                <td class="table-info-key">Owner</td>
-                <td>{{ patient.ownerName }}</td>
-            </tr>
-        </table>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-type">
+                        Case Owner
+                    </div>
 
-        <h3>Details</h3>
-        <table class="table table-info">
-            <tr>
-                <td class="table-info-key">Top Diagnosis</td>
-                <td>{{ patient.diagnosis }}</td>
-            </tr>
-            <tr>
-                <td class="table-info-key">HPO Terms</td>
-                <td>{{ patient.hpos }}</td>
-            </tr>
-            <tr>
-                <td class="table-info-key">Genetic Test Results</td>
-                <td>Results</td>
-            </tr>
-        </table>
+                    <div style="width: 50px; height: 50px; border-radius: 200px; background-color: #eee; float: left; margin-right:21px; margin-bottom: 21px"></div>
+                    <h2>Dr Adam Smith</h2>
+
+
+                    <small>Position Here</small>
+                    <div>
+                        I am a clinical geneticist with a special interest in bone dysplasias.
+                        Bone dysplasias are genetic disorders affecting the development of the skeleton.
+                    </div>
+                    <a class="btn btn-info" href="">Request Access</a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-type">
+                        Case Diagnosis
+                    </div>
+                    <h2>{{ diagnoses[0].disorder.name }}</h2>
+                    <h3>Other Diagnoses</h3>
+                    <div ng-repeat="diagnosis in diagnoses" style="margin-bottom: 21px">
+                        {{ diagnosis.disorder.name | json }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card">
+                    <h2>Details</h2>
+                    <table class="table table-info">
+                        <tr>
+                            <td class="table-info-key">Top Diagnosis</td>
+                            <td>{{ patient.diagnosis }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info-key">HPO Terms</td>
+                            <td>{{ patient.hpos }}</td>
+                        </tr>
+                        <tr>
+                            <td class="table-info-key">Genetic Test Results</td>
+                            <td>Results</td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card" >
+                    <div class="card-type">
+                        Gene Mutations
+                    </div>
+
+                    <table class="table table-info">
+                        <tr>
+                            <th>Name</th>
+                            <th>Pathogenicity</th>
+                            <th>Gene Name</th>
+                            <th>Mutation Type</th>
+                        </tr>
+                        <tr ng-repeat="geneMutation in geneMutations">
+                            <td>
+                                {{ geneMutation.name }}
+                            </td>
+                            <td>
+                                {{ geneMutation.pathogenic }}
+                            </td>
+                            <td>
+                                {{ geneMutation.gene.name }}
+                            </td>
+                            <td>
+                                {{ geneMutation.mutation_type.name }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+        </div>
 
     </div>
 </div>

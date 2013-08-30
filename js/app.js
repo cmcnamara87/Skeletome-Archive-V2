@@ -127,6 +127,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
                         defer.resolve(patient);
                     });
                     return defer.promise;
+                },
+                user: function(auth) {
+                    return auth.checkCurrentUser();
                 }
             }
         });
@@ -144,6 +147,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
                         defer.resolve(patient);
                     });
                     return defer.promise;
+                },
+                user: function(auth) {
+                    return auth.checkCurrentUser();
                 }
             }
         });
@@ -314,6 +320,18 @@ myApp.run(function($rootScope, $templateCache) {
         $templateCache.removeAll();
     });
 });
+myApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
+    //when the route is changed scroll to the proper element.
+    $rootScope.$on('$viewContentLoaded', function(newRoute, oldRoute) {
+        console.log("ROUTE CHANGED! SCROLL TO" + $location.hash());
+//        $location.hash($routeParams.scrollTo);
+
+            $anchorScroll();
+
+
+    });
+});
+
 
 
 // Declare app level module which depends on filters, and services

@@ -76,6 +76,10 @@ myApp.services.factory('DiagnosisModel', function ($resource, apiUrl, VoteModel,
         return tally;
     }
 
+    MyResource.index = function(object) {
+        return MyResource.query(Param.makeParams(object));
+    }
+
     MyResource.addDiagnosisOfDisorderToShare = function(disorder, share) {
         // Create a model for saving a new diagnosis (used in createDiagnosis)
         var newDiagnosis = new MyResource({

@@ -24,6 +24,28 @@ myApp.contollers.controller('PatientCtrl', function ($scope,
     $scope.identifiers = IdentifierModel.query(Param.makeParams({patient_id: patient.id}));
     $scope.geneMutations = GeneMutationModel.query(Param.makeParams({patient_id: patient.id}));
     $scope.xrays = XRayModel.query(Param.makeParams({patient_id: patient.id}));
+    $scope.diagnoses = DiagnosisModel.index({patient_id: $scope.patient.id});
+    $scope.disorders = DisorderModel.query();
+    $scope.postTypes = PostTypeModel.query();
+
+    console.log("DIAGNOSES", $scope.diagnoses);
+
+
+    $scope.addPatientDiagnosis = function() {
+        var newDiagnosis = new DiagnosisModel();
+        newDiagnosis.patient_id = $scope.patient.id;
+        newDiagnosis.disorder_id = 1;
+
+        $scope.diagnoses.unshift(newDiagnosis);
+
+        console.log($scope.diagnoses);
+    }
+    $scope.createPatientDiagnosis = function(diagnosis) {
+        diagnosis.$save();
+    }
+    $scope.deletePatientDiagnosis = function(diagnosis) {
+        diagnosis.$delete();
+    }
 
     $scope.createIdentifier = function(identifier) {
         identifier.patient_id = $scope.patient.id;
@@ -40,15 +62,14 @@ myApp.contollers.controller('PatientCtrl', function ($scope,
 
     $scope.shares = ShareModel.query(Param.makeParams({patient_id: patient.id}), function() {
             angular.forEach($scope.shares, function(share, shareIndex) {
-                share.posts = PostModel.query(Param.makeParams({share_id: share.id}), function(posts) {
-                    angular.forEach(posts, function(post, postIndex) {
-                        post.replies = ReplyModel.query(Param.makeParams({post_id: post.id}));
-                    });
-                });
+//                share.posts = PostModel.query(Param.makeParams({share_id: share.id}), function(posts) {
+//                    angular.forEach(posts, function(post, postIndex) {
+//                        post.replies = ReplyModel.query(Param.makeParams({post_id: post.id}));
+//                    });
+//                });
             });
         });
-    $scope.disorders = DisorderModel.query();
-    $scope.postTypes = PostTypeModel.query();
+
 
 
     $scope.addGeneMutation = function() {

@@ -35,5 +35,4 @@ myApp.contollers.controller('PatientsCtrl', function ($scope, patients, PatientM
         var index = $scope.patients.indexOf(patient);
         $scope.patients.splice(index, 1);
     }
-
 });

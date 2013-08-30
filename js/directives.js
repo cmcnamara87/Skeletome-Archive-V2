@@ -45,6 +45,7 @@ myApp.directives.directive('login', function() {
 
             $scope.login = function(credentials) {
                 auth.login(credentials).then(function(response) {
+                    $location.path('/home');
                     $scope.currentUser = auth.getUser();
 
                 });

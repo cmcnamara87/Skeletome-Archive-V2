@@ -79,6 +79,59 @@ function patientresource_schema() {
         'primary key' => array('id'),
     );
 
+    $schema['addresses'] = array(
+        'description' => t('Stores street addresses.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a patient.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'street' => array(
+                'description' => t('Street address'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'city' => array(
+                'description' => t('Name of city'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'state' => array(
+                'description' => t('State'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'postcode' => array(
+                'description' => t('Postcode'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'country' => array(
+                'description' => t('Country'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient with the address.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+
+
 
     $schema['addresses'] = array(
         'description' => t('Stores street addresses.'),
