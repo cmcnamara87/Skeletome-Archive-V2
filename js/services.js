@@ -155,14 +155,22 @@ myApp.services.factory('MembershipModel', function ($resource, apiUrl) {
 });
 
 
-myApp.services.factory('PatientModel', function ($resource, apiUrl) {
-    return $resource(apiUrl + 'patient/:id', {
+myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'patient/:id', {
         id: '@id' //this binds the ID of the model to the URL param
     },
     {
         update: {method:'PUT'}
     });
+
+    MyResource.index = function(object, success, failure) {
+        console.log("making params");
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+    return MyResource;
 });
+
 myApp.services.factory('IdentifierModel', function ($resource, apiUrl) {
     var MyResource = $resource(apiUrl + 'identifier/:id', {
         id: '@id' //this binds the ID of the model to the URL param,

@@ -1,0 +1,41 @@
+<div>
+    <div class="content-title">
+        My Patients
+    </div>
+    <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
+
+    <table class="table content-table">
+        <tr>
+            <th>Patient ID</th>
+            <th>Patient Name</th>
+            <th>Diagnosis</th>
+            <th>Shares</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="patient in patients">
+            <td>
+                <a href="#/patient/{{ patient.id }}/case-summary">{{ patient.id }}</a>
+            </td>
+            <td>
+                <a href="#/patient/{{ patient.id }}/case-summary">{{ patient.first_name }} {{ patient.last_name }}</a>
+            </td>
+            <td>
+                Achondroplasia
+            </td>
+            <td>
+                0
+            </td>
+            <td>
+                <div class="dropdown">
+                    <a data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href>Edit</a></li>
+                        <li role="presentation" ng-click="deletePatient(patient)"><a role="menuitem" tabindex="-1" href>Delete</a></li>
+                        <li role="presentation" class="divider"></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+</div>

@@ -1,6 +1,6 @@
 body {
-    background-color: #E8E8E8;
-    color: #1d384b;
+    background-color: #F5F8F9;
+    color: #294457;
     font-family: "Source Sans Pro";
     font-size: 14px;
     line-height: 21px;
@@ -38,6 +38,15 @@ h4 {
 em {
 
 }
+
+a {
+    color: #5390BA;
+}
+a:hover {
+    color: #6F91AA;
+}
+
+
 .table-info-key {
     font-weight: 500;
     color: #979fa4;
@@ -114,16 +123,98 @@ Styleguide 2.1.3.
     left: 5px;
 }
 
+.content {
+
+}
+.content-title {
+    padding: 21px 14px;
+
+    border: 1px solid #DFE7EC;
+    border-left: none;
+    background-color: white;
+
+    font-size: 28px;
+    font-weight: 300;
+    color: #294457;
+}
+.content-table {
+    border: none;
+}
+.content-table tr {
+
+}
+.content-table tr th {
+    background-color: white;
+    color: #A7B5BE;
+    border-top: none !important;
+    padding: 14px !important;
+    font-weight: normal;
+}
+.content-table td {
+    background-color: white;
+    border-top: 1px solid #DFE7EC !important;
+    padding: 14px !important;
+}
+
+
 /*
-    The sidebar element
+The menubar element
 */
-.sidebar {
-    width: 260px;
-    position: fixed;
+.menubar {
+    position: absolute;
     top: 0;
     bottom: 0;
 
-    background-color: #132534;
+    width: 240px;
+    margin-left: 65px;
+
+    background-color: white;
+    border: 1px solid #DFE7EC;
+}
+
+/*
+    The heading for the menu
+*/
+.menubar-heading {
+    padding: 21px 14px;
+
+    border-bottom: 1px solid #DFE7EC;
+
+    font-size: 28px;
+    font-weight: 300;
+    color: #294457;
+}
+.menubar-section {
+    border-bottom: 1px solid #DFE7EC;
+    padding: 7px 7px;
+    padding-left: 7px;
+}
+.menubar-item {
+    display: block;
+    border-radius: 3px;
+    padding: 7px 14px;
+    color: #5D6F7B;
+}
+.menubar-item.selected {
+    background-color: #E87575;
+    color: white;
+    text-decoration: none;
+}
+.menubar-item:hover {
+    text-decoration: none;
+}
+
+
+/*
+    The sidebar element
+*/
+.tabbar {
+    width: 65px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+
+    background-color: #294457;
 
     color: #F3F3F3;
 }
@@ -131,7 +222,7 @@ Styleguide 2.1.3.
 /*
     The logo container for the sidebar
 */
-.sidebar-logo {
+.tabbar-logo {
     padding: 14px 21px;
     background-color: #375164;
 }
@@ -141,11 +232,10 @@ Styleguide 2.1.3.
     :hover             - White text color
     .selected          - Subtle darker background, white text color
 */
-.sidebar-tab {
-    display: inline-block;
+.tabbar-tab {
+    display: block;
     margin: 0;
-    padding: 14px;
-    width: 25%;
+    padding: 21px 14px;
 
     background-color: #294457;
 
@@ -155,11 +245,11 @@ Styleguide 2.1.3.
 
     font-size: 21px;
 }
-    .sidebar-tab:hover {
+    .tabbar-tab:hover {
         text-decoration: none;
         color: white;
     }
-    .sidebar-tab.selected {
+    .tabbar-tab.selected {
         background-color: #1d384b;
         color: white;
     }
@@ -169,7 +259,7 @@ Styleguide 2.1.3.
     :hover             - White text color
     :selected          - Thick red border on left side
 */
-.sidebar-item {
+.tabbar-item {
     display: block;
     padding: 14px 21px;
 
@@ -179,11 +269,11 @@ Styleguide 2.1.3.
     font-weight: 300;
     color: #969FAD;
 }
-    .sidebar-item:hover {
+    .tabbar-item:hover {
         color: white;
         text-decoration: none;
     }
-    .sidebar-item.selected, a.sidebar-item.selected:hover {
+    .tabbar-item.selected, a.tabbar-item.selected:hover {
         border-left: 5px solid #EC5858;
         margin-right: 1px;
         color: white;
@@ -191,12 +281,12 @@ Styleguide 2.1.3.
         font-weight: 400;
     }
 
-.sidebar-item-inner {
+.tabbar-item-inner {
 
     padding-left: 14px;
     background-color: #193040;
 }
-.sidebar-item-item {
+.tabbar-item-item {
     padding: 7px 28px;
     margin-bottom: 0px;
     border-left: 5px solid #193040;
@@ -205,7 +295,7 @@ Styleguide 2.1.3.
 
 
 .main {
-    padding-left: 260px;
+    padding-left: 305px;
 }
 .main-inner {
     padding: 0px;
@@ -220,12 +310,7 @@ label {
     display: block;
 }
 
-a {
-    color: #6F91AA;
-}
-a:hover {
-    color: #6F91AA;
-}
+
 
 
 

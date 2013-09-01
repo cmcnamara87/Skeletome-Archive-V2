@@ -1,0 +1,63 @@
+<div class="menubar">
+
+    <div ng-switch on="type">
+
+        <div ng-switch-when="feed">
+            <div class="menubar-heading">
+                Feed
+            </div>
+            <!--<div class="menubar-section">-->
+                <!--<a class="menubar-item selected" href="">-->
+                    <!---->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div class="menubar-section">-->
+                <!--<a class="menubar-item" href="">Australian Bone Dysplasia Group</a>-->
+                <!--<a class="menubar-item" href="">European Bone Dysplasia Network</a>-->
+            <!--</div>-->
+        </div>
+
+        <div ng-switch-when="patients">
+            <div class="menubar-heading">
+                Patients
+            </div>
+            <div class="menubar-section">
+                <a class="menubar-item selected" href="">
+                    My Patients
+                </a>
+            </div>
+            <div class="menubar-section">
+                <a class="menubar-item" href="">Australian Bone Dysplasia Group</a>
+                <a class="menubar-item" href="">European Bone Dysplasia Network</a>
+            </div>
+        </div>
+
+        <div ng-switch-when="patient">
+            <div class="menubar-heading">
+                Jean Luc Picard
+            </div>
+            <div class="menubar-section">
+                <a class="menubar-item selected" href="">
+                    Summary
+                </a>
+            </div>
+            <div class="menubar-section">
+                <a class="menubar-item" href="">Clinical Summary</a>
+                <a class="menubar-item" href="">X-Rays</a>
+                <a class="menubar-item" href="">Genetic Reports</a>
+                <a class="menubar-item" href="">Diagnoses</a>
+            </div>
+            <div class="menubar-section">
+                <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>
+                <a class="menubar-item" href="">European Bone Dysplasia Network</a>
+            </div>
+        </div>
+
+        <div ng-switch-when="group">
+            <div class="menubar-heading">
+                Group Name Here
+            </div>
+        </div>
+    </div>
+
+</div>

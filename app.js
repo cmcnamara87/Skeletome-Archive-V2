@@ -1,7 +1,7 @@
 'use strict';
 
 
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies']).
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'feed', 'directives.navigation']).
     config(['$routeProvider', function($routeProvider) {
 
         /**
@@ -32,55 +32,55 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         /**
          * Patient Pages
          */
-        $routeProvider.when('/patients', {
-            templateUrl: 'partials/patient/patients.html',
-            controller: 'PatientsCtrl',
-            resolve: {
-                patients: function($q, $route, PatientModel, auth, Param, $location) {
-                    console.log("resolving patients");
-                    var defer = $q.defer();
-                    auth.checkCurrentUser().then(function() {
-                        console.log("got current user");
-                        var patients = PatientModel.query(Param.makeParams({
-                            'uid': auth.getUser().uid
-                        }), function() {
-                            defer.resolve(patients);
-                        }, function() {
-                            defer.reject();
-                        });
-                    }, function() {
-                        $location.path("/splash");
-                    });
-
-                    return defer.promise;
-                }
-            }
-        });
-
-        $routeProvider.when('/patients/my-patients', {
-            templateUrl: 'partials/patients/my_patients.html',
-            controller: 'PatientsCtrl',
-            resolve: {
-                patients: function($q, $route, PatientModel, auth, Param, $location) {
-                    console.log("resolving patients");
-                    var defer = $q.defer();
-                    auth.checkCurrentUser().then(function() {
-                        console.log("got current user");
-                        var patients = PatientModel.query(Param.makeParams({
-                            'uid': auth.getUser().uid
-                        }), function() {
-                            defer.resolve(patients);
-                        }, function() {
-                            defer.reject();
-                        });
-                    }, function() {
-                        $location.path("/splash");
-                    });
-
-                    return defer.promise;
-                }
-            }
-        });
+//        $routeProvider.when('/patients', {
+//            templateUrl: 'partials/patient/patients.html',
+//            controller: 'PatientsCtrl',
+//            resolve: {
+//                patients: function($q, $route, PatientModel, auth, Param, $location) {
+//                    console.log("resolving patients");
+//                    var defer = $q.defer();
+//                    auth.checkCurrentUser().then(function() {
+//                        console.log("got current user");
+//                        var patients = PatientModel.query(Param.makeParams({
+//                            'uid': auth.getUser().uid
+//                        }), function() {
+//                            defer.resolve(patients);
+//                        }, function() {
+//                            defer.reject();
+//                        });
+//                    }, function() {
+//                        $location.path("/splash");
+//                    });
+//
+//                    return defer.promise;
+//                }
+//            }
+//        });
+//
+//        $routeProvider.when('/patients/my-patients', {
+//            templateUrl: 'partials/patients/my_patients.html',
+//            controller: 'PatientsCtrl',
+//            resolve: {
+//                patients: function($q, $route, PatientModel, auth, Param, $location) {
+//                    console.log("resolving patients");
+//                    var defer = $q.defer();
+//                    auth.checkCurrentUser().then(function() {
+//                        console.log("got current user");
+//                        var patients = PatientModel.query(Param.makeParams({
+//                            'uid': auth.getUser().uid
+//                        }), function() {
+//                            defer.resolve(patients);
+//                        }, function() {
+//                            defer.reject();
+//                        });
+//                    }, function() {
+//                        $location.path("/splash");
+//                    });
+//
+//                    return defer.promise;
+//                }
+//            }
+//        });
 
         $routeProvider.when('/patients/community-patients', {
             templateUrl: 'partials/patients/community_patients.html',
