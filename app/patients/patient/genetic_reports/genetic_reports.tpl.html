@@ -1,0 +1,29 @@
+<div>
+    <div class="content-title">
+        Genetic Reports
+    </div>
+
+    <table class="table content-table">
+        <tr>
+            <th>Name</th>
+            <th>Gene</th>
+            <th>Mutation Type</th>
+            <th>Pathogenicity</th>
+        </tr>
+        <tr ng-repeat="mutation in mutations">
+            <td>
+                <a href="">{{ mutation.name }}</a>
+            </td>
+            <td>
+                <a href="">{{ mutation.gene.name }}</a>
+            </td>
+            <td>
+                {{ mutation.mutation_type.name }}
+            </td>
+            <td>
+                {{ mutation.pathogenic }}
+            </td>
+        </tr>
+    </table>
+
+</div>

@@ -38,7 +38,18 @@ myApp.services.factory('apiUrl', function(baseUrl) {
 });
 
 
-
+myApp.services.factory('Page', function() {
+    var object = null;
+    return {
+        getObject: function() {
+            return object;
+        },
+        setObject: function(obj) {
+            object = obj;
+            console.log("object set", object);
+        }
+    }
+});
 
 myApp.services.factory('apiUrl2', function(baseUrl) {
     return baseUrl + '/drupal/api/';
@@ -76,8 +87,8 @@ myApp.services.factory('DiagnosisModel', function ($resource, apiUrl, VoteModel,
         return tally;
     }
 
-    MyResource.index = function(object) {
-        return MyResource.query(Param.makeParams(object));
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
     }
 
     MyResource.addDiagnosisOfDisorderToShare = function(disorder, share) {
@@ -113,13 +124,18 @@ myApp.services.factory('DiagnosisModel', function ($resource, apiUrl, VoteModel,
     return MyResource;
 });
 
-myApp.services.factory('XRayModel', function ($resource, apiUrl) {
+myApp.services.factory('XRayModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'xray/:id', {
             id: '@id' //this binds the ID of the model to the URL param,
         },
         {
             update: {method:'PUT'}
         });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
 
@@ -217,13 +233,18 @@ myApp.services.factory('ReplyModel', function ($resource, apiUrl) {
 
 
 
-myApp.services.factory('GeneMutationModel', function ($resource, apiUrl) {
+myApp.services.factory('GeneMutationModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'gene_mutation/:id', {
             id: '@id' //this binds the ID of the model to the URL param,
         },
         {
             update: {method:'PUT'}
         });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
 myApp.services.factory('MutationTypeModel', function ($resource, apiUrl) {

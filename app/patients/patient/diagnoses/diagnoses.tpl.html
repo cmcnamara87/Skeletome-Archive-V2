@@ -1,0 +1,17 @@
+<div>
+    <div class="content-title">
+        Diagnoses
+    </div>
+
+    <table class="table content-table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="diagnosis in diagnoses">
+            <td>
+                {{ diagnosis.disorder.name }}
+            </td>
+        </tr>
+    </table>
+
+</div>

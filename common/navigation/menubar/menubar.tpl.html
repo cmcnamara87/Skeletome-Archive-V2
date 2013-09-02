@@ -6,15 +6,6 @@
             <div class="menubar-heading">
                 Feed
             </div>
-            <!--<div class="menubar-section">-->
-                <!--<a class="menubar-item selected" href="">-->
-                    <!---->
-                <!--</a>-->
-            <!--</div>-->
-            <!--<div class="menubar-section">-->
-                <!--<a class="menubar-item" href="">Australian Bone Dysplasia Group</a>-->
-                <!--<a class="menubar-item" href="">European Bone Dysplasia Network</a>-->
-            <!--</div>-->
         </div>
 
         <div ng-switch-when="patients">
@@ -34,18 +25,18 @@
 
         <div ng-switch-when="patient">
             <div class="menubar-heading">
-                Jean Luc Picard
+                {{ page.first_name }} {{ page.last_name }}
             </div>
             <div class="menubar-section">
-                <a class="menubar-item selected" href="">
+                <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/12/summary-dashboard">
                     Summary
                 </a>
             </div>
             <div class="menubar-section">
-                <a class="menubar-item" href="">Clinical Summary</a>
-                <a class="menubar-item" href="">X-Rays</a>
-                <a class="menubar-item" href="">Genetic Reports</a>
-                <a class="menubar-item" href="">Diagnoses</a>
+                <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/12/clinical-summary">Clinical Summary</a>
+                <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/12/xrays">X-Rays</a>
+                <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/12/genetic-reports">Genetic Reports</a>
+                <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/12/diagnoses">Diagnoses</a>
             </div>
             <div class="menubar-section">
                 <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>

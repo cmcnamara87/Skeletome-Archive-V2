@@ -1,7 +1,7 @@
 'use strict';
 
 
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'feed', 'directives.navigation']).
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'patient', 'feed', 'directives.navigation']).
     config(['$routeProvider', function($routeProvider) {
 
         /**
@@ -133,102 +133,103 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
                 }
             }
         });
-        $routeProvider.when('/patient/:patient_id/case-details', {
-            templateUrl: 'partials/patient/case_details.html',
-            controller: 'PatientCtrl',
-            resolve: {
-                patient: function($q, $route, PatientModel) {
-                    console.log("resolving patient");
-                    var defer = $q.defer();
+//        $routeProvider.when('/patient/:patient_id/case-details', {
+//            templateUrl: 'partials/patient/case_details.html',
+//            controller: 'PatientCtrl',
+//            resolve: {
+//                patient: function($q, $route, PatientModel) {
+//                    console.log("resolving patient");
+//                    var defer = $q.defer();
+//
+//                    var patient = PatientModel.get({
+//                        'id': $route.current.params.patient_id
+//                    }, function() {
+//                        defer.resolve(patient);
+//                    });
+//                    return defer.promise;
+//                },
+//                user: function(auth) {
+//                    return auth.checkCurrentUser();
+//                }
+//            }
+//        });
 
-                    var patient = PatientModel.get({
-                        'id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(patient);
-                    });
-                    return defer.promise;
-                },
-                user: function(auth) {
-                    return auth.checkCurrentUser();
-                }
-            }
-        });
-        $routeProvider.when('/patient/:patient_id/patient-details', {
-            templateUrl: 'partials/patient/patient_details.html',
-            controller: 'PatientCtrl',
-            resolve: {
-                patient: function($q, $route, PatientModel) {
-                    console.log("resolving patient");
-                    var defer = $q.defer();
-
-                    var patient = PatientModel.get({
-                        'id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(patient);
-                    });
-                    return defer.promise;
-                }
-            }
-        });
-        $routeProvider.when('/patient/:patient_id/community', {
-            templateUrl: 'partials/patient/community.html',
-            controller: 'PatientCtrl',
-            resolve: {
-                patient: function($q, $route, PatientModel) {
-                    console.log("resolving patient");
-                    var defer = $q.defer();
-
-                    var patient = PatientModel.get({
-                        'id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(patient);
-                    });
-                    return defer.promise;
-                }
-            }
-        });
-
-
-        $routeProvider.when('/patient/:patient_id', {
-            templateUrl: 'partials/patient/patient.html',
-            controller: 'PatientCtrl',
-            resolve: {
-                patient: function($q, $route, PatientModel) {
-                    console.log("resolving patient");
-                    var defer = $q.defer();
-
-                    var patient = PatientModel.get({
-                        'id': $route.current.params.patient_id
-                    }, function() {
-                        console.log("got the model");
-                        defer.resolve(patient);
-                    });
-                    return defer.promise;
-                }
-            }
-        });
-
-
-
-        $routeProvider.when('/patient/:patient_id/share', {
-            templateUrl: 'partials/patient/share.html',
-            controller: 'ShareCtrl',
-            resolve: {
-                patient: function($q, $route, PatientModel) {
-                    var defer = $q.defer();
-
-                    var patient = PatientModel.get({
-                        'id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(patient);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
-                }
-            }
-        });
+//        $routeProvider.when('/patient/:patient_id/patient-details', {
+//            templateUrl: 'partials/patient/patient_details.html',
+//            controller: 'PatientCtrl',
+//            resolve: {
+//                patient: function($q, $route, PatientModel) {
+//                    console.log("resolving patient");
+//                    var defer = $q.defer();
+//
+//                    var patient = PatientModel.get({
+//                        'id': $route.current.params.patient_id
+//                    }, function() {
+//                        defer.resolve(patient);
+//                    });
+//                    return defer.promise;
+//                }
+//            }
+//        });
+//        $routeProvider.when('/patient/:patient_id/community', {
+//            templateUrl: 'partials/patient/community.html',
+//            controller: 'PatientCtrl',
+//            resolve: {
+//                patient: function($q, $route, PatientModel) {
+//                    console.log("resolving patient");
+//                    var defer = $q.defer();
+//
+//                    var patient = PatientModel.get({
+//                        'id': $route.current.params.patient_id
+//                    }, function() {
+//                        defer.resolve(patient);
+//                    });
+//                    return defer.promise;
+//                }
+//            }
+//        });
+//
+//
+//        $routeProvider.when('/patient/:patient_id', {
+//            templateUrl: 'partials/patient/patient.html',
+//            controller: 'PatientCtrl',
+//            resolve: {
+//                patient: function($q, $route, PatientModel) {
+//                    console.log("resolving patient");
+//                    var defer = $q.defer();
+//
+//                    var patient = PatientModel.get({
+//                        'id': $route.current.params.patient_id
+//                    }, function() {
+//                        console.log("got the model");
+//                        defer.resolve(patient);
+//                    });
+//                    return defer.promise;
+//                }
+//            }
+//        });
+//
+//
+//
+//        $routeProvider.when('/patient/:patient_id/share', {
+//            templateUrl: 'partials/patient/share.html',
+//            controller: 'ShareCtrl',
+//            resolve: {
+//                patient: function($q, $route, PatientModel) {
+//                    var defer = $q.defer();
+//
+//                    var patient = PatientModel.get({
+//                        'id': $route.current.params.patient_id
+//                    }, function() {
+//                        defer.resolve(patient);
+//                    }, function() {
+//                        defer.reject();
+//                    });
+//
+//                    return defer.promise;
+//                }
+//            }
+//        });
 
         /**
          * Group Pages
