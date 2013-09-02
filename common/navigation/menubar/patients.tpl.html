@@ -1,0 +1,15 @@
+<div>
+    <div class="menubar-heading">
+        Patients
+    </div>
+    <div class="menubar-section">
+        <a class="menubar-item selected" href="#/patients/my-patients">
+            My Patients
+        </a>
+    </div>
+    <div class="menubar-section" ng-show="memberships.length">
+        <div ng-repeat="membership in memberships">
+            <a class="menubar-item" href="#/patients/community/{{ membership.group_id }}">{{ membership.group.name }}</a>
+        </div>
+    </div>
+</div>

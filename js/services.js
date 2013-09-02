@@ -161,12 +161,17 @@ myApp.services.factory('PostTypeModel', function ($resource, apiUrl) {
     return MyResource;
 });
 
-myApp.services.factory('MembershipModel', function ($resource, apiUrl) {
+myApp.services.factory('MembershipModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'membership/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     }, {
         update: {method:'PUT'}
     });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
 
@@ -187,13 +192,18 @@ myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
-myApp.services.factory('IdentifierModel', function ($resource, apiUrl) {
+myApp.services.factory('IdentifierModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'identifier/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     },
     {
         update: {method:'PUT'}
     });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
 myApp.services.factory('AddressModel', function ($resource, apiUrl) {
@@ -261,7 +271,7 @@ myApp.services.factory('GeneModel', function ($resource, apiUrl) {
 });
 
 
-myApp.services.factory('auth', function($http, $q, $cookies, tokenUrl, connectUrl, apiUrl2) {
+myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, connectUrl, apiUrl2, $route) {
 
     var user = null;
 
@@ -309,6 +319,37 @@ myApp.services.factory('auth', function($http, $q, $cookies, tokenUrl, connectUr
             return user;
         },
 
+        requireAuthenticated: function() {
+            var defer = $q.defer();
+
+            if(user) {
+                defer.resolve(user);
+            } else {
+                // No user currently stored
+                // Check if we have an existing session
+                $http.post(tokenUrl).success(function (data) {
+                    storeToken(data);
+
+                    $http.post(connectUrl, {
+                    }).success(function (data) {
+                        if(data.user.uid == 0) {
+                            // anonymous user, no one logged in
+                            user = null;
+                            defer.reject();
+                        } else {
+                            storeSession(data);
+                            user = data.user;
+                            // Reload the page lol
+                            $route.reload();
+//                            defer.resolve(user);
+                        }
+                    });
+                });
+            }
+
+            return defer.promise;
+        },
+
         checkCurrentUser: function() {
             console.log("calling current user");
             var defer = $q.defer();
@@ -319,25 +360,7 @@ myApp.services.factory('auth', function($http, $q, $cookies, tokenUrl, connectUr
 
             // Get the CSRF token
             console.log("getting the token");
-            $http.post(tokenUrl).success(function (data) {
-                console.log("got the token url");
-                storeToken(data);
 
-                $http.post(connectUrl, {
-                }).success(function (data) {
-
-                    if(data.user.uid == 0) {
-                        // anonymous user, no one logged in
-                        user = null;
-                        defer.reject();
-                    } else {
-                        storeSession(data);
-                        user = data.user;
-                        console.log("user is ", user);
-                        defer.resolve(user);
-                    }
-                });
-            });
 
             return defer.promise;
         }

@@ -13,11 +13,13 @@ angular.module('patient.summary_dashboard', [])
                     var patient = PatientModel.get({
                         'id': $route.current.params.patient_id
                     }, function() {
-                        Page.setObject(patient);
                         defer.resolve(patient);
                     });
 
                     return defer.promise;
+                }],
+                currentUser: ['AuthService', function (Auth) {
+                    return Auth.requireAuthenticated()
                 }]
             }
         });

@@ -5,26 +5,26 @@ angular.module('patients', [])
             templateUrl:'app/patients/my_patients/my_patients.tpl.html',
             controller:'MyPatientsCtrl',
             resolve:{
-                patients: ['PatientModel', 'auth', '$q', 'Param', function (PatientModel, auth, $q, Param) {
+                patients: ['PatientModel', 'AuthService', '$q', 'Param', function (PatientModel, AuthService, $q, Param) {
 
                     var defer = $q.defer();
 
-                    console.log("hello world");
-                    auth.checkCurrentUser().then(function() {
-                        console.log("got current user");
+                    if(AuthService.getUser()) {
                         var patients = PatientModel.index({
-                            'uid': auth.getUser().uid
+                            'uid': AuthService.getUser().uid
                         }, function() {
                             defer.resolve(patients);
                         }, function() {
-                            defer.reject();
-                        });
 
-                    }, function() {
-                        $location.path("/splash");
-                    });
+                        });
+                    } else {
+                        defer.reject();
+                    }
 
                     return defer.promise;
+                }],
+                currentUser: ['AuthService', function(AuthService) {
+                    return AuthService.requireAuthenticated();
                 }]
             }
         });

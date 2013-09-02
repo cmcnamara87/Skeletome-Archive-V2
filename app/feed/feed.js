@@ -5,7 +5,7 @@ angular.module('feed', [])
             templateUrl:'app/feed/feed.tpl.html',
             controller:'FeedCtrl',
             resolve:{
-//                patients: ['PatientModel', 'auth', '$q', 'Param', function (PatientModel, auth, $q, Param) {
+//                patients: ['PatientModel', 'AuthService', '$q', 'Param', function (PatientModel, auth, $q, Param) {
 //
 //                    var defer = $q.defer();
 //

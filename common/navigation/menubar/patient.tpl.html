@@ -1,0 +1,38 @@
+<div>
+    <div class="menubar-heading">
+        {{ page.first_name }} {{ page.last_name }}
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ parts[0] }}/summary-dashboard">
+            Summary
+        </a>
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': parts[2] == 'contact-information'}"
+           class="menubar-item"
+           href="#/patient/{{ parts[1] }}/contact-information">
+            Contact Information
+        </a>
+        <a ng-class="{'selected': parts[2] == 'other-ids'}"
+           class="menubar-item"
+           href="#/patient/{{ parts[1] }}/other-ids">
+            Other IDs
+        </a>
+        <a ng-class="{'selected': parts[2] == 'consent'}"
+           class="menubar-item"
+           href="#/patient/{{ parts[1] }}/consent">
+            Consent
+        </a>
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/{{ parts[1] }}/clinical-summary">Clinical Summary</a>
+        <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/{{ parts[1] }}/xrays">X-Rays</a>
+        <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/{{ parts[1] }}/genetic-reports">Genetic Reports</a>
+        <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/{{ parts[1] }}/diagnoses">Diagnoses</a>
+    </div>
+
+    <div class="menubar-section">
+        <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>
+        <a class="menubar-item" href="">European Bone Dysplasia Network</a>
+    </div>
+</div>

@@ -7,10 +7,10 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
         /**
          * Not logged in page
          */
-        $routeProvider.when('/home', {
-            templateUrl: 'partials/home/home.html',
-            controller: 'FeedCtrl'
-        });
+//        $routeProvider.when('/home', {
+//            templateUrl: 'partials/home/home.html',
+//            controller: 'FeedCtrl'
+//        });
 
 
         /**
@@ -311,9 +311,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
             controller: 'NewGroupCtrl'
         });
 
-        $routeProvider.otherwise({
-            redirectTo: '/login'
-        });
+//        $routeProvider.otherwise({
+//            redirectTo: '/login'
+//        });
     }]);
 
 myApp.run(function($rootScope, $templateCache) {

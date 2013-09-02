@@ -8,43 +8,16 @@
             </div>
         </div>
 
-        <div ng-switch-when="patients">
-            <div class="menubar-heading">
-                Patients
-            </div>
-            <div class="menubar-section">
-                <a class="menubar-item selected" href="">
-                    My Patients
-                </a>
-            </div>
-            <div class="menubar-section">
-                <a class="menubar-item" href="">Australian Bone Dysplasia Group</a>
-                <a class="menubar-item" href="">European Bone Dysplasia Network</a>
-            </div>
+        <div ng-switch-when="patients"
+             ng-include="'common/navigation/menubar/patients.tpl.html'">
         </div>
 
-        <div ng-switch-when="patient">
-            <div class="menubar-heading">
-                {{ page.first_name }} {{ page.last_name }}
-            </div>
-            <div class="menubar-section">
-                <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ parts[0] }}/summary-dashboard">
-                    Summary
-                </a>
-            </div>
-            <div class="menubar-section">
-                <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/{{ parts[0] }}/clinical-summary">Clinical Summary</a>
-                <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/{{ parts[0] }}/xrays">X-Rays</a>
-                <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/{{ parts[0] }}/genetic-reports">Genetic Reports</a>
-                <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/{{ parts[0] }}/diagnoses">Diagnoses</a>
-            </div>
-            <div class="menubar-section">
-                <pre>
-                    {{ page }}
-                </pre>
-                <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>
-                <a class="menubar-item" href="">European Bone Dysplasia Network</a>
-            </div>
+        <div ng-switch-when="patient"
+             ng-include="'common/navigation/menubar/patient.tpl.html'">
+        </div>
+
+        <div ng-switch-when="groups"
+             ng-include="'common/navigation/menubar/groups.tpl.html'">
         </div>
 
         <div ng-switch-when="group">
