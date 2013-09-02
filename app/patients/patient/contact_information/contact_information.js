@@ -1,7 +1,7 @@
 angular.module('patient.contact_information', [])
 
     .config(['$routeProvider', function ($routeProvider) {
-`
+
         $routeProvider.when('/patient/:patient_id/contact-information', {
             templateUrl:'app/patients/patient/contact_information/contact_information.tpl.html',
             controller:'ContactInformationCtrl',
