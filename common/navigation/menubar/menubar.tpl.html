@@ -28,17 +28,20 @@
                 {{ page.first_name }} {{ page.last_name }}
             </div>
             <div class="menubar-section">
-                <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/12/summary-dashboard">
+                <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ parts[0] }}/summary-dashboard">
                     Summary
                 </a>
             </div>
             <div class="menubar-section">
-                <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/12/clinical-summary">Clinical Summary</a>
-                <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/12/xrays">X-Rays</a>
-                <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/12/genetic-reports">Genetic Reports</a>
-                <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/12/diagnoses">Diagnoses</a>
+                <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/{{ parts[0] }}/clinical-summary">Clinical Summary</a>
+                <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/{{ parts[0] }}/xrays">X-Rays</a>
+                <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/{{ parts[0] }}/genetic-reports">Genetic Reports</a>
+                <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/{{ parts[0] }}/diagnoses">Diagnoses</a>
             </div>
             <div class="menubar-section">
+                <pre>
+                    {{ page }}
+                </pre>
                 <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>
                 <a class="menubar-item" href="">European Bone Dysplasia Network</a>
             </div>
