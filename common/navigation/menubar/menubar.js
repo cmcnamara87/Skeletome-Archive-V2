@@ -1,42 +1,55 @@
 angular.module('directives.navigation.menubar', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('menubar', ['$location', 'Page', 'MembershipModel', 'AuthService', function ($location, Page, MembershipModel, AuthService) {
+    .directive('menubar', ['$location', 'MembershipModel', 'AuthService', 'PatientModel', 'ShareModel', function ($location, MembershipModel, AuthService, PatientModel, ShareModel) {
 
         return {
             restrict: 'E',
             templateUrl: 'common/navigation/menubar/menubar.tpl.html',
             controller: function($scope) {
-                $scope.$watch(function() {
-                    return Page.getObject();
-                }, function(newValue) {
-                    $scope.page = Page.getObject();
-                });
             },
             link: function ($scope, element, attrs) {
 
                 $scope.$watch(function() {
-                    return $location.path()
+                    return $location.path();
                 }, function(newValue, oldValue) {
-                    // split it into its parts
-                    var parts = newValue.split("/");
-                    $scope.type = parts[1];
+                    // Need to determine the type of sidebar to show
 
-                    // Save it minus the "#"
-                    $scope.parts = parts.slice(1);
+                    // two types, top level pages, non top level pages
+                    var parts = $location.path().split("/");
+                    parts = parts.slice(1);
 
-                    // Load the looping ones
-                    if($scope.parts[0] == "patients" && oldValue != "patients") {
-                        // We need to get the memberships
+                    $scope.menubarType = null;
+
+                    if(parts[0] == "groups" || parts[0] == "patients" || parts[0] == "user" || parts[0] == "feed") {
+                        // top level pages
+                        $scope.menubarType = parts[0];
+                    } else {
+                        // non-top level pages, we go from the end to work out how to do it
+                        $scope.menubarSelectedItem = parts[parts.length - 1];
+                        $scope.menubarObjectId = parts[parts.length - 2];
+                        $scope.menubarType = parts[parts.length - 3];
+                    }
+                });
+
+
+                $scope.$watch('menubarType', function(menubarType) {
+                    if(menubarType == "patient") {
+                        $scope.patient = PatientModel.get({id: $scope.menubarObjectId});
+                        $scope.shares = ShareModel.index({patient_id: $scope.menubarObjectId});
+
+                    } else if (menubarType == "share") {
+                        $scope.share = ShareModel.get({id: $scope.menubarObjectId});
+
+                    } else if (menubarType == "patients") {
                         $scope.$watch(function() {
                             return AuthService.getUser()
                         }, function(user) {
-                           if(user) {
-                               $scope.memberships = MembershipModel.index({user_id: AuthService.getUser().uid});
-                           }
+                            if(user) {
+                                $scope.memberships = MembershipModel.index({user_id: AuthService.getUser().uid});
+                            }
                         });
                     }
-
                 });
             }
         };

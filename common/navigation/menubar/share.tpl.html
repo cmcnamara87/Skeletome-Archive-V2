@@ -1,0 +1,18 @@
+<div>
+    <div class="menubar-heading">
+        {{ share.group.name }}
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': menubarSelectedItem == 'discussion'}"
+           class="menubar-item"
+           href="#/patient/{{ share.patient_id }}/share/{{ menubarObjectId }}/discussion">
+            Discussion
+        </a>
+
+        <a ng-class="{'selected': menubarSelectedItem == 'diagnoses'}"
+           class="menubar-item"
+           href="#/patient/{{ share.patient_id }}/share/{{ menubarObjectId }}/diagnoses">
+            Diagnoses
+        </a>
+    </div>
+</div>

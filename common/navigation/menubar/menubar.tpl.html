@@ -1,6 +1,6 @@
 <div class="menubar">
 
-    <div ng-switch on="type">
+    <div ng-switch on="menubarType">
 
         <div ng-switch-when="feed">
             <div class="menubar-heading">
@@ -14,6 +14,9 @@
 
         <div ng-switch-when="patient"
              ng-include="'common/navigation/menubar/patient.tpl.html'">
+        </div>
+        <div ng-switch-when="share"
+             ng-include="'common/navigation/menubar/share.tpl.html'">
         </div>
 
         <div ng-switch-when="groups"

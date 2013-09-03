@@ -6,7 +6,7 @@ angular.module('patient.summary_dashboard', [])
             templateUrl:'app/patients/patient/summary_dashboard/summary_dashboard.tpl.html',
             controller:'SummaryDashboardCtrl',
             resolve:{
-                patient: ['PatientModel', '$route', '$q', 'Page', function (PatientModel, $route, $q, Page) {
+                patient: ['PatientModel', '$route', '$q', function (PatientModel, $route, $q) {
 
                     var defer = $q.defer();
 

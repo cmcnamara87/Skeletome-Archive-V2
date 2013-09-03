@@ -17,6 +17,9 @@ angular.module('patient.genetic_reports', [])
                     });
 
                     return defer.promise;
+                }],
+                currentUser: ['AuthService', function(AuthService) {
+                    return AuthService.requireAuthenticated();
                 }]
             }
         });

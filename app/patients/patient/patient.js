@@ -8,5 +8,8 @@ angular.module('patient',
         'patient.clinical_summary',
         'patient.contact_information',
         'patient.other_ids',
-        'patient.consent'
+        'patient.consent',
+        'patient.sharing',
+        'patient.community',
+        'patient.share'
     ]);

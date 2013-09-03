@@ -1,0 +1,17 @@
+<div>
+    <div class="content-title">
+        Community
+    </div>
+
+    <table class="table content-table">
+        <tr>
+            <th>Name</th>
+        </tr>
+        <tr ng-repeat="share in shares">
+            <td>
+                <a href="#/patient/{{ patient_id }}/share/{{ share.id }}/discussion">{{ share.group.name }}</a>
+            </td>
+        </tr>
+    </table>
+
+</div>

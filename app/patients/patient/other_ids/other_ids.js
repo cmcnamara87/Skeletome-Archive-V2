@@ -8,6 +8,7 @@ angular.module('patient.other_ids', [])
             resolve:{
                 identifiers: ['IdentifierModel', '$route', '$q', function (IdentifierModel, $route, $q) {
                     var defer = $q.defer();
+
                     var identifiers = IdentifierModel.index({
                         patient_id: $route.current.params.patient_id
                     }, function() {
@@ -17,7 +18,11 @@ angular.module('patient.other_ids', [])
                     });
 
                     return defer.promise;
+                }],
+                currentUser: ['AuthService', function(AuthService) {
+                    return AuthService.requireAuthenticated();
                 }]
+
             }
         });
     }])

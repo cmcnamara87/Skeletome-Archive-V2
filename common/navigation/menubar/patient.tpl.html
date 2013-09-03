@@ -1,38 +1,54 @@
 <div>
     <div class="menubar-heading">
-        {{ page.first_name }} {{ page.last_name }}
+        {{ patient.first_name }} {{ patient.last_name }}
     </div>
     <div class="menubar-section">
-        <a ng-class="{'selected': parts[2] == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ parts[0] }}/summary-dashboard">
+        <a ng-class="{'selected': menubarSelectedItem == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/summary-dashboard">
             Summary
         </a>
     </div>
     <div class="menubar-section">
-        <a ng-class="{'selected': parts[2] == 'contact-information'}"
+        <a ng-class="{'selected': menubarSelectedItem == 'contact-information'}"
            class="menubar-item"
-           href="#/patient/{{ parts[1] }}/contact-information">
+           href="#/patient/{{ menubarObjectId }}/contact-information">
             Contact Information
         </a>
-        <a ng-class="{'selected': parts[2] == 'other-ids'}"
+        <a ng-class="{'selected': menubarSelectedItem == 'other-ids'}"
            class="menubar-item"
-           href="#/patient/{{ parts[1] }}/other-ids">
+           href="#/patient/{{ menubarObjectId }}/other-ids">
             Other IDs
         </a>
-        <a ng-class="{'selected': parts[2] == 'consent'}"
+        <a ng-class="{'selected': menubarSelectedItem == 'consent'}"
            class="menubar-item"
-           href="#/patient/{{ parts[1] }}/consent">
+           href="#/patient/{{ menubarObjectId }}/consent">
             Consent
+        </a>
+        <a ng-class="{'selected': menubarSelectedItem == 'sharing'}"
+           class="menubar-item"
+           href="#/patient/{{ menubarObjectId }}/sharing">
+            Sharing
         </a>
     </div>
     <div class="menubar-section">
-        <a ng-class="{'selected': parts[2] == 'clinical-summary'}" class="menubar-item" href="#/patient/{{ parts[1] }}/clinical-summary">Clinical Summary</a>
-        <a ng-class="{'selected': parts[2] == 'xrays'}" class="menubar-item" href="#/patient/{{ parts[1] }}/xrays">X-Rays</a>
-        <a ng-class="{'selected': parts[2] == 'genetic-reports'}" class="menubar-item" href="#/patient/{{ parts[1] }}/genetic-reports">Genetic Reports</a>
-        <a ng-class="{'selected': parts[2] == 'diagnoses'}" class="menubar-item" href="#/patient/{{ parts[1] }}/diagnoses">Diagnoses</a>
+        <a ng-class="{'selected': menubarSelectedItem == 'clinical-summary'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/clinical-summary">Clinical Summary</a>
+        <a ng-class="{'selected': menubarSelectedItem == 'xrays'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/xrays">X-Rays</a>
+        <a ng-class="{'selected': menubarSelectedItem == 'genetic-reports'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/genetic-reports">Genetic Reports</a>
+        <a ng-class="{'selected': menubarSelectedItem == 'diagnoses'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/diagnoses">Diagnoses</a>
     </div>
 
     <div class="menubar-section">
-        <a class="menubar-item" href="">Australian Bone Dysplasia Society</a>
-        <a class="menubar-item" href="">European Bone Dysplasia Network</a>
+        <a ng-class="{'selected': menubarSelectedItem == 'community'}"
+           class="menubar-item"
+           href="#/patient/{{ menubarObjectId }}/community">
+            Community
+        </a>
+
+        <!--<div ng-repeat="share in shares">
+            <a ng-class="{'selected': menubarSelectedItem == 'share' && parts[3] == share.id}"
+               class="menubar-item"
+               href="#/patient/{{ menubarObjectId }}/share/{{ share.id }}">
+                {{ share.group.name }}
+            </a>
+        </div>-->
     </div>
 </div>

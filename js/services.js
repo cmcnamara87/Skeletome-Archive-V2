@@ -38,16 +38,8 @@ myApp.services.factory('apiUrl', function(baseUrl) {
 });
 
 
-myApp.services.factory('Page', function() {
-    var object = null;
+myApp.services.factory('MenubarService', function() {
     return {
-        getObject: function() {
-            return object;
-        },
-        setObject: function(obj) {
-            object = obj;
-            console.log("object set", object);
-        }
     }
 });
 
@@ -216,11 +208,13 @@ myApp.services.factory('AddressModel', function ($resource, apiUrl) {
     return MyResource;
 });
 
-myApp.services.factory('ShareModel', function ($resource, apiUrl) {
+myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'share/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     });
-
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
     return MyResource;
 });
 
@@ -230,10 +224,14 @@ myApp.services.factory('GroupModel', function ($resource, apiUrl) {
     });
 });
 
-myApp.services.factory('PostModel', function ($resource, apiUrl) {
-    return $resource(apiUrl + 'post/:id', {
+myApp.services.factory('PostModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'post/:id', {
         id: '@id' //this binds the ID of the model to the URL param
     });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
 });
 myApp.services.factory('ReplyModel', function ($resource, apiUrl) {
     return $resource(apiUrl + 'reply/:id', {

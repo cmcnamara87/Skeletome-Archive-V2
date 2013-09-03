@@ -5,7 +5,7 @@ angular.module('patients', [])
             templateUrl:'app/patients/my_patients/my_patients.tpl.html',
             controller:'MyPatientsCtrl',
             resolve:{
-                patients: ['PatientModel', 'AuthService', '$q', 'Param', function (PatientModel, AuthService, $q, Param) {
+                patients: ['PatientModel', 'AuthService', '$q', function (PatientModel, AuthService, $q) {
 
                     var defer = $q.defer();
 
@@ -30,7 +30,8 @@ angular.module('patients', [])
         });
     }])
 
-    .controller('MyPatientsCtrl', ['$scope', '$location', 'patients', function ($scope, $location, patients) {
+    .controller('MyPatientsCtrl', ['$scope', '$location', 'patients', function ($scope, $location, patients, MenubarService) {
         $scope.patients = patients;
+
     }]);
 

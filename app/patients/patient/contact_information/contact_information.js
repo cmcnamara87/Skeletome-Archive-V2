@@ -10,12 +10,10 @@ angular.module('patient.contact_information', [])
 
                     var defer = $q.defer();
 
-                    console.log("trying to resolve patient");
                     if(AuthService.getUser()) {
                         var patient = PatientModel.get({
                             'id': $route.current.params.patient_id
                         }, function() {
-
                             if(patient.uid == AuthService.getUser().uid) {
                                 defer.resolve(patient);
                             } else {
