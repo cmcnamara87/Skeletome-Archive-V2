@@ -1,6 +1,6 @@
 <div>
     <div class="content-title">
-        My Patients
+        {{ group.name }}
     </div>
     <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
 
@@ -13,7 +13,7 @@
         </tr>
         <tr ng-repeat="patient in patients">
             <td>
-                <a href="#/patient/{{ patient.id }}/summary-dashboard">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</a>
+                <a href="#/patient/{{ patient.id }}/summary-dashboard">Patient {{ patient.id }}</a>
             </td>
             <td>
                 Achondroplasia

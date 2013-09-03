@@ -24,16 +24,19 @@ angular.module('directives.navigation.menubar', [])
                     if(parts[0] == "groups" || parts[0] == "patients" || parts[0] == "user" || parts[0] == "feed") {
                         // top level pages
                         $scope.menubarType = parts[0];
+                        $scope.menubarObjectId = parts[1];
+
                     } else {
                         // non-top level pages, we go from the end to work out how to do it
-                        $scope.menubarSelectedItem = parts[parts.length - 1];
-                        $scope.menubarObjectId = parts[parts.length - 2];
                         $scope.menubarType = parts[parts.length - 3];
+                        $scope.menubarObjectId = parts[parts.length - 2];
+                        $scope.menubarSelectedItem = parts[parts.length - 1];
                     }
                 });
 
 
                 $scope.$watch('menubarType', function(menubarType) {
+
                     if(menubarType == "patient") {
                         $scope.patient = PatientModel.get({id: $scope.menubarObjectId});
                         $scope.shares = ShareModel.index({patient_id: $scope.menubarObjectId});

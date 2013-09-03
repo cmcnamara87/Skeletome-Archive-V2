@@ -11,49 +11,38 @@ myApp.directives.directive('appVersion', ['version', 'apiUrl', function(version,
     };
 }]);
 
-myApp.directives.directive('login', function() {
-    return function(scope, elm, attrs) {
-        elm.text(apiUrl);
-    };
-});
 
 myApp.directives.directive('login', function() {
     return {
         restrict: 'E',
         scope: {
         },
-        template: '<div>\n    <div ng-show="isLoading">\n        Loading...\n    </div>\n    <div ng-show="!isLoading">\n        <div ng-show="currentUser">\n            {{ currentUser.name }}\n            <button ng-click="logout()">Logout</button>\n        </div>\n\n        <form ng-show="!currentUser">\n            <label>\n                Username\n                <input type="type" ng-model="credentials.username"/>\n            </label>\n            <label >\n                Password\n                <input type="password" ng-model="credentials.password"/>\n            </label>\n\n            <input type="submit" ng-click="login(credentials)"/>\n        </form>\n    </div>\n    \n</div>',
+        template: '<div>\n    TeST\n    <div ng-show="isLoading">\n        Loading...\n        \n    </div>\n    <div ng-show="!isLoading">\n        <div ng-show="currentUser">\n            {{ currentUser.name }}\n            <button ng-click="logout()">Logout</button>\n        </div>\n\n        <form ng-show="!currentUser">\n            <label>\n                Username\n                <input type="type" ng-model="credentials.username"/>\n            </label>\n            <label >\n                Password\n                <input type="password" ng-model="credentials.password"/>\n            </label>\n\n            <input type="submit" ng-click="login(credentials)"/>\n        </form>\n    </div>\n    \n</div>',
         replace: true,
-        controller: function ( $scope, auth, $location) {
+        controller: function ( $scope, AuthService, $location) {
             $scope.credentials = {};
 
             $scope.isLoading = true;
 
-            $scope.currentUser = auth.getUser();
-            if(!$scope.currentUser) {
-                $scope.isLoading = false;
-            }
+            console.log("current user is", AuthService.getUser());
 
-            console.log("current user is", auth.getUser());
+//            // check current user
+            AuthService.requireAuthenticated();;
 
-            // check current user
-            auth.checkCurrentUser().then(function(currentUser) {
+            $scope.$watch(function() {
+                return AuthService.getUser()
+            }, function(user) {
+                $scope.currentUser = user;
                 $scope.isLoading = false;
-                $scope.currentUser = auth.getUser();
-                $location.path('/home');
             });
 
             $scope.login = function(credentials) {
-                auth.login(credentials).then(function(response) {
-                    $location.path('/home');
-                    $scope.currentUser = auth.getUser();
-
-                });
+                AuthService.login(credentials);
+                $location.path('/feed');
             }
 
             $scope.logout = function() {
-                $scope.currentUser = null;
-                auth.logout();
+                AuthService.logout();
             }
         },
         link: function(scope, elem, attrs) {

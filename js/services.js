@@ -339,6 +339,7 @@ myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, co
                         if(data.user.uid == 0) {
                             // anonymous user, no one logged in
                             user = null;
+                            console.log("AuthService: Not logged in");
                             defer.reject();
                         } else {
                             storeSession(data);

@@ -1,4 +1,4 @@
-angular.module('patients', [])
+angular.module('patients.my_patients', [])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/patients/my-patients', {

@@ -1,7 +1,7 @@
 'use strict';
 
 
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'patient', 'feed', 'directives.navigation']).
+var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'feed', 'directives.navigation']).
     config(['$routeProvider', function($routeProvider) {
 
         /**
@@ -17,7 +17,21 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
          * Not logged in page
          */
         $routeProvider.when('/login', {
-            templateUrl: 'partials/login.html'
+            templateUrl: 'partials/login.html',
+            resolve: {
+                currentUser: ['AuthService', '$q', function(AuthService, $q) {
+                    var defer = $q.defer();
+
+                    AuthService.requireAuthenticated().then(function(user) {
+                        defer.resolve(user);
+                    }, function() {
+                        defer.resolve(null)
+                    });
+
+                    return defer.promise
+                }]
+            }
+
         });
 
 
@@ -311,9 +325,9 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
             controller: 'NewGroupCtrl'
         });
 
-//        $routeProvider.otherwise({
-//            redirectTo: '/login'
-//        });
+        $routeProvider.otherwise({
+            redirectTo: '/login'
+        });
     }]);
 
 myApp.run(function($rootScope, $templateCache) {
