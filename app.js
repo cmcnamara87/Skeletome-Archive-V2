@@ -1,7 +1,16 @@
 'use strict';
 
 
-var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers', 'ngCookies', 'patients', 'feed', 'directives.navigation']).
+var myApp = angular.module('myApp', [
+        'myApp.filters',
+        'myApp.services',
+        'myApp.directives',
+        'myApp.controllers',
+        'ngCookies',
+        'patients',
+        'groups',
+        'feed',
+        'directives.navigation']).
     config(['$routeProvider', function($routeProvider) {
 
         /**
@@ -266,42 +275,42 @@ var myApp = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.d
                 }
             }
         });
-        $routeProvider.when('/groups/my-groups', {
-            templateUrl: 'partials/group/my_groups.html',
-            controller: 'GroupsCtrl',
-            resolve: {
-                memberships: function($q, MembershipModel, Param, auth) {
-                    var defer = $q.defer();
-//
-                    var memberships = MembershipModel.query(Param.makeParams({user_id: auth.getUser().uid }), function(data) {
-                        console.log("user is", auth.getUser().uid);
-                        console.log("memberships", memberships);
-                        defer.resolve(memberships);
-                    }, function(data) {
-                        defer.reject();
-                    });
-                    return defer.promise;
-                }
-            }
-        });
-        $routeProvider.when('/groups/all-groups', {
-            templateUrl: 'partials/group/all_groups.html',
-            controller: 'GroupsCtrl',
-            resolve: {
-                memberships: function($q, MembershipModel, Param, auth) {
-                    var defer = $q.defer();
-//
-                    var memberships = MembershipModel.query(Param.makeParams({user_id: auth.getUser().uid }), function(data) {
-                        console.log("user is", auth.getUser().uid);
-                        console.log("memberships", memberships);
-                        defer.resolve(memberships);
-                    }, function(data) {
-                        defer.reject();
-                    });
-                    return defer.promise;
-                }
-            }
-        });
+//        $routeProvider.when('/groups/my-groups', {
+//            templateUrl: 'partials/group/my_groups.html',
+//            controller: 'GroupsCtrl',
+//            resolve: {
+//                memberships: function($q, MembershipModel, Param, auth) {
+//                    var defer = $q.defer();
+////
+//                    var memberships = MembershipModel.query(Param.makeParams({user_id: auth.getUser().uid }), function(data) {
+//                        console.log("user is", auth.getUser().uid);
+//                        console.log("memberships", memberships);
+//                        defer.resolve(memberships);
+//                    }, function(data) {
+//                        defer.reject();
+//                    });
+//                    return defer.promise;
+//                }
+//            }
+//        });
+//        $routeProvider.when('/groups/all-groups', {
+//            templateUrl: 'partials/group/all_groups.html',
+//            controller: 'GroupsCtrl',
+//            resolve: {
+//                memberships: function($q, MembershipModel, Param, auth) {
+//                    var defer = $q.defer();
+////
+//                    var memberships = MembershipModel.query(Param.makeParams({user_id: auth.getUser().uid }), function(data) {
+//                        console.log("user is", auth.getUser().uid);
+//                        console.log("memberships", memberships);
+//                        defer.resolve(memberships);
+//                    }, function(data) {
+//                        defer.reject();
+//                    });
+//                    return defer.promise;
+//                }
+//            }
+//        });
 
         $routeProvider.when('/group/:group_id', {
             templateUrl: 'partials/group/group.html',

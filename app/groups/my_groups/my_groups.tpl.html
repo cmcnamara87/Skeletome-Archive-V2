@@ -1,0 +1,22 @@
+<div>
+    <div class="content-title">
+        My Groups
+    </div>
+    <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
+
+    <table class="table content-table">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+        </tr>
+        <tr ng-repeat="membership in memberships">
+            <td>
+                <a href="#/group/{{ membership.group.id }}/summary">{{ membership.group.name }}</a>
+            </td>
+            <td>
+                <a href="#/group/{{ membership.group.id }}/summary">{{ membership.group.location }}</a>
+            </td>
+        </tr>
+    </table>
+
+</div>

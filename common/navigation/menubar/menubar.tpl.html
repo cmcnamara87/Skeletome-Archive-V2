@@ -2,10 +2,8 @@
 
     <div ng-switch on="menubarType">
 
-        <div ng-switch-when="feed">
-            <div class="menubar-heading">
-                Feed
-            </div>
+        <div ng-switch-when="feed"
+             ng-include="'common/navigation/menubar/feed.tpl.html'">
         </div>
 
         <div ng-switch-when="patients"
