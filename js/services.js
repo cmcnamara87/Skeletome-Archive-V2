@@ -233,10 +233,16 @@ myApp.services.factory('PostModel', function ($resource, apiUrl, Param) {
     }
     return MyResource;
 });
-myApp.services.factory('ReplyModel', function ($resource, apiUrl) {
-    return $resource(apiUrl + 'reply/:id', {
+myApp.services.factory('ReplyModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'reply/:id', {
         id: '@id' //this binds the ID of the model to the URL param
     });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
+
 });
 
 

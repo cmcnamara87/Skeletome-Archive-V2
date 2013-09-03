@@ -6,13 +6,19 @@ angular.module('patient.share.discussion', [])
             templateUrl:'app/patients/patient/share/discussion/discussion.tpl.html',
             controller:'DiscussionCtrl',
             resolve:{
-                posts: ['PostModel', '$route', '$q', function (PostModel, $route, $q) {
+                posts: ['PostModel', 'ReplyModel', '$route', '$q', function (PostModel, ReplyModel, $route, $q) {
 
                     var defer = $q.defer();
 
                     var posts = PostModel.index({
-                        'share_id': $route.current.params.share_id
+                        share_id: $route.current.params.share_id
                     }, function() {
+
+                        angular.forEach(posts, function(post, postIndex) {
+                            post.replies = ReplyModel.index({
+                                post_id: post.id
+                            })
+                        });
                         defer.resolve(posts);
                     });
 

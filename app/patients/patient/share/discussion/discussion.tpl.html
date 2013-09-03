@@ -4,9 +4,12 @@
     </div>
 
     <div>
-        <div ng-repeat="post in posts">
-            {{ post.user.name }}
+        <div ng-repeat="post in posts" class="well">
+            <b>{{ post.user.name }}</b>
             {{ post.text }}
+            <div ng-repeat="reply in post.replies" class="well">
+                <b>{{ reply.user.name }}</b> {{ reply.text }}
+            </div>
         </div>
     </div>
 

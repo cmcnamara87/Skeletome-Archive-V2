@@ -22,7 +22,7 @@ function post_resource_entity_info() {
                 'id' => 'id',
             ),
             'entity class'           => 'Entity',
-            'controller class'       => 'EntityAPIController',
+            'controller class'       => 'ReplyController',
         ),
     );
 }
@@ -41,6 +41,20 @@ class PostController extends EntityAPIController {
 
     } // Nothing to see here,
 }
+class ReplyController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->user = user_load($entity->uid);
+            unset($entity->user->password);
+        }
+        return $entities;
+
+    } // Nothing to see here,
+}
+
 
 
 
