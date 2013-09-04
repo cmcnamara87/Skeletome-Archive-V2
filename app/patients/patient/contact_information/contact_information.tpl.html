@@ -4,5 +4,17 @@
     </div>
 
     <div class="content-box">
+        <div class="well">
+            {{ patient.first_name }} {{ patient.last_name }}
+            {{ patient.alias }}
+            {{ patient.dob }}
+            {{ patient.gender }}
+            {{ patient.ethnicity }}
+        </div>
+        <div class="well">
+            <pre>
+                {{ addresses | json }}
+            </pre>
+        </div>
     </div>
 </div>

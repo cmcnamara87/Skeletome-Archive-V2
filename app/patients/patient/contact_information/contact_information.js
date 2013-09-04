@@ -24,6 +24,18 @@ angular.module('patient.contact_information', [])
                         defer.reject();
                     }
 
+                    return defer.promise;
+                }],
+                addresses: ['AddressModel', '$route', '$q', function(AddressModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var addresses = AddressModel.index({
+                        patient_id: $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(addresses);
+                    }, function() {
+                        defer.reject();
+                    });
 
                     return defer.promise;
                 }],
@@ -34,6 +46,7 @@ angular.module('patient.contact_information', [])
         });
     }])
 
-    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient) {
+    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', function ($scope, $location, patient, addresses) {
         $scope.patient = patient;
+        $scope.addresses = addresses;
     }]);

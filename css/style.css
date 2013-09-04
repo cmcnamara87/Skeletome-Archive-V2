@@ -364,14 +364,8 @@ header {
 .btn.btn-action {
     border: none;
     background-color: transparent;
-    color: #fff;
+    color: #bbb;
     padding: 0 7px;
-}
-td:hover .btn.btn-action {
-    color: #bbb;
-}
-tr:hover .btn.btn-action.btn-action-remove {
-    color: #bbb;
 }
 
 .navbar-archive {

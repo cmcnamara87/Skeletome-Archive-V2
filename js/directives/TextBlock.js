@@ -5,7 +5,7 @@ myApp.directives.directive('textBlock', function() {
             model: '=',
             value: '='
         },
-        template: '<div">\n    \n    <span ng-dblclick="edit()" ng-show="!isEditing">{{ value }}</span>\n\n    <span ng-show="isEditing">\n        <textarea rows="20" class="form-control" ng-model="value"></textarea>\n    </span>\n\n    <!-- Editing controls -->\n    <span>\n        <span ng-show="!isEditing">\n            <button ng-click="edit()"><i class="icon icon-pencil"></i></button>\n        </span>\n        \n        <span ng-show="isEditing">\n            <button ng-click="save()" ><i class="icon icon-save"></i></button>\n            <button ng-click="cancel()"><i class="icon icon-remove"></i></button>    \n        </span>\n    </span>\n    \n</div>',
+        template: '<div">\n    \n    <span ng-dblclick="edit()" ng-show="!isEditing">{{ value }}</span>\n\n    <span ng-show="isEditing">\n        <textarea rows="20" class="form-control" ng-model="value"></textarea>\n    </span>\n\n    <!-- Editing controls -->\n    <span>\n        <span ng-show="!isEditing">\n            <button class="btn btn-action" ng-click="edit()"><i class="icon icon-pencil"></i></button>\n        </span>\n        \n        <span ng-show="isEditing">\n            <button class="btn btn-action" ng-click="save()" ><i class="icon icon-save"></i></button>\n            <button class="btn btn-action" ng-click="cancel()"><i class="icon icon-remove"></i></button>    \n        </span>\n    </span>\n    \n</div>',
         replace: true,
         controller: function ( $scope, AuthService) {
             var that = this;

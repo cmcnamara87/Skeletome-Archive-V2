@@ -204,13 +204,17 @@ myApp.services.factory('IdentifierModel', function ($resource, apiUrl, Param) {
 
     return MyResource;
 });
-myApp.services.factory('AddressModel', function ($resource, apiUrl) {
+myApp.services.factory('AddressModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'address/:id', {
             id: '@id' //this binds the ID of the model to the URL param,
         },
         {
             update: {method:'PUT'}
         });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
 
