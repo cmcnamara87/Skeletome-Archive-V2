@@ -3,29 +3,32 @@
     <div ng-switch on="menubarType">
 
         <div ng-switch-when="feed"
-             ng-include="'common/navigation/menubar/feed.tpl.html'">
+             ng-include="'common/navigation/menubar/types/feed.tpl.html'">
         </div>
 
         <div ng-switch-when="patients"
-             ng-include="'common/navigation/menubar/patients.tpl.html'">
+             ng-include="'common/navigation/menubar/types/patients.tpl.html'">
         </div>
 
         <div ng-switch-when="patient"
-             ng-include="'common/navigation/menubar/patient.tpl.html'">
+             ng-include="'common/navigation/menubar/types/patient.tpl.html'">
         </div>
         <div ng-switch-when="share"
-             ng-include="'common/navigation/menubar/share.tpl.html'">
+             ng-include="'common/navigation/menubar/types/share.tpl.html'">
         </div>
 
         <div ng-switch-when="groups"
-             ng-include="'common/navigation/menubar/groups.tpl.html'">
+             ng-include="'common/navigation/menubar/types/groups.tpl.html'">
         </div>
 
-        <div ng-switch-when="group">
-            <div class="menubar-heading">
-                Group Name Here
-            </div>
+        <div ng-switch-when="group"
+             ng-include="'common/navigation/menubar/types/group.tpl.html'">
         </div>
+
+        <div ng-switch-when="user"
+             ng-include="'common/navigation/menubar/types/user.tpl.html'">
+        </div>
+
     </div>
 
 </div>

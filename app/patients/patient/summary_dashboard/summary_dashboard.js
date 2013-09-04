@@ -25,6 +25,6 @@ angular.module('patient.summary_dashboard', [])
         });
     }])
 
-    .controller('SummaryDashboardCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient, Page) {
+    .controller('SummaryDashboardCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient) {
         $scope.patient = patient;
     }]);

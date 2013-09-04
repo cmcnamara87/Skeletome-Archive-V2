@@ -1,0 +1,20 @@
+<div>
+    <div class="menubar-heading">
+        {{ group.name }}&nbsp;
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': menubarSelectedItem == 'summary'}" class="menubar-item" href="#/group/{{ menubarObjectId }}/summary">
+            Summary
+        </a>
+        <a ng-class="{'selected': menubarSelectedItem == 'members'}" class="menubar-item" href="#/group/{{ menubarObjectId }}/members">
+            Members
+        </a>
+    </div>
+    <div class="menubar-section">
+        <a ng-class="{'selected': menubarSelectedItem == 'patients'}"
+           class="menubar-item"
+           href="#/group/{{ menubarObjectId }}/patients">
+            Patients
+        </a>
+    </div>
+</div>

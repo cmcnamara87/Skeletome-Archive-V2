@@ -38,7 +38,7 @@ angular.module('directives.navigation.breadcrumbbar', [])
                                     var root = "<a href='#/patients/my-patients'>My Groups<a/>";
                                 }
 
-                              
+
                                 $scope.breadcrumbs = root + " > <a href='#/patient/" + patient.id + "/summary-dashboard'>" + patient.first_name + " " + patient.last_name + "</a>";
                             });
                         }

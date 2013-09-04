@@ -48,9 +48,15 @@ myApp.services.factory('apiUrl2', function(baseUrl) {
 });
 
 myApp.services.factory('UserModel', function ($resource, apiUrl) {
-    return $resource(apiUrl + 'user/:id', {
-        id: '@id' //this binds the ID of the model to the URL param
+    var MyResource = $resource(apiUrl + 'user/:uid', {
+        uid: '@uid' //this binds the ID of the model to the URL param
     });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+    return MyResource;
 });
 
 myApp.services.factory('Param', function ($resource, apiUrl) {
@@ -218,10 +224,14 @@ myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
-myApp.services.factory('GroupModel', function ($resource, apiUrl) {
-    return $resource(apiUrl + 'group/:id', {
+myApp.services.factory('GroupModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'group/:id', {
         id: '@id' //this binds the ID of the model to the URL param
     });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
 });
 
 myApp.services.factory('PostModel', function ($resource, apiUrl, Param) {

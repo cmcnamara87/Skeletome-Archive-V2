@@ -1,4 +1,4 @@
-angular.module('patient',
+angular.module('patients.patient',
     [
         'patient.clinical_summary',
         'patient.genetic_reports',

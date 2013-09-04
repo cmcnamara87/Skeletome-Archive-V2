@@ -3,7 +3,7 @@ angular.module('patients.group_patients', [])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/patients/:group_id/:group_name', {
             templateUrl:'app/patients/group_patients/group_patients.tpl.html',
-            controller:'GroupPatientsCtrl',
+            controller:'PatientsGroupCtrl',
             resolve:{
                 group: ['GroupModel', '$route', '$q', function(GroupModel, $route, $q) {
                     var defer = $q.defer();
@@ -49,7 +49,7 @@ angular.module('patients.group_patients', [])
         });
     }])
 
-    .controller('GroupPatientsCtrl', ['$scope', '$location', 'patients', 'group', function ($scope, $location, patients, group) {
+    .controller('PatientsGroupCtrl', ['$scope', '$location', 'patients', 'group', function ($scope, $location, patients, group) {
         $scope.patients = patients;
         $scope.group = group;
     }]);

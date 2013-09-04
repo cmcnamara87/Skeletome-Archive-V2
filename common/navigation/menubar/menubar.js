@@ -1,7 +1,7 @@
 angular.module('directives.navigation.menubar', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('menubar', ['$location', 'MembershipModel', 'AuthService', 'PatientModel', 'ShareModel', function ($location, MembershipModel, AuthService, PatientModel, ShareModel) {
+    .directive('menubar', ['$location', 'MembershipModel', 'AuthService', 'PatientModel', 'ShareModel', 'GroupModel', function ($location, MembershipModel, AuthService, PatientModel, ShareModel, GroupModel) {
 
         return {
             restrict: 'E',
@@ -37,14 +37,19 @@ angular.module('directives.navigation.menubar', [])
 
                 $scope.$watch('menubarType', function(menubarType) {
 
+                    if(menubarType == "group") {
+                        $scope.group = GroupModel.get({id: $scope.menubarObjectId});
+                    }
                     if(menubarType == "patient") {
                         $scope.patient = PatientModel.get({id: $scope.menubarObjectId});
                         $scope.shares = ShareModel.index({patient_id: $scope.menubarObjectId});
 
-                    } else if (menubarType == "share") {
+                    }
+                    if (menubarType == "share") {
                         $scope.share = ShareModel.get({id: $scope.menubarObjectId});
 
-                    } else if (menubarType == "patients") {
+                    }
+                    if (menubarType == "patients") {
                         $scope.$watch(function() {
                             return AuthService.getUser()
                         }, function(user) {
