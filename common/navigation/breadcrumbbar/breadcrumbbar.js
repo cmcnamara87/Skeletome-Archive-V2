@@ -22,7 +22,7 @@ angular.module('directives.navigation.breadcrumbbar', [])
                     } else if(parts[0] == "patient") {
                         if(parts[2] == "share") {
                             var myPatient = PatientModel.get({id: parts[1]}, function(patient) {
-                                if(patient.uid == AuthService.getUser().uid) {
+                                if(AuthService.getUser() && patient.uid == AuthService.getUser().uid) {
                                     var root = "<a href='#/patients/my-patients'>My Patients<a/>";
                                 } else {
                                     var root = "<a href='#/patients/my-patients'>My Groups<a/>";
@@ -32,7 +32,7 @@ angular.module('directives.navigation.breadcrumbbar', [])
                             });
                         } else {
                             var myPatient = PatientModel.get({id: parts[1]}, function(patient) {
-                                if(patient.uid == AuthService.getUser().uid) {
+                                if(AuthService.getUser() && patient.uid == AuthService.getUser().uid) {
                                     var root = "<a href='#/patients/my-patients'>My Patients<a/>";
                                 } else {
                                     var root = "<a href='#/patients/my-patients'>My Groups<a/>";

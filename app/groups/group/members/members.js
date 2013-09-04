@@ -4,7 +4,7 @@ angular.module('group.members', [])
 
         $routeProvider.when('/group/:group_id/members', {
             templateUrl:'app/groups/group/members/members.tpl.html',
-            controller:'GeneticReportsCtrl',
+            controller:'GroupMembershipCtrl',
             resolve:{
                 memberships: ['MembershipModel', 'UserModel', '$route', '$q', function (MembershipModel, UserModel, $route, $q) {
                     var defer = $q.defer();
@@ -32,6 +32,6 @@ angular.module('group.members', [])
         });
     }])
 
-    .controller('GeneticReportsCtrl', ['$scope', '$location', 'memberships', function ($scope, $location, memberships) {
+    .controller('GroupMembershipCtrl', ['$scope', '$location', 'memberships', function ($scope, $location, memberships) {
         $scope.memberships = memberships;
     }]);
