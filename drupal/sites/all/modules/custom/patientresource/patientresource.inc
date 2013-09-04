@@ -69,28 +69,7 @@ function _patientresource_delete($id) {
 
 
 function _patientresource_index($page, $fields, $parameters, $page_size) {
-    module_load_include('inc', 'services', 'services.module');
-    $node_select = db_select('patients', 't')
-        ->orderBy('created', 'DESC');
-
-    services_resource_build_index_query($node_select, $page, $fields, $parameters, $page_size, 'patients');
-
-//    if (!user_access('administer nodes')) {
-////        $node_select->condition('', 1);
-//    }
-
-    $results = services_resource_execute_index_query($node_select);
-
-    $list = services_resource_build_index_list($results, 'patients', 'id');
-
-//    foreach($list as &$patient) {
-//        $patient->user = user_load($patient->uid);
-//        $membership->user = user_load($membership->user_id);
-//        unset($membership->user->pass);
-//        $membership->group = group_load($membership->group_id);
-//    }
-
-    return $list;
+    return resource_helper_index('patient', $page, $fields, $parameters, $page_size);
 }
 
 

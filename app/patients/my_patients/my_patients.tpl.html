@@ -16,10 +16,18 @@
                 <a href="#/patient/{{ patient.id }}/summary-dashboard">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</a>
             </td>
             <td>
-                Achondroplasia
+                <a href="#/patient/{{ patient.id }}/diagnoses">
+                    <span ng-show="patient.diagnoses.length">
+                        {{ patient.diagnoses[0].disorder.name }}
+                        <span ng-show="patient.diagnoses.length > 1">+ {{ patient.diagnoses.length - 1 }} More</span>
+                    </span>
+                    <span ng-show="patient.diagnoses.length == 0">
+                        No diagnosis
+                    </span>
+                </a>
             </td>
             <td>
-                0
+                <a href="#/patient/{{ patient.id }}/community">{{ patient.share_count }}</a>
             </td>
             <td>
                 <div class="dropdown">

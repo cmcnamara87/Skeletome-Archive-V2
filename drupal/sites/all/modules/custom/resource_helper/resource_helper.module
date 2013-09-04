@@ -1,0 +1,52 @@
+<?php
+
+function resource_helper_index($entity_type, $page, $fields, $parameters, $page_size) {
+
+    $query = new EntityFieldQuery();
+
+    $query->entityCondition('entity_type', $entity_type);
+
+    foreach($parameters as $parameter => $value) {
+        $query->propertyCondition($parameter, $value);
+    }
+    $query->range($page * $page_size, $page_size);
+    $result = $query->execute();
+    $ids = array_keys($result[$entity_type]);
+
+    $entity_function = $entity_type . "_load_multiple";
+
+    return call_user_func($entity_function, $ids);
+}
+
+
+function user_load_small($uid, $reset = FALSE) {
+    $users = user_load_multiple_small(array($uid), array(), $reset);
+    return reset($users);
+}
+
+function user_load_multiple_small($uids = array(), $conditions = array(), $reset = FALSE) {
+    $users = entity_load('user', $uids, $conditions, $reset);
+
+    $small_users = array();
+    foreach($users as $user) {
+        $small_user = new stdClass();
+        $small_user->uid = $user->uid;
+        $small_user->name = $user->name;
+        $small_user->mail = $user->mail;
+        $small_user->roles = $user->roles;
+
+        $small_user->created = $user->created;
+        $small_user->access = $user->access;
+        $small_user->login = $user->login;
+        $small_user->status = $user->status;
+        $small_user->timezone = $user->timezone;
+
+        $small_users[] = $small_user;
+    }
+
+    return $small_users;
+}
+
+
+
+

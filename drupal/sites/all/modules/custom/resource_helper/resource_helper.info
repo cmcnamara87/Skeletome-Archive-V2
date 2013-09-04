@@ -1,0 +1,8 @@
+name = Resource Helper
+description = Has some helper functions for the resources
+package = A - Resources
+
+core = 7.x
+
+files[] = resource_helper.inc
+files[] = resource_helper.module

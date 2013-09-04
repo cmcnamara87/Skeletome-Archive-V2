@@ -100,10 +100,10 @@ class VoteController extends EntityAPIController {
 
 
 function diagnosis_load($id, $reset = FALSE) {
-    return array_shift(diagnosis_load_multiple(array($id), $reset));
+    return reset(diagnosis_load_multiple(array($id), $reset));
 }
 function diagnosis_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('diagnosis', $ids, $conditions, $reset);
+    return array_values(entity_load('diagnosis', $ids, $conditions, $reset));
 }
 function diagnosis_save($entity) {
     entity_save('diagnosis', $entity);
@@ -113,10 +113,10 @@ function diagnosis_delete($id) {
 }
 
 function disorder_load($id, $reset = FALSE) {
-    return array_shift(disorder_load_multiple(array($id), $reset));
+    return reset(disorder_load_multiple(array($id), $reset));
 }
 function disorder_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('disorder', $ids, $conditions, $reset);
+    return array_values(entity_load('disorder', $ids, $conditions, $reset));
 }
 function disorder_save($entity) {
     entity_save('disorder', $entity);
@@ -127,10 +127,10 @@ function disorder_delete($id) {
 
 
 function vote_load($id, $reset = FALSE) {
-    return array_shift(vote_load_multiple(array($id), $reset));
+    return reset(vote_load_multiple(array($id), $reset));
 }
 function vote_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('vote', $ids, $conditions, $reset);
+    return array_values(entity_load('vote', $ids, $conditions, $reset));
 }
 function vote_save($entity) {
     entity_save('vote', $entity);
