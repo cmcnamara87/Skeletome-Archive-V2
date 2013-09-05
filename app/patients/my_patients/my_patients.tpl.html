@@ -9,7 +9,7 @@
             <th>Patient</th>
             <th>Diagnosis</th>
             <th>Shares</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
         <tr ng-repeat="patient in patients">
             <td>
@@ -31,7 +31,7 @@
             </td>
             <td>
                 <div class="dropdown">
-                    <a data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <button data-toggle="dropdown"><i class="icon icon-ellipsis-vertical"></i></button>
                     <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                         <li role="presentation"><a role="menuitem" tabindex="-1" href>Edit</a></li>
                         <li role="presentation" ng-click="deletePatient(patient)"><a role="menuitem" tabindex="-1" href>Delete</a></li>

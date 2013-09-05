@@ -1,0 +1,27 @@
+<div>
+    <!-- Has a model ID (means its saved in the database and we are editing -->
+    <span ng-show="model.id">
+        <span ng-dblclick="edit()" ng-show="!isEditing">{{ value || "Double click to edit" }}</span>
+
+        <span ng-show="isEditing">
+            <input type="text" ng-model="value" />
+        </span>
+
+        <!-- Editing controls -->
+        <span>
+            <span ng-show="!isEditing">
+                <button ng-click="edit()" class="btn btn-action"><i class="icon icon-pencil"></i></button>
+            </span>
+
+            <span ng-show="isEditing">
+                <button ng-click="save()" class="btn btn-action"><i class="icon icon-save"></i></button>
+                <button ng-click="cancel()" class="btn btn-action"><i class="icon icon-remove"></i></button>
+            </span>
+        </span>
+    </span>
+
+    <!-- No model id, so only show editing -->
+    <span ng-show="!model.id">
+        <input type="text" ng-model="value" class="form-control"/>
+    </span>
+</div>

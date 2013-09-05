@@ -6,7 +6,7 @@
  * @param object $data
  * @return object
  */
-function _gene_resource_gene_create($data) {
+function _gene_mutation_resource_gene_create($data) {
     global $user;
     if (isset($data) &&  is_array($data)) $data=(object) $data;
     unset($data->id);
@@ -27,7 +27,7 @@ function _gene_resource_gene_create($data) {
  * @param object $data
  * @return object
  */
-function _gene_resource_gene_update($id, $data) {
+function _gene_mutation_resource_gene_update($id, $data) {
     $group = gene_load($id);
 
     unset($data->created);
@@ -44,7 +44,7 @@ function _gene_resource_gene_update($id, $data) {
  * @param int $id
  * @return object
  */
-function _gene_resource_gene_retrieve($id) {
+function _gene_mutation_resource_gene_retrieve($id) {
     $membership = gene_load($id);
 
     return $membership;
@@ -56,24 +56,13 @@ function _gene_resource_gene_retrieve($id) {
  * @param int $id
  * @return object
  */
-function _gene_resource_gene_delete($id) {
+function _gene_mutation_resource_gene_delete($id) {
     return gene_delete($id);
 }
 
 
-function _gene_resource_gene_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'gene');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['gene']);
-
-    return post_load_multiple($ids);
+function _gene_mutation_resource_gene_index($page, $fields, $parameters, $page_size) {
+    return resource_helper_index('gene', $page, $fields, $parameters, $page_size);
 }
 
 /**
@@ -87,7 +76,7 @@ function _gene_resource_gene_index($page, $fields, $parameters, $page_size) {
  *  Whether access is given or not.
  */
 
-function _gene_resource_gene_access($op, $args) {
+function _gene_mutation_resource_gene_access($op, $args) {
     global $user;
     $access = FALSE;
 

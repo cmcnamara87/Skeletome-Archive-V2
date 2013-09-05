@@ -204,7 +204,7 @@ myApp.services.factory('IdentifierModel', function ($resource, apiUrl, Param) {
 
     return MyResource;
 });
-myApp.services.factory('AddressModel', function ($resource, apiUrl, Param) {
+myApp.services.factory('AddressModel', ['$resource', 'apiUrl', 'baseUrl', 'Param', '$http', '$q', function ($resource, apiUrl, baseUrl, Param, $http, $q) {
     var MyResource = $resource(apiUrl + 'address/:id', {
             id: '@id' //this binds the ID of the model to the URL param,
         },
@@ -215,8 +215,18 @@ myApp.services.factory('AddressModel', function ($resource, apiUrl, Param) {
         return MyResource.query(Param.makeParams(object), success, failure);
     }
 
+    MyResource.lookupAddress = function(input, type) {
+        var defer = $q.defer();
+
+        $http.get(baseUrl + "/drupal/api/addresslookup?parameters[input]=" + input + "&parameters[type]=" + type).success(function(data) {
+            defer.resolve(data);
+        });
+
+        return defer.promise;
+    }
+
     return MyResource;
-});
+}]);
 
 myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'share/:id', {
@@ -275,18 +285,25 @@ myApp.services.factory('GeneMutationModel', function ($resource, apiUrl, Param) 
 
     return MyResource;
 });
-myApp.services.factory('MutationTypeModel', function ($resource, apiUrl) {
+myApp.services.factory('MutationTypeModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'mutation_type/:id', {
             id: '@id' //this binds the ID of the model to the URL param,
         });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
     return MyResource;
 });
-myApp.services.factory('GeneModel', function ($resource, apiUrl) {
+myApp.services.factory('GeneModel', ['$resource', 'apiUrl', 'Param', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'gene/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
     return MyResource;
-});
+}]);
 
 
 myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, connectUrl, apiUrl2, $route) {

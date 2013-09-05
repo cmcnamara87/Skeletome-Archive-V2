@@ -6,7 +6,7 @@
  * @param object $data
  * @return object
  */
-function _mutation_type_resource_mutation_type_create($data) {
+function _gene_mutation_resource_mutation_type_create($data) {
     global $user;
     if (isset($data) &&  is_array($data)) $data=(object) $data;
     unset($data->id);
@@ -27,7 +27,7 @@ function _mutation_type_resource_mutation_type_create($data) {
  * @param object $data
  * @return object
  */
-function _mutation_type_resource_mutation_type_update($id, $data) {
+function _gene_mutation_resource_mutation_type_update($id, $data) {
     $group = mutation_type_load($id);
 
     unset($data->created);
@@ -44,7 +44,7 @@ function _mutation_type_resource_mutation_type_update($id, $data) {
  * @param int $id
  * @return object
  */
-function _mutation_type_resource_mutation_type_retrieve($id) {
+function _gene_mutation_resource_mutation_type_retrieve($id) {
     $membership = mutation_type_load($id);
 
     return $membership;
@@ -56,24 +56,13 @@ function _mutation_type_resource_mutation_type_retrieve($id) {
  * @param int $id
  * @return object
  */
-function _mutation_type_resource_mutation_type_delete($id) {
+function _gene_mutation_resource_mutation_type_delete($id) {
     return mutation_type_delete($id);
 }
 
 
-function _mutation_type_resource_mutation_type_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'mutation_type');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['mutation_type']);
-
-    return post_load_multiple($ids);
+function _gene_mutation_resource_mutation_type_index($page, $fields, $parameters, $page_size) {
+    return resource_helper_index('mutation_type', $page, $fields, $parameters, $page_size);
 }
 
 /**
@@ -87,7 +76,7 @@ function _mutation_type_resource_mutation_type_index($page, $fields, $parameters
  *  Whether access is given or not.
  */
 
-function _mutation_type_resource_mutation_type_access($op, $args) {
+function _gene_mutation_resource_mutation_type_access($op, $args) {
     global $user;
     $access = FALSE;
 

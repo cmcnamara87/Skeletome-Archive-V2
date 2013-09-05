@@ -5,16 +5,16 @@
 
     <div class="content-box">
         <div class="well">
+            <value-block value="patient.first_name" model="patient"></value-block>
+            <value-block value="patient.last_name" model="patient"></value-block>
             {{ patient.first_name }} {{ patient.last_name }}
             {{ patient.alias }}
-            {{ patient.dob }}
+            <date-block value="patient.dob" model="patient"></date-block>
             {{ patient.gender }}
             {{ patient.ethnicity }}
         </div>
-        <div class="well">
-            <pre>
-                {{ addresses | json }}
-            </pre>
+        <div class="well" ng-repeat="address in addresses">
+            <address-block value="address" model="address"></address-block>
         </div>
     </div>
 </div>

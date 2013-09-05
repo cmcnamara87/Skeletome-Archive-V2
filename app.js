@@ -5,12 +5,12 @@ var myApp = angular.module('myApp', [
         'myApp.filters',
         'myApp.services',
         'myApp.directives',
-        'myApp.controllers',
         'ngCookies',
         'patients',
         'groups',
         'feed',
-        'directives.navigation']).
+        'directives.navigation',
+        'directives.input']).
     config(['$routeProvider', function($routeProvider) {
 
         /**

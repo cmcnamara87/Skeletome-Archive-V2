@@ -10,10 +10,10 @@
         </tr>
         <tr ng-repeat="identifier in identifiers">
             <td>
-                <a href="">{{ identifier.name }}</a>
+                <value-block value="identifier.name" model="identifier"></value-block>
             </td>
             <td>
-                <a href="">{{ identifier.identifier }}</a>
+                <value-block value="identifier.identifier" model="identifier"></value-block>
             </td>
         </tr>
     </table>
