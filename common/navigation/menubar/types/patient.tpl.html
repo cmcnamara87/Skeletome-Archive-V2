@@ -1,9 +1,9 @@
 <div>
     <div class="menubar-heading">
-        <div ng-show="patient.last_name">
+        <div ng-show="patient.last_name && patient.uid == Auth.getUser().uid">
             {{ patient.first_name }} {{ patient.last_name }}&nbsp;
         </div>
-        <div ng-show="!patient.last_name">
+        <div ng-show="!patient.last_name || patient.uid != Auth.getUser().uid">
             Patient {{ patient.id }}
         </div>
 
@@ -13,7 +13,7 @@
             Summary
         </a>
     </div>
-    <div class="menubar-section">
+    <div class="menubar-section" ng-show="patient.uid == Auth.getUser().uid" class="ng-cloak">
         <a ng-class="{'selected': menubarSelectedItem == 'contact-information'}"
            class="menubar-item"
            href="#/patient/{{ menubarObjectId }}/contact-information">

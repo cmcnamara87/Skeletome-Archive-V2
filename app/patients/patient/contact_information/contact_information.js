@@ -14,9 +14,11 @@ angular.module('patient.contact_information', [])
                         var patient = PatientModel.get({
                             'id': $route.current.params.patient_id
                         }, function() {
+                            console.log("logged in user", AuthService.getUser().uid, patient.uid);
                             if(patient.uid == AuthService.getUser().uid) {
                                 defer.resolve(patient);
                             } else {
+                                alert("not user");
                                 defer.reject();
                             }
                         });
