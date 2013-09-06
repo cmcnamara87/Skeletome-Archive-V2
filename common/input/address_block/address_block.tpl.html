@@ -1,24 +1,36 @@
 <div>
     <!-- Has a model ID (means its saved in the database and we are editing -->
-    <span ng-show="model.id">
-        <span ng-show="!isEditing" ng-dblclick="edit()">
-            <span >{{ value.street }}</span>
-            <span>{{ value.city }}</span>
-            <span>{{ value.state }}</span>
-            <span>{{ value.postcode }}</span>
-            <span>{{ value.country }}</span>
-        </span>
+    <div ng-show="model.id">
+        <div ng-show="!isEditing" ng-dblclick="edit()">
+
+            <dl>
+                <dt>Street</dt>
+                <dd>{{ value.street }}</dd>
+
+                <dt>City</dt>
+                <dd>{{ value.city }}</dd>
+
+                <dt>State</dt>
+                <dd>{{ value.state }}</dd>
+
+                <dt>Post Code</dt>
+                <dd>{{ value.postcode }}</dd>
+
+                <dt>Country</dt>
+                <dd>{{ value.country }}</dd>
+            </dl>
+        </div>
 
 
         <span ng-show="isEditing">
-            <input type="text" ng-model="value.street" ng-change="lookupStreet(value.street)" class="form-control"/>
-            <input type="text" ng-model="value.city" class="form-control"/>
-            <input type="text" ng-model="value.state" class="form-control"/>
-            <input type="text" ng-model="value.postcode" class="form-control"/>
-            <input type="text" ng-model="value.country" class="form-control"/>
+            <input type="text" ng-model="value.street" ng-change="lookupStreet(value.street)" placeholder="Street" class="form-control"/>
+            <input type="text" ng-model="value.city" placeholder="City" class="form-control"/>
+            <input type="text" ng-model="value.state" placeholder="State" class="form-control"/>
+            <input type="text" ng-model="value.postcode"  placeholder="Post Code" class="form-control"/>
+            <input type="text" ng-model="value.country" placeholder="Country" class="form-control"/>
 
-            <div ng-repeat="prediction in predictions">
-                <div class="well">{{ prediction.terms[0].value }}</div>
+            <div ng-repeat="prediction in predictions" class="well">
+                <div>{{ prediction.terms[0].value }}</div>
             </div>
         </span>
 
@@ -37,7 +49,15 @@
 
     <!-- No model id, so only show editing -->
     <span ng-show="!model.id">
-        <input type="text" ng-model="value" class="form-control"/>
+        <input type="text" ng-model="value.street" ng-change="lookupStreet(value.street)" placeholder="Street" class="form-control"/>
+        <input type="text" ng-model="value.city" placeholder="City" class="form-control"/>
+        <input type="text" ng-model="value.state" placeholder="State" class="form-control"/>
+        <input type="text" ng-model="value.postcode"  placeholder="Post Code" class="form-control"/>
+        <input type="text" ng-model="value.country" placeholder="Country" class="form-control"/>
+
+        <div ng-repeat="prediction in predictions" class="well">
+            <div>{{ prediction.terms[0].value }}</div>
+        </div>
     </span>
 </div>
 

@@ -4,7 +4,7 @@ angular.module('patient.diagnoses', [])
 
         $routeProvider.when('/patient/:patient_id/diagnoses', {
             templateUrl:'app/patients/patient/diagnoses/diagnoses.tpl.html',
-            controller:'DiagnosesCtrl',
+            controller:'PatientDiagnosesCtrl',
             resolve:{
                 diagnoses: ['DiagnosisModel', '$route', '$q', function (DiagnosisModel, $route, $q) {
                     console.log("resvoling diagnoses");
@@ -20,6 +20,17 @@ angular.module('patient.diagnoses', [])
 
                     return defer.promise;
                 }],
+                disorders: ['DisorderModel', '$route', '$q', function(DisorderModel, $route, $q) {
+                    var defer = $q.defer();
+                    var disorders = DisorderModel.index({
+                    }, function() {
+                        defer.resolve(disorders);
+                    }, function() {
+                        defer.reject();
+                    });
+                    return defer.promise;
+
+                }],
                 currentUser: ['AuthService', function(AuthService) {
                     return AuthService.requireAuthenticated();
                 }]
@@ -28,7 +39,16 @@ angular.module('patient.diagnoses', [])
         });
     }])
 
-    .controller('DiagnosesCtrl', ['$scope', '$location', 'diagnoses', function ($scope, $location, diagnoses) {
+    .controller('PatientDiagnosesCtrl', ['$scope', '$location', '$routeParams', 'DiagnosisModel', 'diagnoses', 'disorders', function ($scope, $location, $routeParams, DiagnosisModel, diagnoses, disorders) {
         console.log("in here");
         $scope.diagnoses = diagnoses;
+        $scope.disorders = disorders;
+
+        $scope.addDiagnosis = function() {
+            var newDiagnosis = new DiagnosisModel({
+                patient_id: $routeParams.patient_id
+            })
+
+            $scope.diagnoses.unshift(newDiagnosis);
+        }
     }]);

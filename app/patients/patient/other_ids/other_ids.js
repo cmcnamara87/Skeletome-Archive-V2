@@ -27,6 +27,13 @@ angular.module('patient.other_ids', [])
         });
     }])
 
-    .controller('IdentifierCtrl', ['$scope', '$location', 'identifiers', function ($scope, $location, identifiers) {
+    .controller('IdentifierCtrl', ['$scope', '$location', '$routeParams', 'IdentifierModel', 'identifiers', function ($scope, $location, $routeParams, IdentifierModel, identifiers) {
         $scope.identifiers = identifiers;
+
+        $scope.add = function() {
+            var newIdentifier = new IdentifierModel({
+                patient_id: $routeParams.patient_id
+            });
+            $scope.identifiers.unshift(newIdentifier);
+        }
     }]);

@@ -11,5 +11,6 @@ angular.module('patients.patient',
         'patient.consent',
         'patient.sharing',
         'patient.community',
-        'patient.share'
+        'patient.share',
+        'patient.addresses'
     ]);

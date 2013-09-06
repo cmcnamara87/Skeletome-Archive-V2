@@ -1,15 +1,15 @@
 <div>
     <div class="content-title">
-        Diagnoses
+        Diagnoses     <button ng-click="addDiagnosis()" class="btn btn-primary">Add</button>
     </div>
-
     <table class="table content-table">
         <tr>
             <th>Name</th>
         </tr>
         <tr ng-repeat="diagnosis in diagnoses">
             <td>
-                {{ diagnosis.disorder.name }}
+                <select-block value="diagnosis.disorder_id" model="diagnosis" list="disorders" edit-attr="id" display-attr="name"></select-block>
+                <button ng-click="diagnosis.$save();">Save</button>
             </td>
         </tr>
     </table>

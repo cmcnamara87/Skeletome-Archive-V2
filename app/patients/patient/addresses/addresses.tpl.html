@@ -1,0 +1,12 @@
+<div>
+    <div class="content-title">
+        Addresses <button class="btn btn-primary" ng-click="add()">Add</button>
+    </div>
+
+    <div class="content-box">
+        <div ng-repeat="address in addresses">
+            <address-block value="address" model="address"></address-block>
+            <button ng-click="address.$save()">Save</button>
+        </div>
+    </div>
+</div>

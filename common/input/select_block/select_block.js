@@ -16,18 +16,25 @@ angular.module('directives.input.select_block', [])
                 var that = this;
                 var initial = true;
                 $scope.$watch('list', function(list) {
-                    console.log("list is now ", list);
-                    if(list.length && $scope.value && initial) {
-                        // we have the initial value
-                        initial = false;
-                        angular.forEach(list, function(item, itemIndex) {
+                    updateDisplay();
+                }, true);
+                $scope.$watch('editAttr', function(editAttr) {
+                    updateDisplay();
+                });
+                $scope.$watch('displayAttr', function(displayAttr) {
+                    updateDisplay();
+                });
+
+                function updateDisplay() {
+                    if($scope.list && $scope.editAttr && $scope.displayAttr) {
+                        angular.forEach($scope.list, function(item, itemIndex) {
                             if(item[$scope.editAttr] == $scope.value) {
                                 $scope.selectedItem = item;
                                 $scope.displayValue = item[$scope.displayAttr];
                             }
                         });
                     }
-                }, true);
+                }
 
                 $scope.changed = function(selectedItem) {
                     console.log("edit display", $scope.editAttr, $scope.displayAttr);

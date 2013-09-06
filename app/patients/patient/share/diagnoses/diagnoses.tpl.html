@@ -1,10 +1,20 @@
 <div>
     <div class="content-title">
-        Diagnoses
+        Diagnoses <button class="btn btn-primary" ng-click="add()">Add</button>
     </div>
 
-    <pre>
-        {{ diagnoses | json }}
-    </pre>
+    <div class="content-box">
+
+        <div ng-repeat="diagnosis in diagnoses">
+
+            <select-block value="diagnosis.disorder_id" model="diagnosis" list="disorders" edit-attr="id" display-attr="name"></select-block>
+
+            <button class="btn btn-primary" ng-click="diagnosis.$save()">
+                Save
+            </button>
+        </div>
+    </div>
+
+
 
 </div>

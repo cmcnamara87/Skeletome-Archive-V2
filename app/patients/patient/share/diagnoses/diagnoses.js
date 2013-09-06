@@ -19,6 +19,17 @@ angular.module('patient.share.diagnoses', [])
                     return defer.promise;
                 }],
 
+                disorders: ['DisorderModel', '$route', '$q', function (DisorderModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var disorders = DisorderModel.index({
+                    }, function() {
+                        defer.resolve(disorders);
+                    });
+
+                    return defer.promise;
+                }],
+
                 currentUser: ['AuthService', function(AuthService) {
                     return AuthService.requireAuthenticated();
                 }]
@@ -26,6 +37,16 @@ angular.module('patient.share.diagnoses', [])
         });
     }])
 
-    .controller('DiagnosesCtrl', ['$scope', '$location', 'diagnoses', function ($scope, $location, diagnoses) {
+    .controller('DiagnosesCtrl', ['$scope', '$location', '$routeParams', 'DiagnosisModel', 'diagnoses', 'disorders', function ($scope, $location, $routeParams, DiagnosisModel, diagnoses, disorders) {
         $scope.diagnoses = diagnoses;
+
+        $scope.disorders = disorders;
+
+        $scope.add = function() {
+            var newDiagnosis = new DiagnosisModel({
+                share_id: $routeParams.share_id
+            });
+
+            $scope.diagnoses.unshift(newDiagnosis);
+        }
     }]);

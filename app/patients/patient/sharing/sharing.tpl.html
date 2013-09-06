@@ -1,6 +1,6 @@
 <div>
     <div class="content-title">
-        Sharing
+        Sharing <button ng-click="add()" class="btn btn-primary">Add</button>
     </div>
 
     <table class="table content-table">
@@ -9,7 +9,8 @@
         </tr>
         <tr ng-repeat="share in shares">
             <td>
-                <a href="">{{ share.group.name }}</a>
+                <select-block value="share.group_id" model="share" list="membershipGroups" edit-attr="id" display-attr="name"></select-block>
+                <button ng-click="share.$save();">Save</button>
             </td>
         </tr>
     </table>

@@ -13,6 +13,12 @@
            href="#/patient/{{ menubarObjectId }}/contact-information">
             Contact Information
         </a>
+        <a ng-class="{'selected': menubarSelectedItem == 'addresses'}"
+           class="menubar-item"
+           href="#/patient/{{ menubarObjectId }}/addresses">
+            Addresses
+        </a>
+
         <a ng-class="{'selected': menubarSelectedItem == 'other-ids'}"
            class="menubar-item"
            href="#/patient/{{ menubarObjectId }}/other-ids">

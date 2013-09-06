@@ -18,6 +18,26 @@ angular.module('patient.sharing', [])
 
                     return defer.promise;
                 }],
+                membershipGroups: ['MembershipModel', 'AuthService', '$route','$q', function(MembershipModel, AuthService, $route, $q) {
+                    var defer = $q.defer();
+
+                    if(AuthService.getUser()) {
+                        var memberships = MembershipModel.index({
+                            user_id: AuthService.getUser().uid
+                        }, function() {
+                            var groups = [];
+                            angular.forEach(memberships, function(membership, membershipIndex) {
+                                groups.push(membership.group);
+                            });
+
+                            defer.resolve(groups);
+                        }, function() {
+                            defer.resolve();
+                        });
+                    }
+
+                    return defer.promise;
+                }],
                 currentUser: ['AuthService', function(AuthService) {
                     return AuthService.requireAuthenticated();
                 }]
@@ -25,6 +45,15 @@ angular.module('patient.sharing', [])
         });
     }])
 
-    .controller('SharingCtrl', ['$scope', '$location', 'shares', function ($scope, $location, shares) {
+    .controller('SharingCtrl', ['$scope', '$location', '$routeParams', 'ShareModel', 'shares', 'membershipGroups', function ($scope, $location, $routeParams, ShareModel, shares, membershipGroups) {
         $scope.shares = shares;
+        $scope.membershipGroups = membershipGroups;
+
+        $scope.add = function() {
+            var newShare = new ShareModel({
+                patient_id: $routeParams.patient_id
+            });
+
+            $scope.shares.unshift(newShare);
+        }
     }]);

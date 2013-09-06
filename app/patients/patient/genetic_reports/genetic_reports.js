@@ -25,11 +25,24 @@ angular.module('patient.genetic_reports', [])
         });
     }])
 
-    .controller('GeneticReportsCtrl', ['$scope', '$location', 'GeneModel', 'MutationTypeModel', 'mutations', function ($scope, $location, GeneModel, MutationTypeModel, mutations) {
+    .controller('GeneticReportsCtrl', ['$scope', '$location', '$routeParams', 'GeneMutationModel', 'GeneModel', 'MutationTypeModel', 'mutations', function ($scope, $location, $routeParams, GeneMutationModel, GeneModel, MutationTypeModel, mutations) {
         $scope.mutations = mutations;
 
         // Get a list of genes
         $scope.genes = GeneModel.index();
 
         $scope.mutationTypes = MutationTypeModel.index();
+
+        $scope.addGeneticReport = function() {
+
+            var newGeneMutationModel = new GeneMutationModel({
+                patient_id: $routeParams.patient_id
+            });
+
+            $scope.mutations.push(newGeneMutationModel);
+        }
+
+        $scope.save = function(mutation) {
+            mutation.$save();
+        }
     }]);

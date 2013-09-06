@@ -24,6 +24,6 @@
 
     <!-- No model id, so only show editing -->
     <span ng-show="!model.id">
-        <input type="text" ng-model="value" class="form-control"/>
+        <select ng-change="changed(selectedItem)" ng-model="selectedItem" ng-options="item.name for item in list"></select>
     </span>
 </div>

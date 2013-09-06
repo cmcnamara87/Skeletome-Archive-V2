@@ -144,10 +144,13 @@ myApp.services.factory('VoteModel', function ($resource, apiUrl) {
     return MyResource;
 });
 
-myApp.services.factory('DisorderModel', function ($resource, apiUrl) {
+myApp.services.factory('DisorderModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'disorder/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
     return MyResource;
 });
 

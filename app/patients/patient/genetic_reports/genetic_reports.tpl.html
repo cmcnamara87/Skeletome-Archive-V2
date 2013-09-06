@@ -1,6 +1,6 @@
 <div>
     <div class="content-title">
-        Genetic Reports
+        Genetic Reports <button class="btn btn-primary" ng-click="addGeneticReport()">Add</button>
     </div>
 
     <table class="table content-table">
@@ -9,6 +9,7 @@
             <th>Gene</th>
             <th>Mutation Type</th>
             <th>Pathogenicity</th>
+            <th></th>
         </tr>
         <tr ng-repeat="mutation in mutations">
             <td>
@@ -21,7 +22,10 @@
                 <select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>
             </td>
             <td>
-                {{ mutation.pathogenic }}
+                <value-block value="mutation.pathogenic" model="mutation"></value-block>
+            </td>
+            <td>
+                <button ng-click="save(mutation)">Save</button>
             </td>
         </tr>
     </table>

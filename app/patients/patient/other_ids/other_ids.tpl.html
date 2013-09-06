@@ -1,12 +1,13 @@
 <div>
     <div class="content-title">
-        Other Identifiers
+        Other Identifiers <button ng-click="add()" class="btn btn-primary">Add</button>
     </div>
 
     <table class="table content-table">
         <tr>
             <th>Name</th>
             <th>Identifier</th>
+            <th></th>
         </tr>
         <tr ng-repeat="identifier in identifiers">
             <td>
@@ -14,6 +15,9 @@
             </td>
             <td>
                 <value-block value="identifier.identifier" model="identifier"></value-block>
+            </td>
+            <td>
+                <button ng-click="identifier.$save();">Save</button>
             </td>
         </tr>
     </table>
