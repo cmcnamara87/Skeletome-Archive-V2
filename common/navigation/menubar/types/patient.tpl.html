@@ -1,6 +1,12 @@
 <div>
     <div class="menubar-heading">
-        {{ patient.first_name }} {{ patient.last_name }}&nbsp;
+        <div ng-show="patient.last_name">
+            {{ patient.first_name }} {{ patient.last_name }}&nbsp;
+        </div>
+        <div ng-show="!patient.last_name">
+            Patient {{ patient.id }}
+        </div>
+
     </div>
     <div class="menubar-section">
         <a ng-class="{'selected': menubarSelectedItem == 'summary-dashboard'}" class="menubar-item" href="#/patient/{{ menubarObjectId }}/summary-dashboard">

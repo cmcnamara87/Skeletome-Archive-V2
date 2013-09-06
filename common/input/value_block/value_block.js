@@ -10,14 +10,8 @@ angular.module('directives.input.value_block', [])
                 value: '='
             },
             controller: ['$scope', function ($scope) {
-                var that = this;
-
-                $scope.edit = function() {
-                    that.backup = angular.copy($scope.model);
-                    $scope.isEditing = true;
-                }
                 $scope.cancel = function() {
-                    $scope.model = that.backup;
+                    $scope.model = $scope.backup;
                     $scope.isEditing = false;
                 }
                 $scope.save = function() {
@@ -26,6 +20,23 @@ angular.module('directives.input.value_block', [])
                         console.log("model updated");
                     });
                 }
-            }]
+            }],
+            link: function($scope, iElement, iAttrs) {
+                $('.value_input', iElement).blur(function() {
+                    console.log("blur on value");
+                    $scope.save();
+                });
+
+                $scope.edit = function() {
+                    $scope.backup = angular.copy($scope.model);
+                    $scope.isEditing = true;
+                    console.log("trying to focus...");
+                    setTimeout(function() {
+                        $('.value_input', iElement).focus();
+                    }, 100);
+
+                }
+
+            }
         };
     }]);

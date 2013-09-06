@@ -30,8 +30,18 @@ angular.module('patients.my_patients', [])
         });
     }])
 
-    .controller('MyPatientsCtrl', ['$scope', '$location', 'patients', function ($scope, $location, patients, MenubarService) {
+    .controller('MyPatientsCtrl', ['$scope', '$location', 'PatientModel', 'patients', function ($scope, $location, PatientModel, patients) {
         $scope.patients = patients;
 
+        $scope.add = function() {
+
+            console.log("adding patient");
+            // create a new patient, redirect to the patient page
+            var newPatient = new PatientModel({
+            });
+            newPatient.$save(function(patient) {
+                $location.path('/patient/' + patient.id + '/contact-information');
+            })
+        }
     }]);
 
