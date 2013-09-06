@@ -23,6 +23,18 @@ angular.module('groups.my_groups', [])
 
                     return defer.promise;
                 }],
+                groups: ['GroupModel', '$q', function (GroupModel, $q) {
+                    var defer = $q.defer();
+
+                    var groups = GroupModel.index({
+                    }, function(groups) {
+                        defer.resolve(groups);
+                    }, function() {
+                        defer.reject();
+                    });
+
+                    return defer.promise;
+                }],
                 currentUser: ['AuthService', function(AuthService) {
                     return AuthService.requireAuthenticated();
                 }]
@@ -30,8 +42,17 @@ angular.module('groups.my_groups', [])
         });
     }])
 
-    .controller('MyGroupsCtrl', ['$scope', '$location', 'memberships', function ($scope, $location, memberships) {
+    .controller('MyGroupsCtrl', ['$scope', '$location', 'MembershipModel', 'AuthService', 'memberships', 'groups', function ($scope, $location, MembershipModel, AuthService, memberships, groups) {
         $scope.memberships = memberships;
+
+        $scope.groups = groups;
+
+        $scope.add = function() {
+            var newMembership = new MembershipModel({
+                user_id: AuthService.getUser().uid
+            })
+            $scope.memberships.unshift(newMembership);
+        }
 
     }]);
 
