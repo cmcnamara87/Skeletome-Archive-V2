@@ -7,7 +7,8 @@ angular.module('directives.input.value_block', [])
             templateUrl: 'common/input/value_block/value_block.tpl.html',
             scope: {
                 model: '=',
-                value: '='
+                value: '=',
+                isEditable: '=editable'
             },
             controller: ['$scope', function ($scope) {
                 $scope.cancel = function() {
@@ -22,18 +23,21 @@ angular.module('directives.input.value_block', [])
                 }
             }],
             link: function($scope, iElement, iAttrs) {
-                $('.value_input', iElement).blur(function() {
-                    console.log("blur on value");
-                    $scope.save();
-                });
+//                $('.value_input', iElement).blur(function() {
+//                    console.log("blur on value");
+//                    $scope.save();
+//                });
 
                 $scope.edit = function() {
+                    if(!$scope.isEditable) {
+                        return;
+                    }
+
                     $scope.backup = angular.copy($scope.model);
                     $scope.isEditing = true;
-                    console.log("trying to focus...");
                     setTimeout(function() {
-                        $('.value_input', iElement).focus();
-                    }, 100);
+                        $('.valueblock-input', iElement).focus();
+                    }, 0);
 
                 }
 

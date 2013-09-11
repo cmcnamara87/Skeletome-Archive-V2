@@ -1,27 +1,56 @@
-<div>
+<div class="inputblock" ng-class="{'is-editing': isEditing, 'is-editable': isEditable}">
     <!-- Has a model ID (means its saved in the database and we are editing -->
-    <span ng-show="model.id">
-        <span ng-dblclick="edit()" ng-show="!isEditing">{{ value || "Double click to edit" }}</span>
+    <div ng-show="model.id">
+        <div class="inputblock-values" ng-click="edit()" ng-show="!isEditing">
+            <div class="inputblock-value"  ng-show="value"><i class="icon icon-th"></i> {{ value }}</div>
+            <div class="inputblock-info" ng-show="!value">Click to edit</div>
+        </div>
 
-        <span ng-show="isEditing">
-            <input type="text" ng-model="value" />
-        </span>
+        <div ng-show="isEditing">
+            <div class="dateblock-datepicker input-append date" id="dp3" data-date="{{ value }}" data-date-format="dd-mm-yyyy">
+                <div class="add-on pull-left"><i class="icon-th"></i></div>
 
-        <!-- Editing controls -->
-        <span>
-            <span ng-show="!isEditing">
-                <button ng-click="edit()" class="btn btn-action"><i class="icon icon-pencil"></i></button>
-            </span>
+                <span class="dateblock-date"><input class="inputblock-input dateblock-date-input" ng-model="value" size="16" type="text" value="{{ value }}"></span>
 
-            <span ng-show="isEditing">
-                <button ng-click="save()" class="btn btn-action"><i class="icon icon-save"></i></button>
-                <button ng-click="cancel()" class="btn btn-action"><i class="icon icon-remove"></i></button>
-            </span>
-        </span>
-    </span>
+            </div>
+
+
+            <div class="inputblock-buttons">
+                <button class="btn btn-save" ng-click="save()">Save</button>
+                <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <!-- No model id, so only show editing -->
-    <span ng-show="!model.id">
+    <div ng-show="!model.id">
         <input type="text" ng-model="value" class="form-control"/>
-    </span>
+    </div>
 </div>
+<!--<div>-->
+    <!--&lt;!&ndash; Has a model ID (means its saved in the database and we are editing &ndash;&gt;-->
+    <!--<span ng-show="model.id">-->
+        <!--<span ng-dblclick="edit()" ng-show="!isEditing">{{ value || "Double click to edit" }}</span>-->
+
+        <!--<span ng-show="isEditing">-->
+            <!--<input type="text" ng-model="value" />-->
+        <!--</span>-->
+
+        <!--&lt;!&ndash; Editing controls &ndash;&gt;-->
+        <!--<span>-->
+            <!--<span ng-show="!isEditing">-->
+                <!--<button ng-click="edit()" class="btn btn-action"><i class="icon icon-pencil"></i></button>-->
+            <!--</span>-->
+
+            <!--<span ng-show="isEditing">-->
+                <!--<button ng-click="save()" class="btn btn-action"><i class="icon icon-save"></i></button>-->
+                <!--<button ng-click="cancel()" class="btn btn-action"><i class="icon icon-remove"></i></button>-->
+            <!--</span>-->
+        <!--</span>-->
+    <!--</span>-->
+
+    <!--&lt;!&ndash; No model id, so only show editing &ndash;&gt;-->
+    <!--<span ng-show="!model.id">-->
+        <!--<input type="text" ng-model="value" class="form-control"/>-->
+    <!--</span>-->
+<!--</div>-->

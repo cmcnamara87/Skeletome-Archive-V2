@@ -1,9 +1,15 @@
 <div>
     <div class="content-title">
-       Consent
+       Consent <button class="btn" ng-click="showUpload()">Upload</button>
     </div>
 
     <div class="content-box">
-        todo: Add consent information
+        <div ng-show="isShowingUploadForm">
+            <upload-block url="http://localhost:8888/skelarchv2/drupal/upload" message="Upload Consent Files" uploaded-fn="consentUploaded(file)"></upload-block>
+        </div>
+
+        <div ng-repeat="consentFile in consentFiles">
+            <value-block value="consentFile.name" model="consentFile" editable="true"></value-block>
+        </div>
     </div>
 </div>

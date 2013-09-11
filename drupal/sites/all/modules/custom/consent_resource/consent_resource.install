@@ -1,0 +1,105 @@
+<?php
+// groupresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function consent_resource_schema() {
+    $schema['consent_files'] = array(
+        'description' => t('Stores users consents.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a consent file.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the consent file was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the consent file was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the consent.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'file_url' => array(
+                'description' => t('The text of the consent'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'name' => array(
+                'description' => t('The name of the document'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient the consent file is attached to.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'uploader' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+//
+//    $schema['consent_types'] = array(
+//        'description' => t('Stores the type of a consent.'),
+//        'fields' => array(
+//            'id' => array(
+//                'description' => t('The primary identifier for a consent.'),
+//                'type' => 'serial',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//            ),
+//            'created' => array(
+//                'description' => t('The timestamp for when the consent was created.'),
+//                'type' => 'int',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//                'default' => 0,
+//            ),
+//            'modified' => array(
+//                'description' => t('The timestamp for when the consent was modified.'),
+//                'type' => 'int',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//                'default' => 0,
+//            ),
+//            'name' => array(
+//                'description' => t('The type of the consent e.g. general, diagnosis, xray'),
+//                'type' => 'varchar',
+//                'length' => 255,
+//            ),
+//        ),
+//        'primary key' => array('id'),
+//    );
+
+
+
+
+
+    return $schema;
+}

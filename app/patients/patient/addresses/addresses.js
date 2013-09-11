@@ -25,14 +25,24 @@ angular.module('patient.addresses', [])
         });
     }])
 
-    .controller('PatientAddressesCtrl', ['$scope', '$location', '$routeParams', 'AddressModel', 'addresses', function ($scope, $location, $routeParams, AddressModel, addresses) {
-        $scope.addresses = addresses;
+    .controller('PatientAddressesCtrl', ['$scope', '$location', '$routeParams', 'AddressModel', 'addresses',
+        function ($scope, $location, $routeParams, AddressModel, addresses) {
+
+            $scope.model = {};
+        $scope.model.addresses = addresses;
 
         $scope.add = function() {
             var newAddress = new AddressModel({
                 patient_id: $routeParams.patient_id
             });
-
-            $scope.addresses.unshift(newAddress);
+            $scope.model.addresses.unshift(newAddress);
         }
+
+        $scope.delete = function(address) {
+            console.log("deleting address");
+            var index = $scope.model.addresses.indexOf(address);
+            $scope.model.addresses.splice(index, 1);
+        }
+
+
     }]);

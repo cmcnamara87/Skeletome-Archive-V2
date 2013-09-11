@@ -153,7 +153,15 @@ myApp.services.factory('DisorderModel', function ($resource, apiUrl, Param) {
     }
     return MyResource;
 });
-
+myApp.services.factory('ConsentFileModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'consentfile/:id', {
+        id: '@id' //this binds the ID of the model to the URL param,
+    });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
+});
 
 myApp.services.factory('PostTypeModel', function ($resource, apiUrl) {
     var MyResource = $resource(apiUrl + 'post_type/:id', {
@@ -361,6 +369,7 @@ myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, co
             var defer = $q.defer();
 
             if(user) {
+                console.log("resolving user", user);
                 defer.resolve(user);
             } else {
                 // No user currently stored
@@ -379,6 +388,7 @@ myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, co
                             storeSession(data);
                             user = data.user;
                             // Reload the page lol
+                            console.log("AuthService: Reloading the page");
                             $route.reload();
 //                            defer.resolve(user);
                         }

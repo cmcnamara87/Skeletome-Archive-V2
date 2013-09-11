@@ -42,13 +42,18 @@ angular.module('patient.contact_information', [])
                     return defer.promise;
                 }],
                 currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
+                    var user = AuthService.requireAuthenticated().then(function(user) {
+                        console.log("hello world", user);
+                    });
+                    return user;
                 }]
             }
         });
     }])
 
-    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', function ($scope, $location, patient, addresses) {
+    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', function ($scope, $location, patient, addresses, currentUser) {
+        console.log("current user", currentUser);
+        $scope.user = currentUser;
         $scope.patient = patient;
         $scope.addresses = addresses;
     }]);

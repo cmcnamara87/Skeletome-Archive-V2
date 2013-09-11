@@ -1,63 +1,80 @@
-<div>
+<div class="inputblock" ng-class="{'is-editing': isEditing || !model.id, 'is-editable': isEditable}">
     <!-- Has a model ID (means its saved in the database and we are editing -->
+
     <div ng-show="model.id">
-        <div ng-show="!isEditing" ng-dblclick="edit()">
+        <div class="inputblock-values" ng-show="!isEditing" ng-click="edit()">
 
-            <dl>
-                <dt>Street</dt>
-                <dd>{{ value.street }}</dd>
-
-                <dt>City</dt>
-                <dd>{{ value.city }}</dd>
-
-                <dt>State</dt>
-                <dd>{{ value.state }}</dd>
-
-                <dt>Post Code</dt>
-                <dd>{{ value.postcode }}</dd>
-
-                <dt>Country</dt>
-                <dd>{{ value.country }}</dd>
-            </dl>
-        </div>
-
-
-        <span ng-show="isEditing">
-            <input type="text" ng-model="value.street" ng-change="lookupStreet(value.street)" placeholder="Street" class="form-control"/>
-            <input type="text" ng-model="value.city" placeholder="City" class="form-control"/>
-            <input type="text" ng-model="value.state" placeholder="State" class="form-control"/>
-            <input type="text" ng-model="value.postcode"  placeholder="Post Code" class="form-control"/>
-            <input type="text" ng-model="value.country" placeholder="Country" class="form-control"/>
-
-            <div ng-repeat="prediction in predictions" class="well">
-                <div>{{ prediction.terms[0].value }}</div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div ng-show="value.street">
+                        {{ value.street }}
+                    </div>
+                    <div ng-show="!value.street" class="inputblock-info">
+                        Street address
+                    </div>
+                </div>
             </div>
-        </span>
+            <div class="row">
+                <div class="col-md-12">
+                    <span ng-show="value.city">
+                        {{ value.city }}
+                    </span>
+                    <span ng-show="!value.city">
+                        City
+                    </span>
 
-        <!-- Editing controls -->
-        <span>
-            <span ng-show="!isEditing">
-                <button ng-click="edit()" class="btn btn-action"><i class="icon icon-pencil"></i></button>
-            </span>
+                    <span>
+                        {{ value.state }}
+                    </span>
 
-            <span ng-show="isEditing">
-                <button ng-click="save()" class="btn btn-action"><i class="icon icon-save"></i></button>
-                <button ng-click="cancel()" class="btn btn-action"><i class="icon icon-remove"></i></button>
-            </span>
-        </span>
-    </span>
+                    <span>
+                        {{ value.postcode }}
+                    </span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{ value.country }}
+                </div>
+            </div>
 
-    <!-- No model id, so only show editing -->
-    <span ng-show="!model.id">
-        <input type="text" ng-model="value.street" ng-change="lookupStreet(value.street)" placeholder="Street" class="form-control"/>
-        <input type="text" ng-model="value.city" placeholder="City" class="form-control"/>
-        <input type="text" ng-model="value.state" placeholder="State" class="form-control"/>
-        <input type="text" ng-model="value.postcode"  placeholder="Post Code" class="form-control"/>
-        <input type="text" ng-model="value.country" placeholder="Country" class="form-control"/>
-
-        <div ng-repeat="prediction in predictions" class="well">
-            <div>{{ prediction.terms[0].value }}</div>
+            <!-- todo: add in address type e.g. home or work -->
         </div>
-    </span>
+    </div>
+
+
+    <div ng-show="isEditing || !model.id">
+        <div class="row addressblock-row">
+            <div class="col-md-12">
+                <input type="text" ng-model="value.street" placeholder="Street" class="inputblock-input valueblock-input"/>
+            </div>
+        </div>
+        <div class="row addressblock-row">
+            <div class="col-md-4">
+                <input type="text" ng-model="value.city" placeholder="City" class="inputblock-input valueblock-input"/>
+            </div>
+            <div class="col-md-4">
+                <input type="text" ng-model="value.state" placeholder="State" class="inputblock-input valueblock-input"/>
+            </div>
+            <div class="col-md-4">
+                <input type="text" ng-model="value.postcode"  placeholder="Post Code" class="inputblock-input valueblock-input"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <input type="text" ng-model="value.country" placeholder="Country" class="inputblock-input valueblock-input"/>
+            </div>
+        </div>
+
+        <div class="inputblock-buttons">
+            <button class="btn btn-save" ng-click="save()">Save</button>
+
+            <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+        </div>
+    </div>
+
 </div>
+
+
+
 

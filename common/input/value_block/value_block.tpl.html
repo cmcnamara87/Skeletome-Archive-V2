@@ -1,27 +1,23 @@
-<div>
+<div class="inputblock" ng-class="{'is-editing': isEditing, 'is-editable': isEditable}">
     <!-- Has a model ID (means its saved in the database and we are editing -->
-    <span ng-show="model.id">
-        <div ng-click="edit()" ng-show="!isEditing" style="padding: 7px;">{{ value || "Double click to edit" }}</div>
+    <div ng-show="model.id">
+        <div class="inputblock-values" ng-click="edit()" ng-show="!isEditing">
+            <div class="inputblock-value"  ng-show="value">{{ value }}</div>
+            <div class="inputblock-info" ng-show="!value">Click to edit</div>
+        </div>
 
-        <span ng-show="isEditing">
-            <input class="value_input" style="padding: 7px;; background-color: #fff6c8; outline: none; border: none" type="text" ng-model="value" />
-        </span>
-    
-        <!-- Editing controls -->
-        <span>
-            <span ng-show="!isEditing">
-                <!--<button ng-click="edit()" class="btn btn-action"><i class="icon icon-pencil"></i></button>-->
-            </span>
-            
-            <span ng-show="isEditing">
-                <!--<button ng-click="save()" class="btn btn-action"><i class="icon icon-save"></i></button>-->
-                <button ng-click="cancel()" class="btn btn-action"><i class="icon icon-undo"></i></button>
-            </span>
-        </span>
-    </span>
+
+        <div ng-show="isEditing">
+            <input class="inputblock-input valueblock-input " type="text" ng-model="value" />
+            <div class="inputblock-buttons">
+                <button class="btn btn-save" ng-click="save()">Save</button>
+                <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
 
     <!-- No model id, so only show editing -->
-    <span ng-show="!model.id">
-        <input class="value_input" type="text" ng-model="value" class="form-control"/>
-    </span>
+    <div ng-show="!model.id">
+        <input type="text" ng-model="value" class="form-control"/>
+    </div>
 </div>

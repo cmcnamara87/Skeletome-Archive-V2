@@ -7,18 +7,37 @@ angular.module('directives.input.date_block', [])
             templateUrl: 'common/input/date_block/date_block.tpl.html',
             scope: {
                 model: '=',
-                value: '='
+                value: '=',
+                isEditable: '=editable'
             },
-            controller: ['$scope', function ($scope) {
-                var that = this;
+            link: function($scope, iElement, iAttrs) {
+                var backup = null;
+
+                $('.dateblock-datepicker', iElement).datepicker().on('changeDate', function(ev){
+                    $scope.$apply(function() {
+                        console.log("event", ev);
+                        $scope.value = $('.inputblock-input', iElement).val();
+                    })
+                });
 
                 $scope.edit = function() {
-                    that.backup = angular.copy($scope.model);
+                    if(!$scope.isEditable) {
+                        return;
+                    }
+
+                    backup = angular.copy($scope.model);
                     $scope.isEditing = true;
+                    setTimeout(function() {
+                        $('.inputblock-input', iElement).focus();
+                    }, 0);
+
                 }
+
                 $scope.cancel = function() {
-                    $scope.model = that.backup;
+                    $scope.model = backup;
+                    $scope.showDatePicker(false);
                     $scope.isEditing = false;
+
                 }
                 $scope.save = function() {
                     $scope.isEditing = false;
@@ -26,6 +45,20 @@ angular.module('directives.input.date_block', [])
                         console.log("model updated");
                     });
                 }
-            }]
+
+
+                $scope.showDatePicker = function(show) {
+                    if(show) {
+                        setTimeout(function() {
+                            $('.dateblock-datepicker', iElement).datepicker('show');
+                        }, 0);
+                    } else {
+                        setTimeout(function() {
+                            $('.dateblock-datepicker', iElement).datepicker('hide');
+                        }, 0)
+
+                    }
+                }
+            }
         };
     }]);

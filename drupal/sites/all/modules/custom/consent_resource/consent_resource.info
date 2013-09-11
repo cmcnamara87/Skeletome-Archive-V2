@@ -1,0 +1,12 @@
+name = Consent Resource
+description = consents / Discussions for the Skeletome Archive
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = patientresource
+dependencies[] = entity
+dependencies[] = rest_server
+
+files[] = consent_resource_file.inc
+files[] = consent_resource.module
