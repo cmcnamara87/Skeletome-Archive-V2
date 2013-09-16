@@ -3,22 +3,26 @@
         Other Identifiers <button ng-click="add()" class="btn">Add</button>
     </div>
 
-    <table class="table content-table">
-        <tr>
-            <th>Name</th>
-            <th>Identifier</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="identifier in identifiers">
-            <td>
-                <value-block value="identifier.name" model="identifier" editable="true"></value-block>
-            </td>
-            <td>
-                <value-block value="identifier.identifier" model="identifier" editable="true"></value-block>
-            </td>
-            <td>
-            </td>
-        </tr>
-    </table>
+    <div ng-repeat="identifier in identifiers" class="content-box">
+        <record resource="identifier">
+
+        <dl>
+            <dt>
+                Name
+            </dt>
+            <dd>
+                <value-block value="identifier.name"></value-block>
+            </dd>
+            <dt>
+                ID
+            </dt>
+            <dd>
+                <value-block value="identifier.identifier"></value-block>
+            </dd>
+
+        </dl>
+        </record>
+
+    </div>
 
 </div>

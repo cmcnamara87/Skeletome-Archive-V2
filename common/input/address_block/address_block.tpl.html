@@ -1,9 +1,7 @@
-<div class="inputblock" ng-class="{'is-editing': isEditing || !model.id, 'is-editable': isEditable}">
+<div class="inputblock">
     <!-- Has a model ID (means its saved in the database and we are editing -->
-
-    <div ng-show="model.id">
-        <div class="inputblock-values" ng-show="!isEditing" ng-click="edit()">
-
+    <div ng-show="!isEditing">
+        <div class="inputblock-values" >
             <div class="row">
                 <div class="col-md-12">
                     <div ng-show="value.street">
@@ -42,8 +40,7 @@
         </div>
     </div>
 
-
-    <div ng-show="isEditing || !model.id">
+    <div ng-show="isEditing">
         <div class="row addressblock-row">
             <div class="col-md-12">
                 <input type="text" ng-model="value.street" placeholder="Street" class="inputblock-input valueblock-input"/>
@@ -65,16 +62,6 @@
                 <input type="text" ng-model="value.country" placeholder="Country" class="inputblock-input valueblock-input"/>
             </div>
         </div>
-
-        <div class="inputblock-buttons">
-            <button class="btn btn-save" ng-click="save()">Save</button>
-
-            <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-        </div>
     </div>
 
 </div>
-
-
-
-

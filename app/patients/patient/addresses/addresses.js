@@ -28,20 +28,19 @@ angular.module('patient.addresses', [])
     .controller('PatientAddressesCtrl', ['$scope', '$location', '$routeParams', 'AddressModel', 'addresses',
         function ($scope, $location, $routeParams, AddressModel, addresses) {
 
-            $scope.model = {};
-        $scope.model.addresses = addresses;
+            $scope.addresses = addresses;
+            $scope.newAddress = null;
 
         $scope.add = function() {
-            var newAddress = new AddressModel({
+            $scope.newAddress = new AddressModel({
                 patient_id: $routeParams.patient_id
             });
-            $scope.model.addresses.unshift(newAddress);
+//            $scope.addresses.unshift(newAddress);
         }
 
-        $scope.delete = function(address) {
-            console.log("deleting address");
-            var index = $scope.model.addresses.indexOf(address);
-            $scope.model.addresses.splice(index, 1);
+        $scope.remove = function(address) {
+            var index = $scope.addresses.indexOf(address);
+            $scope.addresses.splice(index, 1);
         }
 
 

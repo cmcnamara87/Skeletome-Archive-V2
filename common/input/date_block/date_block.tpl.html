@@ -1,32 +1,20 @@
-<div class="inputblock" ng-class="{'is-editing': isEditing, 'is-editable': isEditable}">
+<div class="inputblock">
     <!-- Has a model ID (means its saved in the database and we are editing -->
-    <div ng-show="model.id">
-        <div class="inputblock-values" ng-click="edit()" ng-show="!isEditing">
+    <div ng-show="!isEditing">
+        <div class="inputblock-values" ng-click="edit()" >
             <div class="inputblock-value"  ng-show="value"><i class="icon icon-th"></i> {{ value }}</div>
             <div class="inputblock-info" ng-show="!value">Click to edit</div>
         </div>
+    </div>
 
-        <div ng-show="isEditing">
-            <div class="dateblock-datepicker input-append date" id="dp3" data-date="{{ value }}" data-date-format="dd-mm-yyyy">
-                <div class="add-on pull-left"><i class="icon-th"></i></div>
-
-                <span class="dateblock-date"><input class="inputblock-input dateblock-date-input" ng-model="value" size="16" type="text" value="{{ value }}"></span>
-
-            </div>
-
-
-            <div class="inputblock-buttons">
-                <button class="btn btn-save" ng-click="save()">Save</button>
-                <button class="btn btn-cancel" ng-click="cancel()">Cancel</button>
-            </div>
+    <div ng-show="isEditing">
+        <div class="dateblock-datepicker input-append date" id="dp3" data-date="{{ value }}" data-date-format="dd-mm-yyyy">
+            <div class="add-on pull-left"><i class="icon-th"></i></div>
+            <span class="dateblock-date"><input class="inputblock-input dateblock-date-input" ng-model="value" size="16" type="text" value="{{ value }}"></span>
         </div>
     </div>
-
-    <!-- No model id, so only show editing -->
-    <div ng-show="!model.id">
-        <input type="text" ng-model="value" class="form-control"/>
-    </div>
 </div>
+
 <!--<div>-->
     <!--&lt;!&ndash; Has a model ID (means its saved in the database and we are editing &ndash;&gt;-->
     <!--<span ng-show="model.id">-->

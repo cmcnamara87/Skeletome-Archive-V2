@@ -1,0 +1,13 @@
+<div class="inputblock">
+    <!-- Has a model ID (means its saved in the database and we are editing -->
+    <div ng-show="!isEditing">
+        <div class="inputblock-values">
+            <div class="inputblock-value"  ng-show="value">{{ value }}</div>
+            <div class="inputblock-info" ng-show="!value">Click to edit</div>
+        </div>
+    </div>
+
+    <div ng-show="isEditing">
+        <input class="inputblock-input valueblock-input " type="text" ng-model="value" />
+    </div>
+</div>

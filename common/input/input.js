@@ -5,5 +5,8 @@ angular.module('directives.input',
         'directives.input.date_block',
         'directives.input.select_block',
         'directives.input.lookup_block',
-        'directives.input.upload_block'
+        'directives.input.upload_block',
+        'directives.input.record',
+        'directives.input.consent_file',
+        'directives.input.test'
     ]);

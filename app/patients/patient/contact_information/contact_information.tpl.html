@@ -10,43 +10,57 @@
                     First Name
                 </dt>
                 <dd>
-                    <value-block value="patient.first_name" model="patient" editable="true"></value-block>
+                    <record resource="patient">
+                        <value-block value="patient.first_name" editing=patient.$isEditing></value-block>
+                    </record>
                 </dd>
                 <dt>
                     Last Name
                 </dt>
                 <dd>
-                    <value-block value="patient.last_name" model="patient" editable="true"></value-block>
+                    <record resource="patient">
+                        <value-block value="patient.last_name" editing=patient.$isEditing></value-block>
+                    </record>
                 </dd>
 
                 <dt>
                     Alias
                 </dt>
                 <dd>
-                    <value-block value="patient.alias" model="patient" editable="true"></value-block>
+                    <record resource="patient">
+                        <value-block value="patient.alias" editing=patient.$isEditing></value-block>
+                    </record>
                 </dd>
 
                 <dt>
                     Date of Birthday
                 </dt>
                 <dd>
-                    <date-block value="patient.dob" model="patient" editable="true"></date-block>
+                    <record resource="patient">
+                        <date-block value="patient.dob" model="patient" editable="true"></date-block>
+                    </record>
                 </dd>
 
                 <dt>
                     Gender
                 </dt>
                 <dd>
-                    <value-block value="patient.gender" model="patient" editable="true"></value-block>
+                    <record resource="patient">
+                        <value-block value="patient.gender" editing=patient.$isEditing></value-block>
+                    </record>
                 </dd>
 
                 <dt>
                     Ethnicity
                 </dt>
                 <dd>
-                    <value-block value="patient.ethnicity" model="patient" editable="true"></value-block>
+                    <record resource="patient">
+                       <value-block value="patient.ethnicity" editing=patient.$isEditing></value-block>
+                    </record>
                 </dd>
             </dl>
         </div>
+
     </div>
+
 </div>

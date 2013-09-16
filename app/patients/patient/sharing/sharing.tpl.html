@@ -1,6 +1,13 @@
 <div>
     <div class="content-title">
-        Sharing <button ng-click="add()" class="btn btn-primary">Add</button>
+        Sharing
+    </div>
+
+    <div style="background-color: #E5F1FD; padding: 7px; display: none">
+        <div style="padding: 21px; background-color: #ffffff; border: 1px solid #c7cdd1">
+
+            <input type="text" class="form-control" placeholder="Search for a Physician or Group" ng-model="patientOrGroupName" ng-change="searchForPatientOrGroups(patientOrGroupName)"/>
+        </div>
     </div>
 
     <table class="table content-table">
@@ -12,6 +19,9 @@
                 <select-block value="share.group_id" model="share" list="membershipGroups" edit-attr="id" display-attr="name"></select-block>
                 <button ng-click="share.$save();">Save</button>
             </td>
+        </tr>
+        <tr>
+            <td style="color: #ccc;" ng-click="add()"><i class="icon icon-plus-sign"></i> New Share</td>
         </tr>
     </table>
 

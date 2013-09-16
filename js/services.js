@@ -156,6 +156,8 @@ myApp.services.factory('DisorderModel', function ($resource, apiUrl, Param) {
 myApp.services.factory('ConsentFileModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'consentfile/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
+    }, {
+        update: {method:'PUT'}
     });
     MyResource.index = function(object, success, failure) {
         return MyResource.query(Param.makeParams(object), success, failure);

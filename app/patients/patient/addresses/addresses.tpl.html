@@ -1,9 +1,23 @@
 <div>
     <div class="content-title">
-        Addresses <button class="btn" ng-click="add()">Add</button>
+        Addresses
     </div>
 
-        <div ng-repeat="address in model.addresses" class="content-box">
-            <address-block value="address" model="address" editable="true" delete="delete(address)"></address-block>
+    <div style="color: #ccc;" ng-click="add()" class="content-box">
+        <div ng-show="!newAddress">
+            <i class="icon icon-plus-sign"></i> Add Address
         </div>
+
+        <div ng-show="newAddress">
+            <record resource="newAddress">
+                <address-block value="newAddress"></address-block>
+            </record>
+        </div>
+
+    </div>
+    <div ng-repeat="address in addresses" class="content-box">
+        <record resource="address" remove-fn="remove(address)">
+            <address-block value="address"></address-block>
+        </record>
+    </div>
 </div>

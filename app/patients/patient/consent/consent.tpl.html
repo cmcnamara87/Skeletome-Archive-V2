@@ -1,6 +1,6 @@
 <div>
     <div class="content-title">
-       Consent <button class="btn" ng-click="showUpload()">Upload</button>
+       Consent <button class="btn" ng-click="showUpload()">Add</button>
     </div>
 
     <div class="content-box">
@@ -9,7 +9,12 @@
         </div>
 
         <div ng-repeat="consentFile in consentFiles">
-            <value-block value="consentFile.name" model="consentFile" editable="true"></value-block>
+            <div>
+                <a href="{{ consentFile.file_url }}" target="_blank">File</a>
+            </div>
+            <record resource="consentFile">
+                <consent-file value="consentFile"></consent-file>
+            </record>
         </div>
     </div>
 </div>

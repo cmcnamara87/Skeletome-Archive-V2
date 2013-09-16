@@ -54,6 +54,6 @@ angular.module('patient.sharing', [])
                 patient_id: $routeParams.patient_id
             });
 
-            $scope.shares.unshift(newShare);
+            $scope.shares.push(newShare);
         }
     }]);

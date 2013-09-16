@@ -234,7 +234,7 @@ function patientresource_services_resources() {
             ),
         ),
         'create' => array(
-            'help' => 'Creates a patient',
+            'help' => 'Creates a address',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
             'callback' => '_patientresource_address_create',
             'access arguments' => array('patient resource create'),
@@ -250,7 +250,7 @@ function patientresource_services_resources() {
             ),
         ),
         'update' => array(
-            'help' => 'Updates a patient',
+            'help' => 'Updates a address',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
             'callback' => '_patientresource_address_update',
             'access callback' => '_patientresource_address_access',
@@ -274,7 +274,7 @@ function patientresource_services_resources() {
             ),
         ),
         'delete' => array(
-            'help' => 'Deletes a patient',
+            'help' => 'Deletes a address',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
             'callback' => '_patientresource_address_delete',
             'access callback' => '_patientresource_address_access',
