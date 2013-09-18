@@ -15,9 +15,7 @@ angular.module('directives.input.upload_block', [])
                 iAttrs.$observe('url', function(value) {
                     if(value && value != "") {
 
-                        console.log("running upload block");
-
-                        console.log("Dropdown url", iAttrs.url);
+                        console.log("Upload Block: Url", iAttrs.url);
 
                         iElement.dropzone(
                             {
@@ -37,11 +35,14 @@ angular.module('directives.input.upload_block', [])
                         });
 
                         myDropzone.on('success', function(file, response) {
-                            console.log("success", file);
-                            $scope.uploadedFn({
-                                'file': angular.fromJson(response)
+
+                            $scope.$apply(function() {
+                                $scope.uploadedFn({
+                                    'file': angular.fromJson(response)
+                                });
                             });
-                            $timeout(function() {
+
+                            setTimeout(function() {
                                 myDropzone.removeFile(file);
                             }, 750);
 

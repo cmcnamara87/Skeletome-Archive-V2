@@ -1,9 +1,13 @@
 <div>
     <div class="content-title">
-        X-Rays
+        X-Rays <button class="btn" ng-click="add()">Add</button>
     </div>
 
-    <div class="content-box">
-        {{ xrays }}
+    <div ng-repeat="xray in xrays" class="content-box">
+        <record resource="xray">
+            <field>
+                <xray-block xray="xray"></xray-block>
+            </field>
+        </record>
     </div>
 </div>

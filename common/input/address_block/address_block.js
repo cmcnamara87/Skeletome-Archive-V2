@@ -4,16 +4,16 @@ angular.module('directives.input.address_block', [])
     .directive('addressBlock', [function () {
         return {
             restrict: 'E',
-            require: '?^record',
+            require: '?^field',
             templateUrl: 'common/input/address_block/address_block.tpl.html',
             scope: {
                 value: '='
             },
-            link: function($scope, iElement, iAttrs, RecordCtrl) {
+            link: function($scope, iElement, iAttrs, FieldCtrl) {
                 var backup = null;
 
                 $scope.$watch(function() {
-                    return RecordCtrl.getIsEditing();
+                    return FieldCtrl.getIsEditing();
                 }, function(isEditing) {
                     $scope.isEditing = isEditing;
                 });

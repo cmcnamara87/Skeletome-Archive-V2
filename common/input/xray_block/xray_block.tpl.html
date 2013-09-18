@@ -1,0 +1,20 @@
+<div class="inputblock">
+    <!-- Has a model ID (means its saved in the database and we are editing -->
+
+    <div ng-show="!isEditing">
+        <div class="inputblock-values">
+            <img src="{{ xray.thumb_url }}" alt="xray.name"/>
+            <div class="inputblock-value"  ng-show="xray.name">{{ xray.name }}</div>
+            <div class="inputblock-info" ng-show="!xray.name">Click to edit name</div>
+        </div>
+    </div>
+
+    <div ng-show="isEditing">
+        <div ng-show="!xray.file_url">
+            <upload-block url="http://localhost:8888/skelarchv2/drupal/upload" message="Upload Consent Files" uploaded-fn="fileUploaded(file)"></upload-block>
+        </div>
+        <div ng-show="xray.file_url">
+            <input class="inputblock-input valueblock-input " type="text" ng-model="xray.name" />
+        </div>
+    </div>
+</div>

@@ -35,10 +35,9 @@ function _xray_resource_update($id, $data) {
     $data->uid = $group->uid;
     $data->modified = time();
 
-    $data->user = user_load($data->user_id);
-    $data->group = xray_load($data->xray_id);
-
     xray_save($data);
+
+    return (object)$data;
 }
 /**
  * Callback for retrieving group resources.
@@ -48,10 +47,6 @@ function _xray_resource_update($id, $data) {
  */
 function _xray_resource_retrieve($id) {
     $membership = xray_load($id);
-
-    $membership->user = user_load($membership->user_id);
-    unset($membership->user->pass);
-    $membership->group = xray_load($membership->xray_id);
 
     return $membership;
 }
@@ -68,19 +63,7 @@ function _xray_resource_delete($id) {
 
 
 function _xray_resource_index($page, $fields, $parameters, $page_size) {
-
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'xray');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['xray']);
-
-    return xray_load_multiple($ids);
+    return resource_helper_index('xray', $page, $fields, $parameters, $page_size);
 }
 
 

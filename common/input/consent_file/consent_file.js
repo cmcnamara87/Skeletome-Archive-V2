@@ -4,16 +4,16 @@ angular.module('directives.input.consent_file', [])
     .directive('consentFile', [function () {
         return {
             restrict: 'E',
-            require: '^record',
+            require: '^field',
             templateUrl: 'common/input/consent_file/consent_file.tpl.html',
             scope: {
                 value: '='
             },
             controller: ['$scope', function ($scope) {
             }],
-            link: function($scope, iElement, iAttrs, RecordCtrl) {
+            link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.$watch(function() {
-                    return RecordCtrl.getIsEditing();
+                    return FieldCtrl.getIsEditing();
                 }, function(isEditing) {
                     $scope.isEditing = isEditing;
                 });

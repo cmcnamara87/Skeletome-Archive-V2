@@ -11,7 +11,7 @@ angular.module('patient.xrays', [])
                     var defer = $q.defer();
 
                     var xrays = XRayModel.index({
-                        'id': $route.current.params.patient_id
+                        'patient_id': $route.current.params.patient_id
                     }, function() {
                         defer.resolve(xrays);
                     }, function() {
@@ -27,6 +27,13 @@ angular.module('patient.xrays', [])
         });
     }])
 
-    .controller('XRayCtrl', ['$scope', '$location', 'xrays', function ($scope, $location, xrays) {
+    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', function ($scope, $location, $routeParams, XRayModel, xrays) {
         $scope.xrays = xrays;
+
+        $scope.add = function() {
+            var newXRay = new XRayModel({
+                 patient_id: $routeParams.patient_id
+            });
+            $scope.xrays.unshift(newXRay);
+        }
     }]);

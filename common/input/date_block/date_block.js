@@ -4,14 +4,14 @@ angular.module('directives.input.date_block', [])
     .directive('dateBlock', [function () {
         return {
             restrict: 'E',
-            require: '^record',
+            require: '^field',
             templateUrl: 'common/input/date_block/date_block.tpl.html',
             scope: {
                 value: '='
             },
-            link: function($scope, iElement, iAttrs, RecordCtrl) {
+            link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.$watch(function() {
-                    return RecordCtrl.getIsEditing();
+                    return FieldCtrl.getIsEditing();
                 }, function(isEditing) {
                     $scope.isEditing = isEditing;
                     if(!isEditing) {

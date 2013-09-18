@@ -1,0 +1,9 @@
+<div class="field">
+    <div ng-transclude ng-class="{'is-editing': isEditing, 'is-editable': isEditable }">
+    </div>
+
+    <div ng-show="isEditing && !isNew">
+        <savecancel-block></savecancel-block>
+    </div>
+</div>
+

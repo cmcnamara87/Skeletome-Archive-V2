@@ -4,23 +4,26 @@
     </div>
 
     <div ng-repeat="identifier in identifiers" class="content-box">
-        <record resource="identifier">
+        <record resource="identifier" remove-fn="remove(identifier)">
+            <dl class="inputblock-values">
+                <dt>
+                    Name
+                </dt>
+                <dd>
+                    <field>
+                        <value-block value="identifier.name"></value-block>
+                    </field>
 
-        <dl>
-            <dt>
-                Name
-            </dt>
-            <dd>
-                <value-block value="identifier.name"></value-block>
-            </dd>
-            <dt>
-                ID
-            </dt>
-            <dd>
-                <value-block value="identifier.identifier"></value-block>
-            </dd>
-
-        </dl>
+                </dd>
+                <dt>
+                    ID
+                </dt>
+                <dd>
+                    <field>
+                        <value-block value="identifier.identifier"></value-block>
+                    </field>
+                </dd>
+            </dl>
         </record>
 
     </div>

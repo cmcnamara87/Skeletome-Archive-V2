@@ -48,7 +48,11 @@ angular.module('patient.diagnoses', [])
             var newDiagnosis = new DiagnosisModel({
                 patient_id: $routeParams.patient_id
             })
-
             $scope.diagnoses.unshift(newDiagnosis);
+        }
+
+        $scope.remove = function(diagnosis) {
+            var index = $scope.diagnoses.indexOf(diagonsis);
+            $scope.diagnoses.splice(index, 1);
         }
     }]);

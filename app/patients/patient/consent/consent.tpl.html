@@ -9,11 +9,14 @@
         </div>
 
         <div ng-repeat="consentFile in consentFiles">
-            <div>
-                <a href="{{ consentFile.file_url }}" target="_blank">File</a>
-            </div>
             <record resource="consentFile">
-                <consent-file value="consentFile"></consent-file>
+                <div>
+                    <a href="{{ consentFile.file_url }}" target="_blank">File</a>
+                </div>
+
+                <field>
+                    <consent-file value="consentFile"></consent-file>
+                </field>
             </record>
         </div>
     </div>

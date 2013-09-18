@@ -7,10 +7,18 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
     $query->entityCondition('entity_type', $entity_type);
 
     foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
+        if(is_numeric($value)) {
+            $query->propertyCondition($parameter, $value);
+        } else {
+            // its a string, lets do a starts with
+            $query->propertyCondition($parameter, $value, 'STARTS_WITH');
+        }
     }
+
     $query->range($page * $page_size, $page_size);
+
     $result = $query->execute();
+
     $ids = array_keys($result[$entity_type]);
 
     $entity_function = $entity_type . "_load_multiple";

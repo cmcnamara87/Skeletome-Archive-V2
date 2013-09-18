@@ -77,23 +77,8 @@ function _groupresource_delete($id) {
 }
 
 function _groupresource_index($page, $fields, $parameters, $page_size) {
-    module_load_include('inc', 'services', 'services.module');
-    $node_select = db_select('groups', 't')
-        ->orderBy('created', 'DESC');
 
-    services_resource_build_index_query($node_select, $page, $fields, $parameters, $page_size, 'groups');
-
-    if (!user_access('administer nodes')) {
-//        $node_select->condition('status', 1);
-    }
-
-
-    $results = services_resource_execute_index_query($node_select);
-
-    $list = services_resource_build_index_list($results, 'groups', 'id');
-
-//    print_r($list);
-    return $list;
+    return resource_helper_index('group', $page, $fields, $parameters, $page_size);
 }
 
 

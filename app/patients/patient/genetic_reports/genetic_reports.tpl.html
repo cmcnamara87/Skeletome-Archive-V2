@@ -1,33 +1,36 @@
 <div>
     <div class="content-title">
-        Genetic Reports <button class="btn btn-primary" ng-click="addGeneticReport()">Add</button>
+        Genetic Reports <button class="btn" ng-click="addGeneticReport()">Add</button>
     </div>
 
-    <table class="table content-table">
-        <tr>
-            <th>Name</th>
-            <th>Gene</th>
-            <th>Mutation Type</th>
-            <th>Pathogenicity</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="mutation in mutations">
-            <td>
-                <value-block value="mutation.name" model="mutation"></value-block>
-            </td>
-            <td>
-                <select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>
-            </td>
-            <td>
-                <select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>
-            </td>
-            <td>
-                <value-block value="mutation.pathogenic" model="mutation"></value-block>
-            </td>
-            <td>
-                <button ng-click="save(mutation)">Save</button>
-            </td>
-        </tr>
-    </table>
+    <div ng-repeat="mutation in mutations" class="content-box">
+        <record resource="mutation">
+            <dl>
+                <dt>Name</dt>
+                <dd>
+                    <field>
+                        <value-block value="mutation.name"></value-block>
+                    </field>
+                </dd>
+
+                <dt>Gene</dt>
+                <dd>
+                    <!--<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>-->
+                </dd>
+
+                <dt>Mutation Type</dt>
+                <dd>
+                    <!--<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>-->
+                </dd>
+
+                <dt>Pathogenicity</dt>
+                <dd>
+                    <field>
+                        <value-block value="mutation.pathogenic"></value-block>
+                    </field>
+                </dd>
+            </dl>
+        </record>
+    </div>
 
 </div>

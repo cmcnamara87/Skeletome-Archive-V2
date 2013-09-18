@@ -1,12 +1,13 @@
-<div>
-    <div ng-transclude class="is-editable" ng-class="{'is-editing': isEditing }">
+<div class="record">
+    <div ng-show="!isNew && isRemovable">
+        <button class="pull-right" ng-click="remove()"><i class="icon icon-trash"></i></button>
     </div>
 
-    <div ng-show="isEditing">
-    <div class="inputblock-buttons">
-    <button class="btn btn-save">Save</button>
-    <button class="btn btn-cancel"><i class="icon icon-remove"></i></button>
+    <div ng-transclude style="overflow: hidden;">
     </div>
+
+    <div ng-show="isNew">
+        <savecancel-block></savecancel-block>
     </div>
 </div>
 

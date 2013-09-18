@@ -1,13 +1,18 @@
 <div class="inputblock">
+
     <!-- Has a model ID (means its saved in the database and we are editing -->
     <div ng-show="!isEditing">
         <div class="inputblock-values">
-            <div class="inputblock-value"  ng-show="value">{{ value }}</div>
-            <div class="inputblock-info" ng-show="!value">Click to edit</div>
+            {{ value.group.name }}
         </div>
     </div>
 
     <div ng-show="isEditing">
-        <input class="inputblock-input valueblock-input " type="text" ng-model="value" />
+        <input class="inputblock-input valueblock-input inputblock-lookup" type="text" ng-model="lookupGroupName" ng-change="lookupGroupNameChanged(lookupGroupName)" />
+        <div>
+            <div ng-repeat="group in lookupResults">
+                {{ group.name }}
+            </div>
+        </div>
     </div>
 </div>

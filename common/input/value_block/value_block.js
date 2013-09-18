@@ -4,16 +4,16 @@ angular.module('directives.input.value_block', [])
     .directive('valueBlock', [function () {
         return {
             restrict: 'E',
-            require: '^record',
+            require: '^field',
             templateUrl: 'common/input/value_block/value_block.tpl.html',
             scope: {
                 value: '='
             },
             controller: ['$scope', function ($scope) {
             }],
-            link: function($scope, iElement, iAttrs, RecordCtrl) {
+            link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.$watch(function() {
-                    return RecordCtrl.getIsEditing();
+                    return FieldCtrl.getIsEditing();
                 }, function(isEditing) {
                     $scope.isEditing = isEditing;
                 });

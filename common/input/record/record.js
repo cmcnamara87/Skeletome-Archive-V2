@@ -1,26 +1,5 @@
 angular.module('directives.input.record', [])
-//
-//// A simple directive to display a gravatar image given an email
-    .directive('bloop', [function() {
-        return {
-            restrict: 'A',
-            templateUrl: 'common/input/record/record_table.tpl.html',
-            scope: {
-                resource: '='
-            },
-            transclude: true,
-            controller: function($scope) {
-                var controller = this;
 
-                console.log("record table controller");
-                $scope.isEditing = false;
-
-                controller.getIsEditing = function() {
-                    return $scope.isEditing;
-                }
-            }
-        }
-    }])
 
     .directive('record', [function () {
         return {
@@ -28,63 +7,139 @@ angular.module('directives.input.record', [])
             templateUrl: 'common/input/record/record.tpl.html',
             scope: {
                 resource: '=',
-                removeFn: '&'
+                removeFn: '&',
+                editable: '@'
             },
             transclude: true,
-            controller: function($scope) {
+            controller: function($scope, $rootScope) {
                 var controller = this;
 
-                $scope.isEditing = false;
+                $scope.isNew = true;
 
-                controller.getIsEditing = function() {
-                    return $scope.isEditing;
+                controller.getIsNew = function() {
+                    return $scope.isNew;
+                }
+                controller.getIsEditable = function() {
+                    return $scope.isEditable;
+                }
+                controller.backup = function() {
+                    console.log('Record: Backing up');
+                    controller.resourceBackup = {};
+                    angular.copy($scope.resource, controller.resourceBackup);
+                }
+                controller.restore = function() {
+                    console.log("Record: Restoring")
+                    angular.copy(controller.resourceBackup, $scope.resource);
+                }
+                controller.save = function() {
+
+                    if(angular.isDefined($scope.resource.id)) {
+                        console.log("Record: Updating...");
+                        $scope.resource.$update();
+                    } else {
+                        console.log("Record: Saving...");
+                        $scope.resource.$save();
+                    }
+                }
+
+
+                $scope.save = function() {
+                    controller.save();
+                    $scope.isNew = false;
+                }
+                $scope.cancel = function() {
+                    $scope.removeFn();
+                }
+                $scope.remove = function() {
+                    $scope.resource.$delete();
+                    $scope.removeFn();
                 }
             },
 
             link: function($scope, iElement, iAttrs) {
 
-                $scope.$watch('resource', function(resource) {
-                    if(resource && !resource.id) {
-                        console.log("set editing", resource);
-                        $scope.edit();
+                $scope.$watch('editable', function(editable) {
+                   if(editable == "false") {
+                       $scope.isEditable = false;
+                   } else {
+                       $scope.isEditable = true;
+                   }
+                });
+
+                $scope.isRemovable = false;
+                iAttrs.$observe('removeFn', function(removeFn) {
+                    console.log(removeFn);
+                    if(removeFn) {
+                        $scope.isRemovable = true;
+                    } else {
+                        $scope.isRemovable = false;
+                    }
+                });
+
+                $scope.$watch('resource.id', function(id) {
+                    if(id) {
+                        $scope.isNew = false;
+                    } else {
+                        $scope.isNew = true;
+                        setTimeout(function () {
+                            console.log('setting focus');
+                            $('input, textarea', iElement).eq(0).focus();
+                        }, 0);
+
+//                        setTimeout(function() {
+//                            $('html').click(function() {
+//                                $('html').unbind('click');
+//                                $scope.$apply(function() {
+//                                    $scope.save();
+//                                });
+//                            });
+//                        }, 0);
+
+
                     }
                 })
-                $('.btn-save', iElement).click(function(event) {
-                    $scope.$apply(function() {
-                        $scope.save();
-                    });
-                    $('html').unbind('click');
-                    event.stopPropagation();
-                });
 
-                $('.btn-cancel', iElement).click(function(event) {
-                    $scope.$apply(function() {
-                        $scope.cancel();
-                    });
-                    $('html').unbind('click');
-                    event.stopPropagation();
-                });
+
+
+
+
+//                $('.btn-save', iElement).click(function(event) {
+//                    $scope.$apply(function() {
+//                        $scope.save();
+//                    });
+//                    $('html').unbind('click');
+//                    event.stopPropagation();
+//                });
 //
-                iElement.keyup(function(e) {
-                    if (e.keyCode == 27) {
-                        $('html').unbind('click');
-                        $scope.$apply(function() {
-                            $scope.cancel();
-                        })
-                    }
-                });
+//                $('.btn-cancel', iElement).click(function(event) {
+//                    $scope.$apply(function() {
+//                        $scope.cancel();
+//                    });
+//                    $('html').unbind('click');
+//                    event.stopPropagation();
+//                });
+//
+//                iElement.keyup(function(e) {
+//                    if (e.keyCode == 27) {
+//                        $('html').unbind('click');
+//                        $scope.$apply(function() {
+//                            $scope.cancel();
+//                        })
+//                    }
+//                });
 
 
-                iElement.click(function(event){
-                    if(!$scope.isEditing) {
-                        $scope.$apply(function() {
-                            $scope.edit();
-                        })
-                    }
-
-                    // Don't propogate this click (we will manually call the html to click it)
-                    event.stopPropagation();
-                });
+//                iElement.click(function(event){
+//                    if($scope.isEditable && !$scope.isEditing) {
+//                        $scope.$apply(function() {
+//                            $scope.edit();
+//                        })
+//                    }
+//
+//                    // Don't propogate this click (we will manually call the html to click it)
+//                    console.log("Record: Record clicked");
+//                    event.stopPropagation();
+//                });
 
 
                 $scope.edit = function() {
@@ -92,7 +147,7 @@ angular.module('directives.input.record', [])
 
                     // Select first input
                     setTimeout(function () {
-                        $('input', iElement).eq(0).focus();
+                        $(':input', iElement).eq(0).focus();
                     }, 0);
 
                     // Create a backup
@@ -106,6 +161,7 @@ angular.module('directives.input.record', [])
 
                     setTimeout(function() {
                         $('html').click(function() {
+                            console.log("Record: Clicked outside the bounds of the record");
                             $('html').unbind('click');
                             $scope.$apply(function() {
                                 console.log("saving");
@@ -126,8 +182,6 @@ angular.module('directives.input.record', [])
 //                            }
 //                        });
 //                    });
-
-                    return;
 
                 }
 

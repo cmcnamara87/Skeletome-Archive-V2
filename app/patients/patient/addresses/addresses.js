@@ -32,10 +32,10 @@ angular.module('patient.addresses', [])
             $scope.newAddress = null;
 
         $scope.add = function() {
-            $scope.newAddress = new AddressModel({
+            var newAddress = new AddressModel({
                 patient_id: $routeParams.patient_id
             });
-//            $scope.addresses.unshift(newAddress);
+            $scope.addresses.unshift(newAddress);
         }
 
         $scope.remove = function(address) {

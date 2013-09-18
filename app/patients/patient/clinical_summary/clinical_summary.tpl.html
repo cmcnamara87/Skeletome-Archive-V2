@@ -6,8 +6,13 @@
     <div class="content-box">
         <div class="row">
             <div class="col-md-9" style="line-height: 28px;">
-                <text-block value="patient.clinical_summary" model="patient">
-                </text-block>
+                <record resource="patient">
+                    <field>
+                        <text-block value="patient.clinical_summary">
+                        </text-block>
+                    </field>
+                </record>
+
             </div>
         </div>
     </div>

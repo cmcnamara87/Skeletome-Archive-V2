@@ -34,10 +34,28 @@ function xrayresource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
-            'file' => array(
+            'fid' => array(
+                'description' => t('The file of the xray.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'file_url' => array(
                 'description' => t('The file url'),
                 'type' => 'varchar',
                 'not null' => TRUE,
+                'length' => 255,
+            ),
+            'thumb_url' => array(
+                'description' => t('The thumbnail url'),
+                'type' => 'varchar',
+                'not null' => TRUE,
+                'length' => 255,
+            ),
+            'name' => array(
+                'description' => t('The name of the xray'),
+                'type' => 'varchar',
                 'length' => 255,
             ),
             'description' => array(

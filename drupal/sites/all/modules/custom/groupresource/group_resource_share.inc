@@ -66,7 +66,12 @@ function _groupresource_share_retrieve($id) {
  * @return object
  */
 function _groupresource_share_delete($id) {
-    return share_load($id);
+
+    share_delete($id);
+
+    return (object)array(
+        'id' => $id,
+    );
 }
 
 

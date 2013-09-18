@@ -53,7 +53,10 @@ angular.module('patient.sharing', [])
             var newShare = new ShareModel({
                 patient_id: $routeParams.patient_id
             });
-
-            $scope.shares.push(newShare);
+            $scope.shares.unshift(newShare);
+        }
+        $scope.remove = function(share) {
+            var index = $scope.shares.indexOf(share);
+            $scope.shares.splice(index, 1);
         }
     }]);

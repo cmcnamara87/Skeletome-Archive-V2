@@ -36,4 +36,8 @@ angular.module('patient.other_ids', [])
             });
             $scope.identifiers.unshift(newIdentifier);
         }
+        $scope.remove = function(identifier) {
+            var index = $scope.identifiers.indexOf(identifier);
+            $scope.identifiers.splice(index, 1);
+        }
     }]);
