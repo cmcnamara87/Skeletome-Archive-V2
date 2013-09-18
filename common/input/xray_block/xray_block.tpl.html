@@ -3,7 +3,7 @@
 
     <div ng-show="!isEditing">
         <div class="inputblock-values">
-            <img src="{{ xray.thumb_url }}" alt="xray.name"/>
+            <img ng-src="{{ xray.thumb_url }}" alt="xray.name"/>
             <div class="inputblock-value"  ng-show="xray.name">{{ xray.name }}</div>
             <div class="inputblock-info" ng-show="!xray.name">Click to edit name</div>
         </div>

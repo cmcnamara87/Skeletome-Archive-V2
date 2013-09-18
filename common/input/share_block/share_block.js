@@ -22,7 +22,7 @@ angular.module('directives.input.share_block', [])
                 });
 
                 $scope.$watch(function() {
-                    return FieldCtrl.getIsEditing() && FieldCtrl.getIsEditable();
+                    return FieldCtrl.getIsEditing();
                 }, function(isEditing) {
                     $scope.isEditing = isEditing;
                 });

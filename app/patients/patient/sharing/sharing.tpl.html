@@ -13,12 +13,14 @@
     <div ng-repeat="share in shares" class="content-box">
         <record resource="share"  remove-fn="remove(share)">
             <field editable="false">
-                <div ng-show="$$prevSibling.isEditing">
-                    <select ng-model="share.group_id" ng-options="group.id as group.name for group in membershipGroups" ></select>
-                </div>
-                <div ng-show="!$$prevSibling.isEditing">
-                    <share-block value="share"></share-block>
-                </div>
+                <share-block value="share"></share-block>
+
+                <!--<div ng-show="$$prevSibling.isEditing">-->
+                    <!--<select ng-model="share.group_id" ng-options="group.id as group.name for group in membershipGroups" ></select>-->
+                <!--</div>-->
+                <!--<div ng-show="!$$prevSibling.isEditing">-->
+                    <!---->
+                <!--</div>-->
             </field>
         </record>
     </div>
