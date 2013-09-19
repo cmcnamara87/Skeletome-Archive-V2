@@ -1,0 +1,23 @@
+<div class="inputblock">
+    <!-- Has a model ID (means its saved in the database and we are editing -->
+
+    <div ng-show="!isEditing">
+        <div class="inputblock-values">
+            {{ diagnosis.tally() }}
+            <button ng-click="diagnosis.voteUp()">Vote Up</button>
+            <div class="inputblock-value">{{ diagnosis.disorder.name }}</div>
+            <button ng-click="diagnosis.voteDown()">Vote Down</button>
+        </div>
+    </div>
+
+    <div ng-show="isEditing">
+        <div ng-show="!disorder">
+            <lookup field="name" model="Disorder" selected="disorder"></lookup>
+        </div>
+
+        <div ng-show="disorder">
+            {{ disorder.name }}
+        </div>
+
+    </div>
+</div>

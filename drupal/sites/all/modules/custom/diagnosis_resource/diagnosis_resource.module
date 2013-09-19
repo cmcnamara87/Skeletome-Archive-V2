@@ -47,8 +47,7 @@ class DiagnosisController extends EntityAPIController {
     private function addRelated(&$entity) {
         $entity->disorder = disorder_load($entity->disorder_id);
 
-        $entity->user = user_load($entity->uid);
-        unset($entity->user->password);
+        $entity->user = user_load_small($entity->uid);
 
         $entity->share = share_load($entity->share_id);
 

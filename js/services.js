@@ -98,20 +98,30 @@ myApp.services.factory('DiagnosisModel', function ($resource, apiUrl, VoteModel,
 
         newDiagnosis.$save(function() {
             share.diagnoses.unshift(newDiagnosis);
-
-            // Create a vote for the diagnosis
-            newDiagnosis.votes = [];
-            var newVote = new VoteModel({
-                diagnosis_id: newDiagnosis.id,
-                vote: 1
-            });
-
-            newVote.$save(function() {
-                newDiagnosis.votes.unshift(newVote);
-            });
+            newDiagnosis.voteUp();
         });
 
         return newDiagnosis;
+    }
+
+    MyResource.prototype.voteUp = function() {
+        var that = this;
+        var newVote = new VoteModel({
+            diagnosis_id: this.id,
+            vote: 1
+        });
+        newVote.$save();
+        that.votes.unshift(newVote);
+    }
+    MyResource.prototype.voteDown = function() {
+        var that = this;
+        var newVote = new VoteModel({
+            diagnosis_id: this.id,
+            vote: -1
+        });
+        newVote.$save();
+        this.votes.unshift(newVote);
+
     }
 
     MyResource.prototype.getVotes = function() {

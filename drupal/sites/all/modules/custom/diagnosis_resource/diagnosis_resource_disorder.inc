@@ -61,16 +61,7 @@ function _diagnosis_resource_disorder_delete($id) {
 
 
 function _diagnosis_resource_disorder_index($page, $fields, $parameters, $page_size) {
-    module_load_include('inc', 'services', 'services.module');
-    $node_select = db_select('disorders', 't');
-
-    services_resource_build_index_query($node_select, $page, $fields, $parameters, $page_size, 'disorders');
-
-    $results = services_resource_execute_index_query($node_select);
-
-    $list = services_resource_build_index_list($results, 'disorders', 'id');
-
-    return $list;
+    return resource_helper_index('disorder', $page, $fields, $parameters, $page_size);
 }
 
 

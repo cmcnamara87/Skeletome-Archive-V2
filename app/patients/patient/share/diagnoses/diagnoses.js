@@ -37,7 +37,7 @@ angular.module('patient.share.diagnoses', [])
         });
     }])
 
-    .controller('DiagnosesCtrl', ['$scope', '$location', '$routeParams', 'DiagnosisModel', 'diagnoses', 'disorders', function ($scope, $location, $routeParams, DiagnosisModel, diagnoses, disorders) {
+    .controller('DiagnosesCtrl', ['$scope', '$location', '$routeParams', 'DiagnosisModel', 'DisorderModel', 'diagnoses', 'disorders', function ($scope, $location, $routeParams, DiagnosisModel, DisorderModel, diagnoses, disorders) {
         $scope.diagnoses = diagnoses;
 
         $scope.disorders = disorders;
@@ -46,7 +46,11 @@ angular.module('patient.share.diagnoses', [])
             var newDiagnosis = new DiagnosisModel({
                 share_id: $routeParams.share_id
             });
-
             $scope.diagnoses.unshift(newDiagnosis);
+        }
+
+        $scope.remove = function(diagnosis) {
+            var index = $scope.diagnoses.indexOf(diagnosis);
+            $scope.diagnoses.splice(index, 1);
         }
     }]);

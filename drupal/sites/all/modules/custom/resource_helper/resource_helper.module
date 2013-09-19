@@ -6,6 +6,7 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
 
     $query->entityCondition('entity_type', $entity_type);
 
+
     foreach($parameters as $parameter => $value) {
         if(is_numeric($value)) {
             $query->propertyCondition($parameter, $value);
@@ -18,6 +19,7 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
     $query->range($page * $page_size, $page_size);
 
     $result = $query->execute();
+
 
     $ids = array_keys($result[$entity_type]);
 

@@ -1,15 +1,27 @@
 <div>
     <div class="content-title">
-        Discussions
+        Discussions <button ng-click="add()" class="btn">Add</button>
     </div>
 
     <div>
-        <div ng-repeat="post in posts" class="well">
-            <b>{{ post.user.name }}</b>
-            {{ post.text }}
-            <div ng-repeat="reply in post.replies" class="well">
-                <b>{{ reply.user.name }}</b> {{ reply.text }}
-            </div>
+        <div ng-repeat="post in posts" class="content-box">
+            <record resource="post">
+                <field>
+                    <div ng-show="$$prevSibling.isEditing">
+                        <text-block value="post.text"></text-block>
+                    </div>
+
+                    <div ng-show="!$$prevSibling.isEditing">
+                        <b>{{ post.user.name }}</b>
+                        {{ post.text }}
+                        <div ng-repeat="reply in post.replies" class="well">
+                            <b>{{ reply.user.name }}</b> {{ reply.text }}
+                        </div>
+                    </div>
+
+                </field>
+            </record>
+
         </div>
     </div>
 

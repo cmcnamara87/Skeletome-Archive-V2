@@ -32,6 +32,14 @@ angular.module('patient.share.discussion', [])
         });
     }])
 
-    .controller('DiscussionCtrl', ['$scope', '$location', 'posts', function ($scope, $location, posts) {
+    .controller('DiscussionCtrl', ['$scope', '$location','$routeParams', 'PostModel', 'posts', function ($scope, $location, $routeParams, PostModel, posts) {
         $scope.posts = posts;
+
+        $scope.add = function() {
+            var newPost = new PostModel({
+                share_id: $routeParams.share_id
+            })
+
+            $scope.posts.unshift(newPost);
+        }
     }]);
