@@ -4,7 +4,7 @@ angular.module('directives.navigation.breadcrumbbar', [])
     .directive('breadcrumbbar', ['$location', 'PatientModel', 'AuthService', function ($location, PatientModel, AuthService) {
         return {
             restrict: 'E',
-            template: '<div class="breadcrumbbar"><span ng-bind-html-unsafe="breadcrumbs"></span></div>',
+            template: '<div class="breadcrumbbar">&nbsp; <span ng-bind-html-unsafe="breadcrumbs"></span></div>',
             replace: true,
             link: function ($scope, element, attrs) {
 

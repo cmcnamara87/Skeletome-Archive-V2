@@ -32,5 +32,6 @@ angular.module('feed', [])
 
     .controller('FeedCtrl', ['$scope', '$location', function ($scope, $location) {
 //        $scope.patients = patients;
+
     }]);
 
