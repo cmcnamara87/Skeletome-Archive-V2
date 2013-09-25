@@ -210,6 +210,10 @@ myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
         return MyResource.query(Param.makeParams(object), success, failure);
     }
 
+    MyResource.prototype.fullName = function() {
+        return this.first_name + " " + this.last_name;
+    }
+
     return MyResource;
 });
 

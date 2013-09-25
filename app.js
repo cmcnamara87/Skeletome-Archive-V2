@@ -10,6 +10,7 @@ var myApp = angular.module('myApp', [
         'groups',
         'feed',
         'directives.navigation',
+        'directives.smodal',
         'directives.input']).
     config(['$routeProvider', function($routeProvider) {
 

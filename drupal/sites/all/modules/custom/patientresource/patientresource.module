@@ -63,16 +63,12 @@ class PatientController extends EntityAPIController {
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'share');
         $query->propertyCondition('patient_id', $entity->id);
-        $query->count();
         $result = $query->execute();
-
-        $entity->share_count = $result;
-
-//        $count = $query->entityCondition('entity_type', 'node')
-//            ->entityCondition('bundle', 'employees')
-//            ->propertyCondition('status', 1) // Getting published nodes only.
-//            ->count()
-//            ->execute();
+        $ids = array_keys($result['share']);
+        $entity->shares = share_load_multiple($ids);
+        foreach($entity->shares as &$share) {
+            $share->group = group_load($share->group_id);
+        }
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
@@ -97,7 +93,6 @@ function patient_load($id, $reset = FALSE) {
 }
 function patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     $patients = array_values(entity_load('patient', $ids, $conditions, $reset));
-
     return $patients;
 }
 function patient_save($entity) {

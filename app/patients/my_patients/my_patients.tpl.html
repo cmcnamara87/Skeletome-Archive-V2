@@ -1,10 +1,103 @@
 <div>
-    <div class="content-title">
-        <button class="btn btn-title pull-right" ng-click="add()">Add</button> My Patients
+    <style type="text/css">
+
+    </style>
+    <div class="header">
+        <div class="header-title">
+            My Patients
+        </div>
+        <div class="header-search">
+            <div class="search">
+                <i class="icon icon-search"></i>
+                <input type="text" placeholder="Search" ng-model="search"/>
+                <ul class="search-results" ng-show="search.length">
+                    <li class="search-result" ng-repeat="patient in patients | filter:search">
+                        <a href="">
+                            {{ patient.id }} - {{ patient.fullName() }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="header-buttons">
+            <button class="btn btn-action" ng-click="add()">Create</button>
+            <button data-toggle="modal" class="btn btn-action">Launch demo modal</button>
+        </div>
     </div>
     <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
 
-    <table class="table content-table">
+<smodal></smodal>
+
+    <table class="table-content">
+        <tr>
+            <th>ID <i class="icon icon-sort-down"></i></th>
+            <th>Patient</th>
+            <th>Diagnoses</th>
+            <th>Share</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="patient in patients | filter:search">
+            <td>
+                <a href="#/patient/{{ patient.id }}/summary-dashboard">
+                    #00{{ patient.id }}
+                </a>
+            </td>
+            <td>
+                <a href="#/patient/{{ patient.id }}/summary-dashboard">
+                    {{ patient.fullName() }}
+                </a>
+            </td>
+
+            <td>
+                <a href="#/patient/{{ patient.id }}/diagnoses">
+                    <span class="label label-primary">{{ patient.diagnoses[0].disorder.name }}</span>
+                </a>
+                <span ng-show="patient.diagnoses.length > 1">
+                    <a href="">
+                        <span class="label label-primary">+ {{ patient.diagnoses.length - 1 }} more</span>
+                    </a>
+                </span>
+
+                <span ng-show="!patient.diagnoses.length">
+                    <a href="#/patient/{{ patient.id }}/diagnoses">
+                        No diagnosis
+                    </a>
+
+                </span>
+            </td>
+
+            <td>
+                <a href="">
+                    <span class="label label-primary">{{ patient.shares[0].group.name }}</span>
+                </a>
+                <span ng-show="patient.shares.length > 1">
+                    <a href="">
+                        <span class="label label-primary">+ {{ patient.shares.length - 1 }} more</span>
+                    </a>
+                </span>
+                <span ng-show="!patient.shares.length" >
+                    No shares
+                </span>
+            </td>
+
+            <td>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon icon-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#"><i class="icon icon-share-alt"></i> Share</a></li>
+                        <li><a href="#"><i class="icon icon-trash"></i> Delete</a></li>
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--<table class="table content-table">
         <tr>
             <th>Patient</th>
             <th>Diagnosis</th>
@@ -35,7 +128,6 @@
                 </td>
             </tr>
         </tbody>
-
-    </table>
+    </table>-->
 
 </div>

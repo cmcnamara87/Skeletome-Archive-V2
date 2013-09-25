@@ -82,12 +82,11 @@ function membership_delete($id) {
     entity_delete('membership', $id);
 }
 
-
 function share_load($id, $reset = FALSE) {
-    return array_shift(share_load_multiple(array($id), $reset));
+    return reset(share_load_multiple(array($id), $reset));
 }
 function share_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('share', $ids, $conditions, $reset);
+    return array_values(entity_load('share', $ids, $conditions, $reset));
 }
 function share_save($entity) {
     entity_save('share', $entity);
