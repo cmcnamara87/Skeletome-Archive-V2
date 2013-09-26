@@ -1,0 +1,23 @@
+<div class="typeahead">
+    <div ng-show="multi == 'true'">
+        <div class="typeahead-tokens" ng-show="selectedOptions.length">
+            <div class="typeahead-token" ng-repeat="selectedOption in selectedOptions">{{ selectedOption.name }}&nbsp;&nbsp;<i class="icon icon-remove"></i></div>
+        </div>
+    </div>
+    <div ng-show="multi == 'false'">
+        false
+        {{ selectedOptions[0].name | json }}
+    </div>
+    <pre>
+        {{ multi }}
+    </pre>
+
+    <input type="text" id="input" ng-model="input" ng-change="inputChanged(input)" ng-keydown="inputKeyPressed()" placeholder="Who do you want to share this patient with?"/>
+    <div class="typeahead-options-wrapper">
+        <ul class="typeahead-options typeahead-options-inside" ng-show="options.length">
+            <li ng-repeat="option in options | filter:input" class="typeahead-option" ng-class="{'selected': selectedIndex == $index}">
+                <i class="icon icon-group"></i> {{ option.name }}
+            </li>
+        </ul>
+    </div>
+</div>

@@ -56,11 +56,12 @@ function groupresource_entity_info() {
 //
 //} // Nothing to see here,
 
+
 function group_load($id, $reset = FALSE) {
-    return array_shift(group_load_multiple(array($id), $reset));
+    return reset(group_load_multiple(array($id), $reset));
 }
 function group_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('group', $ids, $conditions, $reset);
+    return array_values(entity_load('group', $ids, $conditions, $reset));
 }
 function group_save($entity) {
     entity_save('group', $entity);
@@ -70,10 +71,10 @@ function group_delete($id) {
 }
 
 function membership_load($id, $reset = FALSE) {
-    return array_shift(membership_load_multiple(array($id), $reset));
+    return reset(membership_load_multiple(array($id), $reset));
 }
 function membership_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('membership', $ids, $conditions, $reset);
+    return array_values(entity_load('membership', $ids, $conditions, $reset));
 }
 function membership_save($entity) {
     entity_save('membership', $entity);

@@ -14,5 +14,6 @@ angular.module('directives.input',
         'directives.input.savecancel_block',
         'directives.input.consent_file',
         'directives.input.xray_block',
-        'directives.input.test'
+        'directives.input.test',
+        'directives.input.typeahead'
     ]);

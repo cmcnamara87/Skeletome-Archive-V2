@@ -1,11 +1,23 @@
 angular.module('directives.smodal', [])
 
     // Display a modal
-    .directive('smodal', [function () {
+    .directive('smodal', ['GroupModel', function (GroupModel) {
         return {
             restrict: 'E',
             templateUrl: 'common/smodal/smodal.tpl.html',
             link: function ($scope, element, attrs) {
+
+                $scope.shareChanged = function(group) {
+                    GroupModel.index({name: group}, function(results) {
+                        $scope.shareResults = results;
+                    });
+                }
+
+                $scope.shareKeypressed = function(event) {
+                    alert("alert");
+                    console.log("event", event);
+
+                }
 //                scope.$watch(attrs.show, function(value) {
 //                    if(value) {
 //                        elem.modal('show');
