@@ -50,6 +50,10 @@ angular.module('directives.input.typeahead', [])
                  * Listen for enter key pressed in input
                  */
                 $('#input', iElement).keydown(function(e) {
+                    if(e.keyCode == 27) {
+                        e.preventDefault();
+                        return false;
+                    }
 
                     if($scope.options && $scope.options.length) {
 

@@ -11,7 +11,7 @@ angular.module('directives.smodal', [])
             }
         }
     }])
-    .directive('smodal', ['GroupModel', '$location', function (GroupModel, $location) {
+    .directive('smodal', ['GroupModel', '$location', '$parse', function (GroupModel, $location, $parse) {
         return {
             restrict: 'E',
             templateUrl: 'common/smodal/smodal.tpl.html',
@@ -58,6 +58,7 @@ angular.module('directives.smodal', [])
                     });
 
 
+
                     /**
                      * Listen for modal events
                      */
@@ -78,6 +79,20 @@ angular.module('directives.smodal', [])
 
                     transcludeFn(scope, function cloneConnectFn(cElement) {
                         tElement.find('.smodal').append(cElement);
+
+                        $('input, button', tElement).keydown(function(e) {
+                            if(e.keyCode == 13 && e.metaKey) {
+                                console.log("enter and meta");
+                                // command + enter, submit the form (this is pretty icky :P)
+                                var clickFunctionString = $('.btn-action-selected', tElement).attr('ng-click');
+                                console.log("clickFunctionString", $('.btn-action-selected'), clickFunctionString);;
+                                var expression = $parse(clickFunctionString);
+                                expression(scope);
+//                            expression.assign($scope, 'newValu');
+                            }
+                        });
+
+
                     });
                 };
             }

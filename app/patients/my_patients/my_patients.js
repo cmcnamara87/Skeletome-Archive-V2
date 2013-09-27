@@ -64,6 +64,11 @@ angular.module('patients.my_patients', [])
             return defer.promise;
         }
 
+        setTimeout(function() {
+            $('input[type=text]').eq(0).focus();
+        }, 0);
+
+
         $scope.createPatient = function(newPatient) {
             // Create a patient and then, create the shares
             var groups = newPatient.groups;
