@@ -14,7 +14,13 @@
     </div>
 
     <div ng-show="multi == 'true' || multi == 'false' && tokens.length == 0">
-        <input type="text" id="input" ng-model="input" ng-change="inputChanged(input)" ng-keydown="inputKeyPressed()" placeholder="{{ placeholder }}"/>
+        <input type="text"
+               id="input"
+               ng-model="input"
+               ng-change="inputChanged(input)"
+               ng-keydown="inputKeyPressed()"
+               placeholder="{{ placeholder }}"
+        />
         <div class="typeahead-options-wrapper">
             <ul class="typeahead-options typeahead-options-inside" ng-show="options.length" ng-mouseleave="$parent.selectedIndex = 0">
                 <li ng-repeat="option in options | filter:input"

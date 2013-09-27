@@ -30,7 +30,7 @@ angular.module('patients.my_patients', [])
         });
     }])
 
-    .controller('MyPatientsCtrl', ['$scope', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'patients', function ($scope, $rootScope, $location, SmodalService, PatientModel, ShareModel, patients) {
+    .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients', function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
         $scope.patients = patients;
 
         $scope.showAutosharing = function() {
@@ -42,11 +42,28 @@ angular.module('patients.my_patients', [])
             SmodalService.show('createPatient');
         }
 
+        $scope.showDeletePatient = function(patient) {
+            SmodalService.show('deletePatient');
+            $scope.deleteToPatient = patient;
+        }
         $scope.deletePatient = function(patient) {
             var index = $scope.patients.indexOf(patient);
             $scope.patients.splice(index, 1);
             patient.$remove();
         }
+
+        $scope.findGroup = function(value) {
+            var defer = $q.defer();
+
+            GroupModel.index({name: value}, function(groups) {
+                defer.resolve(groups);
+            }, function() {
+                defer.reject();
+            });
+
+            return defer.promise;
+        }
+
         $scope.createPatient = function(newPatient) {
             // Create a patient and then, create the shares
             var groups = newPatient.groups;

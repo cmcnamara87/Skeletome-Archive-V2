@@ -88,7 +88,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"><i class="icon icon-share-alt"></i> Share</a></li>
-                        <li><a href="" ng-click="deletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
+                        <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
                         <!--<li class="divider"></li>-->
                         <!--<li><a href="#">Separated link</a></li>-->
                     </ul>
@@ -142,7 +142,7 @@
                 <div class="sform-row">
                     <label>Share</label>
                     <div class="sform-inputs">
-                        <typeahead multi="true" model="autosharing.groups" placeholder="What groups do you want to share new patients with?"></typeahead>
+                        <typeahead multi="true" model="autosharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share new patients with?"></typeahead>
                     </div>
                 </div>
             </div>
@@ -151,6 +151,21 @@
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
                 <button class="btn btn-action btn-action-selected">Share</button>
+            </div>
+        </div>
+    </smodal>
+
+    <smodal name="deletePatient">
+        <div class="smodal-title">
+            Delete Patient
+        </div>
+        <div class="smodal-description" >
+            Are you sure you want to delete this patient?
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); deletePatient(deleteToPatient)">Delete #{{ deleteToPatient.id}} {{ deleteToPatient.fullName() }}</button>
             </div>
         </div>
     </smodal>
@@ -183,7 +198,7 @@
                 <div class="sform-row">
                     <label>Share</label>
                     <div class="sform-inputs">
-                        <typeahead multi="true" model="newPatient.groups" placeholder="Who do you want to share this patient with?"></typeahead>
+                        <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
                     </div>
                 </div>
             </div>

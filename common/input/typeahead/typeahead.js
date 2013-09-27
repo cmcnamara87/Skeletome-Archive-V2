@@ -7,6 +7,10 @@ angular.module('directives.input.typeahead', [])
             templateUrl: 'common/input/typeahead/typeahead.tpl.html',
             scope: {
                 multi: '@',
+                /**
+                 * The option function is given the text in the input
+                 * Return: A promise that resolves to a list  of options to choose from for the input
+                 */
                 optionsFn: '&',
                 tokens: '=model',
                 placeholder: '@'
@@ -29,7 +33,15 @@ angular.module('directives.input.typeahead', [])
                  * @param option
                  */
                 $scope.addToken = function(option) {
-                    $scope.tokens.push(option);
+                    var found = false;
+                    angular.forEach($scope.tokens, function(token) {
+                        if(token.id == option.id) {
+                            found = true;
+                        }
+                    });
+                    if(!found) {
+                        $scope.tokens.push(option);
+                    }
                     $scope.input = "";
                     $scope.options = [];
                 }
@@ -37,16 +49,29 @@ angular.module('directives.input.typeahead', [])
                 /**
                  * Listen for enter key pressed in input
                  */
-                $('#input').keydown(function(e) {
+                $('#input', iElement).keydown(function(e) {
+
                     if($scope.options && $scope.options.length) {
-                        if(e.keyCode == 27) {
-                            e.preventDefault();
-                        }
+
                         if(e.keyCode == 13 || e.keyCode == 9) {
+
                             $scope.$apply(function() {
                                 var selectedOption = $scope.options[$scope.selectedIndex];
+
                                 $scope.addToken(selectedOption);
                             })
+                            return false;
+                        }
+                        if(e.keyCode == 38) {
+                            $scope.$apply(function() {
+                                $scope.selectedIndex = Math.max(0, $scope.selectedIndex - 1);
+                            });
+                            return false;
+                        }
+                        if(e.keyCode == 40) {
+                            $scope.$apply(function() {
+                                $scope.selectedIndex = Math.min($scope.options.length - 1, $scope.selectedIndex + 1);
+                            });
                             return false;
                         }
                     }
@@ -68,10 +93,10 @@ angular.module('directives.input.typeahead', [])
                                 // The input value hasn't changed in 500ms (so the user
                                 // has probably stopped typing), so we can do a request.
                                 // This is just for rate limiting
-                                GroupModel.index({name: value}, function(options) {
-                                    if($scope.input.length) {
-                                        $scope.options = options;
-                                    }
+                                $scope.optionsFn({
+                                    'value': value
+                                }).then(function(options) {
+                                    $scope.options = options;
                                 });
                             }
                         }, 100);

@@ -30,7 +30,13 @@ angular.module('directives.smodal', [])
                         scope.isShowing = true;
                         $('body').append($overlay);
                         setTimeout(function() {
-                            $('input', tElement).eq(0).focus();
+                            var $inputs = $('input', tElement);
+                            if($inputs.length) {
+                                $('input', tElement).eq(0).focus();
+                            } else {
+                                $('.btn-action-selected', tElement).eq(0).focus();
+                            }
+
                         }, 0)
                     }
 
