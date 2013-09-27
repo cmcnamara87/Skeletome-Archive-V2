@@ -1,12 +1,84 @@
 angular.module('directives.smodal', [])
 
     // Display a modal
-    .directive('smodal', ['GroupModel', function (GroupModel) {
+    .factory('SmodalService', ['$rootScope', function ($rootScope) {
+        return {
+            show: function(modalName) {
+                $rootScope.$broadcast('modal', {name: modalName, show: true});
+            },
+            hide: function(modalName) {
+                $rootScope.$broadcast('modal', {name: modalName, show: false});
+            }
+        }
+    }])
+    .directive('smodal', ['GroupModel', '$location', function (GroupModel, $location) {
         return {
             restrict: 'E',
             templateUrl: 'common/smodal/smodal.tpl.html',
-            link: function ($scope, element, attrs) {
+            transclude: true,
+            scope: true,
+            compile: function(tElement, tAttrs, transcludeFn) {
 
+                return function (scope, el, tAttrs) {
+                    scope.isShowing = false;
+                    var $overlay = $("<div class='smodal-overlay'></div>");
+
+                    /**
+                     * Show the modal and add the overlay
+                     */
+                    scope.$open = function() {
+                        scope.isShowing = true;
+                        $('body').append($overlay);
+                        setTimeout(function() {
+                            $('input', tElement).eq(0).focus();
+                        }, 0)
+                    }
+
+                    /**
+                     * Close the modal and remove the overlay
+                     */
+                    scope.$close = function() {
+                        scope.isShowing = false;
+                        $('.smodal-overlay').remove();
+                    }
+
+                    $('body').keydown(function(e) {
+                        if(e.keyCode == 27) {
+                            scope.$apply(function() {
+                                scope.$close();
+                            });
+                            return false;
+                        }
+                    });
+
+
+                    /**
+                     * Listen for modal events
+                     */
+                    scope.$on('modal', function(event, args) {
+                        if(args.name == tAttrs.name) {
+                            if(args.show) {
+                                scope.$open();
+                            } else {
+                                scope.$close();
+                            }
+                        }
+                    })
+
+                    scope.$on("$locationChangeStart", function(event){
+                        console.log("Location path chagned", event);
+                        scope.$close();
+                    });
+
+                    transcludeFn(scope, function cloneConnectFn(cElement) {
+                        tElement.find('.smodal').append(cElement);
+                    });
+                };
+            }
+
+            /*link: function ($scope, element, attrs) {
+
+                $scope.test = "TESTING";
                 $scope.shareChanged = function(group) {
                     GroupModel.index({name: group}, function(results) {
                         $scope.shareResults = results;
@@ -39,6 +111,6 @@ angular.module('directives.smodal', [])
 //
 //                    }
 //                })
-            }
+            }*/
         };
     }]);

@@ -30,16 +30,38 @@ angular.module('patients.my_patients', [])
         });
     }])
 
-    .controller('MyPatientsCtrl', ['$scope', '$location', 'PatientModel', 'patients', function ($scope, $location, PatientModel, patients) {
+    .controller('MyPatientsCtrl', ['$scope', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'patients', function ($scope, $rootScope, $location, SmodalService, PatientModel, ShareModel, patients) {
         $scope.patients = patients;
 
-        $scope.add = function() {
+        $scope.showAutosharing = function() {
+            SmodalService.show('autosharing');
+        }
 
-            console.log("adding patient");
-            // create a new patient, redirect to the patient page
-            var newPatient = new PatientModel({
-            });
+        $scope.newPatient = new PatientModel();
+        $scope.showCreatePatient = function() {
+            SmodalService.show('createPatient');
+        }
+
+        $scope.deletePatient = function(patient) {
+            var index = $scope.patients.indexOf(patient);
+            $scope.patients.splice(index, 1);
+            patient.$remove();
+        }
+        $scope.createPatient = function(newPatient) {
+            // Create a patient and then, create the shares
+            var groups = newPatient.groups;
+
             newPatient.$save(function(patient) {
+                // Do the sharing
+                console.log("groups are ", groups);
+                angular.forEach(groups, function(group) {
+                    var newShare = new ShareModel({
+                        patient_id: patient.id,
+                        group_id: group.id
+                    })
+                    newShare.$save();
+                });
+
                 $location.path('/patient/' + patient.id + '/contact-information');
             })
         }

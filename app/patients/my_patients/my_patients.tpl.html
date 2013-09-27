@@ -21,13 +21,13 @@
         </div>
         
         <div class="header-buttons">
-            <button class="btn btn-action">Autosharing</button>
-            <button class="btn btn-action" ng-click="add()">Create</button>
+            <button class="btn btn-action" ng-click="showAutosharing()">Autosharing</button>
+            <button class="btn btn-action" ng-click="showCreatePatient()">Create</button>
         </div>
     </div>
     <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
 
-<smodal></smodal>
+
 
     <table class="table-content">
         <tr>
@@ -37,7 +37,7 @@
             <th>Share</th>
             <th></th>
         </tr>
-        <tr ng-repeat="patient in patients | filter:search">
+        <tr ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search">
             <td>
                 <a href="#/patient/{{ patient.id }}/summary-dashboard">
                     #00{{ patient.id }}
@@ -88,7 +88,7 @@
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#"><i class="icon icon-share-alt"></i> Share</a></li>
-                        <li><a href="#"><i class="icon icon-trash"></i> Delete</a></li>
+                        <li><a href="" ng-click="deletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
                         <!--<li class="divider"></li>-->
                         <!--<li><a href="#">Separated link</a></li>-->
                     </ul>
@@ -129,5 +129,73 @@
             </tr>
         </tbody>
     </table>-->
+
+    <smodal name="autosharing">
+        <div class="smodal-title">
+            Autosharing
+        </div>
+        <div class="smodal-description" >
+            Autosharing allows you to <b>automatically share new patient</b> you add with selected groups.<br/>
+        </div>
+        <div class="smodal-content">
+            <div class="sform">
+                <div class="sform-row">
+                    <label>Share</label>
+                    <div class="sform-inputs">
+                        <typeahead multi="true" model="autosharing.groups" placeholder="What groups do you want to share new patients with?"></typeahead>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected">Share</button>
+            </div>
+        </div>
+    </smodal>
+
+
+
+    <smodal name="createPatient">
+        <div class="smodal-title">
+            Create a Patient
+        </div>
+        <div class="smodal-description" >
+            Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
+        </div>
+        <div class="smodal-content">
+            <div class="sform">
+                <div class="sform-row">
+                    <label for="first_name">Name</label>
+                    <div class="sform-inputs sform-inputs2">
+                        <input type="text" id="first_name" placeholder="First Name" ng-model="newPatient.first_name"/><input type="text" id="last_name" placeholder="Last Name" ng-model="newPatient.last_name" />
+                    </div>
+                </div>
+
+                <div class="sform-row">
+                    <label for="alias">Alias (opt)</label>
+                    <div class="sform-inputs">
+                        <input type="text" id="alias" placeholder="Alias" ng-model="newPatient.alias"/>
+                    </div>
+                </div>
+
+                <div class="sform-row">
+                    <label>Share</label>
+                    <div class="sform-inputs">
+                        <typeahead multi="true" model="newPatient.groups" placeholder="Who do you want to share this patient with?"></typeahead>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="createPatient(newPatient)">Create</button>
+            </div>
+        </div>
+    </smodal>
+
 
 </div>

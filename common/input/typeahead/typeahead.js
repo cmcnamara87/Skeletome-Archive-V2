@@ -7,25 +7,45 @@ angular.module('directives.input.typeahead', [])
             templateUrl: 'common/input/typeahead/typeahead.tpl.html',
             scope: {
                 multi: '@',
-                bleh: '@'
+                optionsFn: '&',
+                tokens: '=model',
+                placeholder: '@'
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
-                $scope.selectedIndex = 0;
-                $scope.selectedOptions = [];
+                $scope.selectedIndex = 3;
+                $scope.tokens = [];
 
+
+                /**
+                 * Remove a token
+                 * @param token     The token to remove
+                 */
+                $scope.removeToken = function(token) {
+                    $scope.tokens.splice($scope.tokens.indexOf(token), 1);
+                }
+
+                /**
+                 * Adds a option to the list of tokens
+                 * @param option
+                 */
+                $scope.addToken = function(option) {
+                    $scope.tokens.push(option);
+                    $scope.input = "";
+                    $scope.options = [];
+                }
 
                 /**
                  * Listen for enter key pressed in input
                  */
                 $('#input').keydown(function(e) {
                     if($scope.options && $scope.options.length) {
+                        if(e.keyCode == 27) {
+                            e.preventDefault();
+                        }
                         if(e.keyCode == 13 || e.keyCode == 9) {
                             $scope.$apply(function() {
                                 var selectedOption = $scope.options[$scope.selectedIndex];
-                                $scope.selectedOptions.push(selectedOption);
-
-                                $scope.input = "";
-                                $scope.options = [];
+                                $scope.addToken(selectedOption);
                             })
                             return false;
                         }
@@ -43,6 +63,7 @@ angular.module('directives.input.typeahead', [])
                     } else {
                         $timeout(function() {
                             if(value == $scope.input) {
+                                $scope.selectedIndex = 0;
 
                                 // The input value hasn't changed in 500ms (so the user
                                 // has probably stopped typing), so we can do a request.
@@ -53,7 +74,7 @@ angular.module('directives.input.typeahead', [])
                                     }
                                 });
                             }
-                        }, 250);
+                        }, 100);
                     }
 
                 }

@@ -130,13 +130,25 @@ label {
     z-index: 200;
     background-color: white;
     -webkit-transform: translateX(-50%) translateY(-50%);
+    z-index: 2000;
+    border-radius: 3px;
+    box-shadow: 0px 3px 10px rgba(99,124,144,0.3);
 }
-
+.smodal-overlay {
+    position: fixed;
+    background-color: black;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(242, 246, 247, 0.72);
+}
 .smodal {
     border: 1px solid #C7D5DF;
 }
 .smodal-title {
-    padding: 21px;
+    padding: 28px 21px;
     /*border-bottom: 1px solid #C7D5DF;*/
     font-weight: 300;
     font-size: 28px;
@@ -191,50 +203,89 @@ label {
         width: 100%;
     }
 
-
+/*
+    A typehead that can either have a single token, or multi-token entry
+*/
 .typeahead {
     border: 1px solid #C7D5DF;
 }
-.typeahead input {
-    border: none;
-}
-    .typeahead-tokens {
-        padding: 10px;
+    .typeahead input {
+        border: none;
     }
+
+    /*
+        A dark blue token with a remove X on the right side
+    */
     .typeahead-token {
-        background-color: #417BAE;
-        color: white;
-        display: inline-block;
-        padding: 5px 12px;
-        border-radius: 3px;
-        margin-right: 7px;
-        margin-bottom: 7px;
+        text-align: left;
     }
+        .typeahead-token:active {
+            position: relative;
+            top: 1px;
+        }
+        /*
+            Single Token: A large token (for single entry) full width
+        */
+        .typeahead-token-single {
+            display: block;
+            padding: 10px 14px;
+            width: 100%;
+            background-color: #E1EDF8;
+            border: 1px solid #B7D1E9;
+            color: #6D8AA5;
+        }
+            .typeahead-token-single .icon-remove {
+                margin-left: 10px;
+                position: relative;
+                top: 3px;
+            }
+        /*
+            Multi Tokens: Padding around the collection of tokens
+        */
+        .typeahead-tokens {
+            padding: 10px;
+        }
+        /*
+            Multi Token: A small inline token
+        */
+        .typeahead-token-multi {
+            display: inline-block;
+            background-color: #417BAE;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 3px;
+            margin-right: 7px;
+            margin-bottom: 7px;
+            border: none;
+        }
 
-
-.typeahead-options-wrapper {
-    position: relative;
-}
-.typeahead-options {
-    position: absolute;
-    left: 5px;
-    background-color: white;
-    border-top: 1px solid #C7D5DF;
-    list-style-type: none;
-    padding: 0;
-    min-width: 200px;
-}
-    .typeahead-options-inside {
-        top: -7px;
+    /*
+        Options list: The auto-complet edropdown that displays suggestions for tokens
+    */
+    .typeahead-options-wrapper {
+        position: relative;
     }
-    .typeahead-option {
-        padding: 10px;
-        border: 1px solid #C7D5DF;
-        border-top: none;
+    .typeahead-options {
+        position: absolute;
+        left: 5px;
+        cursor: pointer;
+        background-color: white;
+        border-top: 1px solid #C7D5DF;
+        list-style-type: none;
+        padding: 0;
+        min-width: 200px;
     }
-    .typeahead-option.selected {
-        background-color: #F1F5F9;
-    }
+        .typeahead-options-inside {
+            top: -7px;
+        }
+        .typeahead-option {
+            padding: 10px;
+            border: 1px solid #C7D5DF;
+            border-top: none;
+        }
+        .typeahead-option.selected {
+            background-color: #F1F5F9;
+        }
 
 /*
 A small search embeddable in the header box
@@ -284,7 +335,7 @@ table.table-content {
     background-color: white;
     padding-bottom: 40px;
     width: 100%;
-    margin-bottom: 500px;
+    margin-bottom: 80px;
 }
 .table-content tr {
     border: none;
@@ -448,7 +499,7 @@ Styleguide 2.1.3.
 }
 
 .breadcrumbbar {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     left: 65px;
@@ -463,7 +514,7 @@ Styleguide 2.1.3.
 The menubar element
 */
 .menubar {
-    position: absolute;
+    position: fixed;
     top: 36px;
     bottom: 0;
 
@@ -512,7 +563,7 @@ The menubar element
 */
 .tabbar {
     width: 65px;
-    position: absolute;
+    position: fixed;
     top: 0;
     bottom: 0;
 

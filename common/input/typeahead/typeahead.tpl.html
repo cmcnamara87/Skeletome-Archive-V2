@@ -1,23 +1,31 @@
 <div class="typeahead">
     <div ng-show="multi == 'true'">
-        <div class="typeahead-tokens" ng-show="selectedOptions.length">
-            <div class="typeahead-token" ng-repeat="selectedOption in selectedOptions">{{ selectedOption.name }}&nbsp;&nbsp;<i class="icon icon-remove"></i></div>
+        <div class="typeahead-tokens" ng-show="tokens.length">
+            <button class="typeahead-token typeahead-token-multi" ng-repeat="token in tokens" ng-click="removeToken(token)">
+                {{ token.name }}&nbsp;&nbsp;<i class="icon icon-remove"></i>
+            </button>
         </div>
     </div>
     <div ng-show="multi == 'false'">
-        false
-        {{ selectedOptions[0].name | json }}
+        <button ng-show="tokens.length" class="typeahead-token typeahead-token-single" ng-click="removeToken(tokens[0])">
+            <i class="icon icon-remove pull-right"></i>
+            {{ tokens[0].name }}
+        </button>
     </div>
-    <pre>
-        {{ multi }}
-    </pre>
 
-    <input type="text" id="input" ng-model="input" ng-change="inputChanged(input)" ng-keydown="inputKeyPressed()" placeholder="Who do you want to share this patient with?"/>
-    <div class="typeahead-options-wrapper">
-        <ul class="typeahead-options typeahead-options-inside" ng-show="options.length">
-            <li ng-repeat="option in options | filter:input" class="typeahead-option" ng-class="{'selected': selectedIndex == $index}">
-                <i class="icon icon-group"></i> {{ option.name }}
-            </li>
-        </ul>
+    <div ng-show="multi == 'true' || multi == 'false' && tokens.length == 0">
+        <input type="text" id="input" ng-model="input" ng-change="inputChanged(input)" ng-keydown="inputKeyPressed()" placeholder="{{ placeholder }}"/>
+        <div class="typeahead-options-wrapper">
+            <ul class="typeahead-options typeahead-options-inside" ng-show="options.length" ng-mouseleave="$parent.selectedIndex = 0">
+                <li ng-repeat="option in options | filter:input"
+                    class="typeahead-option"
+                    ng-class="{'selected': $parent.selectedIndex == $index}"
+                    ng-click="addToken(option)"
+                    ng-mouseenter="$parent.selectedIndex = $index">
+                    <i class="icon icon-group"></i> {{ option.name }}
+                </li>
+            </ul>
+        </div>
     </div>
+
 </div>
