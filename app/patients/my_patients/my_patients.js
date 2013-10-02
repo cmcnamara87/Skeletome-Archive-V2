@@ -42,9 +42,29 @@ angular.module('patients.my_patients', [])
             SmodalService.show('createPatient');
         }
 
+        $scope.showSharePatient = function(patient) {
+            $scope.patientSharing = {};
+            $scope.patientSharing.patient = patient;
+            $scope.patientSharing.groups = [];
+            SmodalService.show('sharePatient');
+        }
+        $scope.sharePatientWithGroups = function(patient, groups) {
+            angular.forEach(groups, function(group, groupIndex) {
+                var share = new ShareModel({
+                    patient_id: patient.id,
+                    group_id: group.id
+                });
+                share.$save(function(share) {
+                    if(!angular.isDefined(patient.shares)) {
+                        patient.shares = [];
+                    }
+                    patient.shares.push(share);
+                });
+            });
+        }
         $scope.showDeletePatient = function(patient) {
             SmodalService.show('deletePatient');
-            $scope.deleteToPatient = patient;
+            $scope.patientToDelete = patient;
         }
         $scope.deletePatient = function(patient) {
             var index = $scope.patients.indexOf(patient);

@@ -21,7 +21,11 @@ angular.module('directives.smodal', [])
 
                 return function (scope, el, tAttrs) {
                     scope.isShowing = false;
-                    var $overlay = $("<div class='smodal-overlay'></div>");
+                    var $overlay = $("<div class='smodal-overlay'></div>").click(function() {
+                        scope.$apply(function() {
+                            scope.$close();
+                        });
+                    });
 
                     /**
                      * Show the modal and add the overlay

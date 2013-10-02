@@ -17,7 +17,6 @@ angular.module('directives.input.typeahead', [])
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
-                $scope.tokens = [];
 
 
                 /**
@@ -33,6 +32,9 @@ angular.module('directives.input.typeahead', [])
                  * @param option
                  */
                 $scope.addToken = function(option) {
+                    if(!angular.isDefined($scope.tokens)) {
+                        $scope.tokens = [];
+                    }
                     var found = false;
                     angular.forEach($scope.tokens, function(token) {
                         if(token.id == option.id) {
