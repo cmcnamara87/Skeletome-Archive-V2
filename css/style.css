@@ -119,6 +119,20 @@ label {
     float: left
 }
 
+
+.story {
+    width: 500px;
+    background-color: white;
+    border: 1px solid #C7D5DF;
+    padding: 14px;
+    margin-top: 14px;
+    margin-left: 14px;
+}
+
+
+/*
+    A modal box
+*/
 .smodal {
     position: fixed;
     top: 50%;
@@ -133,46 +147,55 @@ label {
     z-index: 2000;
     border-radius: 3px;
     box-shadow: 0px 3px 10px rgba(99,124,144,0.3);
-}
-.smodal-overlay {
-    position: fixed;
-    background-color: black;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: rgba(242, 246, 247, 0.72);
-}
-.smodal {
     border: 1px solid #C7D5DF;
 }
-.smodal-title {
-    padding: 28px 21px;
-    /*border-bottom: 1px solid #C7D5DF;*/
-    font-weight: 300;
-    font-size: 28px;
-}
-.smodal-description {
-    padding: 0px 21px
-}
-.smodal-content {
-    padding: 21px 21px 0 21px;
-}
-.smodal-buttons {
-    padding: 0 21px 21px 21px;
-    overflow: hidden;
-    /*border-top: 1px solid #C7D5DF;*/
-}
-    .smodal-buttons button {
-        margin-left: 7px;
+    /*
+        The overlay that sits behind the modal box
+    */
+    .smodal-overlay {
+        position: fixed;
+        background-color: black;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background-color: rgba(242, 246, 247, 0.72);
     }
+    /*
+        The title of the modal overlay
+    */
+    .smodal-title {
+        padding: 28px 21px;
+        font-weight: 300;
+        font-size: 28px;
+    }
+    .smodal-description {
+        padding: 0px 21px
+    }
+    .smodal-content {
+        padding: 21px 21px 0 21px;
+    }
+    .smodal-buttons {
+        padding: 0 21px 21px 21px;
+        overflow: hidden;
+    }
+        .smodal-buttons button {
+            margin-left: 7px;
+        }
 
 
+
+/*
+    A form (often used in the modal boxes)
+*/
 .sform-row {
     margin-bottom: 14px;
     display: table;
 }
+    /*
+        A label for a form input
+    */
     .sform-row label {
         display: table-cell;
         /*display: block;*/

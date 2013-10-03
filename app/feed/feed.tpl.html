@@ -1,0 +1,105 @@
+<div>
+    <div ng-repeat="patient in patients" class="story">
+        <div class="media">
+            <div class="pull-left">
+                <img src="img/shatner.png" alt=""/>
+            </div>
+
+            <div class="media-body">
+               <div>
+                   {{ patient.user.name }}
+               </div>
+                <div>
+                    Shared #{{ patient.id }} with
+                <span ng-repeat="share in patient.shares">
+                    <span ng-show="patient.shares.length > 1">
+                        <span ng-show="$first && $last">,</span>
+                        <span ng-show="$last"> and</span>
+                    </span>
+
+                    <a href="#/group/{{ share.group.id }}">{{ share.group.name }}</a>
+                </span> - 8hrs
+                </div>
+            </div>
+
+        </div>
+        <div>
+            <div>
+                Patient #{{ patient.id }}
+            </div>
+            <div>
+                <div>
+                    Clinical Summary
+                </div>
+                <div>
+                    {{ patient.clinical_summary }}
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    X-Rays
+                </div>
+                <div>
+
+                </div>
+            </div>
+
+
+            <div>
+                <div>
+                    Genetic Reports
+                </div>
+                <div>
+                    <table class="table">
+                        <tr>
+                            <th>Gene Mutation</th>
+                            <th>Gene</th>
+                            <th>Pathogenicity</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                G>C.36
+                            </td>
+                            <td>
+                                FGFR3
+                            </td>
+                            <td>
+                                High
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                A>T.22
+                            </td>
+                            <td>
+                                CUL7
+                            </td>
+                            <td>
+                                Low
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    Diagnoses
+                </div>
+                <div>
+                    <div ng-repeat="diagnosis in patient.diagnoses">
+                        {{ diagnosis.disorder.name }}
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <!--<pre>
+                {{ patient | json }}
+            </pre>-->
+
+    </div>
+</div>

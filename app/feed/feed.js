@@ -30,8 +30,10 @@ angular.module('feed', [])
         });
     }])
 
-    .controller('FeedCtrl', ['$scope', '$location', function ($scope, $location) {
+    .controller('FeedCtrl', ['$scope', '$location', 'PatientModel', function ($scope, $location, PatientModel) {
 //        $scope.patients = patients;
 
+        // Load all patients
+        $scope.patients = PatientModel.index();
     }]);
 
