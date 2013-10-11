@@ -108,6 +108,7 @@ angular.module('directives.input.field', [])
                 }
 
                 $scope.save = function() {
+                    console.log("Field: Saving");
                     $scope.isEditing = false;
                     RecordCtrl.save();
                 }

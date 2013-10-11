@@ -1,19 +1,94 @@
 <div>
-    <div class="content-title">
-        Clinical Summary
+    <div class="header">
+        <div class="header-title">
+            Case Information
+        </div>
     </div>
 
-    <div class="content-box">
-        <div class="row">
-            <div class="col-md-9" style="line-height: 28px;">
-                <record resource="patient">
-                    <field>
-                        <text-block value="patient.clinical_summary">
-                        </text-block>
-                    </field>
-                </record>
+    <div class="content-box row">
+        <div class="col-md-7">
 
+            <div class="content-section">
+                <div class="content-heading">
+                    Clinical Summary
+                </div>
+                <div class="content-content">
+                    <div cm-resource="patient">
+                        <cm-display>
+                            <cm-edit-delete></cm-edit-delete>
+                            {{ patient.clinical_summary }}
+                        </cm-display>
+                        <cm-edit>
+                            <textarea ng-model="patient.clinical_summary"></textarea>
+                            <cm-save-cancel></cm-save-cancel>
+                        </cm-edit>
+                    </div>
+                </div>
             </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    X-Rays
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Add</button>
+                    </div>
+                </div>
+                <div class="content-content">
+                    <div ng-repeat="xray in xrays">
+                        <div cm-resource="xray">
+                            <cm-display>
+                                <cm-edit-delete></cm-edit-delete>
+                                <pre>
+                                    {{ xray | json }}
+                                </pre>
+                            </cm-display>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    Genetic Reports
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Add</button>
+                    </div>
+                </div>
+                <div class="content-content">
+                    <div ng-repeat="mutation in mutations">
+                        <div cm-resource="mutation">
+                            <cm-display>
+                                <cm-edit-delete></cm-edit-delete>
+                                <pre>
+                                    {{ mutation | json }}
+                                </pre>
+                            </cm-display>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    Diagnoses
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Add</button>
+                    </div>
+                </div>
+                <div class="content-content">
+                    <div ng-repeat="diagnosis in diagnoses">
+                        <div cm-resource="diagnosis">
+                            <cm-display>
+                                <cm-edit-delete></cm-edit-delete>
+                                <pre>
+                                    {{ diagnosis | json }}
+                                </pre>
+                            </cm-display>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

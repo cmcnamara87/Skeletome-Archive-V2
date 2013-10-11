@@ -27,11 +27,11 @@ angular.module('patients.group_patients', [])
                         // Get the patient for the shares
                         // todo: make this so only does 1 request, and sends all the ids
                         angular.forEach(shares, function(share, shareIndex) {
-                            PatientModel.get({id: share.patient_id}, function(patient) {
-                                patients.push(patient);
-                            }, function() {
-                                console.log("fail");
-                            });
+//                            PatientModel.get({id: share.patient_id}, function(patient) {
+//                                patients.push(patient);
+//                            }, function() {
+//                                console.log("fail");
+//                            });
                         });
 
                         defer.resolve(patients);

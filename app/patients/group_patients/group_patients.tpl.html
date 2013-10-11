@@ -1,25 +1,76 @@
 <div>
-    <div class="content-title">
-        {{ group.name }}'s Patients
-        <button class="btn btn-title">Share a patient with {{ group.name }}</button>
-    </div>
-    <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
+    <div class="header">
+        <div class="header-title">
+            {{ group.name }}'s Patients
+        </div>
+        <!--<div class="header-search">
+            <div class="search">
+                <i class="icon icon-search"></i>
+                <input type="text" placeholder="Search" ng-model="search"/>
+                <ul class="search-results" ng-show="search.length">
+                    <li class="search-result" ng-repeat="patient in patients | filter:search">
+                        <a href="">
+                            {{ patient.id }} - {{ patient.fullName() }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
 
-    <table class="table content-table">
+        <div class="header-buttons">
+            <button class="btn btn-action" ng-click="showAutosharing()">Share a Patient</button>
+        </div>
+    </div>
+
+    <table class="table-content">
         <tr>
             <th>Patient</th>
             <th>Physician</th>
             <th>Diagnosis</th>
-            <th>Shares</th>
             <th></th>
         </tr>
+        <tr ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search">
+            <td>
+                <a href="#/patient/{{ patient.id }}/summary-dashboard">
+                    #00{{ patient.id }}
+                </a>
+            </td>
+            <td>
+                <a href="#/user/{{ patient.user.id }}">{{ patient.user.name }}</a>
+            </td>
+            <td>
+                <a href="#/patient/{{ patient.id }}/diagnoses">
+                    <span ng-show="patient.diagnoses.length">
+                        {{ patient.diagnoses[0].disorder.name }}
+                        <span ng-show="patient.diagnoses.length > 1">+ {{ patient.diagnoses.length - 1 }} More</span>
+                    </span>
+                    <span ng-show="patient.diagnoses.length == 0">
+                        No diagnosis
+                    </span>
+                </a>
+            </td>
+            <td>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon icon-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="" ng-click="showSharePatient(patient)"><i class="icon icon-share-alt"></i> Share</a></li>
+                        <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <!--
+    <table class="table content-table">
+        <tr>
+
+        </tr>
         <tr ng-repeat="patient in patients">
-            <td>
-                <a href="#/patient/{{ patient.id }}/summary-dashboard">Patient {{ patient.id }}</a>
-            </td>
-            <td>
-                <a>{{ patient.user.name }}</a>
-            </td>
+
+
             <td>
                 <a href="#/patient/{{ patient.id }}/diagnoses">
                     <span ng-show="patient.diagnoses.length">
@@ -46,5 +97,5 @@
             </td>
         </tr>
     </table>
-
+    -->
 </div>

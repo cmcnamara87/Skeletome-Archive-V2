@@ -1,0 +1,11 @@
+name = HPO Term Resource
+description = Stores the HPO Term resource
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = rest_server
+
+files[] = hpoterm_resource.inc
+files[] = hpoterm_resource.module

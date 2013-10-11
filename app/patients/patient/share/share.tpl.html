@@ -1,11 +1,227 @@
 <div>
-    <div class="content-title">
-        {{ share.group.name }}
+    <div class="header">
+        <div class="header-title">
+            {{ share.group.name }}
+        </div>
     </div>
 
-    <div class="content-box">
-        <pre>
-            {{ share | json }}
-        </pre>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="activities">
+                <div class="activity activity-adder">
+                    <!-- Options -->
+                    <ul class="activity-adder-tabs">
+                        <li><a href="" class="activity-adder-tab"  ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'">Add Post</a></li>
+                        <li><a href="" class="activity-adder-tab" ng-class="{'active': adding == 'diagnosis'}" ng-click="adding = 'diagnosis'">Add Diagnosis</a></li>
+                    </ul>
+
+                    <div ng-switch on="adding">
+                        <div ng-switch-when="post">
+                            <div class="activity-box">
+                                <textarea ng-model="newPost.text" placeholder="Write something about patient #{{ patient.id }}" class="full-width" />
+                            </div>
+                            <div class="activity-box">
+                                <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Pubmed</button>
+                                <button ng-click="addPost(newPost.text)" class="btn btn-action btn-action-selected pull-right">Post</button>
+                            </div>
+                        </div>
+
+                        <div ng-switch-when="diagnosis">
+                            <div class="activity-box">
+                                <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="Add a possible diagnosis"></typeahead>
+                            </div>
+                            <div class="activity-box">
+                                <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="What publications do you want to add?"></typeahead>
+                            </div>
+                            <div class="activity-box activity-reference">
+                                <a href="" class="activity-reference-title">Decomposing phenotype descriptions for the human skeletal phenome.</a>
+                                <ul class="activity-reference-authors">
+                                    <li><a href="" class="activity-reference-author">Groza T</a>,</li>
+                                    <li><a href="" class="activity-reference-author">Hunter J</a>,</li>
+                                    <li><a href="" class="activity-reference-author">Zankl A</a></li>
+                                </ul>
+                                <div class="activity-reference-abstract">
+                                    Over the course of the last few years there has been a significant amount of research
+                                    performed on ontology-based formalization of phenotype descriptions. The intrinsic
+                                    value and knowledge captured within such
+                                </div>
+                                <div class="activity-more">
+                                    <button class="btn-more">
+                                        <i class="icon icon-angle-down"></i> Show More
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="activity-box activity-box-bottom">
+                                <button class="btn btn-action"><i class="icon icon-plus-sign"></i> PubMed</button>
+                                <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Text</button>
+                                <button ng-click="addDiagnosis(newDiagnosis.disorders[0])" class="btn btn-action btn-action-selected pull-right">Post</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <!--<div>
+                    Show
+                    <select>
+                        <option value="">All</option>
+                        <option value="">Posts</option>
+                        <option value="">Diagnoses</option>
+                    </select>
+                </div>-->
+
+                <div ng-repeat="activity in activities">
+                    <div class="activity" cm-activity>
+                        <div class="activity-box">
+                            <div class="media">
+                                <div class="pull-left">
+                                    <img src="img/shatner.png" alt=""/>
+                                </div>
+
+                                <div class="media-body">
+                                    <a href="#/user/{{ activity.uid }}" class="activity-user">
+                                        Dr {{ activity.user.name }}
+                                    </a>
+                                    <div>
+                                        <span class="activity-message" ng-switch on="activity.type">
+                                            <span ng-switch-when="share">
+                                                shared <a href="#patient/{{ activity.share.patient_id }}">Patient #{{ activity.share.patient_id }}</a> with <a href="#/group/{{ activity.share.group.id }}">{{ activity.share.group.name }}</a>
+                                            </span>
+                                            <span ng-switch-default>
+                                                added a {{ activity.type }}
+                                            </span>
+
+                                        </span>
+                                        <span class="activity-time" ng-show="activity.created">
+                                            - {{ activity.created*1000 | date:'medium' }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div ng-switch on="activity.type">
+                                <div ng-switch-when="post">
+                                    <div class="activity-box">
+                                        {{ activity.post.text }}
+                                    </div>
+                                </div>
+                                <div ng-switch-when="diagnosis">
+                                    <div class="media activity-box" cm-diagnosis>
+                                        <div class="activity-icon pull-left">
+                                            <i class="icon-stethoscope icon"></i>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="activity-title">
+                                                {{ activity.diagnosis.disorder.name }}
+                                            </div>
+                                            <div>
+                                                <div class="votebox">
+                                                    <span class="votebox-buttonwrapper">
+                                                        <button class="btn btn-action" ng-click="voteUpDiagnosis(activity.diagnosis)">
+                                                            <i class="icon icon-thumbs-up-alt"></i> Agree ({{ getVotesUp(activity.diagnosis.votes).length }})
+                                                        </button>
+                                                    </span>
+
+
+                                                    <span class="scircle scircle-user" ng-repeat="vote in getVotesUp(activity.diagnosis.votes) | limitTo:7">
+                                                        <i class="icon icon-user-md"></i>
+                                                    </span>
+                                                    <span class="scircle scircle-more" ng-show="getVotesUp(activity.diagnosis.votes).length > 7">
+                                                        + {{ getVotesUp(activity.diagnosis.votes).length - 7 }}
+                                                    </span>
+                                                </div>
+
+                                                <div class="votebox">
+                                                    <span class="votebox-buttonwrapper">
+                                                        <button class="btn btn-action" ng-click="voteDownDiagnosis(activity.diagnosis)">
+                                                            <i class="icon icon-thumbs-down-alt"></i> Disagree ({{ getVotesDown(activity.diagnosis.votes).length }})
+                                                        </button>
+                                                    </span>
+
+                                                    <span class="scircle scircle-user" ng-repeat="vote in getVotesDown(activity.diagnosis.votes) | limitTo:7">
+                                                        <i class="icon icon-user-md"></i>
+                                                    </span>
+                                                    <span class="scircle scircle-more" ng-show="getVotesDown(activity.diagnosis.votes).length > 7">
+                                                        + {{ getVotesDown(activity.diagnosis.votes).length - 7 }}
+                                                    </span>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="activity-comments">
+                            <div class="activity-box activity-box-comment" ng-show="activity.replies.length > $commentDisplayCount">
+                                <button class="btn btn-more">
+                                    <i class="icon icon-angle-down"></i>
+                                    {{ activity.replies.length - $commentDisplayCount }} comments
+                                </button>
+
+                            </div>
+                            <div ng-repeat="reply in activity.replies | limitTo:-$commentDisplayCount" class="activity-box activity-box-comment">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <img src="img/shatner.png" alt="" style="width: 32px"/>
+                                    </div>
+
+                                    <div class="media-body">
+                                        <div>
+                                            <a href="#user/{{ reply.user.id }}" class="activity-user">
+                                                Dr {{ reply.user.name }}
+                                            </a>
+                                            <span class="activity-time" ng-show="reply.created">
+                                                - {{ reply.created*1000 | date:'medium' }}
+                                            </span>
+                                        </div>
+
+                                        <div>
+                                            {{ reply.text }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="activity-box activity-box-bottom activity-box-comment">
+                                <input type="text" placeholder="Add a comment" class="full-width" ng-model="newReply.text"/>
+                                <!--<button ng-click="$addReplyToActivity(newReply.text, activity)">Add</button>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 </div>
+<!--<div>
+    <div class="content-title">
+        Discussions <button ng-click="add()" class="btn">Add</button>
+    </div>
+
+    <div>
+        <div ng-repeat="post in posts" class="content-box">
+            <record resource="post">
+                <field>
+                    <div ng-show="$$prevSibling.isEditing">
+                        <text-block value="post.text"></text-block>
+                    </div>
+
+                    <div ng-show="!$$prevSibling.isEditing">
+                        <b>{{ post.user.name }}</b>
+                        {{ post.text }}
+                        <div ng-repeat="reply in post.replies" class="well">
+                            <b>{{ reply.user.name }}</b> {{ reply.text }}
+                        </div>
+                    </div>
+
+                </field>
+            </record>
+
+        </div>
+    </div>
+</div>-->

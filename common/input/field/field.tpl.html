@@ -3,7 +3,7 @@
     </div>
 
     <div ng-show="isEditing && !isNew">
-        <savecancel-block></savecancel-block>
+        <savecancel-block save-fn="save()" cancel-fn="cancel()"></savecancel-block>
     </div>
 </div>
 

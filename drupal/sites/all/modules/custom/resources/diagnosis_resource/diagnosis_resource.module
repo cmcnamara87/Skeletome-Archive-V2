@@ -61,7 +61,29 @@ class DiagnosisController extends EntityAPIController {
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
+
         parent::save($entity, $transaction);
+
+        // Create an activity for this new post
+        $vote = new stdClass();
+        $vote->uid = $entity->uid;
+        $vote->created = time();
+        $vote->modified = time();
+        $vote->vote = 1;
+        $vote->diagnosis_id = $entity->id;
+        vote_save($vote);
+
+
+        // Create an activity for this new post
+        $activity = new stdClass();
+        $activity->uid = $entity->uid;
+        $activity->created = time();
+        $activity->modified = time();
+        $activity->type = "diagnosis";
+        $activity->object_id = $entity->id;
+        $activity->share_id = $entity->share_id;
+        activity_save($activity);
+
         self::addRelated($entity);
     }
 
@@ -86,17 +108,11 @@ class VoteController extends EntityAPIController {
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
-            $entity->user = user_load($entity->uid);
-            unset($entity->user->password);
+            $entity->user = user_load_small($entity->uid);
         }
         return $entities;
     }
 }
-
-
-
-
-
 
 function diagnosis_load($id, $reset = FALSE) {
     return reset(diagnosis_load_multiple(array($id), $reset));

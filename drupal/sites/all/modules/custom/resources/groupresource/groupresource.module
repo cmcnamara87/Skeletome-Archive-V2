@@ -31,9 +31,37 @@ function groupresource_entity_info() {
                 'id' => 'id',
             ),
             'entity class'           => 'Entity',
-            'controller class'       => 'EntityAPIController',
+            'controller class'       => 'ShareController',
         ),
     );
+}
+
+class ShareController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->user = user_load_small($entity->uid);
+            $entity->group = group_load($entity->group_id);
+        }
+        return $entities;
+
+    }
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+
+        // Create an activity for this new post
+        $activity = new stdClass();
+        $activity->uid = $entity->uid;
+        $activity->created = time();
+        $activity->modified = time();
+        $activity->type = "share";
+        $activity->object_id = $entity->id;
+        $activity->share_id = $entity->id;
+        activity_save($activity);
+
+    }
 }
 
 //class MembershipController extends EntityAPIController {

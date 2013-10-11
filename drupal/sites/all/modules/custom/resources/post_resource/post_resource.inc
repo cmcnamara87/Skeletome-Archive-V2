@@ -65,18 +65,7 @@ function _post_resource_delete($id) {
 }
 
 function _post_resource_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'post');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['post']);
-
-    return post_load_multiple($ids);
+    return resource_helper_index('post', $page, $fields, $parameters, $page_size);
 }
 
 /**

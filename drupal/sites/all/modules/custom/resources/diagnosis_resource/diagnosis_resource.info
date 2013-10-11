@@ -4,7 +4,6 @@ package = A - Resources
 
 core = 7.x
 
-dependencies[] = post_resource
 dependencies[] = patientresource
 dependencies[] = entity
 dependencies[] = rest_server

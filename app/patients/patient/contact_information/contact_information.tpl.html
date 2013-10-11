@@ -1,74 +1,288 @@
 <div>
-    <div class="content-title">
-        Patient Details
+    <div class="header">
+        <div class="header-title">
+            Patient Information
+        </div>
+    </div>
+
+    <div class="content-box row">
+        <div class="col-md-7">
+
+            <div class="content-section">
+                <div class="content-heading">
+                    General
+                </div>
+                <div>
+                    <div cm-resource="patient">
+
+                        <cm-display>
+                            <cm-edit-delete></cm-edit-delete>
+                        </cm-display>
+
+                        <table class="sform">
+                            <tr>
+                                <td class="sform-label"><label>First Name</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ patient.first_name }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        <input type="text" ng-model="patient.first_name"/>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sform-label"><label>Last Name</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ patient.last_name }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        <input type="text" ng-model="patient.last_name"/>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sform-label"><label>Alias</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ patient.alias }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        <input type="text" ng-model="patient.alias"/>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sform-label"><label>Date of Birth</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ patient.dob }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        date in here
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sform-label"><label>Gender</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ patient.gender || "None" }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        <label>
+                                            <input type="radio" ng-model="patient.gender" value="Male" name="gender">
+                                            Male
+                                        </label>
+                                        <label>
+                                            <input type="radio" ng-model="patient.gender" value="Female" name="gender">
+                                            Female
+                                        </label>
+                                        <label>
+                                            <input type="radio" ng-model="patient.gender" value="Other" name="gender">
+                                            Other
+                                        </label>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <cm-edit>
+                                        <cm-save-cancel save-fn="$save()" cancel-fn="$cancel()"></cm-save-cancel>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    Identifers
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Add</button>
+                    </div>
+                </div>
+                <div ng-repeat="identifier in identifiers">
+                    <div cm-resource="identifier">
+                        <cm-display>
+                            <cm-edit-delete></cm-edit-delete>
+                        </cm-display>
+                        <table class="sform">
+                           <tr>
+                               <td class="sform-label"><label>Name</label></td>
+                               <td>
+                                   <cm-display>
+                                       {{ identifier.name }}
+                                   </cm-display>
+                                   <cm-edit>
+                                       <input type="text" placeholder="Name" ng-model="identifier.name"/>
+                                   </cm-edit>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td class="sform-label">
+                                   <label>ID</label>
+                               </td>
+                               <td>
+                                   <cm-display>
+                                       {{ identifier.identifier }}
+                                   </cm-display>
+                                   <cm-edit>
+                                       <input type="text" placeholder="ID" ng-model="identifier.identifier"/>
+                                   </cm-edit>
+                               </td>
+                           </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <cm-edit>
+                                        <cm-save-cancel></cm-save-cancel>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    Consent
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Upload Document</button>
+                    </div>
+                </div>
+
+                <div ng-repeat="consentFile in consentFiles">
+                    <div cm-resource="consentFile">
+                        <cm-edit>
+                            <upload-block url="http://localhost:8888/skelarchv2/drupal/upload" message="Upload Consent Files" uploaded-fn="consentUploaded(file)"></upload-block>
+                        </cm-edit>
+                        <cm-display>
+                            <a href="{{ consentFile.file_url }}" target="_blank">File</a>
+                            <consent-file value="consentFile"></consent-file>
+                        </cm-display>
+                    </div>
+                </div>
+            </div>
+            <div class="content-section">
+                <div class="content-heading">
+                    Addresses
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action" ng-click="addAddress()">Add</button>
+                    </div>
+                </div>
+                <!--<div style="background-color: #EEF3F7; padding: 14px; border: 1px solid #D8E1E8;">
+                    <table class="sform">
+                        <tr class="sform-row">
+                            <td class="sform-label">
+                                <label>Type</label>
+                            </td>
+                            <td>
+                                <input class="col-md-12" type="text"/>
+                            </td>
+                        </tr>
+                        <tr class="sform-row">
+                            <td class="sform-label"><label>Address</label></td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr class="sform-row">
+                            <td></td>
+                            <td>
+                                <savecancel-block></savecancel-block>
+                            </td>
+                        </tr>
+                    </table>
+                </div>-->
+                <div ng-repeat="address in addresses" >
+                    <div cm-resource="address">
+                        <cm-display>
+                            <cm-edit-delete></cm-edit-delete>
+                        </cm-display>
+                        <table class="sform">
+                            <tr>
+                                <td class="sform-label"><label>Type</label></td>
+                                <td>
+                                    <cm-display>
+                                        Home
+                                    </cm-display>
+                                    <cm-edit>
+                                        <select>
+                                            <option value="">Home</option>
+                                            <option value="">Work</option>
+                                        </select>
+                                    </cm-edit></td>
+                            </tr>
+                            <tr>
+                                <td class="sform-label"><label>Address</label></td>
+                                <td>
+                                    <cm-display>
+                                        {{ address.street }}
+                                        {{ address.city }}
+                                        {{ address.state }}
+                                        {{ address.postcode }}
+                                        {{ address.country }}
+                                    </cm-display>
+                                    <cm-edit>
+                                        <div>
+                                            <input class="col-md-3" type="text" placeholder="Number"/>
+                                            <input class="col-md-9" type="text" placeholder="Street Name"/>
+                                        </div>
+                                        <div>
+                                            <input class="col-md-4" type="text" placeholder="City"/>
+                                            <input class="col-md-4" type="text" placeholder="State"/>
+                                            <input class="col-md-4" type="text" placeholder="Postcode"/>
+                                        </div>
+                                        <div>
+                                            <input class="col-md-12" type="text" placeholder="Country"/>
+                                        </div>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <cm-edit>
+                                        <cm-save-cancel></cm-save-cancel>
+                                    </cm-edit>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-section">
+                <div class="content-heading">
+                    Sharing
+                    <div class="content-heading-buttons">
+                        <button class="btn btn-action">Add</button>
+                    </div>
+                </div>
+                <div>
+                    <div ng-repeat="share in shares">
+                        <div cm-resource="share">
+                            <cm-display>
+                                <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                            </cm-display>
+                            {{ share.group.name }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="content-box">
-        <record resource="patient" removable="false">
-            <div>
-                <dl>
-                    <dt>
-                        First Name
-                    </dt>
-                    <dd>
-                        <field>
-                            <value-block value="patient.first_name" editing=patient.$isEditing></value-block>
-                        </field>
-                    </dd>
-                    <dt>
-                        Last Name
-                    </dt>
-                    <dd>
-                        <field>
-                            <value-block value="patient.last_name" editing=patient.$isEditing></value-block>
-                        </field>
-                    </dd>
 
-                    <dt>
-                        Alias
-                    </dt>
-                    <dd>
-                        <field>
-                            <value-block value="patient.alias" editing=patient.$isEditing></value-block>
-                        </field>
-                    </dd>
-
-                    <dt>
-                        Date of Birthday
-                    </dt>
-                    <dd>
-                        <field>
-                            <date-block value="patient.dob" model="patient" editable="true"></date-block>
-                        </field>
-                    </dd>
-
-                    <dt>
-                        Gender
-                    </dt>
-                    <dd>
-                        <field>
-                            <div ng-show="$$prevSibling.isEditing">
-                                <label>
-                                    <input type="radio" ng-model="patient.gender" value="Male" name="gender">
-                                    Male
-                                </label>
-                                <label>
-                                    <input type="radio" ng-model="patient.gender" value="Female" name="gender">
-                                    Female
-                                </label>
-                                <label>
-                                    <input type="radio" ng-model="patient.gender" value="Other" name="gender">
-                                    Other
-                                </label>
-                            </div>
-                            <div ng-show="!$$prevSibling.isEditing">
-                                {{ patient.gender }}
-                            </div>
-                        </field>
-                    </dd>
-                </dl>
-            </div>
-        </record>
 
     </div>
 

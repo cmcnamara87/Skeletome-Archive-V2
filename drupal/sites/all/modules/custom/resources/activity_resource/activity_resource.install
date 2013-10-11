@@ -1,0 +1,131 @@
+<?php
+// patientresource.install
+/**
+ * Implementation of hook_schema().
+ */
+function activity_resource_schema() {
+    $schema['activities'] = array(
+        'description' => t('Stores activites that happen on the system e.g. new diagnosis, post, share etc.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a activity.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that triggered the activity creation.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the activity was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the activity was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'type' => array(
+                'description' => t('The type of the post e.g. general, diagnosis, xray'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'object_id' => array(
+                'description' => t('The object the activity is about e.g. a share_id or a diagnosis_id'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'share_id' => array(
+                'description' => t('The group that can see this activity'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'creator' => array(
+                'table' => 'user',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'type' => array(
+                'table' => 'activity_types',
+                'columns' => array('id' => 'type_id'),
+            ),
+            'share' => array(
+                'table' => 'shares',
+                'columns' => array('id' => 'share_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['replies'] = array(
+        'description' => t('Stores comment reply on a post.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a comment.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'created' => array(
+                'description' => t('The timestamp for when the comment was created.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'modified' => array(
+                'description' => t('The timestamp for when the comment was modified.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'text' => array(
+                'description' => t('The text of the comment'),
+                'type' => 'text',
+                'size' => 'small',
+            ),
+            'uid' => array(
+                'description' => t('The user that created the comment.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'activity_id' => array(
+                'description' => t('The activity the comment is attached to.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            )
+        ),
+        'foreign keys' => array(
+            'commenter' => array(
+                'table' => 'users',
+                'columns' => array('uid' => 'uid'),
+            ),
+            'activity' => array(
+                'table' => 'activities',
+                'columns' => array('id' => 'activity_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

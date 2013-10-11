@@ -30,7 +30,7 @@ function post_resource_schema() {
             'text' => array(
                 'description' => t('The text of the post'),
                 'type' => 'text',
-                'size' => 'small',
+                'size' => 'medium',
             ),
             'type_id' => array(
                 'description' => t('The type of the post e.g. general, diagnosis, xray'),
@@ -101,64 +101,6 @@ function post_resource_schema() {
         'primary key' => array('id'),
     );
 
-
-
-
-    $schema['replies'] = array(
-        'description' => t('Stores comment reply on a post.'),
-        'fields' => array(
-            'id' => array(
-                'description' => t('The primary identifier for a comment.'),
-                'type' => 'serial',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'created' => array(
-                'description' => t('The timestamp for when the comment was created.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'modified' => array(
-                'description' => t('The timestamp for when the comment was modified.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'text' => array(
-                'description' => t('The text of the comment'),
-                'type' => 'text',
-                'size' => 'small',
-            ),
-            'uid' => array(
-                'description' => t('The user that created the comment.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'post_id' => array(
-                'description' => t('The post the comment is attached to.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            )
-        ),
-        'foreign keys' => array(
-            'commenter' => array(
-                'table' => 'users',
-                'columns' => array('uid' => 'uid'),
-            ),
-            'post' => array(
-                'table' => 'posts',
-                'columns' => array('id' => 'post_id'),
-            ),
-        ),
-        'primary key' => array('id'),
-    );
 
     return $schema;
 }

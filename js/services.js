@@ -255,6 +255,16 @@ myApp.services.factory('AddressModel', ['$resource', 'apiUrl', 'baseUrl', 'Param
     return MyResource;
 }]);
 
+myApp.services.factory('ActivityModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'activity/:id', {
+        id: '@id' //this binds the ID of the model to the URL param,
+    });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
+});
+
 myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'share/:id', {
         id: '@id' //this binds the ID of the model to the URL param,

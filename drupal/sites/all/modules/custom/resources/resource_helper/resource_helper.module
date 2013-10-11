@@ -1,6 +1,6 @@
 <?php
 
-function resource_helper_index($entity_type, $page, $fields, $parameters, $page_size) {
+function resource_helper_index($entity_type, $page, $fields, $parameters, $page_size, $orderByColumn="id", $orderByDirection="ASC") {
 
     $query = new EntityFieldQuery();
 
@@ -17,13 +17,14 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
     }
 
     $query->range($page * $page_size, $page_size);
+    $query->propertyOrderBy($orderByColumn, $orderByDirection);
 
     $result = $query->execute();
-
 
     $ids = array_keys($result[$entity_type]);
 
     $entity_function = $entity_type . "_load_multiple";
+
 
     return call_user_func($entity_function, $ids);
 }

@@ -21,16 +21,24 @@ angular.module('directives.navigation.menubar', [])
 
                     $scope.menubarType = null;
 
+                    console.log("menu bar types", parts);
+
                     if(parts[0] == "groups" || parts[0] == "patients" || parts[0] == "user" || parts[0] == "feed") {
                         // top level pages
                         $scope.menubarType = parts[0];
                         $scope.menubarObjectId = parts[1];
-
                     } else {
                         // non-top level pages, we go from the end to work out how to do it
-                        $scope.menubarType = parts[parts.length - 3];
-                        $scope.menubarObjectId = parts[parts.length - 2];
-                        $scope.menubarSelectedItem = parts[parts.length - 1];
+
+                        $scope.menubarType = parts[0];
+                        $scope.menubarObjectId = parts[1];
+                        $scope.menubarSelectedItem = parts[2];
+
+                        // get out the selected item id if its there
+                        if(parts.length == 4) {
+                            $scope.menubarSelectedId = parts[3];
+                        }
+
                     }
                 });
 

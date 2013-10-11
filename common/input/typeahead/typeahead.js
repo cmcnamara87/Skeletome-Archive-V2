@@ -9,6 +9,7 @@ angular.module('directives.input.typeahead', [])
                 multi: '@',
                 /**
                  * The option function is given the text in the input
+                 * Look like like  options-fn="findGroup(value)" --> NOTE! It must be 'value' as the name of the input
                  * Return: A promise that resolves to a list  of options to choose from for the input
                  */
                 optionsFn: '&',
@@ -18,6 +19,10 @@ angular.module('directives.input.typeahead', [])
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
 
+
+                if(!angular.isDefined($scope.tokens)) {
+                    $scope.tokens = [];
+                }
 
                 /**
                  * Remove a token
@@ -32,9 +37,6 @@ angular.module('directives.input.typeahead', [])
                  * @param option
                  */
                 $scope.addToken = function(option) {
-                    if(!angular.isDefined($scope.tokens)) {
-                        $scope.tokens = [];
-                    }
                     var found = false;
                     angular.forEach($scope.tokens, function(token) {
                         if(token.id == option.id) {
@@ -53,8 +55,13 @@ angular.module('directives.input.typeahead', [])
                  */
                 $('#input', iElement).keydown(function(e) {
                     if(e.keyCode == 27) {
-                        e.preventDefault();
-                        return false;
+                        if($scope.options && $scope.options.length) {
+                            $scope.$apply(function() {
+                                $scope.options = [];
+                            });
+                            e.preventDefault();
+                            return false;
+                        }
                     }
 
                     if($scope.options && $scope.options.length) {
@@ -96,16 +103,22 @@ angular.module('directives.input.typeahead', [])
                             if(value == $scope.input) {
                                 $scope.selectedIndex = 0;
 
-                                // The input value hasn't changed in 500ms (so the user
-                                // has probably stopped typing), so we can do a request.
-                                // This is just for rate limiting
-                                $scope.optionsFn({
-                                    'value': value
-                                }).then(function(options) {
-                                    $scope.options = options;
-                                });
+                                if(value == "") {
+                                    $scope.options = "";
+                                } else {
+                                    // The input value hasn't changed in 500ms (so the user
+                                    // has probably stopped typing), so we can do a request.
+                                    // This is just for rate limiting
+                                    $scope.optionsFn({
+                                        'value': value
+                                    }).then(function(options) {
+                                        if($scope.input != "") {
+                                            $scope.options = options;
+                                        }
+                                    });
+                                }
                             }
-                        }, 100);
+                        }, 200);
                     }
 
                 }

@@ -1,7 +1,4 @@
 <div>
-    <style type="text/css">
-
-    </style>
     <div class="header">
         <div class="header-title">
             My Patients
@@ -25,9 +22,6 @@
             <button class="btn btn-action" ng-click="showCreatePatient()">Create</button>
         </div>
     </div>
-    <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
-
-
 
     <table class="table-content">
         <tr>
@@ -69,7 +63,7 @@
 
             <td>
                 <a href="">
-                    <span class="label label-primary">{{ patient.shares[0].group.name }}</span>
+                    <a class="label label-primary" href="#/patient/{{ patient.id }}/share/{{ patient.shares[0].id }}">{{ patient.shares[0].group.name }}</a>
                 </a>
                 <span ng-show="patient.shares.length > 1">
                     <a href="">
@@ -131,6 +125,7 @@
     </table>-->
 
     <smodal name="autosharing">
+
         <div class="smodal-title">
             Autosharing
         </div>
@@ -138,14 +133,18 @@
             Autosharing allows you to <b>automatically share new patient</b> you add with selected groups.<br/>
         </div>
         <div class="smodal-content">
-            <div class="sform">
-                <div class="sform-row">
-                    <label>Share</label>
-                    <div class="sform-inputs">
-                        <typeahead multi="true" model="autosharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share new patients with?"></typeahead>
-                    </div>
-                </div>
-            </div>
+            <table class="sform">
+                <tr class="sform-row">
+                    <td class="sform-label">
+                        <label>Share</label>
+                    </td>
+                    <td>
+                        <div class="sform-inputs">
+                            <typeahead multi="true" model="autosharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share new patients with?"></typeahead>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="smodal-buttons">
             <div class="pull-right">
@@ -171,27 +170,30 @@
     </smodal>
 
     <smodal name="sharePatient">
+
         <div class="smodal-title">
             Share Patient
         </div>
         <div class="smodal-description" >
 
-            Who do you want to share <b>#{{ patientSharing.patient.id}} {{ patientSharing.patient.fullName() }}</b> with?
+            Who do you want to share <b>#{{ $parent.patientSharing.patient.id}} {{ $parent.patientSharing.patient.fullName() }}</b> with?
         </div>
         <div class="smodal-content">
-            <div class="sform">
-                <div class="sform-row">
-                    <label>Share</label>
-                    <div class="sform-inputs">
-                        <typeahead multi="true" model="patientSharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share the patient with?"></typeahead>
-                    </div>
-                </div>
-            </div>
+            <table class="sform">
+                <tr class="sform-row">
+                    <td class="sform-label">
+                        <label>Share</label>
+                    </td>
+                    <td>
+                        <typeahead multi="true" model="$parent.patientSharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share the patient with?"></typeahead>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="smodal-buttons">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
-                <button class="btn btn-action btn-action-selected" ng-click="$close(); sharePatientWithGroups(patientSharing.patient, patientSharing.groups)">Share</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); sharePatientWithGroups($parent.patientSharing.patient, $parent.patientSharing.groups)">Share</button>
             </div>
         </div>
     </smodal>
@@ -205,29 +207,34 @@
             Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
         </div>
         <div class="smodal-content">
-            <div class="sform">
-                <div class="sform-row">
-                    <label for="first_name">Name</label>
-                    <div class="sform-inputs sform-inputs2">
+            <table class="sform">
+                <tr class="sform-row">
+                    <td class="sform-label"><label for="first_name">Name</label></td>
+                    <td><div class="sform-inputs sform-inputs2">
                         <input type="text" id="first_name" placeholder="First Name" ng-model="newPatient.first_name"/><input type="text" id="last_name" placeholder="Last Name" ng-model="newPatient.last_name" />
-                    </div>
-                </div>
-
-                <div class="sform-row">
-                    <label for="alias">Alias (opt)</label>
-                    <div class="sform-inputs">
-                        <input type="text" id="alias" placeholder="Alias" ng-model="newPatient.alias"/>
-                    </div>
-                </div>
-
-                <div class="sform-row">
-                    <label>Share</label>
-                    <div class="sform-inputs">
-                        <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
-                    </div>
-                </div>
-            </div>
-
+                    </div></td>
+                </tr>
+                <tr class="sform-row">
+                    <td class="sform-label">
+                        <label for="alias">Alias (opt)</label>
+                    </td>
+                    <td>
+                        <div class="sform-inputs">
+                            <input type="text" id="alias" placeholder="Alias" ng-model="newPatient.alias"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="sform-row">
+                    <td>
+                        <label>Share</label>
+                    </td>
+                    <td>
+                        <div class="sform-inputs">
+                            <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="smodal-buttons">
             <div class="pull-right">

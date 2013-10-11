@@ -15,15 +15,6 @@ function post_resource_entity_info() {
             'entity class'           => 'Entity',
             'controller class'       => 'PostController',
         ),
-        'reply' => array(
-            'label' => t('Reply'),
-            'base table' => 'replies',
-            'entity keys' => array(
-                'id' => 'id',
-            ),
-            'entity class'           => 'Entity',
-            'controller class'       => 'ReplyController',
-        ),
     );
 }
 
@@ -34,42 +25,34 @@ class PostController extends EntityAPIController {
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
-            $entity->user = user_load($entity->uid);
-            unset($entity->user->password);
+            $entity->user = user_load_small($entity->uid);
+
+//            $annotator = new NCBOAnnotator();
+//            $annot_test = $annotator->annotate($entity->text);
+//            $entity->annotated = $annot_test;
         }
         return $entities;
 
-    } // Nothing to see here,
+    }
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+
+
+
+        // Create an activity for this new post
+        $activity = new stdClass();
+        $activity->uid = $entity->uid;
+        $activity->created = time();
+        $activity->modified = time();
+        $activity->type = "post";
+        $activity->object_id = $entity->id;
+        $activity->share_id = $entity->share_id;
+        activity_save($activity);
+
+    }
 }
-class ReplyController extends EntityAPIController {
-
-    public function load($ids = array(), $conditions = array()) {
-        $entities = parent::load($ids, $conditions);
-
-        foreach($entities as &$entity) {
-            $entity->user = user_load($entity->uid);
-            unset($entity->user->password);
-        }
-        return $entities;
-
-    } // Nothing to see here,
-}
 
 
-
-
-function reply_load($id, $reset = FALSE) {
-    return array_shift(post_load_multiple(array($id), $reset));
-}
-function reply_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('reply', $ids, $conditions, $reset);
-}
-function reply_save($entity) {
-    entity_save('reply', $entity);
-}
-function reply_delete($id) {
-    entity_delete('reply', $id);
-}
 //
 //
 //function comment_load($cid, $reset = FALSE) {
@@ -268,127 +251,6 @@ function post_resource_services_resources() {
             'access arguments' => array('access content'),
         ),
     );
-
-
-    $resources['reply'] = array(
-        'retrieve' => array(
-            'help' => 'Retrieves a reply to a post',
-            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
-            'callback' => '_post_resource_reply_retrieve',
-            'access callback' => '_post_resource_reply_access',
-            'access arguments' => array('view'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the reply to get',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'create' => array(
-            'help' => 'Creates a discussion',
-            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
-            'callback' => '_post_resource_reply_create',
-            'access arguments' => array('discussion resource create'),
-            'access arguments append' => FALSE,
-            'args' => array(
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The reply object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a discussion',
-            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
-            'callback' => '_post_resource_reply_update',
-            'access callback' => '_post_resource_reply_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The reply data object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'delete' => array(
-            'help' => 'Deletes a reply',
-            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
-            'callback' => '_post_resource_reply_delete',
-            'access callback' => '_post_resource_reply_access',
-            'access arguments' => array('delete'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'nid',
-                    'type' => 'int',
-                    'description' => 'The id of the reply to delete',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'index' => array(
-            'help' => 'List all nodes',
-            'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_reply'),
-            'callback' => '_post_resource_reply_index',
-            'args' => array(
-                array(
-                    'name' => 'page',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'The zero-based index of the page to get, defaults to 0.',
-                    'default value' => 0,
-                    'source' => array('param' => 'page'),
-                ),
-                array(
-                    'name' => 'fields',
-                    'optional' => TRUE,
-                    'type' => 'string',
-                    'description' => 'The fields to get.',
-                    'default value' => '*',
-                    'source' => array('param' => 'fields'),
-                ),
-                array(
-                    'name' => 'parameters',
-                    'optional' => TRUE,
-                    'type' => 'array',
-                    'description' => 'Parameters array',
-                    'default value' => array(),
-                    'source' => array('param' => 'parameters'),
-                ),
-                array(
-                    'name' => 'pagesize',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'Number of records to get per page.',
-                    'default value' => variable_get('services_node_index_page_size', 20),
-                    'source' => array('param' => 'pagesize'),
-                ),
-            ),
-            'access arguments' => array('access content'),
-        ),
-    );
-
-
-
 
     return $resources;
 }

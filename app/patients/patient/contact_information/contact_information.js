@@ -41,6 +41,43 @@ angular.module('patient.contact_information', [])
 
                     return defer.promise;
                 }],
+                identifiers: ['IdentifierModel', '$route', '$q', function(IdentifierModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var identifiers = IdentifierModel.index({
+                        patient_id: $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(identifiers);
+                    }, function() {
+                        defer.reject();
+                    });
+
+                    return defer.promise;
+                }],
+                consentFiles: ['ConsentFileModel', '$route', '$q', function(ConsentFileModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var consentFiles = ConsentFileModel.index({
+                        'patient_id': $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(consentFiles);
+                    });
+
+                    return defer.promise;
+                }],
+                shares: ['ShareModel', '$route', '$q', function(ShareModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var shares = ShareModel.index({
+                        patient_id: $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(shares);
+                    }, function() {
+                        defer.reject();
+                    });
+
+                    return defer.promise;
+                }],
                 currentUser: ['AuthService', function(AuthService) {
                     var user = AuthService.requireAuthenticated().then(function(user) {
                         console.log("hello world", user);
@@ -51,9 +88,28 @@ angular.module('patient.contact_information', [])
         });
     }])
 
-    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', function ($scope, $location, patient, addresses, currentUser) {
+    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'AddressModel', 'IdentifierModel', function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, AddressModel, IdentifierModel, currentUser) {
         console.log("current user", currentUser);
         $scope.user = currentUser;
         $scope.patient = patient;
         $scope.addresses = addresses;
+        $scope.identifiers = identifiers;
+        $scope.shares = shares;
+        $scope.consentFiles = consentFiles;
+
+        $scope.showAddAddress = function() {
+
+        }
+        $scope.addAddress = function() {
+            var newAddress = new AddressModel({
+                patient_id: $scope.patient.id
+            });
+            $scope.addresses.unshift(newAddress);
+        }
+
+        $scope.removeAddress = function(address) {
+            var index = $scope.addresses.indexOf(address);
+            $scope.addresses.splice(index, 1);
+        }
+
     }]);

@@ -4,18 +4,24 @@ angular.module('directives.input.savecancel_block', [])
     .directive('savecancelBlock', [function () {
         return {
             restrict: 'E',
+            scope: {
+                saveFn: '&',
+                cancelFn: '&',
+                label: '@'
+            },
             templateUrl: 'common/input/savecancel_block/savecancel_block.tpl.html',
             link: function($scope, iElement, iAttrs) {
-                $('.btn-save', iElement).click(function(event) {
+                $('.btn-action-save', iElement).click(function(event) {
                     $scope.$apply(function() {
-                        $scope.save();
+                        console.log("Buttons: Save clicked");
+                        $scope.saveFn();
                     });
                     event.stopPropagation();
                 });
 
                 $('.btn-cancel', iElement).click(function(event) {
                     $scope.$apply(function() {
-                        $scope.cancel();
+                        $scope.cancelFn();
                     });
                     event.stopPropagation();
                 });
