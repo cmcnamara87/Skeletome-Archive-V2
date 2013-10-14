@@ -1,7 +1,7 @@
 <div>
     <div class="header">
         <div class="header-title">
-            My Groups
+            All Groups
         </div>
         <div class="header-search">
             <div class="search">
@@ -22,6 +22,7 @@
         </div>
     </div>
 
+
     <table class="table-content">
         <tr>
             <th>Name <i class="icon icon-sort-down"></i></th>
@@ -30,31 +31,36 @@
             <th>Patients</th>
             <th></th>
         </tr>
-        <tr ng-repeat="membership in memberships | filter:search">
+        <tr ng-repeat="group in groups | filter:search">
             <!-- Groups -->
-            <td>
-                <a href="#/group/{{ membership.group.id }}">
-                    {{ membership.group.name }}
-                </a>
+            <td class="col-md-7">
+                <div style="margin-bottom: 7px">
+                    <a href="#/group/{{ group.id }}">
+                        <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
+                    </a>
+                </div>
+                <div>
+                    {{ group.description }}
+                </div>
             </td>
 
             <!-- Locations -->
             <!--<td>-->
-                <!--<a href="#/group/{{ membership.group.id }}">-->
-                    <!--{{ membership.group.location }}-->
-                <!--</a>-->
+            <!--<a href="#/group/{{ membership.group.id }}">-->
+            <!--{{ membership.group.location }}-->
+            <!--</a>-->
             <!--</td>-->
 
             <!-- Members -->
             <td>
-                <a href="#/group/{{ membership.group.id }}/members">
-                    <cm-facepile users="membership.group.members" limit="5"></cm-facepile>
+                <a href="#/group/{{ group.id }}/members">
+                    <cm-facepile users="group.members" limit="5"></cm-facepile>
                 </a>
             </td>
 
             <td>
-                <a href="#/group/{{ membership.group.id }}/patients">
-                    {{ membership.group.patient_count || "0" }}
+                <a href="#/group/{{ group.id }}/patients">
+                    {{ group.patient_count || "0" }}
                 </a>
             </td>
 
@@ -64,30 +70,17 @@
                         <i class="icon icon-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="" ng-click="showDeleteMembership(membership)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                        <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
+                        <li ng-show="!group.membership"><a href="" ng-click="joinGroup(group)"><i class="icon icon-arrow-right"></i> Join</a></li>
+
+                        <li ng-show="group.membership"><a href="" ng-click="showLeaveGroup(group)"><i class="icon icon-arrow-left"></i> Leave</a></li>
                     </ul>
                 </div>
             </td>
         </tr>
     </table>
 
-    <smodal name="deleteGroup">
-        <div class="smodal-title">
-            Delete Group
-        </div>
-        <div class="smodal-description" >
-            Are you sure you want to delete this group?
-        </div>
-        <div class="smodal-buttons">
-            <div class="pull-right">
-                <button class="btn btn-action" ng-click="$close()">Cancel</button>
-                <button class="btn btn-action btn-action-selected" ng-click="$close(); deleteGroupAndMembership(membershipWithGroupToDelete)">Delete {{ membershipWithGroupToDelete.group.name }}</button>
-            </div>
-        </div>
-    </smodal>
 
-    <smodal name="deleteMembership">
+    <smodal name="leaveGroup">
         <div class="smodal-title">
             Leave Group
         </div>
@@ -97,7 +90,7 @@
         <div class="smodal-buttons">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
-                <button class="btn btn-action btn-action-selected" ng-click="$close(); deleteMembership(membershipToDelete)">Leave {{ membershipToDelete.group.name }}</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); leaveGroup(groupToLeave)">Leave {{ groupToLeave.name }}</button>
             </div>
         </div>
     </smodal>
@@ -135,10 +128,10 @@
                     </td>
                 </tr>
                 <!--<tr class="sform-row">-->
-                    <!--<td class="sform-label"><label for="location">Location</label></td>-->
-                    <!--<td>-->
-                        <!--<typeahead multi="false" model="newGroup.location" options-fn="findUsers(value)" placeholder="Where is this group based?" id="location"></typeahead>-->
-                    <!--</td>-->
+                <!--<td class="sform-label"><label for="location">Location</label></td>-->
+                <!--<td>-->
+                <!--<typeahead multi="false" model="newGroup.location" options-fn="findUsers(value)" placeholder="Where is this group based?" id="location"></typeahead>-->
+                <!--</td>-->
                 <!--</tr>-->
                 <tr class="sform-row">
                     <td>
@@ -162,27 +155,3 @@
     </smodal>
 
 </div>
-
-
-<!--    <div>
-    <div class="content-title">
-        My Groups <button class="btn btn-primary" ng-click="add()">Find</button>
-    </div>
-
-    <table class="table content-table">
-        <tr>
-            <th>Name</th>
-            <th>Location</th>
-        </tr>
-        <tr ng-repeat="membership in memberships">
-            <td>
-                <select-block value="membership.group_id" model="membership" list="groups" edit-attr="id" display-attr="name"></select-block>
-                <button ng-click="membership.$save()">Join</button>
-            </td>
-            <td>
-                <a href="#/group/{{ membership.group.id }}/summary">{{ membership.group.location }}</a>
-            </td>
-        </tr>
-    </table>
-
-</div>-->

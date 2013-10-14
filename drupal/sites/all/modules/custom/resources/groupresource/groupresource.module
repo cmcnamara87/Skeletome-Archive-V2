@@ -55,6 +55,8 @@ class GroupController extends EntityAPIController {
                 $member->user = user_load_small($member->user_id);
             }
 
+            global $user;
+
             // Get the patient count
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'share');
@@ -62,6 +64,20 @@ class GroupController extends EntityAPIController {
             $query->count();
             $result = $query->execute();
             $entity->patient_count = $result;
+
+
+            // get the membership of the current user
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'membership');
+            $query->propertyCondition('group_id', $entity->id);
+            $query->propertyCondition('user_id', $user->uid);
+            $result = $query->execute();
+            $ids = array_keys($result['membership']);
+
+            if(count($ids)) {
+                $entity->membership = membership_load($ids[0]);
+            }
+
         }
         return $entities;
 
