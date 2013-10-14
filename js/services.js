@@ -343,7 +343,7 @@ myApp.services.factory('GeneModel', ['$resource', 'apiUrl', 'Param', function ($
 }]);
 
 
-myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, connectUrl, apiUrl2, $route) {
+myApp.services.factory('AuthService', function($http, $q, $cookies, $rootScope, tokenUrl, connectUrl, apiUrl2, $route) {
 
     var user = null;
 
@@ -382,6 +382,7 @@ myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, co
             var defer = $q.defer();
             $http.post(apiUrl2 + "user/logout", {}).success(function (data) {
                 user = null;
+                $rootScope.currentUser = user;
                 defer.resolve(data);
             });
             return defer.promise;
@@ -408,11 +409,13 @@ myApp.services.factory('AuthService', function($http, $q, $cookies, tokenUrl, co
                         if(data.user.uid == 0) {
                             // anonymous user, no one logged in
                             user = null;
+                            $rootScope.currentUser = user;
                             console.log("AuthService: Not logged in");
                             defer.reject();
                         } else {
                             storeSession(data);
                             user = data.user;
+                            $rootScope.currentUser = user;
                             // Reload the page lol
                             console.log("AuthService: Reloading the page");
                             $route.reload();

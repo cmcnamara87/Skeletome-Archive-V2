@@ -42,6 +42,31 @@ angular.module('groups.my_groups', [])
             ]
         });
 
+        $scope.showDeleteMembership = function(membership) {
+            SmodalService.show("deleteMembership");
+            $scope.membershipToDelete = membership;
+        }
+        $scope.deleteMembership = function(membership) {
+            var index = $scope.memberships.indexOf(membership);
+            $scope.memberships.splice(index, 1);
+            membership.$remove();
+        }
+
+
+        $scope.showDeleteGroup = function(membership) {
+            SmodalService.show("deleteGroup");
+            $scope.membershipWithGroupToDelete = membership;
+        }
+        $scope.deleteGroupAndMembership = function(membership) {
+            var groupToDelete = new GroupModel(membership.group);
+            groupToDelete.$remove(function(group) {
+                var index = $scope.memberships.indexOf(membership);
+                $scope.memberships.splice(index, 1);
+                membership.$remove();
+            });
+        }
+
+
         $scope.showCreateGroup = function() {
             SmodalService.show('createGroup');
         }

@@ -64,8 +64,8 @@
                         <i class="icon icon-angle-down"></i>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="" ng-click="showSharePatient(patient)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                        <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
+                        <li><a href="" ng-click="showDeleteMembership(membership)"><i class="icon icon-arrow-left"></i> Leave</a></li>
+                        <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
                         <!--<li class="divider"></li>-->
                         <!--<li><a href="#">Separated link</a></li>-->
                     </ul>
@@ -73,6 +73,36 @@
             </td>
         </tr>
     </table>
+
+    <smodal name="deleteGroup">
+        <div class="smodal-title">
+            Delete Group
+        </div>
+        <div class="smodal-description" >
+            Are you sure you want to delete this group?
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); deleteGroupAndMembership(membershipWithGroupToDelete)">Delete {{ membershipWithGroupToDelete.group.name }}</button>
+            </div>
+        </div>
+    </smodal>
+
+    <smodal name="deleteMembership">
+        <div class="smodal-title">
+            Leave Group
+        </div>
+        <div class="smodal-description" >
+            Are you sure you want to leave this group?
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); deleteMembership(membershipToDelete)">Leave {{ membershipToDelete.group.name }}</button>
+            </div>
+        </div>
+    </smodal>
 
     <smodal name="createGroup">
         <div class="smodal-title">
@@ -82,7 +112,7 @@
             Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
         </div>
         <div class="smodal-content">
-            
+
             <table class="sform">
                 <tr class="sform-row">
                     <td class="sform-label"><label for="group_name">Group Name</label></td>
@@ -130,6 +160,7 @@
                 <button class="btn btn-action btn-action-selected" ng-click="createGroup(newGroup)">Create</button>
             </div>
         </div>
+
     </smodal>
 
 </div>
