@@ -1,7 +1,7 @@
 angular.module('patients.group_patients', [])
 
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/patients/:group_id/:group_name', {
+        $routeProvider.when('/patients/group/:group_id', {
             templateUrl:'app/patients/group_patients/group_patients.tpl.html',
             controller:'PatientsGroupCtrl',
             resolve:{
@@ -13,7 +13,6 @@ angular.module('patients.group_patients', [])
                     }, function() {
                         defer.reject();
                     });
-
                     return defer.promise;
                 }],
                 patients: ['ShareModel', 'PatientModel', '$route', '$q', function (ShareModel, PatientModel, $route, $q) {
@@ -27,11 +26,11 @@ angular.module('patients.group_patients', [])
                         // Get the patient for the shares
                         // todo: make this so only does 1 request, and sends all the ids
                         angular.forEach(shares, function(share, shareIndex) {
-//                            PatientModel.get({id: share.patient_id}, function(patient) {
-//                                patients.push(patient);
-//                            }, function() {
-//                                console.log("fail");
-//                            });
+                            PatientModel.get({id: share.patient_id}, function(patient) {
+                                patients.push(patient);
+                            }, function() {
+                                console.log("fail");
+                            });
                         });
 
                         defer.resolve(patients);

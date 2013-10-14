@@ -11,14 +11,14 @@
     </div>
     <div class="menubar-section" ng-show="memberships.length">
         <div class="menubar-section-heading">
-            Groups
+            Group Patients
         </div>
 
         <div ng-repeat="membership in memberships">
 
             <a ng-class="{'selected': menubarObjectId == membership.group_id }"
                class="menubar-item"
-               href="#/patients/{{ membership.group_id }}/{{ membership.group.name }}">
+               href="#patients/group/{{ membership.group.id }}">
                 {{ membership.group.name }}
             </a>
         </div>

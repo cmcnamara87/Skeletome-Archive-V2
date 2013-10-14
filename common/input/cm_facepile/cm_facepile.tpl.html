@@ -4,8 +4,8 @@
         {{ users.length }}
     </span>
 
-    <span class="scircle scircle-user" ng-repeat="user in users | limitTo:limit" >
-        <i class="icon icon-user-md"></i>
+    <span ng-repeat="user in users | limitTo:limit" >
+        <cm-user-icon user="user"></cm-user-icon>
     </span>
 
     <!-- The excess indicator -->

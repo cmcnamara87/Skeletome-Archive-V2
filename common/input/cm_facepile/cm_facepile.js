@@ -1,4 +1,4 @@
-angular.module('directives.input.cmFacepile', [])
+angular.module('directives.input.cmFacepile', ['directives.input.cmUserIcon'])
 
 // A simple directive to display a gravatar image given an email
     .directive('cmFacepile', [function () {
