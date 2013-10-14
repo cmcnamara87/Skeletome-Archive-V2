@@ -44,6 +44,8 @@ class GroupController extends EntityAPIController {
         foreach($entities as &$entity) {
             $entity->user = user_load_small($entity->uid);
 
+            $entity->administrator = user_load_small($entity->administrator_id);
+
             // Add in members
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'membership');

@@ -33,7 +33,7 @@
         <tr ng-repeat="membership in memberships | filter:search">
             <!-- Groups -->
             <td>
-                <a href="#/group/{{ membership.group.id }}">
+                <a href="#/group/{{ membership.group.id }}/summary">
                     {{ membership.group.name }}
                 </a>
             </td>

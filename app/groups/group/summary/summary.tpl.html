@@ -1,9 +1,95 @@
 <div>
-    <div class="content-title">
-        Summary
-    </div>
-
-    <div class="content-box">
-        {{ group.location }}
+<div class="header">
+    <div class="header-title">
+        Group Information
     </div>
 </div>
+
+<div class="content-box row">
+<div class="col-md-7">
+
+<div class="content-section">
+    <div class="content-heading">
+        Description
+    </div>
+    <div>
+        <div cm-resource="group">
+
+            <cm-display>
+                <cm-edit-delete></cm-edit-delete>
+            </cm-display>
+
+            <table class="sform">
+                <tr>
+                    <td class="sform-label"><label>Description</label></td>
+                    <td>
+                        <cm-display>
+                            {{ group.description }}
+                        </cm-display>
+                        <cm-edit>
+                            <input type="text" ng-model="patient.first_name" class="full-width"/>
+                        </cm-edit>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sform-label"><label>Location</label></td>
+                    <td>
+                        <cm-display>
+                            {{ patient.location }}
+                        </cm-display>
+                        <cm-edit>
+                            <typeahead multi="false" model="group.location"></typeahead>
+                        </cm-edit>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sform-label"><label>Administrator</label></td>
+                    <td>
+                        <cm-display>
+                            {{ group.administrator.name }}
+                        </cm-display>
+                        <cm-edit>
+                            <div ng-show="group.administrator.uid == currentUser.uid">
+                                <typeahead multi="false" model="group.administrator"></typeahead>
+                            </div>
+                            <div ng-show="group.administrator.uid != currentUser.uid">
+                                {{ group.administrator.name }}
+                            </div>
+                        </cm-edit>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td></td>
+                    <td>
+                        <cm-edit>
+                            <cm-save-cancel save-fn="$save()" cancel-fn="$cancel()"></cm-save-cancel>
+                        </cm-edit>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="content-section">
+    <div class="content-heading">
+        Members
+        <div class="content-heading-buttons">
+            <button class="btn btn-action">Add</button>
+        </div>
+    </div>
+    <div ng-repeat="identifier in identifiers">
+        <div cm-resource="identifier">
+            <cm-display>
+                <cm-edit-delete></cm-edit-delete>
+            </cm-display>
+
+
+
+        </div>
+    </div>
+</div>
+    </div>
+    </div>
+    </div>
