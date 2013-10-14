@@ -1,0 +1,15 @@
+<span>
+    <!-- The list of faces -->
+    <span class="scircle scircle-more">
+        {{ users.length }}
+    </span>
+
+    <span class="scircle scircle-user" ng-repeat="user in users | limitTo:limit" >
+        <i class="icon icon-user-md"></i>
+    </span>
+
+    <!-- The excess indicator -->
+    <span class="scircle scircle-user" ng-show="users.length > limit">
+        ...
+    </span>
+</span>

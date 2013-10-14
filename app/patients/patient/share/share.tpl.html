@@ -109,7 +109,9 @@
                                     </div>
                                 </div>
                                 <div ng-switch-when="diagnosis">
-                                    <div class="media activity-box" cm-diagnosis>
+                                    <div class="media activity-box" cm-diagnosis="activity.diagnosis">
+
+
                                         <div class="activity-icon pull-left">
                                             <i class="icon-stethoscope icon"></i>
                                         </div>
@@ -121,32 +123,24 @@
                                                 <div class="votebox">
                                                     <span class="votebox-buttonwrapper">
                                                         <button class="btn btn-action" ng-click="voteUpDiagnosis(activity.diagnosis)">
-                                                            <i class="icon icon-thumbs-up-alt"></i> Agree ({{ getVotesUp(activity.diagnosis.votes).length }})
+                                                            <i class="icon icon-thumbs-up-alt"></i> Agree ({{ usersVotesUp.length }})
                                                         </button>
                                                     </span>
 
-
-                                                    <span class="scircle scircle-user" ng-repeat="vote in getVotesUp(activity.diagnosis.votes) | limitTo:7">
-                                                        <i class="icon icon-user-md"></i>
-                                                    </span>
-                                                    <span class="scircle scircle-more" ng-show="getVotesUp(activity.diagnosis.votes).length > 7">
-                                                        + {{ getVotesUp(activity.diagnosis.votes).length - 7 }}
-                                                    </span>
+                                                    <cm-facepile users="usersVotesUp" limit="7"></cm-facepile>
                                                 </div>
 
+
+
                                                 <div class="votebox">
+
                                                     <span class="votebox-buttonwrapper">
                                                         <button class="btn btn-action" ng-click="voteDownDiagnosis(activity.diagnosis)">
-                                                            <i class="icon icon-thumbs-down-alt"></i> Disagree ({{ getVotesDown(activity.diagnosis.votes).length }})
+                                                            <i class="icon icon-thumbs-down-alt"></i> Disagree ({{ usersVoteDown.length }})
                                                         </button>
                                                     </span>
 
-                                                    <span class="scircle scircle-user" ng-repeat="vote in getVotesDown(activity.diagnosis.votes) | limitTo:7">
-                                                        <i class="icon icon-user-md"></i>
-                                                    </span>
-                                                    <span class="scircle scircle-more" ng-show="getVotesDown(activity.diagnosis.votes).length > 7">
-                                                        + {{ getVotesDown(activity.diagnosis.votes).length - 7 }}
-                                                    </span>
+                                                    <cm-facepile users="usersVoteDown" limit="7"></cm-facepile>
                                                 </div>
 
 

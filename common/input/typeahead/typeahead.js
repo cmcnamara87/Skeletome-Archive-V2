@@ -14,22 +14,23 @@ angular.module('directives.input.typeahead', [])
                  */
                 optionsFn: '&',
                 tokens: '=model',
-                placeholder: '@'
+                placeholder: '@',
+                id: '@'
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
 
-
-                if(!angular.isDefined($scope.tokens)) {
-                    $scope.tokens = [];
-                }
 
                 /**
                  * Remove a token
                  * @param token     The token to remove
                  */
                 $scope.removeToken = function(token) {
-                    $scope.tokens.splice($scope.tokens.indexOf(token), 1);
+                    if($scope.multi == "true") {
+                        $scope.tokens.splice($scope.tokens.indexOf(token), 1);
+                    } else {
+                        $scope.tokens = null;
+                    }
                 }
 
                 /**
@@ -37,23 +38,46 @@ angular.module('directives.input.typeahead', [])
                  * @param option
                  */
                 $scope.addToken = function(option) {
-                    var found = false;
-                    angular.forEach($scope.tokens, function(token) {
-                        if(token.id == option.id) {
-                            found = true;
+
+                    console.log("Typeahead: Multi is ", $scope.multi);
+                    if($scope.multi == "true") {
+                        var found = false;
+                        angular.forEach($scope.tokens, function(token) {
+                            if(angular.isDefined(token.id)) {
+                                if(token.id == option.id) {
+                                    found = true;
+                                }
+                            } else if(angular.isDefined(token.uid)) {
+                                if(token.uid == option.uid) {
+                                    found = true;
+                                }
+                            }
+
+                        });
+                        if(!found) {
+                            if(!$scope.tokens) {
+                                console.log("Typeahead: Setting token list []");
+                                $scope.tokens = [];
+                            }
+                            console.log("Typeahead: Adding token", option);
+                            $scope.tokens.push(option);
+                        } else {
+
                         }
-                    });
-                    if(!found) {
-                        $scope.tokens.push(option);
+                    } else {
+                        $scope.tokens = option;
                     }
+
                     $scope.input = "";
                     $scope.options = [];
+
+                    console.log("tokens is", $scope.tokens);
                 }
 
                 /**
                  * Listen for enter key pressed in input
                  */
-                $('#input', iElement).keydown(function(e) {
+                $('input', iElement).keydown(function(e) {
                     if(e.keyCode == 27) {
                         if($scope.options && $scope.options.length) {
                             $scope.$apply(function() {

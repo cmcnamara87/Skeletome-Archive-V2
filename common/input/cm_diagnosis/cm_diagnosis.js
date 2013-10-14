@@ -7,6 +7,19 @@ angular.module('directives.input.cmDiagnosis', [])
             scope: true,
             link: function ($scope, el, tAttrs) {
 
+                $scope.usersVotesUp = [];
+                $scope.usersVoteDown = [];
+
+                $scope.$watch(tAttrs.cmDiagnosis + ".votes", function(votes) {
+                    angular.forEach(votes, function(vote, voteIndex) {
+                        if(vote.vote == 1) {
+                            $scope.usersVotesUp.push(vote.user);
+                        } else {
+                            $scope.usersVoteDown.push(vote.user);
+                        }
+                    });
+                });
+
                 // Vote up
                 $scope.voteUpDiagnosis = function(diagnosis) {
 
@@ -16,25 +29,7 @@ angular.module('directives.input.cmDiagnosis', [])
                     });
                     newVote.$save();
                     diagnosis.votes.unshift(newVote);
-                }
-
-                $scope.getVotesUp = function(votes) {
-                    var votesUp = [];
-                    angular.forEach(votes, function(vote, voteIndex) {
-                        if(vote.vote == 1) {
-                            votesUp.push(vote);
-                        }
-                    });
-                    return votesUp;
-                }
-                $scope.getVotesDown = function(votes) {
-                    var votesDown = [];
-                    angular.forEach(votes, function(vote, voteIndex) {
-                        if(vote.vote == -1) {
-                            votesDown.push(vote);
-                        }
-                    });
-                    return votesDown;
+                    $scope.usersVotesUp.push(newVote.user);
                 }
 
                 // Vote down
@@ -45,6 +40,7 @@ angular.module('directives.input.cmDiagnosis', [])
                     });
                     newVote.$save();
                     diagnosis.votes.unshift(newVote);
+                    $scope.usersVoteDown.push(newVote.user);
                 }
             }
         };

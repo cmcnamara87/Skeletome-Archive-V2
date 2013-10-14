@@ -1,8 +1,144 @@
 <div>
+    <div class="header">
+        <div class="header-title">
+            My Groups
+        </div>
+        <div class="header-search">
+            <div class="search">
+                <i class="icon icon-search"></i>
+                <input type="text" placeholder="Search" ng-model="search"/>
+                <ul class="search-results" ng-show="search.length">
+                    <li class="search-result" ng-repeat="patient in patients | filter:search">
+                        <a href="">
+                            {{ patient.id }} - {{ patient.fullName() }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="header-buttons">
+            <button class="btn btn-action" ng-click="showCreateGroup()">Create</button>
+        </div>
+    </div>
+
+    <table class="table-content">
+        <tr>
+            <th>Name <i class="icon icon-sort-down"></i></th>
+            <!--<th>Location</th>-->
+            <th>Members</th>
+            <th>Patients</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="membership in memberships | filter:search">
+            <!-- Groups -->
+            <td>
+                <a href="#/group/{{ membership.group.id }}">
+                    {{ membership.group.name }}
+                </a>
+            </td>
+
+            <!-- Locations -->
+            <!--<td>-->
+                <!--<a href="#/group/{{ membership.group.id }}">-->
+                    <!--{{ membership.group.location }}-->
+                <!--</a>-->
+            <!--</td>-->
+
+            <!-- Members -->
+            <td>
+                <a href="#/group/{{ membership.group.id }}/members">
+                    <cm-facepile users="membership.group.members" limit="5"></cm-facepile>
+                </a>
+            </td>
+
+            <td>
+                <a href="#/group/{{ membership.group.id }}/patients">
+                    {{ membership.group.patient_count || "0" }}
+                </a>
+            </td>
+
+            <td>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                        <i class="icon icon-angle-down"></i>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="" ng-click="showSharePatient(patient)"><i class="icon icon-arrow-left"></i> Leave</a></li>
+                        <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
+                        <!--<li class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <smodal name="createGroup">
+        <div class="smodal-title">
+            Create a Group
+        </div>
+        <div class="smodal-description" >
+            Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
+        </div>
+        <div class="smodal-content">
+            
+            <table class="sform">
+                <tr class="sform-row">
+                    <td class="sform-label"><label for="group_name">Group Name</label></td>
+                    <td>
+                        <input type="text" id="group_name" class="full-width" placeholder="Group Name" ng-model="newGroup.name" required/>
+                    </td>
+                </tr>
+                <tr class="sform-row">
+                    <td class="sform-label">
+                        <label for="description">Description</label>
+                    </td>
+                    <td>
+                        <div class="sform-inputs">
+                            <textarea id="description" placeholder="Description" ng-model="newGroup.description" class="full-width"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="sform-row">
+                    <td class="sform-label"><label for="administrator">Administrator</label></td>
+                    <td>
+                        <typeahead multi="false" model="newGroup.administrator" options-fn="findUsers(value)" placeholder="Who is the administrator for the group?" id="administrator"></typeahead>
+                    </td>
+                </tr>
+                <!--<tr class="sform-row">-->
+                    <!--<td class="sform-label"><label for="location">Location</label></td>-->
+                    <!--<td>-->
+                        <!--<typeahead multi="false" model="newGroup.location" options-fn="findUsers(value)" placeholder="Where is this group based?" id="location"></typeahead>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <tr class="sform-row">
+                    <td>
+                        <label for="members">Members</label>
+                    </td>
+                    <td>
+                        <div class="sform-inputs">
+                            <typeahead multi="true" model="newGroup.members" options-fn="findUsers(value)" placeholder="Who do you want to invite to this group?" id="members"></typeahead>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smodal-buttons">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="createGroup(newGroup)">Create</button>
+            </div>
+        </div>
+    </smodal>
+
+</div>
+
+
+<!--    <div>
     <div class="content-title">
         My Groups <button class="btn btn-primary" ng-click="add()">Find</button>
     </div>
-    <!--<h2> <a href="#/patient" class="btn btn-primary">New Patient</a></h2>-->
 
     <table class="table content-table">
         <tr>
@@ -20,4 +156,4 @@
         </tr>
     </table>
 
-</div>
+</div>-->

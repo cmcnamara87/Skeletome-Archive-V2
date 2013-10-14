@@ -47,7 +47,7 @@ myApp.services.factory('apiUrl2', function(baseUrl) {
     return baseUrl + '/drupal/api/';
 });
 
-myApp.services.factory('UserModel', function ($resource, apiUrl) {
+myApp.services.factory('UserModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'user/:uid', {
         uid: '@uid' //this binds the ID of the model to the URL param
     });

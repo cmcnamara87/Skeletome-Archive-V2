@@ -7,15 +7,15 @@
         </div>
     </div>
     <div ng-show="multi == 'false'">
-        <button ng-show="tokens.length" class="typeahead-token typeahead-token-single" ng-click="removeToken(tokens[0])">
+        <button ng-show="tokens" class="typeahead-token typeahead-token-single" ng-click="removeToken(tokens[0])">
             <i class="icon icon-remove pull-right"></i>
-            {{ tokens[0].name }}
+            {{ tokens.name }}
         </button>
     </div>
 
-    <div ng-show="multi == 'true' || multi == 'false' && tokens.length == 0">
+    <div ng-show="multi == 'true' || (multi == 'false' && !tokens)">
         <input type="text"
-               id="input"
+               id="{{ id }}"
                ng-model="input"
                ng-change="inputChanged(input)"
                ng-keydown="inputKeyPressed()"

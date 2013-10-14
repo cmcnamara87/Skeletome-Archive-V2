@@ -23,18 +23,6 @@ angular.module('groups.my_groups', [])
 
                     return defer.promise;
                 }],
-                groups: ['GroupModel', '$q', function (GroupModel, $q) {
-                    var defer = $q.defer();
-
-                    var groups = GroupModel.index({
-                    }, function(groups) {
-                        defer.resolve(groups);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
-                }],
                 currentUser: ['AuthService', function(AuthService) {
                     return AuthService.requireAuthenticated();
                 }]
@@ -42,16 +30,48 @@ angular.module('groups.my_groups', [])
         });
     }])
 
-    .controller('MyGroupsCtrl', ['$scope', '$location', 'MembershipModel', 'AuthService', 'memberships', 'groups', function ($scope, $location, MembershipModel, AuthService, memberships, groups) {
+    .controller('MyGroupsCtrl', ['$scope', '$q', '$location', 'MembershipModel', 'GroupModel', 'UserModel', 'AuthService', 'SmodalService', 'memberships',
+        function ($scope, $q, $location, MembershipModel, GroupModel, UserModel, AuthService, SmodalService, memberships) {
         $scope.memberships = memberships;
 
-        $scope.groups = groups;
+        $scope.newGroup = new GroupModel({
+            administrator_id: AuthService.getUser().uid,
+            administrator: AuthService.getUser(),
+            members: [
+                AuthService.getUser()
+            ]
+        });
 
-        $scope.add = function() {
-            var newMembership = new MembershipModel({
-                user_id: AuthService.getUser().uid
+        $scope.showCreateGroup = function() {
+            SmodalService.show('createGroup');
+        }
+        $scope.createGroup = function(newGroup) {
+            // Create a group and then, create the memberships
+            var members = newGroup.members;
+            newGroup.administrator_id = newGroup.administrator.uid;
+
+            newGroup.$save(function(group) {
+                // Do the sharing
+                angular.forEach(members, function(member) {
+                    var newMembership = new MembershipModel({
+                        user_id: member.uid,
+                        group_id: group.id
+                    })
+                    newMembership.$save();
+                });
+
+                $location.path('/group/' + group.id);
             })
-            $scope.memberships.unshift(newMembership);
+        }
+
+        $scope.findUsers = function(value) {
+            var defer = $q.defer();
+            UserModel.index({name: value}, function(users) {
+                defer.resolve(users);
+            }, function() {
+                defer.reject();
+            });
+            return defer.promise;
         }
 
     }]);

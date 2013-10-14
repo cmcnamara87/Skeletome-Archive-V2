@@ -91,39 +91,6 @@
         </tr>
     </table>
 
-    <!--<table class="table content-table">
-        <tr>
-            <th>Patient</th>
-            <th>Diagnosis</th>
-            <th>Shares</th>
-            <th></th>
-        </tr>
-        <tbody ng-repeat="patient in patients">
-            <tr>
-                <td>
-                    <a href="#/patient/{{ patient.id }}/summary-dashboard">{{ patient.id }} - {{ patient.first_name }} {{ patient.last_name }}</a>
-                </td>
-                <td>
-                    <a href="#/patient/{{ patient.id }}/diagnoses">
-                    <span ng-show="patient.diagnoses.length">
-                        {{ patient.diagnoses[0].disorder.name }}
-                        <span ng-show="patient.diagnoses.length > 1">+ {{ patient.diagnoses.length - 1 }} More</span>
-                    </span>
-                    <span ng-show="patient.diagnoses.length == 0">
-                        No diagnosis
-                    </span>
-                    </a>
-                </td>
-                <td>
-                    <a href="#/patient/{{ patient.id }}/community">{{ patient.share_count }}</a>
-                </td>
-                <td>
-                    <savecancel-block></savecancel-block>
-                </td>
-            </tr>
-        </tbody>
-    </table>-->
-
     <smodal name="autosharing">
 
         <div class="smodal-title">

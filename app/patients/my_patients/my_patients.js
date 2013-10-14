@@ -38,6 +38,7 @@ angular.module('patients.my_patients', [])
         }
 
         $scope.newPatient = new PatientModel();
+
         $scope.showCreatePatient = function() {
             SmodalService.show('createPatient');
         }
@@ -74,13 +75,11 @@ angular.module('patients.my_patients', [])
 
         $scope.findGroup = function(value) {
             var defer = $q.defer();
-
             GroupModel.index({name: value}, function(groups) {
                 defer.resolve(groups);
             }, function() {
                 defer.reject();
             });
-
             return defer.promise;
         }
 

@@ -6,7 +6,6 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
 
     $query->entityCondition('entity_type', $entity_type);
 
-
     foreach($parameters as $parameter => $value) {
         if(is_numeric($value)) {
             $query->propertyCondition($parameter, $value);
@@ -24,7 +23,6 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
     $ids = array_keys($result[$entity_type]);
 
     $entity_function = $entity_type . "_load_multiple";
-
 
     return call_user_func($entity_function, $ids);
 }
