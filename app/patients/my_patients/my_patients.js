@@ -5,32 +5,26 @@ angular.module('patients.my_patients', [])
             templateUrl:'app/patients/my_patients/my_patients.tpl.html',
             controller:'MyPatientsCtrl',
             resolve:{
-                patients: ['PatientModel', 'AuthService', '$q', function (PatientModel, AuthService, $q) {
+                patients: ['PatientModel', 'SessionService', '$q', function (PatientModel, SessionService, $q) {
 
                     var defer = $q.defer();
 
-                    if(AuthService.getUser()) {
-                        var patients = PatientModel.index({
-                            'uid': AuthService.getUser().uid
-                        }, function() {
-                            defer.resolve(patients);
-                        }, function() {
-
-                        });
-                    } else {
+                    var patients = PatientModel.index({
+                        'uid': SessionService.currentUser.uid
+                    }, function() {
+                        defer.resolve(patients);
+                    }, function() {
                         defer.reject();
-                    }
+                    });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });
     }])
 
-    .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients', function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
+    .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients',
+        function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
         $scope.patients = patients;
 
         $scope.showAutosharing = function() {

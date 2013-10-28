@@ -26,9 +26,6 @@ angular.module('group.patients', [])
 
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });

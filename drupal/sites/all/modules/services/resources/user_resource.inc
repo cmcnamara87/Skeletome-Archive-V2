@@ -1,178 +1,203 @@
 <?php
 
-function _user_resource_definition() {
-  $definition = array(
-    'user' => array(
-      'operations' => array(
-        'retrieve' => array(
-          'help' => 'Retrieve a user',
-          'callback' => '_user_resource_retrieve',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'access callback' => '_user_resource_access',
-          'access arguments' => array('view'),
-          'access arguments append' => TRUE,
-          'args' => array(
-            array(
-              'name' => 'uid',
-              'type' => 'int',
-              'description' => 'The uid of the user to retrieve.',
-              'source' => array('path' => 0),
-              'optional' => FALSE,
-            ),
-          ),
-        ),
+function _user_resource_definition()
+{
+    $definition = array(
+        'user' => array(
+            'operations' => array(
+                'retrieve' => array(
+                    'help' => 'Retrieve a user',
+                    'callback' => '_user_resource_retrieve',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('view'),
+                    'access arguments append' => TRUE,
+                    'args' => array(
+                        array(
+                            'name' => 'uid',
+                            'type' => 'int',
+                            'description' => 'The uid of the user to retrieve.',
+                            'source' => array('path' => 0),
+                            'optional' => FALSE,
+                        ),
+                    ),
+                ),
 
-        'create' => array(
-          'help' => 'Create a user',
-          'callback' => '_user_resource_create',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'access callback' => '_user_resource_access',
-          'access arguments' => array('create'),
-          'access arguments append' => FALSE,
-          'args' => array(
-            array(
-              'name' => 'account',
-              'type' => 'array',
-              'description' => 'The user object',
-              'source' => 'data',
-              'optional' => FALSE,
-            ),
-          ),
-        ),
+                'create' => array(
+                    'help' => 'Create a user',
+                    'callback' => '_user_resource_create',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('create'),
+                    'access arguments append' => FALSE,
+                    'args' => array(
+                        array(
+                            'name' => 'account',
+                            'type' => 'array',
+                            'description' => 'The user object',
+                            'source' => 'data',
+                            'optional' => FALSE,
+                        ),
+                    ),
+                ),
 
-        'update' => array(
-          'help' => 'Update a user',
-          'callback' => '_user_resource_update',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'access callback' => '_user_resource_access',
-          'access arguments' => array('update'),
-          'access arguments append' => TRUE,
-          'args' => array(
-            array(
-              'name' => 'uid',
-              'type' => 'int',
-              'description' => 'Unique identifier for this user',
-              'source' => array('path' => 0),
-              'optional' => FALSE,
-            ),
-            array(
-              'name' => 'data',
-              'type' => 'array',
-              'description' => 'The user object with updated information',
-              'source' => 'data',
-              'optional' => FALSE,
-            ),
-          ),
-        ),
+                'update' => array(
+                    'help' => 'Update a user',
+                    'callback' => '_user_resource_update',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('update'),
+                    'access arguments append' => TRUE,
+                    'args' => array(
+                        array(
+                            'name' => 'uid',
+                            'type' => 'int',
+                            'description' => 'Unique identifier for this user',
+                            'source' => array('path' => 0),
+                            'optional' => FALSE,
+                        ),
+                        array(
+                            'name' => 'data',
+                            'type' => 'array',
+                            'description' => 'The user object with updated information',
+                            'source' => 'data',
+                            'optional' => FALSE,
+                        ),
+                    ),
+                ),
 
-        'delete' => array(
-          'help' => 'Delete a user',
-          'callback' => '_user_resource_delete',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'access callback' => '_user_resource_access',
-          'access arguments' => array('delete'),
-          'access arguments append' => TRUE,
-          'args' => array(
-            array(
-              'name' => 'uid',
-              'type' => 'int',
-              'description' => 'The id of the user to delete',
-              'source' => array('path' => 0),
-              'optional' => FALSE,
+                'delete' => array(
+                    'help' => 'Delete a user',
+                    'callback' => '_user_resource_delete',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('delete'),
+                    'access arguments append' => TRUE,
+                    'args' => array(
+                        array(
+                            'name' => 'uid',
+                            'type' => 'int',
+                            'description' => 'The id of the user to delete',
+                            'source' => array('path' => 0),
+                            'optional' => FALSE,
+                        ),
+                    ),
+                ),
+                'index' => array(
+                    'help' => 'List all users',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'callback' => '_user_resource_index',
+                    'args' => array(
+                        array(
+                            'name' => 'page',
+                            'optional' => TRUE,
+                            'type' => 'int',
+                            'description' => 'The zero-based index of the page to get, defaults to 0.',
+                            'default value' => 0,
+                            'source' => array('param' => 'page'),
+                        ),
+                        array(
+                            'name' => 'fields',
+                            'optional' => TRUE,
+                            'type' => 'string',
+                            'description' => 'The fields to get.',
+                            'default value' => '*',
+                            'source' => array('param' => 'fields'),
+                        ),
+                        array(
+                            'name' => 'parameters',
+                            'optional' => TRUE,
+                            'type' => 'array',
+                            'description' => 'Parameters',
+                            'default value' => array(),
+                            'source' => array('param' => 'parameters'),
+                        ),
+                        array(
+                            'name' => 'pagesize',
+                            'optional' => TRUE,
+                            'type' => 'int',
+                            'description' => 'Number of records to get per page.',
+                            'default value' => variable_get('services_user_index_page_size', 20),
+                            'source' => array('param' => 'pagesize'),
+                        ),
+                    ),
+                    'access arguments' => array('access user profiles'),
+                    'access arguments append' => FALSE,
+                ),
             ),
-          ),
-        ),
-        'index' => array(
-          'help' => 'List all users',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'callback' => '_user_resource_index',
-          'args' => array(
-            array(
-              'name' => 'page',
-              'optional' => TRUE,
-              'type' => 'int',
-              'description' => 'The zero-based index of the page to get, defaults to 0.',
-              'default value' => 0,
-              'source' => array('param' => 'page'),
-            ),
-            array(
-              'name' => 'fields',
-              'optional' => TRUE,
-              'type' => 'string',
-              'description' => 'The fields to get.',
-              'default value' => '*',
-              'source' => array('param' => 'fields'),
-            ),
-            array(
-              'name' => 'parameters',
-              'optional' => TRUE,
-              'type' => 'array',
-              'description' => 'Parameters',
-              'default value' => array(),
-              'source' => array('param' => 'parameters'),
-            ),
-            array(
-              'name' => 'pagesize',
-              'optional' => TRUE,
-              'type' => 'int',
-              'description' => 'Number of records to get per page.',
-              'default value' => variable_get('services_user_index_page_size', 20),
-              'source' => array('param' => 'pagesize'),
-            ),
-          ),
-          'access arguments' => array('access user profiles'),
-          'access arguments append' => FALSE,
-        ),
-      ),
-      'actions' => array(
-        'login' => array(
-          'help' => 'Login a user for a new session',
-          'callback' => '_user_resource_login',
-          'args' => array(
-            array(
-              'name' => 'username',
-              'type' => 'string',
-              'description' => 'A valid username',
-              'source' => array('data' => 'username'),
-              'optional' => FALSE,
-            ),
-            array(
-              'name' => 'password',
-              'type' => 'string',
-              'description' => 'A valid password',
-              'source' => array('data' => 'password'),
-              'optional' => FALSE,
-            ),
-          ),
-          'access callback' => 'services_access_menu',
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-        ),
 
-        'logout' => array(
-          'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
-          'help' => 'Logout a user session',
-          'callback' => '_user_resource_logout',
-          'access callback' => 'services_access_menu',
-        ),
-        'token' => array(
-          'file' => array(
-            'type' => 'inc',
-            'module' => 'services',
-            'name' => 'user_resource',
-          ),
-          'callback' => '_user_resource_get_token',
-          'access callback' => 'services_access_menu',
-          'help' => t('Returns the CSRF token.'),
-        ),
-      ),
-    ),
-  );
 
-  $definition['user']['actions']['register'] = array_merge($definition['user']['operations']['create'], array(
-    'help' => 'Register a user',
-  ));
+            'actions' => array(
+                'login' => array(
+                    'help' => 'Login a user for a new session',
+                    'callback' => '_user_resource_login',
+                    'args' => array(
+                        array(
+                            'name' => 'username',
+                            'type' => 'string',
+                            'description' => 'A valid username',
+                            'source' => array('data' => 'username'),
+                            'optional' => FALSE,
+                        ),
+                        array(
+                            'name' => 'password',
+                            'type' => 'string',
+                            'description' => 'A valid password',
+                            'source' => array('data' => 'password'),
+                            'optional' => FALSE,
+                        ),
+                    ),
+                    'access callback' => 'services_access_menu',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                ),
+                'loginmail' => array(
+                    'help' => 'Login a user for email address for a new session',
+                    'callback' => '_user_resource_login_mail',
+                    'args' => array(
+                        array(
+                            'name' => 'mail',
+                            'type' => 'string',
+                            'description' => 'A valid mail',
+                            'source' => array('data' => 'mail'),
+                            'optional' => FALSE,
+                        ),
+                        array(
+                            'name' => 'password',
+                            'type' => 'string',
+                            'description' => 'A valid password',
+                            'source' => array('data' => 'password'),
+                            'optional' => FALSE,
+                        ),
+                    ),
+                    'access callback' => 'services_access_menu',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                ),
 
-  return $definition;
+                'logout' => array(
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                    'help' => 'Logout a user session',
+                    'callback' => '_user_resource_logout',
+                    'access callback' => 'services_access_menu',
+                ),
+                'token' => array(
+                    'file' => array(
+                        'type' => 'inc',
+                        'module' => 'services',
+                        'name' => 'user_resource',
+                    ),
+                    'callback' => '_user_resource_get_token',
+                    'access callback' => 'services_access_menu',
+                    'help' => t('Returns the CSRF token.'),
+                ),
+            ),
+        ),
+    );
+
+    $definition['user']['actions']['register'] = array_merge($definition['user']['operations']['create'], array(
+        'help' => 'Register a user',
+    ));
+
+    return $definition;
 }
 
 /**
@@ -186,16 +211,17 @@ function _user_resource_definition() {
  *
  * @see user_load()
  */
-function _user_resource_retrieve($uid) {
-  $account = user_load($uid);
-  if (empty($account)) {
-    return services_error(t('There is no user with ID @uid.', array('@uid' => $uid)), 404);
-  }
+function _user_resource_retrieve($uid)
+{
+    $account = user_load($uid);
+    if (empty($account)) {
+        return services_error(t('There is no user with ID @uid.', array('@uid' => $uid)), 404);
+    }
 
-  services_remove_user_data($account);
+    services_remove_user_data($account);
 
-  // Everything went right.
-  return $account;
+    // Everything went right.
+    return $account;
 }
 
 /**
@@ -222,40 +248,42 @@ function _user_resource_retrieve($uid) {
  * @return
  *   The user object of the newly created user.
  */
-function _user_resource_create($account) {
-  // Adds backwards compatability with regression fixed in #1083242
-  $account = _services_arg_value($account, 'account');
+function _user_resource_create($account)
+{
+    // Adds backwards compatability with regression fixed in #1083242
+    $account = _services_arg_value($account, 'account');
 
-  // Load the required includes for saving profile information
-  // with drupal_form_submit().
-  module_load_include('inc', 'user', 'user.pages');
+    // Load the required includes for saving profile information
+    // with drupal_form_submit().
+    module_load_include('inc', 'user', 'user.pages');
 
-  // register a new user
-  $form_state['values'] = $account;
-  $form_state['values']['pass'] = array(
-    'pass1' => $account['pass'],
-    'pass2' => $account['pass'],
-  );
-  $form_state['values']['op'] = variable_get('services_user_create_button_resource_create', t('Create new account'));
+    // register a new user
+    $form_state['values'] = $account;
+    $form_state['values']['pass'] = array(
+        'pass1' => $account['pass'],
+        'pass2' => $account['pass'],
+    );
 
-  // execute the register form
-  drupal_form_submit('user_register_form', $form_state);
-  // find and store the new user into the form_state
-  if(isset($form_state['values']['uid'])) {
-    $form_state['user'] = user_load($form_state['values']['uid']);
-  }
+    print_r($account['pass']);
+    $form_state['values']['op'] = variable_get('services_user_create_button_resource_create', t('Create new account'));
 
-  // Error if needed.
-  if ($errors = form_get_errors()) {
-    return services_error(implode(" ", $errors), 406, array('form_errors' => $errors));
-  }
-  else {
-    $user = array('uid' => $form_state['user']->uid);
-    if ($uri = services_resource_uri(array('user', $user['uid']))) {
-      $user['uri'] = $uri;
+    // execute the register form
+    drupal_form_submit('user_register_form', $form_state);
+    // find and store the new user into the form_state
+    if (isset($form_state['values']['uid'])) {
+        $form_state['user'] = user_load($form_state['values']['uid']);
     }
-    return $user;
-  }
+
+    // Error if needed.
+    if ($errors = form_get_errors()) {
+        return services_error(implode(" ", $errors), 406, array('form_errors' => $errors));
+    } else {
+        $user = array('uid' => $form_state['user']->uid);
+        if ($uri = services_resource_uri(array('user', $user['uid']))) {
+            $user['uri'] = $uri;
+        }
+        return $user;
+    }
 }
 
 /**
@@ -272,71 +300,71 @@ function _user_resource_create($account) {
  * @return
  *   The modified user object.
  */
-function _user_resource_update($uid, $account) {
-  // Adds backwards compatability with regression fixed in #1083242
-  $account = _services_arg_value($account, 'data');
+function _user_resource_update($uid, $account)
+{
+    // Adds backwards compatability with regression fixed in #1083242
+    $account = _services_arg_value($account, 'data');
 
-  $account['uid'] = $uid;
+    $account['uid'] = $uid;
 
-  $account_loaded = user_load($uid);
+    $account_loaded = user_load($uid);
 
-  // Load the required includes for saving profile information
-  // with drupal_form_submit().
-  module_load_include('inc', 'user', 'user.pages');
+    // Load the required includes for saving profile information
+    // with drupal_form_submit().
+    module_load_include('inc', 'user', 'user.pages');
 
-  // If a profile category was passed in, use it. Otherwise default
-  // to 'account' (for saving core user data.)
-  $category = 'account';
-  if (isset($account['category'])) {
-    $category = $account['category'];
-    unset($account['category']);
-  }
-
-  // Drop any passed in values into the $account var. Anything
-  // unused by the form just gets ignored. We handle roles and
-  // password separately.
-  foreach ($account as $key => $value) {
-    if ($key != 'pass' && $key != 'roles') {
-      $form_state['values'][$key] = $value;
+    // If a profile category was passed in, use it. Otherwise default
+    // to 'account' (for saving core user data.)
+    $category = 'account';
+    if (isset($account['category'])) {
+        $category = $account['category'];
+        unset($account['category']);
     }
-  }
 
-  // Prepare values of roles.
-  if (!isset($account['roles'])) {
-    $account['roles'] = $account_loaded->roles;
-  }
-  foreach ($account['roles'] as $key => $value) {
-    if (!empty($value)) {
-      $form_state['values']['roles'][$key] = $key;
+    // Drop any passed in values into the $account var. Anything
+    // unused by the form just gets ignored. We handle roles and
+    // password separately.
+    foreach ($account as $key => $value) {
+        if ($key != 'pass' && $key != 'roles') {
+            $form_state['values'][$key] = $value;
+        }
     }
-  }
-  unset($form_state['values']['roles'][2]);
 
-  // Prepare values for password.
-  if (isset($account['pass'])) {
-    $form_state['values']['pass']['pass1'] = $account['pass'];
-    $form_state['values']['pass']['pass2'] = $account['pass'];
-  }
+    // Prepare values of roles.
+    if (!isset($account['roles'])) {
+        $account['roles'] = $account_loaded->roles;
+    }
+    foreach ($account['roles'] as $key => $value) {
+        if (!empty($value)) {
+            $form_state['values']['roles'][$key] = $key;
+        }
+    }
+    unset($form_state['values']['roles'][2]);
 
-  // If user is changing name, make sure they have permission.
-  if (isset($account['name']) && $account['name'] != $account_loaded->name && !(user_access('change own username') || !user_access('administer users'))) {
-    return services_error(t('You are not allowed to change your username.'), 406);
-  }
+    // Prepare values for password.
+    if (isset($account['pass'])) {
+        $form_state['values']['pass']['pass1'] = $account['pass'];
+        $form_state['values']['pass']['pass2'] = $account['pass'];
+    }
 
-  $form_state['values']['op'] = variable_get('services_user_save_button_resource_update', t('Save'));
-  $form_state['values']['#user_category'] = $category;
-  $form_state['values']['#account'] = $account_loaded;
+    // If user is changing name, make sure they have permission.
+    if (isset($account['name']) && $account['name'] != $account_loaded->name && !(user_access('change own username') || !user_access('administer users'))) {
+        return services_error(t('You are not allowed to change your username.'), 406);
+    }
 
-  $ret = drupal_form_submit('user_profile_form', $form_state, $account_loaded, $category);
+    $form_state['values']['op'] = variable_get('services_user_save_button_resource_update', t('Save'));
+    $form_state['values']['#user_category'] = $category;
+    $form_state['values']['#account'] = $account_loaded;
 
-  // Error if needed.
-  if ($errors = form_get_errors()) {
-    return services_error(implode(" ", $errors), 406, array('form_errors' => $errors));
-  }
-  else {
-    services_remove_user_data($account);
-    return $account;
-  }
+    $ret = drupal_form_submit('user_profile_form', $form_state, $account_loaded, $category);
+
+    // Error if needed.
+    if ($errors = form_get_errors()) {
+        return services_error(implode(" ", $errors), 406, array('form_errors' => $errors));
+    } else {
+        services_remove_user_data($account);
+        return $account;
+    }
 }
 
 /**
@@ -347,20 +375,83 @@ function _user_resource_update($uid, $account) {
  *
  * @see user_delete()
  */
-function _user_resource_delete($uid) {
-  if ($uid == 1) {
-    return services_error(t('The admin user cannot be deleted.'), 403);
-  }
+function _user_resource_delete($uid)
+{
+    if ($uid == 1) {
+        return services_error(t('The admin user cannot be deleted.'), 403);
+    }
 
-  $account = user_load($uid);
-  if (empty($account)) {
-    return services_error(t('There is no user with ID @uid.', array('@uid' => $uid)), 404);
-  }
-  user_delete($uid);
+    $account = user_load($uid);
+    if (empty($account)) {
+        return services_error(t('There is no user with ID @uid.', array('@uid' => $uid)), 404);
+    }
+    user_delete($uid);
 
-  // Everything went right.
-  return TRUE;
+    // Everything went right.
+    return TRUE;
 }
+
+/**
+ * Login a email address using the specified credentials.
+ *
+ * Note this will transfer a plaintext password.
+ *
+ * @param $email
+ *   Email address of user to be logged in.
+ * @param $password
+ *   Password, must be plain text and not hashed.
+ *
+ * @return
+ *   A valid session object.
+ */
+function _user_resource_login_mail($mail, $password)
+{
+    global $user;
+
+    if ($user->uid) {
+        // user is already logged in
+        return services_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
+    }
+
+    // Get the username
+    $sql = "SELECT users.name
+            FROM users
+            WHERE mail = :mail";
+
+    $results = db_query($sql, array(
+        'mail' => $mail
+    ));
+
+    $row = $results->fetch();
+    $username = $row->name;
+
+    // Check if account is active.
+    if (user_is_blocked($username)) {
+        return services_error(t('The username %name has not been activated or is blocked.', array('%name' => $username)), 403);
+    }
+
+    $uid = user_authenticate($username, $password);
+
+    if ($uid) {
+        $user = user_load($uid);
+        if ($user->uid) {
+            user_login_finalize();
+
+            $return = new stdClass();
+            $return->sessid = session_id();
+            $return->session_name = session_name();
+
+            services_remove_user_data($user);
+
+            $return->user = $user;
+
+            return $return;
+        }
+    }
+    watchdog('user', 'Invalid login attempt for %username.', array('%username' => $username));
+    return services_error(t('Wrong username or password.'), 401);
+}
+
 
 /**
  * Login a user using the specified credentials.
@@ -375,95 +466,99 @@ function _user_resource_delete($uid) {
  * @return
  *   A valid session object.
  */
-function _user_resource_login($username, $password) {
-  global $user;
+function _user_resource_login($username, $password)
+{
+    global $user;
 
-  if ($user->uid) {
-    // user is already logged in
-    return services_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
-  }
-
-  // Check if account is active.
-  if (user_is_blocked($username)) {
-    return services_error(t('The username %name has not been activated or is blocked.', array('%name' => $username)), 403);
-  }
-
-  $uid = user_authenticate($username, $password);
-
-  if ($uid) {
-    $user = user_load($uid);
     if ($user->uid) {
-      user_login_finalize();
-
-      $return = new stdClass();
-      $return->sessid = session_id();
-      $return->session_name = session_name();
-
-      services_remove_user_data($user);
-
-      $return->user = $user;
-
-      return $return;
+        // user is already logged in
+        return services_error(t('Already logged in as @user.', array('@user' => $user->name)), 406);
     }
-  }
-  watchdog('user', 'Invalid login attempt for %username.', array('%username' => $username));
-  return services_error(t('Wrong username or password.'), 401);
+
+    // Check if account is active.
+    if (user_is_blocked($username)) {
+        return services_error(t('The username %name has not been activated or is blocked.', array('%name' => $username)), 403);
+    }
+
+    $uid = user_authenticate($username, $password);
+
+    if ($uid) {
+        $user = user_load($uid);
+        if ($user->uid) {
+            user_login_finalize();
+
+            $return = new stdClass();
+            $return->sessid = session_id();
+            $return->session_name = session_name();
+
+            services_remove_user_data($user);
+
+            $return->user = $user;
+
+            return $return;
+        }
+    }
+    watchdog('user', 'Invalid login attempt for %username.', array('%username' => $username));
+    return services_error(t('Wrong username or password.'), 401);
 }
 
 /**
  * Logout the current user.
  */
-function _user_resource_logout() {
-  global $user;
+function _user_resource_logout()
+{
+    global $user;
 
-  if (!$user->uid) {
-    // User is not logged in
-    return services_error(t('User is not logged in.'), 406);
-  }
+    if (!$user->uid) {
+        // User is not logged in
+        return services_error(t('User is not logged in.'), 406);
+    }
 
-  watchdog('user', 'Session closed for %name.', array('%name' => $user->name));
+    watchdog('user', 'Session closed for %name.', array('%name' => $user->name));
 
-  // Destroy the current session.
-  module_invoke_all('user_logout', $user);
-  session_destroy();
+    // Destroy the current session.
+    module_invoke_all('user_logout', $user);
+    session_destroy();
 
-  // Load the anonymous user.
-  $user = drupal_anonymous_user();
+    // Load the anonymous user.
+    $user = drupal_anonymous_user();
 
-  return TRUE;
+    return TRUE;
 }
 
 /**
  *  Update the current user logout callback to the new callback with a better return value.
  */
-function _user_resource_logout_update_1_1() {
-  $new_set = array(
-    'callback' => '_user_resource_logout_1_1',
-  );
-  return $new_set;
+function _user_resource_logout_update_1_1()
+{
+    $new_set = array(
+        'callback' => '_user_resource_logout_1_1',
+    );
+    return $new_set;
 }
 
 /**
  * Logs out the currently logged in user and returns the new user object.
  */
-function _user_resource_logout_1_1() {
-  global $user;
+function _user_resource_logout_1_1()
+{
+    global $user;
 
-  if (!$user->uid) {
-    // User is not logged in
-    return services_error(t('User is not logged in.'), 406);
-  }
+    if (!$user->uid) {
+        // User is not logged in
+        return services_error(t('User is not logged in.'), 406);
+    }
 
-  watchdog('user', 'Session closed for %name.', array('%name' => $user->name));
+    watchdog('user', 'Session closed for %name.', array('%name' => $user->name));
 
-  // Destroy the current session.
-  module_invoke_all('user_logout', $user);
-  session_destroy();
+    // Destroy the current session.
+    module_invoke_all('user_logout', $user);
+    session_destroy();
 
-  // Load the anonymous user.
-  $user = drupal_anonymous_user();
+    // Load the anonymous user.
+    $user = drupal_anonymous_user();
 
-  return $user;
+    return $user;
 }
 
 /**
@@ -490,7 +585,8 @@ function _user_resource_logout_1_1() {
  *
  * @see _node_resource_index() for more notes
  */
-function _user_resource_index($page, $fields, $parameters, $page_size) {
+function _user_resource_index($page, $fields, $parameters, $page_size)
+{
     return resource_helper_index('user', $page, $fields, $parameters, $page_size, "uid");
 //  $user_select = db_select('users', 't')
 //    ->orderBy('created', 'DESC');
@@ -505,65 +601,67 @@ function _user_resource_index($page, $fields, $parameters, $page_size) {
 /**
  * Access check callback for user resource.
  */
-function _user_resource_access($op = 'view', $args = array()) {
-  // Adds backwards compatability with regression fixed in #1083242
-  if (isset($args[0])) {
-    $args[0] = _services_access_value($args[0], array('account', 'data'));
-  }
-
-  // Check if the user exists if appropriate.
-  if ($op != 'create' && $op != 'register' ) {
-    $account = user_load($args[0]);
-    if (!$account) {
-      return services_error(t('There is no user with ID @uid.', array('@uid' => $args[0])), 406);
+function _user_resource_access($op = 'view', $args = array())
+{
+    // Adds backwards compatability with regression fixed in #1083242
+    if (isset($args[0])) {
+        $args[0] = _services_access_value($args[0], array('account', 'data'));
     }
-  }
 
-  global $user;
-  switch ($op) {
-    case 'view':
-      return user_view_access($account);
-    case 'update':
-      return ($user->uid == $account->uid || user_access('administer users'));
-    case 'create':
-    case 'register':
-      if (!$user->uid && variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) != USER_REGISTER_ADMINISTRATORS_ONLY) {
-        return TRUE;
-      }
-      else {
-        return user_access('administer users');
-      }
-    case 'delete':
-      return user_access('administer users');
-  }
+    // Check if the user exists if appropriate.
+    if ($op != 'create' && $op != 'register') {
+        $account = user_load($args[0]);
+        if (!$account) {
+            return services_error(t('There is no user with ID @uid.', array('@uid' => $args[0])), 406);
+        }
+    }
+
+    global $user;
+    switch ($op) {
+        case 'view':
+            return user_view_access($account);
+        case 'update':
+            return ($user->uid == $account->uid || user_access('administer users'));
+        case 'create':
+        case 'register':
+            if (!$user->uid && variable_get('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL) != USER_REGISTER_ADMINISTRATORS_ONLY) {
+                return TRUE;
+            } else {
+                return user_access('administer users');
+            }
+        case 'delete':
+            return user_access('administer users');
+    }
 }
 
 /**
  * Changes the user/login endpoint to accept the same parameters as the user/register endpoint, namely
  * "name" instead of "username" and "pass" instead of "password"
  */
-function _user_resource_login_update_1_1() {
-  $new_set = array(
-    'args' => array(
-      array(
-        'name' => 'name',
-        'type' => 'string',
-        'description' => 'A valid username',
-        'source' => array('data' => 'name'),
-        'optional' => FALSE,
-      ),
-      array(
-        'name' => 'pass',
-        'type' => 'string',
-        'description' => 'A valid password',
-        'source' => array('data' => 'pass'),
-        'optional' => FALSE,
-      ),
-    ),
-  );
-  return $new_set;
+function _user_resource_login_update_1_1()
+{
+    $new_set = array(
+        'args' => array(
+            array(
+                'name' => 'name',
+                'type' => 'string',
+                'description' => 'A valid username',
+                'source' => array('data' => 'name'),
+                'optional' => FALSE,
+            ),
+            array(
+                'name' => 'pass',
+                'type' => 'string',
+                'description' => 'A valid password',
+                'source' => array('data' => 'pass'),
+                'optional' => FALSE,
+            ),
+        ),
+    );
+    return $new_set;
 }
 
-function _user_resource_get_token() {
-  return array('token' => drupal_get_token('services'));
+function _user_resource_get_token()
+{
+    return array('token' => drupal_get_token('services'));
 }

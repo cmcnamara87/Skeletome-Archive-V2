@@ -48,12 +48,19 @@ myApp.services.factory('apiUrl2', function(baseUrl) {
 });
 
 myApp.services.factory('UserModel', function ($resource, apiUrl, Param) {
-    var MyResource = $resource(apiUrl + 'user/:uid', {
-        uid: '@uid' //this binds the ID of the model to the URL param
+
+    var MyResource = $resource(apiUrl + 'user/:uid/:action', {
+        uid: '@uid', //this binds the ID of the model to the URL param,
+        action: '@action'
     });
 
     MyResource.index = function(object, success, failure) {
         return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+    MyResource.prototype.$register = function(success, error) {
+        this.action = "register";
+        this.$save(success, error);
     }
 
     return MyResource;
@@ -343,112 +350,10 @@ myApp.services.factory('GeneModel', ['$resource', 'apiUrl', 'Param', function ($
 }]);
 
 
-myApp.services.factory('AuthService', function($http, $q, $cookies, $rootScope, tokenUrl, connectUrl, apiUrl2, $route) {
-
-    var user = null;
-
-    var storeSession = function(sessionResponse) {
-        var sessionName = sessionResponse.session_name;
-        var sessionId = sessionResponse.sessid;
-        $cookies[sessionName] = sessionId;
-    }
-    var storeToken = function(token) {
-        $http.defaults.headers.common['X-CSRF-Token'] = token;
-    }
-
-    return {
-        login: function(credentials) {
-            console.log("logging in");
-            var defer = $q.defer();
-
-            // login with credentials (username, password)
-            $http.post(apiUrl2 + "user/login", credentials).success(function (data) {
-                user = data.user;
-
-                // Store the session in the cookie for future authentication
-                storeSession(data);
-
-                // Get the CSRF token (needed to make authenticated requests in the future)
-                $http.post(tokenUrl).success(function (data) {
-                    storeToken(data);
-
-                    defer.resolve(user);
-                });
-            });
-
-            return defer.promise;
-        },
-        logout: function() {
-            var defer = $q.defer();
-            $http.post(apiUrl2 + "user/logout", {}).success(function (data) {
-                user = null;
-                $rootScope.currentUser = user;
-                defer.resolve(data);
-            });
-            return defer.promise;
-        },
-
-        getUser: function() {
-            return user;
-        },
-
-        requireAuthenticated: function() {
-            var defer = $q.defer();
-
-            if(user) {
-                console.log("resolving user", user);
-                defer.resolve(user);
-            } else {
-                // No user currently stored
-                // Check if we have an existing session
-                $http.post(tokenUrl).success(function (data) {
-                    storeToken(data);
-
-                    $http.post(connectUrl, {
-                    }).success(function (data) {
-                        if(data.user.uid == 0) {
-                            // anonymous user, no one logged in
-                            user = null;
-                            $rootScope.currentUser = user;
-                            console.log("AuthService: Not logged in");
-                            defer.reject();
-                        } else {
-                            storeSession(data);
-                            user = data.user;
-                            $rootScope.currentUser = user;
-                            // Reload the page lol
-                            console.log("AuthService: Reloading the page");
-                            $route.reload();
-//                            defer.resolve(user);
-                        }
-                    });
-                });
-            }
-
-            return defer.promise;
-        },
-
-        checkCurrentUser: function() {
-            console.log("calling current user");
-            var defer = $q.defer();
-
-            if(user) {
-                defer.resolve(user);
-            }
-
-            // Get the CSRF token
-            console.log("getting the token");
 
 
-            return defer.promise;
-        }
-    }
-
-});
-
-//
-
-myApp.services.factory('currentUser', function($http, $q, tokenUrl) {
+// todo: remove this code
+myApp.services.factory('currentUser', function($http, $q, tokenUrl, connectUrl) {
         var defer = $q.defer();
 
         $http.post(tokenUrl).success(function (data) {

@@ -57,9 +57,6 @@ angular.module('patient.clinical_summary', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });

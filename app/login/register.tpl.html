@@ -1,0 +1,43 @@
+<div>
+    <h1>Register</h1>
+    <div>
+        Already got an account? <a href="#/login">Login</a>
+        <table class="sform">
+            <tr class="sform-row">
+                <td class="sform-label"><label>Name</label></td>
+                <td>
+                    <input type="text" ng-model="user.name"/>
+                </td>
+            </tr>
+
+            <tr class="sform-row">
+                <td class="sform-label"><label>Email</label></td>
+                <td>
+                    <input type="text" ng-model="user.mail"/>
+                </td>
+            </tr>
+
+            <tr class="sform-row">
+                <td class="sform-label"><label >Password</label></td>
+                <td>
+                    <input type="text" ng-model="user.pass"/>
+                </td>
+            </tr>
+            <tr class="sform-row">
+                <td class="sform-label"><label >Password</label></td>
+                <td>
+                    <input type="text" ng-model="user.pass1"/>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    <button class="btn btn-action btn-action-selected" ng-click="register(user)">Register</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

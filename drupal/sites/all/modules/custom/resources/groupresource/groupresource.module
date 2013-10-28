@@ -355,8 +355,12 @@ function groupresource_services_resources() {
                     'name' => 'group_resource_membership'
                 ),
                 'callback' => '_groupresource_membership_create',
-                'access arguments' => array('group resource membership create'),
+                'access callback' => '_groupresource_membership_access',
+                'access arguments' => array(),
                 'access arguments append' => FALSE,
+
+//                'access arguments' => array('group resource membership create'),
+//                'access arguments append' => FALSE,
                 'args' => array(
                     array(
                         'name' => 'data',

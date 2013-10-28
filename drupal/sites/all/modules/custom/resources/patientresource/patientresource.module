@@ -77,12 +77,26 @@ class PatientController extends EntityAPIController {
     }
 
     public function load($ids = array(), $conditions = array()) {
+        global $user;
+
         $entities = parent::load($ids, $conditions);
+
         foreach($entities as &$entity) {
+            // check if the are the owner of this patient
+            if($entity->uid != $user->uid) {
+                // not the owner, remove private details
+                unset(
+                    $entity->first_name,
+                    $entity->last_name,
+                    $entity->alias,
+                    $entity->dob,
+                    $entity->gender,
+                    $entity->ethnicity
+                );
+            }
             self::addRelated($entity);
         }
         return $entities;
-
     }
 
 }
@@ -468,8 +482,12 @@ function patientresource_services_resources() {
             'help' => 'Creates a patient',
             'file' => array('file' => 'inc', 'module' => 'patientresource'),
             'callback' => '_patientresource_create',
-            'access arguments' => array('patient resource create'),
+            'access callback' => '_patientresource_access',
+            'access arguments' => array(),
             'access arguments append' => FALSE,
+
+//            'access arguments' => array('patient resource create'),
+//            'access arguments append' => FALSE,
             'args' => array(
                 array(
                     'name' => 'data',

@@ -1,0 +1,40 @@
+<div>
+    <div class="login" ng-show="!currentUser">
+        <div >
+            <h1>
+                Login
+                <a class="btn btn-action" href="#/register">Register</a>
+            </h1>
+            <table class="sform">
+                <tr class="sform-row">
+                    <td class="sform-label"><label>Username</label></td>
+                    <td>
+                        <input type="text" ng-model="credentials.mail"/>
+                    </td>
+                </tr>
+                <tr class="sform-row">
+                    <td class="sform-label"><label >Password</label></td>
+                    <td>
+                        <input type="text" ng-model="credentials.password"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+
+                    </td>
+                    <td>
+                        <button class="btn btn-action btn-action-selected" ng-click="login(credentials)">Login</button>
+                    </td>
+                </tr>
+            </table>
+
+
+        </div>
+    </div>
+
+
+    <div ng-show="currentUser">
+        <button class="btn btn-action" ng-click="logout()">Logout</button>
+    </div>
+</div>

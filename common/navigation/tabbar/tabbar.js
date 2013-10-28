@@ -14,6 +14,7 @@ angular.module('directives.navigation.tabbar', [])
                     var parts = newValue.split("/");
                     $scope.tab = parts[1];
                 });
+
             }
         };
     }]);

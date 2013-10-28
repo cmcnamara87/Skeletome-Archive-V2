@@ -5,40 +5,33 @@ angular.module('groups.my_groups', [])
             templateUrl:'app/groups/my_groups/my_groups.tpl.html',
             controller:'MyGroupsCtrl',
             resolve:{
-                memberships: ['MembershipModel', 'AuthService', '$q', function (MembershipModel, AuthService, $q) {
+                memberships: ['MembershipModel', 'SessionService', '$q', function (MembershipModel, SessionService, $q) {
 
                     var defer = $q.defer();
 
-                    if(AuthService.getUser()) {
-                        var patients = MembershipModel.index({
-                            'user_id': AuthService.getUser().uid
-                        }, function(memberships) {
-                            defer.resolve(memberships);
-                        }, function() {
-                            defer.reject();
-                        });
-                    } else {
+                    var patients = MembershipModel.index({
+                        'user_id': SessionService.currentUser.uid
+                    }, function(memberships) {
+                        defer.resolve(memberships);
+                    }, function() {
                         defer.reject();
-                    }
+                    });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });
     }])
 
-    .controller('MyGroupsCtrl', ['$scope', '$q', '$location', 'MembershipModel', 'GroupModel', 'UserModel', 'AuthService', 'SmodalService', 'memberships',
-        function ($scope, $q, $location, MembershipModel, GroupModel, UserModel, AuthService, SmodalService, memberships) {
+    .controller('MyGroupsCtrl', ['$scope', '$q', '$location', 'MembershipModel', 'GroupModel', 'UserModel', 'AuthService', 'SessionService', 'SmodalService', 'memberships',
+        function ($scope, $q, $location, MembershipModel, GroupModel, UserModel, AuthService, SessionService,  SmodalService, memberships) {
         $scope.memberships = memberships;
 
         $scope.newGroup = new GroupModel({
-            administrator_id: AuthService.getUser().uid,
-            administrator: AuthService.getUser(),
+            administrator_id: SessionService.currentUser.uid,
+            administrator: SessionService.currentUser,
             members: [
-                AuthService.getUser()
+                SessionService.currentUser
             ]
         });
 

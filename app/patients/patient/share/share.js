@@ -27,10 +27,6 @@ angular.module('patient.share', ['patient.share.discussion', 'patient.share.diag
                     });
 
                     return defer.promise;
-                }],
-
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });

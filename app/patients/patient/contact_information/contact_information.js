@@ -6,16 +6,16 @@ angular.module('patient.contact_information', [])
             templateUrl:'app/patients/patient/contact_information/contact_information.tpl.html',
             controller:'ContactInformationCtrl',
             resolve:{
-                patient: ['PatientModel', 'AuthService', '$route', '$q', function (PatientModel, AuthService, $route, $q) {
+                patient: ['PatientModel', 'SessionService', '$route', '$q', function (PatientModel, SessionService, $route, $q) {
 
                     var defer = $q.defer();
 
-                    if(AuthService.getUser()) {
+                    if(SessionService.currentUser) {
                         var patient = PatientModel.get({
                             'id': $route.current.params.patient_id
                         }, function() {
-                            console.log("logged in user", AuthService.getUser().uid, patient.uid);
-                            if(patient.uid == AuthService.getUser().uid) {
+                            console.log("logged in user", SessionService.currentUser.uid, patient.uid);
+                            if(patient.uid == SessionService.currentUser.uid) {
                                 defer.resolve(patient);
                             } else {
                                 alert("not user");
@@ -77,12 +77,6 @@ angular.module('patient.contact_information', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    var user = AuthService.requireAuthenticated().then(function(user) {
-                        console.log("hello world", user);
-                    });
-                    return user;
                 }]
             }
         });

@@ -17,16 +17,13 @@ angular.module('groups.all_groups', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });
     }])
 
-    .controller('AllGroupsCtrl', ['$scope', 'MembershipModel', 'SmodalService', 'AuthService', 'groups',
-        function ($scope, MembershipModel, SmodalService, AuthService, groups) {
+    .controller('AllGroupsCtrl', ['$scope', 'MembershipModel', 'SmodalService', 'AuthService', 'SessionService', 'groups',
+        function ($scope, MembershipModel, SmodalService, AuthService, SessionService, groups) {
             $scope.groups = groups;
 
             $scope.showCreateGroup = function() {
@@ -55,10 +52,10 @@ angular.module('groups.all_groups', [])
             $scope.joinGroup = function(group) {
                 var newMembership = new MembershipModel({
                     group_id: group.id,
-                    user_id: AuthService.getUser().uid
+                    user_id: SessionService.currentUser.uid
                 });
                 newMembership.$save();
-                group.members.push(AuthService.getUser());
+                group.members.push(SessionService.currentUser);
                 group.membership = newMembership;
                 group.isMember = 1;
 
@@ -74,7 +71,7 @@ angular.module('groups.all_groups', [])
                 var index = -1;
                 angular.forEach(group.members, function(member, memberIndex) {
 
-                    if(member.uid == AuthService.getUser().uid) {
+                    if(member.uid == SessionService.currentUser.uid) {
                         index = memberIndex;
                     }
                 });

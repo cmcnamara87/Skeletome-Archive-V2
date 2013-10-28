@@ -17,9 +17,6 @@ angular.module('group.summary', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function (Auth) {
-                    return Auth.requireAuthenticated()
                 }]
             }
         });

@@ -40,9 +40,6 @@ angular.module('patients.group_patients', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });

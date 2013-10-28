@@ -17,9 +17,6 @@ angular.module('patient.summary_dashboard', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function (Auth) {
-                    return Auth.requireAuthenticated()
                 }]
             }
         });
