@@ -165,6 +165,14 @@ function activity_resource_services_resources() {
             'callback' => '_activity_resource_index',
             'args' => array(
                 array(
+                    'name' => 'user_id',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The user_id to get the activity for',
+                    'default value' => 0,
+                    'source' => array('param' => 'user_id'),
+                ),
+                array(
                     'name' => 'page',
                     'optional' => TRUE,
                     'type' => 'int',

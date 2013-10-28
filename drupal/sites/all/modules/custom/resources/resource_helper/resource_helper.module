@@ -9,6 +9,9 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
     foreach($parameters as $parameter => $value) {
         if(is_numeric($value)) {
             $query->propertyCondition($parameter, $value);
+        } elseif(is_array($value)) {
+            // its an array
+            $query->propertyCondition($parameter, $value, 'IN');
         } else {
             // its a string, lets do a starts with
             $query->propertyCondition($parameter, $value, 'STARTS_WITH');

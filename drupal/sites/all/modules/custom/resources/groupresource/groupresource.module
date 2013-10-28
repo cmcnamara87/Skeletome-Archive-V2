@@ -225,8 +225,13 @@ function groupresource_services_resources() {
                     'name' => 'group_resource_share'
                 ),
                 'callback' => '_groupresource_share_create',
-                'access arguments' => array('group resource share create'),
+
+                'access callback' => '_groupresource_share_access',
+                'access arguments' => array('create'),
                 'access arguments append' => FALSE,
+
+//                'access arguments' => array('group resource share create'),
+//                'access arguments append' => FALSE,
                 'args' => array(
                     array(
                         'name' => 'data',

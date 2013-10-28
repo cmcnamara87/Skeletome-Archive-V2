@@ -2,7 +2,29 @@
 // activity_resource.inc
 
 
-function _activity_resource_index($page, $fields, $parameters, $page_size) {
+function _activity_resource_index($user_id, $page, $fields, $parameters, $page_size) {
+
+    // Get out the user field
+    if($user_id > 0) {
+
+        // lets get all the groups first
+        $sql = "SELECT shares.id
+                FROM shares, members
+                WHERE members.user_id = :user_id
+                AND shares.group_id = members.group_id";
+
+        $results = db_query($sql, array(
+            'user_id' => $user_id
+        ));
+
+        $share_ids = array();
+        foreach($results as $result) {
+            $share_ids[] = $result->id;
+        }
+
+        $parameters['share_id'] = $share_ids;
+    }
+
     return resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 }
 
