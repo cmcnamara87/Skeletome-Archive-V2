@@ -1,21 +1,22 @@
 <div>
-    <div class="content-title">
-        Members
+    <div class="header">
+        <div class="header-title">
+            Members
+        </div>
     </div>
 
-    <table class="table content-table">
+    <table class="table-content">
         <tr>
-            <th>Name</th>
-            <th>Details</th>
+            <th>Name <i class="icon icon-sort-down"></i></th>
+            <th></th>
         </tr>
         <tr ng-repeat="membership in memberships">
             <td>
                 <a href="">{{ membership.user.name }}</a>
             </td>
             <td>
-                <a href="">Test</a>
+
             </td>
         </tr>
     </table>
-
 </div>
