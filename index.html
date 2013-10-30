@@ -13,8 +13,13 @@
 
     <link rel="stylesheet" href="lib/dropzone/dropzone.css"/>
 
-    <link rel="stylesheet" href="css/style.css"/>
+    <!--<link rel="stylesheet" href="css/style.css"/>-->
     <link rel="stylesheet" href="lib/datepicker/css/datepicker.css"/>
+
+    <!-- load in the stylesheet -->
+    <link rel="stylesheet/less" type="text/css" href="css/style.less" />
+    <script src="lib/less/less-1.5.0.min.js" type="text/javascript"></script>
+
 
 </head>
 <body>
@@ -23,19 +28,33 @@
 
     <div class="media-body">
 
-        <!-- Logged in? -->
+        <!-- Menu bar -->
+        <menubar></menubar>
 
-        <div ng-show="currentUser">
-            <tabbar></tabbar>
-            <breadcrumbbar></breadcrumbbar>
-            <menubar></menubar>
+        <div class="row">
+            <div>
+                <submenubar></submenubar>
+
+                <div class="main" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities}">
+                    <div ng-view></div>
+                </div>
+            </div>
+            <div class="activities" ng-show="showActivities">
+                <activities>
+                </activities>
+            </div>
         </div>
+        <!-- Sub menu bar-->
 
-        <div class="main" ng-class="{'main-loggedin': currentUser}">
-            <div ng-view></div>
-        </div>
 
-        <loadingroute></loadingroute>
+
+
+        <!--<breadcrumbbar></breadcrumbbar>
+        <menubar></menubar>-->
+
+
+
+        <!--<loadingroute></loadingroute>-->
 
     </div>
 
@@ -71,7 +90,9 @@
     <!-- Navigation -->
     <script src="common/navigation/navigation.js"></script>
     <script src="common/navigation/menubar/menubar.js"></script>
-    <script src="common/navigation/tabbar/tabbar.js"></script>
+    <script src="common/navigation/submenubar/submenubar.js"></script>
+    <script src="common/navigation/submenubar/item/submenubar_item.js"></script>
+    <script src="common/activities/activities.js"></script>
     <script src="common/navigation/breadcrumbbar/breadcrumbbar.js"></script>
     <script src="common/navigation/loadingroute/loadingroute.js"></script>
 
@@ -119,7 +140,7 @@
     <script src="app/patients/patient/genetic_reports/genetic_reports.js" type="text/javascript"></script>
     <script src="app/patients/patient/diagnoses/diagnoses.js" type="text/javascript"></script>
     <script src="app/patients/patient/xrays/xrays.js" type="text/javascript"></script>
-    <script src="app/patients/patient/summary_dashboard/summary_dashboard.js" type="text/javascript"></script>
+    <script src="app/patients/patient/summary/summary.js" type="text/javascript"></script>
     <script src="app/patients/patient/contact_information/contact_information.js" type="text/javascript"></script>
     <script src="app/patients/patient/other_ids/other_ids.js" type="text/javascript"></script>
     <script src="app/patients/patient/consent/consent.js" type="text/javascript"></script>
@@ -144,6 +165,7 @@
 
     <!-- Feed -->
     <script src="app/feed/feed.js" type="text/javascript"></script>
+    <script src="app/user/user.js" type="text/javascript"></script>
 
     <script src="js/directives/scroll_to.js"></script>
     <script src="js/directives/sidebar.js"></script>

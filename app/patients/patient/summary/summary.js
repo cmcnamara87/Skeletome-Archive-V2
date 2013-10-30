@@ -1,10 +1,10 @@
-angular.module('patient.summary_dashboard', [])
+angular.module('patient.summary', [])
 
     .config(['$routeProvider', function ($routeProvider) {
 
-        $routeProvider.when('/patient/:patient_id/summary-dashboard', {
-            templateUrl:'app/patients/patient/summary_dashboard/summary_dashboard.tpl.html',
-            controller:'SummaryDashboardCtrl',
+        $routeProvider.when('/patient/:patient_id/summary', {
+            templateUrl:'app/patients/patient/summary/summary.tpl.html',
+            controller:'PatientSummaryCtrl',
             resolve:{
                 patient: ['PatientModel', '$route', '$q', function (PatientModel, $route, $q) {
 
@@ -22,6 +22,6 @@ angular.module('patient.summary_dashboard', [])
         });
     }])
 
-    .controller('SummaryDashboardCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient) {
+    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient) {
         $scope.patient = patient;
     }]);

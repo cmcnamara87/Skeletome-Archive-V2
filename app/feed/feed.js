@@ -29,6 +29,23 @@ angular.module('feed', [])
         // Load all patients
         $scope.activities = activities;
 
+        // We need to split the activities into even and odd
+        // just to fill in the 2 columns easily
+        // todo: user masonry in the future
+
+        $scope.activitiesOdd = [];
+        $scope.activitiesEven = [];
+        angular.forEach($scope.activities, function(activity, activityIndex) {
+
+            if(activityIndex % 2) {
+                console.log("odd", activity);
+                $scope.activitiesOdd.push(activity);
+            } else {
+                console.log("even", activity);
+                $scope.activitiesEven.push(activity);
+            }
+        });
+
         console.log("activities are ", activities);
 
     }]);

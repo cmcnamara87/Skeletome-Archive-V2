@@ -1,8 +1,5 @@
 <div>
     <div class="header">
-        <div class="header-title">
-            My Patients
-        </div>
         <div class="header-search">
             <div class="search">
                 <i class="icon icon-search"></i>
@@ -23,6 +20,7 @@
         </div>
     </div>
 
+
     <table class="table-content">
         <tr>
             <th>ID <i class="icon icon-sort-down"></i></th>
@@ -33,12 +31,12 @@
         </tr>
         <tr ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search">
             <td>
-                <a href="#/patient/{{ patient.id }}/summary-dashboard">
+                <a href="#/patient/{{ patient.id }}/summary">
                     #00{{ patient.id }}
                 </a>
             </td>
             <td>
-                <a href="#/patient/{{ patient.id }}/summary-dashboard">
+                <a href="#/patient/{{ patient.id }}/summary">
                     {{ patient.fullName() }}
                 </a>
             </td>
@@ -90,6 +88,7 @@
             </td>
         </tr>
     </table>
+
 
     <smodal name="autosharing">
 

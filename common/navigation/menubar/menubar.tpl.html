@@ -1,34 +1,94 @@
-<div class="menubar">
+<div>
+    <div class="menubar" ng-show="!content">
 
-    <div ng-switch on="menubarType">
+        <!-- The logo -->
+        <a class="menubar-item menubar-logo"><img style="height: 30px" src="img/skeletome_logo.png" alt=""/> Skeletome</a>
 
-        <div ng-switch-when="feed"
-             ng-include="'common/navigation/menubar/types/feed.tpl.html'">
+        <!-- the tabs -->
+        <div class="menubar-item menubar-tabgroup">
+            <a class="menubar-tab"
+               ng-class="{'selected': tab=='feed'}"
+               href="#/feed">
+                <i class="icon icon-th-list"></i> Home
+            </a>
+            <a class="menubar-tab"
+               ng-class="{'selected': tab=='patient' || tab=='patients'}"
+               href="#/patients/my-patients">
+                <i class="icon icon-stethoscope"></i> Patients
+            </a>
+            <a class="menubar-tab"
+               ng-class="{'selected': tab=='group' || tab=='groups'}"
+               href="#/groups/my-groups">
+                <i class="icon icon-group"></i> Groups
+            </a>
         </div>
 
-        <div ng-switch-when="patients"
-             ng-include="'common/navigation/menubar/types/patients.tpl.html'">
+        <!-- the search bar -->
+        <div class="menubar-item menubar-search">
+            <input type="text" class="full-width"/>
         </div>
 
-        <div ng-switch-when="patient"
-             ng-include="'common/navigation/menubar/types/patient.tpl.html'">
-        </div>
-        <div ng-switch-when="share"
-             ng-include="'common/navigation/menubar/types/share.tpl.html'">
-        </div>
 
-        <div ng-switch-when="groups"
-             ng-include="'common/navigation/menubar/types/groups.tpl.html'">
-        </div>
+        <div class="menubar-item menubar-tabgroup">
+            <a class="menubar-tab"
+               href="#/groups/my-groups">
+                <i class="icon icon-bell"></i>
+            </a>
 
-        <div ng-switch-when="group"
-             ng-include="'common/navigation/menubar/types/group.tpl.html'">
+            <a class="menubar-tab"
+               href="#/user/{{ currentUser.uid }}">
+                <i class="icon icon-group"></i> Dr {{ currentUser.name }}
+            </a>
         </div>
-
-        <div ng-switch-when="user"
-             ng-include="'common/navigation/menubar/types/user.tpl.html'">
-        </div>
-
     </div>
 
+    <div class="menubar menubar-dark" ng-show="content">
+        <div class="menubar-item menubar-back">
+            <a href ng-click="back()">
+                <i class="icon icon-chevron-left"></i>
+            </a>
+
+        </div>
+        <div class="menubar-item menubar-title">
+            {{ patient.fullName() }} {{ group.name }}
+        </div>
+        <div class="menubar-item menubar-buttongroup">
+            <a class="btn btn-action" href="">Favourite</a>
+        </div>
+    </div>
 </div>
+
+<!--<div class="menubar">-->
+
+    <!--<div ng-switch on="menubarType">-->
+
+        <!--<div ng-switch-when="feed"-->
+             <!--ng-include="'common/navigation/menubar/types/feed.tpl.html'">-->
+        <!--</div>-->
+
+        <!--<div ng-switch-when="patients"-->
+             <!--ng-include="'common/navigation/menubar/types/patients.tpl.html'">-->
+        <!--</div>-->
+
+        <!--<div ng-switch-when="patient"-->
+             <!--ng-include="'common/navigation/menubar/types/patient.tpl.html'">-->
+        <!--</div>-->
+        <!--<div ng-switch-when="share"-->
+             <!--ng-include="'common/navigation/menubar/types/share.tpl.html'">-->
+        <!--</div>-->
+
+        <!--<div ng-switch-when="groups"-->
+             <!--ng-include="'common/navigation/menubar/types/groups.tpl.html'">-->
+        <!--</div>-->
+
+        <!--<div ng-switch-when="group"-->
+             <!--ng-include="'common/navigation/menubar/types/group.tpl.html'">-->
+        <!--</div>-->
+
+        <!--<div ng-switch-when="user"-->
+             <!--ng-include="'common/navigation/menubar/types/user.tpl.html'">-->
+        <!--</div>-->
+
+    <!--</div>-->
+
+<!--</div>-->

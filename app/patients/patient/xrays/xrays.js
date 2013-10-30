@@ -19,9 +19,6 @@ angular.module('patient.xrays', [])
                     });
 
                     return defer.promise;
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
             }
         });

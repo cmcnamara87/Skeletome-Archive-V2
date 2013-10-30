@@ -1,0 +1,56 @@
+<div>
+    <div class="activity activity-adder">
+        <!-- Options -->
+        <ul class="activity-adder-tabs">
+            <li><a href="" class="activity-adder-tab"  ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'">Add Post</a></li>
+            <li><a href="" class="activity-adder-tab" ng-class="{'active': adding == 'diagnosis'}" ng-click="adding = 'diagnosis'">Add Diagnosis</a></li>
+        </ul>
+
+        <div ng-switch on="adding">
+            <div ng-switch-when="post">
+                <div class="activity-box">
+                    <textarea ng-model="newPost.text" placeholder="Write something about patient #{{ patient.id }}" class="full-width" />
+                </div>
+                <div class="activity-box">
+                    <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Pubmed</button>
+                    <button ng-click="addPost(newPost.text)" class="btn btn-action btn-action-selected pull-right">Post</button>
+                </div>
+            </div>
+
+            <div ng-switch-when="diagnosis">
+                <div class="activity-box">
+                    <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="Add a possible diagnosis"></typeahead>
+                </div>
+                <div class="activity-box">
+                    <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="What publications do you want to add?"></typeahead>
+                </div>
+                <div class="activity-box activity-reference">
+                    <a href="" class="activity-reference-title">Decomposing phenotype descriptions for the human skeletal phenome.</a>
+                    <ul class="activity-reference-authors">
+                        <li><a href="" class="activity-reference-author">Groza T</a>,</li>
+                        <li><a href="" class="activity-reference-author">Hunter J</a>,</li>
+                        <li><a href="" class="activity-reference-author">Zankl A</a></li>
+                    </ul>
+                    <div class="activity-reference-abstract">
+                        Over the course of the last few years there has been a significant amount of research
+                        performed on ontology-based formalization of phenotype descriptions. The intrinsic
+                        value and knowledge captured within such
+                    </div>
+                    <div class="activity-more">
+                        <button class="btn-more">
+                            <i class="icon icon-angle-down"></i> Show More
+                        </button>
+                    </div>
+                </div>
+                <div class="activity-box activity-box-bottom">
+                    <button class="btn btn-action"><i class="icon icon-plus-sign"></i> PubMed</button>
+                    <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Text</button>
+                    <button ng-click="addDiagnosis(newDiagnosis.disorders[0])" class="btn btn-action btn-action-selected pull-right">Post</button>
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+</div>

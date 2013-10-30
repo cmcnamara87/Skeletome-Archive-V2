@@ -1,0 +1,122 @@
+<div class="activity">
+
+    <div class="activity-box">
+        <div class="media">
+            <div class="pull-left">
+                <img src="img/shatner.png" alt=""/>
+            </div>
+
+            <div class="media-body">
+                <a href="#/user/{{ activity.uid }}" class="activity-user">
+                    Dr {{ activity.user.name }}
+                </a>
+
+                <div>
+                                        <span class="activity-message" ng-switch on="activity.type">
+                                            <span ng-switch-when="share">
+                                                shared <a href="#patient/{{ activity.share.patient_id }}">Patient #{{
+                                                activity.share.patient_id }}</a> with <a
+                                                    href="#/group/{{ activity.share.group.id }}">{{
+                                                activity.share.group.name }}</a>
+                                            </span>
+                                            <span ng-switch-default>
+                                                added a {{ activity.type }}
+                                            </span>
+
+                                        </span>
+                                        <span class="activity-time" ng-show="activity.created">
+                                            - {{ activity.created*1000 | date:'medium' }}
+                                        </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-switch on="activity.type">
+        <div ng-switch-when="post">
+            <div class="activity-box">
+                {{ activity.post.text }}
+            </div>
+        </div>
+        <div ng-switch-when="diagnosis">
+            <div class="media activity-box" cm-diagnosis="activity.diagnosis">
+
+
+                <div class="activity-icon pull-left">
+                    <i class="icon-stethoscope icon"></i>
+                </div>
+                <div class="media-body">
+                    <div class="activity-title">
+                        {{ activity.diagnosis.disorder.name }}
+                    </div>
+                    <div>
+                        <div class="votebox">
+                                                    <span class="votebox-buttonwrapper">
+                                                        <button class="btn btn-action"
+                                                                ng-click="voteUpDiagnosis(activity.diagnosis)">
+                                                            <i class="icon icon-thumbs-up-alt"></i> Agree ({{
+                                                            usersVotesUp.length }})
+                                                        </button>
+                                                    </span>
+
+                            <cm-facepile users="usersVotesUp" limit="7"></cm-facepile>
+                        </div>
+
+
+                        <div class="votebox">
+
+                                                    <span class="votebox-buttonwrapper">
+                                                        <button class="btn btn-action"
+                                                                ng-click="voteDownDiagnosis(activity.diagnosis)">
+                                                            <i class="icon icon-thumbs-down-alt"></i> Disagree ({{
+                                                            usersVoteDown.length }})
+                                                        </button>
+                                                    </span>
+
+                            <cm-facepile users="usersVoteDown" limit="7"></cm-facepile>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="activity-comments">
+        <div class="activity-box activity-box-comment" ng-show="activity.replies.length > $commentDisplayCount">
+            <button class="btn btn-more">
+                <i class="icon icon-angle-down"></i>
+                {{ activity.replies.length - $commentDisplayCount }} comments
+            </button>
+
+        </div>
+        <div ng-repeat="reply in activity.replies | limitTo:-$commentDisplayCount"
+             class="activity-box activity-box-comment">
+            <div class="media">
+                <div class="pull-left">
+                    <img src="img/shatner.png" alt="" style="width: 32px"/>
+                </div>
+
+                <div class="media-body">
+                    <div>
+                        <a href="#user/{{ reply.user.id }}" class="activity-user">
+                            Dr {{ reply.user.name }}
+                        </a>
+                                            <span class="activity-time" ng-show="reply.created">
+                                                - {{ reply.created*1000 | date:'medium' }}
+                                            </span>
+                    </div>
+
+                    <div>
+                        {{ reply.text }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="activity-box activity-box-bottom activity-box-comment">
+            <input type="text" placeholder="Add a comment" class="full-width" ng-model="newReply.text"/>
+            <!--<button ng-click="$addReplyToActivity(newReply.text, activity)">Add</button>-->
+        </div>
+    </div>
+</div>

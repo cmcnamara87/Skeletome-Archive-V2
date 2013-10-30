@@ -9,9 +9,11 @@ var myApp = angular.module('myApp', [
         'patients',
         'groups',
         'feed',
+        'user',
         'login',
         'directives.navigation',
         'directives.smodal',
+        'directives.activities',
         'directives.input']).
     config(['$routeProvider', function ($routeProvider) {
 

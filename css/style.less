@@ -1,0 +1,1215 @@
+/**
+ * Variables
+ */
+@bodyTextColor: #1E3346;
+@labelTextColor: #637C90;
+@borderColor: #C7D5DF;
+@placeholderTextColor: #96A6B1;
+@linkColor: #417BAE;
+
+@activitiesWidth: 400px;
+@menubarHeight: 50px;
+@submenubarHeight: 60px;
+
+/**
+  * Creates a bordered box
+*/
+.bordered {
+  border: 1px solid @borderColor;
+  background-color: white;
+}
+
+/**
+  * Creates a panel locked to all 4 edges of the page
+  *
+  * Edge locking can be turned off by setting a property to auto
+*/
+.panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+
+body {
+  background-color: #E1E6E9;
+  color: #1E3346;
+  font-family: "Source Sans Pro";
+  font-size: 14px;
+  line-height: 21px;
+}
+
+/*
+    Headings
+*/
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Source Sans Pro" !important;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 35px;
+  margin: 0px;
+  margin-bottom: 30px;
+
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #eee;
+
+}
+
+h2 {
+  font-weight: 300;
+  font-size: 28px;
+}
+
+h3 {
+  font-weight: 300;
+  font-size: 21px;
+}
+
+h4 {
+  font-weight: 300;
+}
+
+/*
+    Emphasis
+*/
+em {
+
+}
+
+/*
+    Anchors
+*/
+a {
+  color: #417BAE;
+}
+
+a:hover {
+  color: #5B98CC;
+  text-decoration: none;
+}
+
+a:visited {
+}
+
+/*
+    Labels
+*/
+.label {
+  font-weight: 400;
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.form-label {
+  color: #637C90;
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.placeholder {
+  color: #4D718D;
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+input, button, textarea {
+  border: 1px solid @borderColor;
+  outline: 0;
+}
+
+::-webkit-input-placeholder, button {
+  color: #96A6B1;
+}
+
+/**
+    Text inputs and text areas
+*/
+input[type=text], textarea {
+  padding: 10px 14px;
+}
+
+input[type=text].full-width, textarea.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+label {
+  color: #637C90;
+  font-weight: normal;
+  float: left
+}
+
+.story {
+  width: 500px;
+  background-color: white;
+  border: 1px solid @borderColor;
+  margin-top: 14px;
+  margin-left: 14px;
+}
+
+.story-content {
+  padding: 14px;
+}
+
+.content-section {
+  margin-bottom: 35px;
+}
+
+.content-heading {
+  font-size: 21px;
+  font-weight: 300;
+  border-bottom: 1px solid #D8E1E8;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  padding-left: 7px;
+  margin-top: 7px;
+}
+
+.content-heading-buttons {
+  float: right;
+  position: relative;
+  top: -7px;
+}
+
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  z-index: 200;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid @borderColor;
+}
+
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  padding: 28px 21px;
+  font-weight: 300;
+  font-size: 28px;
+}
+
+.smodal-description {
+  padding: 0px 21px
+}
+
+.smodal-content {
+  padding: 21px 21px 0 21px;
+}
+
+.smodal-buttons {
+  padding: 1px 21px 21px 21px;
+  overflow: hidden;
+}
+
+.smodal-buttons button {
+  margin-left: 7px;
+}
+
+/**
+ * An activity box
+ */
+.activity {
+  margin-bottom: 14px;
+}
+
+.activity-box {
+  border: 1px solid @borderColor;
+  border-bottom: none;
+  background-color: white;
+  padding: 14px;
+}
+
+.activity-box-bottom {
+  border-bottom: 1px solid @borderColor;
+}
+
+.activity-icon {
+  height: 48px;
+  width: 48px;
+  font-size: 35px;
+  background-color: #EAEFF2;
+  color: #96A6B1;
+  border-radius: 7px;
+  line-height: 48px;
+  text-align: center;
+}
+
+.activity-title {
+  font-size: 21px;
+  font-weight: 300;
+  margin-bottom: 14px;
+  color: #417BAE;
+}
+
+/**
+    Activty Reference block
+*/
+.activity-reference {
+
+}
+
+.activity-reference-title {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 3px;
+}
+
+.activity-reference-authors {
+  padding-left: 0;
+  color: #90ACC4;
+
+}
+
+.activity-reference-authors li {
+  display: inline-block;
+}
+
+.activity-reference-author {
+  color: #90ACC4;
+  text-decoration: underline;
+}
+
+.activity-user {
+  font-weight: 600;
+}
+
+.activity-message, .activity-time {
+  color: #96A6B1;
+}
+
+/**
+    Adds an actiivty
+*/
+.activity-adder {
+
+}
+
+.activity-adder-tabs {
+  padding: 0;
+  margin: 0;
+}
+
+.activity-adder-tabs li {
+  display: inline-block;
+  list-style: none;
+}
+
+.activity-adder-tab {
+  padding: 14px;
+  display: block;
+}
+
+.activity-adder-tab.active {
+  background-color: white;
+  position: relative;
+  z-index: 1;
+  top: 1px;
+  border: 1px solid @borderColor;
+  border-bottom: 0;
+}
+
+.activity-comments {
+
+}
+
+.activity-box-comment {
+  background-color: #F1F5F9;
+}
+
+.activity-box-comment-add {
+  border-bottom: 1px solid @borderColor;
+}
+
+.votebox {
+  margin-bottom: 7px;
+}
+
+.votebox-buttonwrapper {
+  display: inline-block;
+  padding-right: 7px;
+}
+
+.votebox-buttonwrapper button {
+  width: 110px;
+  text-align: center;
+}
+
+/*
+    A form (often used in the modal boxes)
+*/
+.sform {
+  width: 100%;
+  padding-left: 14px;
+}
+
+.sform-row td {
+  padding-bottom: 14px;
+}
+
+.sform-label {
+  position: relative;
+  top: 3px;
+  width: 120px;
+  margin-right: 14px;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+.sform-label label {
+  text-align: right;
+}
+
+.sform-inputs {
+  width: 100%;
+}
+
+.sform-inputs input {
+  width: 100%;
+}
+
+.sform-inputs2 input {
+  width: 49%;
+  box-sizing: border-box;
+}
+
+.sform-inputs2 input:first-of-type {
+  margin-right: 2%;
+}
+
+.form-patient .input-wrapper input {
+  width: 100%;
+}
+
+/*
+    A typehead that can either have a single token, or multi-token entry
+*/
+.typeahead {
+  border: 1px solid @borderColor;
+}
+
+.typeahead input {
+  border: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/*
+    A dark blue token with a remove X on the right side
+*/
+.typeahead-token {
+  text-align: left;
+}
+
+.typeahead-token:active {
+  position: relative;
+  top: 1px;
+}
+
+/*
+    Single Token: A large token (for single entry) full width
+*/
+.typeahead-token-single {
+  display: block;
+  padding: 10px 14px;
+  width: 100%;
+  background-color: #E1EDF8;
+  border: 1px solid #B7D1E9;
+  color: #6D8AA5;
+}
+
+.typeahead-token-single .icon-remove {
+  margin-left: 10px;
+  position: relative;
+  top: 3px;
+}
+
+/*
+    Multi Tokens: Padding around the collection of tokens
+*/
+.typeahead-tokens {
+  padding: 10px;
+}
+
+/*
+    Multi Token: A small inline token
+*/
+.typeahead-token-multi {
+  display: inline-block;
+  background-color: #417BAE;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 3px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  border: none;
+}
+
+/*
+    Options list: The auto-complet edropdown that displays suggestions for tokens
+*/
+.typeahead-options-wrapper {
+  position: relative;
+}
+
+.typeahead-options {
+  position: absolute;
+  left: 5px;
+  cursor: pointer;
+  background-color: white;
+  border-top: 1px solid @borderColor;
+  list-style-type: none;
+  padding: 0;
+  min-width: 200px;
+}
+
+.typeahead-options-inside {
+  top: -7px;
+}
+
+.typeahead-option {
+  padding: 10px;
+  border: 1px solid @borderColor;
+  border-top: none;
+}
+
+.typeahead-option.selected {
+  background-color: #F1F5F9;
+}
+
+/*
+A small search embeddable in the header box
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.search {
+  border: 1px solid @borderColor;
+  padding-left: 7px;
+  border-radius: 100px;
+  color: #96A6B1;
+  position: relative;
+}
+
+.search input {
+  padding: 5px 10px;
+  padding-left: 0px;
+  margin-left: 5px;
+  outline: none;
+  width: 200px;
+  border: none;
+}
+
+.search-results {
+  position: absolute;
+  background-color: white;
+  left: 11px;
+  border: 1px solid @borderColor;
+  width: 90%;
+}
+
+/*
+A small search embeddable in the header box
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+table.table-content {
+  border-top: none;
+  background-color: white;
+  padding-bottom: 40px;
+  width: 100%;
+  margin-bottom: 80px;
+}
+
+.table-content tr {
+  border: none;
+}
+
+.table-content th {
+  border: none !important;
+  color: #4D718D;
+  border-bottom: 1px solid @borderColor !important;
+  font-weight: 600;
+  padding: 14px 21px;
+  background-color: white;
+}
+
+.table-content td {
+  padding: 10px 21px;
+  font-weight: normal;
+  border-top: none;
+  border-bottom: 1px solid @borderColor;
+  color: #1E3346;
+}
+
+.table-content tr:hover td {
+  background-color: #f0f6fa;
+}
+
+.dropdown-menu {
+  border-radius: 0px;
+  padding: 0;
+  box-shadow: none;
+  border: 1px solid @borderColor;
+  border-bottom: 2px solid @borderColor;
+}
+
+.dropdown-menu>li>a {
+  padding: 8px 12px;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+  background-color: #417BAE;
+}
+
+/*
+    A block containing the title of a content page, search and buttons relevant to the page.
+    Styleguide 2.1.3.
+*/
+.header {
+  padding: 21px 14px;
+  height: 65px;
+  border: 1px solid @borderColor;
+  border-left: none;
+  background-color: white;
+}
+
+.header-title {
+  font-size: 28px;
+  font-weight: 300;
+  float: left;
+}
+
+.header-search {
+  float: left;
+  position: relative;
+  margin-left: 14px;
+  top: -6px;
+}
+
+.header-search input {
+  border-radius: 100px;
+}
+
+.header-buttons {
+  float: right;
+  position: relative;
+  top: -6px;
+}
+
+.header-buttons button {
+  margin-left: 7px;
+}
+
+.btn:active {
+  box-shadow: none;
+}
+
+.scircle {
+  display: inline-block;
+  margin-right: 1px;
+  margin-bottom: 2px;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 32px;
+  font-size: 14px;
+  line-height: 32px;
+}
+
+.scircle-more {
+  background-color: #88a8bf; /*#417BAE;*/
+}
+
+.scircle-user {
+  background-color: #B9CBDA;
+  font-size: 18px;
+  position: relative;
+  top: 2px;
+}
+
+.btn-more {
+  background-color: transparent;
+  border: none;
+  color: #417BAE;
+  padding: 0;
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.btn-action {
+  border: 1px solid @borderColor;
+  border-radius: 3px;
+  background-color: transparent;
+}
+
+.btn-action:hover {
+  color: #849eb0;
+}
+
+.btn-action:active {
+  background-color: #ebf2f7;
+  -webkit-box-shadow: none;
+}
+
+.btn-action.btn-action-selected {
+  background-color: #417BAE;
+  border: 1px solid #417BAE;
+  color: white;
+}
+
+.btn-action.btn-action-selected:hover {
+  background-color: #498ac3;
+  border: 1px solid #498ac3;
+}
+
+.btn-action.btn-action-selected:active {
+  background-color: #336997;
+  border: 1px solid #336997;
+  -webkit-box-shadow: inset 0 2px 0px #1d4971;
+}
+
+.btn-action-small {
+  padding: 3px 9px;
+}
+
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 1px 0px @borderColor;
+  color: #96A6B1;
+}
+
+.btn-search {
+  background-color: transparent;
+  border: 0;
+  color: #81A0A2;
+  font-size: 14px;
+  position: relative;
+  top: 10px;
+  left: 5px;
+}
+
+.content {
+
+}
+
+.content-title {
+
+}
+
+.content-box {
+  padding: 14px !important;
+  border-bottom: 1px solid #DFE7EC !important;
+  background-color: white;
+}
+
+.content-table {
+  border: none;
+  border-bottom: 1px solid #dfe6ea !important;
+  table-layout: fixed;
+}
+
+.content-table tr {
+
+}
+
+.content-table tr th {
+  background-color: white;
+  color: #A7B5BE;
+  border-top: none !important;
+  padding: 14px !important;
+  font-weight: normal;
+}
+
+.content-table td {
+  background-color: white;
+  border-top: 1px solid #dfe6ea !important;
+  padding: 14px !important;
+}
+
+
+
+/*
+The menubar element
+*/
+//.menubar {
+//    position: fixed;
+//    top: 63px;
+//    bottom: 0;
+//
+//    width: 240px;
+//
+//    background-color: white;
+//    border: 1px solid #dfe6ea;
+//}
+
+/*
+    The heading for the menu
+*/
+//.menubar-heading {
+//    padding: 21px 14px;
+//
+//    border-bottom: 1px solid #dfe6ea;
+//
+//    font-size: 28px;
+//    font-weight: 300;
+//    color: #294457;
+//}
+//.menubar-section {
+//    border-bottom: 1px solid #dfe6ea;
+//    padding: 7px 7px;
+//    padding-left: 7px;
+//}
+//.menubar-section-heading {
+//    color: #aabcc8;
+//    text-transform: uppercase;
+//    padding-left: 7px;
+//    padding: 7px 14px;
+//}
+//.menubar-item {
+//    display: block;
+//    border-radius: 3px;
+//    padding: 7px 14px;
+//    color: #5D6F7B;
+//}
+//.menubar-item.selected {
+//    background-color: #417BAE;
+//    color: white;
+//    text-decoration: none;
+//}
+//.menubar-item:hover {
+//    text-decoration: none;
+//}
+
+
+
+.main {
+  .panel;
+  top: @menubarHeight;
+  background-color: white;
+}
+  .main-submenubar {
+    top: @menubarHeight + @submenubarHeight;
+  }
+  .main-activities {
+    right: @activitiesWidth;
+  }
+
+.activities {
+  .panel;
+  top: @menubarHeight;
+  left: auto;
+  width: @activitiesWidth;
+  padding: 14px;
+}
+
+/**
+ *
+ * The Manu BAR
+ *
+ * The Blue main menubar across the top of the page
+ *
+ */
+.menubar {
+  background-color: #294457;
+  color: #F3F3F3;
+  vertical-align: middle;
+  height: 50px;
+}
+
+.menubar-item {
+  display: inline-block;
+}
+
+/*
+    The logo container for the sidebar
+*/
+.menubar-logo {
+  display: inline-block;
+  font-size: 21px;
+  color: white;
+  padding: 7px 14px 7px 21px;
+  cursor: pointer;
+}
+
+.menubar-logo:hover {
+  color: white;
+}
+
+.menubar-search input {
+  box-sizing: border-box;
+  border-radius: 3px;
+  height: 35px;
+  border: none;
+  background-color: #465C6C;
+  color: white;
+}
+
+.menubar-user {
+  float: right;
+}
+
+/*
+    A horizontal tab in the sidebar
+    :hover             - White text color
+    .selected          - Subtle darker background, white text color
+*/
+.menubar-tab {
+  display: inline-block;
+  margin: 0;
+  padding: 18px 14px;
+
+  background-color: #294457;
+
+  color: #8999ab;
+  text-decoration: none;
+  text-align: center;
+
+  font-size: 14px;
+}
+
+.menubar-tab:hover {
+  text-decoration: none;
+  color: white;
+}
+
+.menubar-tab.selected {
+  /*background-color: #1d384b;*/
+  color: white;
+}
+
+.menubar-dark {
+  background-color: #1B3345;
+}
+
+.submenubar {
+  .bordered;
+  position: fixed;
+  top: 50px;
+  left: 0px;
+  right: 0px;
+
+  margin-right: 400px;
+  padding: 14px;
+  ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  ul li {
+    list-style: none;
+    display: inline-block;
+  }
+  .submenubar-item {
+    display: block;
+    padding: 7px 14px;
+
+    color: @placeholderTextColor;
+    border-radius: 3px;
+  }
+  .submenubar-item.active {
+    background-color: @linkColor;
+    color: white;
+  }
+}
+
+/*
+    A sidebar item (a vertical tab)
+    :hover             - White text color
+    :selected          - Thick red border on left side
+*/
+/*.menubar-item {
+    display: block;
+    padding: 14px 21px;
+
+    background-color: #1d384b;
+    border-left: 5px solid #1d384b;
+
+    font-weight: 300;
+    color: #969FAD;
+}
+    .menubar-item:hover {
+        color: white;
+        text-decoration: none;
+    }
+    .menubar-item.selected, a.menubar-item.selected:hover {
+        border-left: 5px solid #EC5858;
+        margin-right: 1px;
+        color: white;
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+.menubar-item-inner {
+
+    padding-left: 14px;
+    background-color: #193040;
+}
+.menubar-item-item {
+    padding: 7px 28px;
+    margin-bottom: 0px;
+    border-left: 5px solid #193040;
+    background-color: transparent;
+}*/
+
+/**
+ * Quick Access box
+ *
+ * Displays quick access information on feed page
+ */
+.quickaccess {
+  border: 1px solid @borderColor;
+  background: white;
+}
+
+
+
+.section {
+  background-color: white;
+  padding: 21px;
+  margin-bottom: 21px;
+}
+
+label {
+  display: block;
+}
+
+header {
+  background-color: #376264;
+}
+
+.section {
+
+}
+
+.group-item {
+  margin-bottom: 28px;
+}
+
+.group-item:last-of-type {
+  margin-bottom: 0;
+}
+
+.btn.btn-title {
+  font-size: 14px;
+  border: 2px solid #B7CFE4;
+  background-color: white;
+}
+
+.btn.btn-primary {
+  background-color: #6F91AA;
+  border: none;
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 10px;
+  padding: 2px 5px;
+}
+
+.navbar-archive {
+  border-radius: 0px;
+  background-color: #376264;
+  color: #2e82be;
+  margin-bottom: 0;
+  height: 75px;
+}
+
+.navbar-nav-archive>li>a {
+  color: #2e82be;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+
+.block-info {
+  background-color: #ffffff;
+  padding: 14px;
+  border-top: 1px solid #E8E8E8;
+
+}
+
+.uploadblock {
+  overflow: hidden;
+}
+
+.dropzone .preview, .dropzone-previews .preview {
+  margin: 0;
+}
+
+.inputblock {
+
+}
+
+.is-editable:hover {
+  background-color: #FFFCD4;
+  cursor: text;
+}
+
+.is-editable:hover.is-editing {
+  background-color: transparent;
+}
+
+.inputblock-values {
+  padding: 7px;
+}
+
+.inputblock-info {
+  color: grey;
+}
+
+.inputblock-buttons {
+  padding: 7px;
+}
+
+.inputblock-input {
+  padding: 7px;
+  background-color: #FFFCD4;
+  border: 1px solid #F9EBB6;
+}
+
+.valueblock-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.textblock-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.addressblock-row {
+  margin-bottom: 7px;
+}
+
+.addressblock-areas {
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+
+.addressblock-area {
+  float: left;
+  margin-right: 2px;
+}
+
+.record {
+}
+
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.dateblock-date {
+  overflow: hidden;
+  display: block;
+}
+
+.dateblock-date-input {
+  width: 100%
+}
+
+.add-on {
+  position: relative;
+  top: 10px;
+  margin-left: 7px;
+}
+
+.btn.btn-save {
+  background-color: #47a0d6;
+  color: white;
+  padding: 2px 10px;
+}
+
+.btn.btn-cancel {
+  background-color: transparent;
+  color: #3e4a55;
+  padding: 2px 10px;
+  padding-left: 7px;
+}

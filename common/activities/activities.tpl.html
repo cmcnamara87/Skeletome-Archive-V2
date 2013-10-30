@@ -1,0 +1,26 @@
+<div>
+    <div>
+        Group Activity
+    </div>
+    <div>
+        <activity-adder></activity-adder>
+    </div>
+    <div>
+        <div>
+            <select ng-options="share.group.name for share in shares" ng-model="share"></select>
+
+            <div>
+                <select>
+                    <option value="">Post</option>
+                    <option value="">Diagnosis</option>
+                </select>
+                <div>
+            </div>
+        </div>
+        <div>
+            <div ng-repeat="activity in activities">
+                <cm-activity></cm-activity>
+            </div>
+        </div>
+    </div>
+</div>
