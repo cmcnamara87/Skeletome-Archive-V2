@@ -1,61 +1,64 @@
 <div>
-    <div class="menubar" ng-show="!content">
+    <div ng-show="currentUser">
+        <div class="menubar" ng-show="!content">
 
-        <!-- The logo -->
-        <a class="menubar-item menubar-logo"><img style="height: 30px" src="img/skeletome_logo.png" alt=""/> Skeletome</a>
+            <!-- The logo -->
+            <a class="menubar-item menubar-logo"><img style="height: 30px" src="img/skeletome_logo.png" alt=""/> Skeletome</a>
 
-        <!-- the tabs -->
-        <div class="menubar-item menubar-tabgroup">
-            <a class="menubar-tab"
-               ng-class="{'selected': tab=='feed'}"
-               href="#/feed">
-                <i class="icon icon-th-list"></i> Home
-            </a>
-            <a class="menubar-tab"
-               ng-class="{'selected': tab=='patient' || tab=='patients'}"
-               href="#/patients/my-patients">
-                <i class="icon icon-stethoscope"></i> Patients
-            </a>
-            <a class="menubar-tab"
-               ng-class="{'selected': tab=='group' || tab=='groups'}"
-               href="#/groups/my-groups">
-                <i class="icon icon-group"></i> Groups
-            </a>
+            <!-- the tabs -->
+            <div class="menubar-item menubar-tabgroup">
+                <a class="menubar-tab"
+                   ng-class="{'selected': tab=='feed'}"
+                   href="#/feed">
+                    <i class="icon icon-th-list"></i> Home
+                </a>
+                <a class="menubar-tab"
+                   ng-class="{'selected': tab=='patient' || tab=='patients'}"
+                   href="#/patients/my-patients">
+                    <i class="icon icon-stethoscope"></i> Patients
+                </a>
+                <a class="menubar-tab"
+                   ng-class="{'selected': tab=='group' || tab=='groups'}"
+                   href="#/groups/my-groups">
+                    <i class="icon icon-group"></i> Groups
+                </a>
+            </div>
+
+            <!-- the search bar -->
+            <div class="menubar-item menubar-search">
+                <input type="text" class="full-width"/>
+            </div>
+
+
+            <div class="menubar-item menubar-tabgroup">
+                <a class="menubar-tab"
+                   href="#/groups/my-groups">
+                    <i class="icon icon-bell"></i>
+                </a>
+
+                <a class="menubar-tab"
+                   href="#/user/{{ currentUser.uid }}">
+                    <i class="icon icon-group"></i> Dr {{ currentUser.name }}
+                </a>
+            </div>
         </div>
 
-        <!-- the search bar -->
-        <div class="menubar-item menubar-search">
-            <input type="text" class="full-width"/>
-        </div>
+        <div class="menubar menubar-dark" ng-show="content">
+            <div class="menubar-item menubar-back">
+                <a href ng-click="back()">
+                    <i class="icon icon-chevron-left"></i>
+                </a>
 
-
-        <div class="menubar-item menubar-tabgroup">
-            <a class="menubar-tab"
-               href="#/groups/my-groups">
-                <i class="icon icon-bell"></i>
-            </a>
-
-            <a class="menubar-tab"
-               href="#/user/{{ currentUser.uid }}">
-                <i class="icon icon-group"></i> Dr {{ currentUser.name }}
-            </a>
+            </div>
+            <div class="menubar-item menubar-title">
+                {{ patient.fullName() }} {{ group.name }}
+            </div>
+            <div class="menubar-item menubar-buttongroup">
+                <a class="btn btn-action" href="">Favourite</a>
+            </div>
         </div>
     </div>
 
-    <div class="menubar menubar-dark" ng-show="content">
-        <div class="menubar-item menubar-back">
-            <a href ng-click="back()">
-                <i class="icon icon-chevron-left"></i>
-            </a>
-
-        </div>
-        <div class="menubar-item menubar-title">
-            {{ patient.fullName() }} {{ group.name }}
-        </div>
-        <div class="menubar-item menubar-buttongroup">
-            <a class="btn btn-action" href="">Favourite</a>
-        </div>
-    </div>
 </div>
 
 <!--<div class="menubar">-->

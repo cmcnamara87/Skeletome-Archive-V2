@@ -24,6 +24,10 @@ angular.module('login', ['security'])
         console.log("session service", SessionService);
         $scope.currentUser = SessionService.currentUser;
 
+        $scope.credentials = {
+            mail: "skelarch@skeletome.org"
+        };
+
         $scope.login = function(credentials) {
             AuthService.login(credentials, function() {
                 console.log("Error logging in");
