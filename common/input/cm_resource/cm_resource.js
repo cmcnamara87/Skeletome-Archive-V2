@@ -54,6 +54,12 @@ angular.module('directives.input.cmResource', [])
 
                     scope.$remove = function() {
                         // no id, remove the element
+
+                        if(!angular.isDefined(tAttrs.removeFn)) {
+                            var message = "No remove function for cmResource specificed";
+                            throw message + "\n";
+                        }
+
                         var removeFn = $parse(tAttrs.removeFn);
 
                         if (!angular.isFunction(removeFn)) {

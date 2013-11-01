@@ -24,13 +24,29 @@ angular.module('patient.xrays', [])
         });
     }])
 
-    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', function ($scope, $location, $routeParams, XRayModel, xrays) {
+    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', 'fileUploadUrl', function ($scope, $location, $routeParams, XRayModel, xrays, fileUploadUrl) {
         $scope.xrays = xrays;
 
-        $scope.add = function() {
+        $scope.fileUploadUrl = fileUploadUrl;
+
+
+        $scope.addXRay = function() {
             var newXRay = new XRayModel({
                  patient_id: $routeParams.patient_id
             });
             $scope.xrays.unshift(newXRay);
         }
+        $scope.xrayUploaded = function(file, xray) {
+            xray.file_url = file.full_url;
+            xray.name = file.name;
+            xray.fid = file.fid;
+            xray.thumb_url = file.thumb_url;
+
+            console.log("File uploaded, xray updated", xray);
+        }
+        $scope.removeXRay = function(xray) {
+            var index = $scope.xrays.indexOf(xray);
+            $scope.xrays.splice(xray, 1);
+        }
+
     }]);

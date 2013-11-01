@@ -13,11 +13,9 @@ angular.module('directives.input.upload_block', [])
                 autoremove: '='
             },
             link: function($scope, iElement, iAttrs, $timeout) {
-                console.log("Upload: RUNNING!!!!!!!!!!");
-                iAttrs.$observe('url', function(value) {
-                    if(value && value != "") {
 
-                        console.log("Upload Block: Url", iAttrs.url);
+                $scope.$watch('url', function(value) {
+                    if(value && value != "") {
 
                         iElement.dropzone(
                             {

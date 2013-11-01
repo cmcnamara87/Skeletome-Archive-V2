@@ -93,7 +93,6 @@ angular.module('patient.contact_information', [])
         $scope.shares = shares;
         $scope.consentFiles = consentFiles;
 
-                console.log("upload url", fileUploadUrl);
         $scope.fileUploadUrl = fileUploadUrl;
 
         /**

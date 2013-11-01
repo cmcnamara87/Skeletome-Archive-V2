@@ -7,38 +7,25 @@ angular.module('patient.diagnoses', [])
             controller:'PatientDiagnosesCtrl',
             resolve:{
                 diagnoses: ['DiagnosisModel', '$route', '$q', function (DiagnosisModel, $route, $q) {
-                    console.log("resvoling diagnoses");
                     var defer = $q.defer();
+
                     var diagnoses = DiagnosisModel.index({
                         patient_id: $route.current.params.patient_id
                     }, function() {
-
                         defer.resolve(diagnoses);
                     }, function() {
                         defer.reject();
                     });
 
                     return defer.promise;
-                }],
-                disorders: ['DisorderModel', '$route', '$q', function(DisorderModel, $route, $q) {
-                    var defer = $q.defer();
-                    var disorders = DisorderModel.index({
-                    }, function() {
-                        defer.resolve(disorders);
-                    }, function() {
-                        defer.reject();
-                    });
-                    return defer.promise;
-
                 }]
             }
         });
     }])
 
-    .controller('PatientDiagnosesCtrl', ['$scope', '$location', '$routeParams', 'DiagnosisModel', 'diagnoses', 'disorders', function ($scope, $location, $routeParams, DiagnosisModel, diagnoses, disorders) {
+    .controller('PatientDiagnosesCtrl', ['$scope', '$q', '$location', '$routeParams', 'DiagnosisModel', 'DisorderModel', 'diagnoses', function ($scope, $q, $location, $routeParams, DiagnosisModel, DisorderModel, diagnoses) {
         console.log("in here");
         $scope.diagnoses = diagnoses;
-        $scope.disorders = disorders;
 
         $scope.addDiagnosis = function() {
             var newDiagnosis = new DiagnosisModel({
@@ -46,9 +33,25 @@ angular.module('patient.diagnoses', [])
             })
             $scope.diagnoses.unshift(newDiagnosis);
         }
+        $scope.findDisorder = function(value) {
+            var defer = $q.defer();
 
-        $scope.remove = function(diagnosis) {
-            var index = $scope.diagnoses.indexOf(diagonsis);
+            var disorders = DisorderModel.index({
+                name: value
+            }, function() {
+                defer.resolve(disorders);
+            }, function() {
+                defer.reject();
+            });
+
+            return defer.promise;
+        }
+        $scope.diagnosisChosen = function(disorder, diagnosis) {
+            diagnosis.disorder_id = disorder.id;
+        }
+
+        $scope.removeDiagnosis = function(diagnosis) {
+            var index = $scope.diagnoses.indexOf(diagnosis);
             $scope.diagnoses.splice(index, 1);
         }
     }]);

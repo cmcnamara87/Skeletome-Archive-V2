@@ -4,17 +4,30 @@
             <button ng-click="addDiagnosis()" class="btn btn-action">Add</button>
         </div>
         <div class="block-content">
-            <div ng-repeat="diagnosis in diagnoses" class="content-box">
-                <record resource="diagnosis" remove-fn="remove(diagnosis)">
-                    <field editable="false">
-                        <div ng-show="$$prevSibling.isEditing">
-                            <select ng-model="diagnosis.disorder_id" ng-options="disorder.id as disorder.name for disorder in disorders"></select>
+            <div ng-repeat="diagnosis in diagnoses">
+                <div cm-resource="diagnosis" remove-fn="removeDiagnosis(diagnosis)">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete edit-enabled="false"></cm-edit-delete>
                         </div>
-                        <div ng-show="!$$prevSibling.isEditing">
+                        <div class="resource-block">
                             {{ diagnosis.disorder.name }}
                         </div>
-                    </field>
-                </record>
+
+                    </cm-display>
+
+                    <cm-edit>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">Disorder</label>
+                                <typeahead multi="false" options-fn="findDisorder(value)" token-chosen-fn="diagnosisChosen(token, diagnosis)" model="diagnosis.disorder" placeholder="What disorder does the patient have?"></typeahead>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
             </div>
         </div>
     </div>

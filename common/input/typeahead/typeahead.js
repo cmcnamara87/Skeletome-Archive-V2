@@ -13,9 +13,13 @@ angular.module('directives.input.typeahead', [])
                  * Return: A promise that resolves to a list  of options to choose from for the input
                  */
                 optionsFn: '&',
+
+                /**
+                 * Called when a new token is added
+                 */
+                tokenChosenFn: '&',
                 tokens: '=model',
-                placeholder: '@',
-                id: '@'
+                placeholder: '@'
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
@@ -39,7 +43,6 @@ angular.module('directives.input.typeahead', [])
                  */
                 $scope.addToken = function(option) {
 
-                    console.log("Typeahead: Multi is ", $scope.multi);
                     if($scope.multi == "true") {
                         var found = false;
                         angular.forEach($scope.tokens, function(token) {
@@ -66,6 +69,15 @@ angular.module('directives.input.typeahead', [])
                         }
                     } else {
                         $scope.tokens = option;
+                    }
+
+                    /**
+                     * Call the function for when a token is chosen
+                     */
+                    if(iAttrs.tokenChosenFn) {
+                        $scope.tokenChosenFn({
+                            'token': option
+                        });
                     }
 
                     $scope.input = "";
@@ -130,6 +142,12 @@ angular.module('directives.input.typeahead', [])
                                 if(value == "") {
                                     $scope.options = "";
                                 } else {
+
+                                    if(!angular.isDefined(iAttrs.optionsFn)) {
+                                        var message = "No options function (options-fn) for typeahead specificed";
+                                        throw message + "\n";
+                                    }
+
                                     // The input value hasn't changed in 500ms (so the user
                                     // has probably stopped typing), so we can do a request.
                                     // This is just for rate limiting
