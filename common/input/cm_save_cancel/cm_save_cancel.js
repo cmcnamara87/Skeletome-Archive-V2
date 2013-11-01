@@ -26,7 +26,6 @@ angular.module('directives.input.cmSaveCancel', [])
                     });
                     event.stopPropagation();
                 });
-
             }
         };
     }]);

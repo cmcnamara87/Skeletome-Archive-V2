@@ -1,13 +1,20 @@
 <div>
-    <div class="content">
-        <button class="btn" ng-click="add()">Add</button>
-    </div>
+    <div class="block">
+        <div class="block-header">
+            <button class="btn btn-action" ng-click="add()">Add</button>
+        </div>
+        <div class="block-content">
+            <div ng-repeat="xray in xrays">
+                <div cm-resource="xray">
+                    <cm-display>
 
-    <div ng-repeat="xray in xrays" class="content-box">
-        <record resource="xray">
-            <field>
-                <xray-block xray="xray"></xray-block>
-            </field>
-        </record>
+                    </cm-display>
+                    <cm-edit>
+
+                    </cm-edit>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

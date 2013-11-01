@@ -1,0 +1,40 @@
+.main {
+  .panel;
+  top: @menubarHeight;
+  background-color: white;
+}
+  .main-submenubar {
+    top: @menubarHeight + @submenubarHeight + 5px;
+  }
+  .main-activities {
+    right: @activitiesWidth;
+  }
+
+.block-list {
+}
+.block {
+}
+  .block-header {
+    .bordered;
+    padding: 14px 14px;
+    border-top: none;
+    position: relative;
+
+    h2 {
+      font-size: 21px;
+      margin: 0;
+      font-weight: 400;
+    }
+    .block-header-buttons {
+      position: absolute;
+      right: 14px;
+      top: 8px;
+    }
+  }
+
+  .block-content {
+    .bordered;
+    .padded;
+    border-top: none;
+    padding-bottom: 14px;
+  }

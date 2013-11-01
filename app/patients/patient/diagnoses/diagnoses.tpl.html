@@ -1,18 +1,21 @@
 <div>
-    <div class="content-title">
-        Diagnoses
-        <button ng-click="addDiagnosis()" class="btn">Add</button>
-    </div>
-    <div ng-repeat="diagnosis in diagnoses" class="content-box">
-        <record resource="diagnosis" remove-fn="remove(diagnosis)">
-            <field editable="false">
-                <div ng-show="$$prevSibling.isEditing">
-                    <select ng-model="diagnosis.disorder_id" ng-options="disorder.id as disorder.name for disorder in disorders"></select>
-                </div>
-                <div ng-show="!$$prevSibling.isEditing">
-                    {{ diagnosis.disorder.name }}
-                </div>
-            </field>
-        </record>
+    <div class="block">
+        <div class="block-header">
+            <button ng-click="addDiagnosis()" class="btn btn-action">Add</button>
+        </div>
+        <div class="block-content">
+            <div ng-repeat="diagnosis in diagnoses" class="content-box">
+                <record resource="diagnosis" remove-fn="remove(diagnosis)">
+                    <field editable="false">
+                        <div ng-show="$$prevSibling.isEditing">
+                            <select ng-model="diagnosis.disorder_id" ng-options="disorder.id as disorder.name for disorder in disorders"></select>
+                        </div>
+                        <div ng-show="!$$prevSibling.isEditing">
+                            {{ diagnosis.disorder.name }}
+                        </div>
+                    </field>
+                </record>
+            </div>
+        </div>
     </div>
 </div>

@@ -16,6 +16,7 @@ angular.module('patient.contact_information', [])
                         }, function() {
                             console.log("logged in user", SessionService.currentUser.uid, patient.uid);
                             if(patient.uid == SessionService.currentUser.uid) {
+                                patient.name_type = "name";
                                 defer.resolve(patient);
                             } else {
                                 alert("not user");
@@ -82,18 +83,36 @@ angular.module('patient.contact_information', [])
         });
     }])
 
-    .controller('ContactInformationCtrl', ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'AddressModel', 'IdentifierModel', function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, AddressModel, IdentifierModel, currentUser) {
-        console.log("current user", currentUser);
-        $scope.user = currentUser;
+    .controller('ContactInformationCtrl',
+        ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'fileUploadUrl', 'AddressModel', 'IdentifierModel', 'ConsentFileModel',
+            function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, fileUploadUrl, AddressModel, IdentifierModel, ConsentFileModel) {
+
         $scope.patient = patient;
         $scope.addresses = addresses;
         $scope.identifiers = identifiers;
         $scope.shares = shares;
         $scope.consentFiles = consentFiles;
 
-        $scope.showAddAddress = function() {
+                console.log("upload url", fileUploadUrl);
+        $scope.fileUploadUrl = fileUploadUrl;
 
+        /**
+         * Add a new identifier
+         */
+        $scope.addIdentifier = function() {
+            var newIdentifier = new IdentifierModel({
+                patient_id: $scope.patient.id
+            });
+            $scope.identifiers.unshift(newIdentifier);
         }
+        $scope.removeIdentifier = function(identifier) {
+            var index = $scope.identifiers.indexOf(identifier);
+            $scope.identifiers.splice(index, 1);
+        }
+
+        /**
+         * Add a new address
+         */
         $scope.addAddress = function() {
             var newAddress = new AddressModel({
                 patient_id: $scope.patient.id
@@ -106,4 +125,23 @@ angular.module('patient.contact_information', [])
             $scope.addresses.splice(index, 1);
         }
 
+        /**
+         * Add a new consent form
+         */
+        $scope.addConsentFile = function() {
+            var newConsentFile = new ConsentFileModel({
+                patient_id: $scope.patient.id
+            });
+            $scope.consentFiles.unshift(newConsentFile);
+        }
+        $scope.consentFileUploaded = function(file, consentFile) {
+            console.log("Got a file upload", file, consentFile);
+            consentFile.file_url = file.full_url;
+            consentFile.name = file.name;
+            consentFile.fid = file.fid;
+        }
+        $scope.removeConsentFile = function(consentFile) {
+            var index = $scope.consentFiles.indexOf(consentFile);
+            $scope.consentFiles.splice(consentFile, 1);
+        }
     }]);

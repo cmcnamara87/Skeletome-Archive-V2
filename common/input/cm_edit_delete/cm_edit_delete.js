@@ -7,6 +7,15 @@ angular.module('directives.input.cmEditDelete', [])
             templateUrl: 'common/input/cm_edit_delete/cm_edit_delete.tpl.html',
             link: function($scope, iElement, iAttrs) {
 
+
+                iAttrs.$observe('deleteEnabled', function(value) {
+                    if(angular.isDefined(iAttrs.deleteEnabled)) {
+                        $scope.deleteEnabled = value;
+                    } else {
+                        $scope.deleteEnabled = true;
+                    }
+                });
+
                 iAttrs.$observe('editEnabled', function(value) {
                     if(angular.isDefined(iAttrs.editEnabled)) {
                         $scope.editEnabled = value;
@@ -25,7 +34,7 @@ angular.module('directives.input.cmEditDelete', [])
                 $('.btn-action-delete', iElement).click(function(event) {
                     $scope.$apply(function() {
 //                        $scope.$cancel();
-                        alert("delete");
+                        $scope.$remove();
                     });
                     event.stopPropagation();
                 });

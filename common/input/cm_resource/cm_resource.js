@@ -10,6 +10,9 @@ angular.module('directives.input.cmResource', [])
             compile: function(tElement, tAttrs, transcludeFn) {
 
                 return function (scope, el, tAttrs) {
+
+                    el.addClass('resource');
+
                     /**
                      * Stores if we are editing the resource
                      * @type {boolean}
@@ -21,6 +24,7 @@ angular.module('directives.input.cmResource', [])
                      */
                     scope.$edit = function() {
                         scope.$isEditing = true;
+                        el.addClass('is-editing');
                     }
 
                     /**
@@ -31,6 +35,8 @@ angular.module('directives.input.cmResource', [])
                      */
                     scope.$save = function() {
                         scope.$isEditing = false;
+                        el.removeClass('is-editing');
+
                         var resource = scope[tAttrs.cmResource];
                         if(angular.isDefined(resource.id)) {
                             resource.$update();
@@ -41,15 +47,39 @@ angular.module('directives.input.cmResource', [])
 
                     scope.$watch(tAttrs.cmResource + ".id", function(id) {
                         if(!id) {
-                            scope.$isEditing = true;
+                            console.log("no id, editing is true");
+                            scope.$edit();
                         }
                     })
+
+                    scope.$remove = function() {
+                        // no id, remove the element
+                        var removeFn = $parse(tAttrs.removeFn);
+
+                        if (!angular.isFunction(removeFn)) {
+                            var message = "The expression on the cmResource directive does not point to a valid remove function.";
+                            throw message + "\n";
+                        }
+
+                        var resource = scope[tAttrs['cmResource']];
+                        if(resource.id) {
+                            resource.$remove();
+                        }
+
+
+                        removeFn(scope);
+                    }
 
                     /**
                      * Cancels editing the resource
                      */
                     scope.$cancel = function() {
-                        scope.$isEditing = false;
+                        if(angular.isDefined(scope[tAttrs['cmResource']].id)) {
+                            scope.$isEditing = false;
+                            el.removeClass('is-editing');
+                        } else {
+                            scope.$remove();
+                        }
                     }
 
                     transcludeFn(scope, function cloneConnectFn(cElement) {

@@ -1,32 +1,41 @@
 <div>
-    <div class="header">
-        <div class="header-title">
-            Case Information
+    <div class="block">
+        <div class="block-content">
+            <div cm-resource="patient">
+                <cm-display>
+                    <cm-edit-delete></cm-edit-delete>
+                    {{ patient.clinical_summary }}
+                </cm-display>
+                <cm-edit>
+                    <textarea ng-model="patient.clinical_summary"></textarea>
+                    <cm-save-cancel></cm-save-cancel>
+                </cm-edit>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="content-box row">
-        <div class="col-md-7">
 
-            <div class="content-section">
-                <div class="content-heading">
-                    Clinical Summary
-                </div>
-                <div class="content-content">
-                    <div cm-resource="patient">
-                        <cm-display>
-                            <cm-edit-delete></cm-edit-delete>
-                            {{ patient.clinical_summary }}
-                        </cm-display>
-                        <cm-edit>
-                            <textarea ng-model="patient.clinical_summary"></textarea>
-                            <cm-save-cancel></cm-save-cancel>
-                        </cm-edit>
-                    </div>
-                </div>
-            </div>
+<!--<div>-->
+    <!--<div class="header">-->
+        <!--<div class="header-title">-->
+            <!--Case Information-->
+        <!--</div>-->
+    <!--</div>-->
 
-            <div class="content-section">
+    <!--<div class="content-box row">-->
+        <!--<div class="col-md-7">-->
+
+            <!--<div class="content-section">-->
+                <!--<div class="content-heading">-->
+                    <!--Clinical Summary-->
+                <!--</div>-->
+                <!--<div class="content-content">-->
+
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="content-section">
                 <div class="content-heading">
                     X-Rays
                     <div class="content-heading-buttons">

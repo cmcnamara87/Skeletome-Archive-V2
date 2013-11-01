@@ -25,6 +25,10 @@ myApp.services.factory('baseUrl', function() {
     return baseUrl;
 });
 
+myApp.services.factory('fileUploadUrl', function(baseUrl) {
+    return baseUrl + '/drupal/upload';
+});
+
 myApp.services.factory('tokenUrl', function(baseUrl) {
     return baseUrl + '/drupal/services/session/token';
 });

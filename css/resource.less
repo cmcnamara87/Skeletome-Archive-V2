@@ -1,0 +1,76 @@
+
+.resource {
+
+  margin-bottom: 28px;
+
+  &.is-editing {
+    border-bottom: 1px solid @borderColor;
+    max-width: 500px;
+
+    .resource-block {
+      .bordered;
+      .padded;
+      margin-bottom: 0px;
+      border-bottom: none;
+      background-color: #EEF3F7;
+
+      input[type=text] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  /** Controls like edit / delete buttons */
+  .resource-controls {
+    float: right;
+  }
+
+  /** A block of content for the resource e.g. (first name + last name, or date of birth) */
+  .resource-block {
+    margin-bottom: 14px;
+
+    &:last-of-type {
+      margin-bottom: 0px;
+    }
+
+    .resource-block-heading {
+      font-weight: 600;
+      font-size: 14px;
+      margin: 0;
+      margin-bottom: 7px;
+      text-transform: uppercase;
+      color: @labelTextColor;
+    }
+
+    label {
+
+      &.label-top {
+        display: block;
+        width: 100%;
+      }
+      &.label-right {
+        padding-right: 14px;
+        margin-bottom: 0;
+        color: @labelTextColor;
+        font-weight: normal;
+
+        input {
+          margin-right: 5px;
+        }
+      }
+    }
+
+    .resource-block-element {
+      margin-bottom: 14px;
+
+      &.resource-block-element:last-of-type {
+        margin-bottom: 0px;
+      }
+    }
+
+
+
+
+  }
+}

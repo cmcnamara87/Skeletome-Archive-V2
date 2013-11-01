@@ -9,9 +9,11 @@ angular.module('directives.input.upload_block', [])
             scope: {
                 url: '@',
                 message: '@',
-                uploadedFn: '&'
+                uploadedFn: '&',
+                autoremove: '='
             },
             link: function($scope, iElement, iAttrs, $timeout) {
+                console.log("Upload: RUNNING!!!!!!!!!!");
                 iAttrs.$observe('url', function(value) {
                     if(value && value != "") {
 
@@ -19,7 +21,7 @@ angular.module('directives.input.upload_block', [])
 
                         iElement.dropzone(
                             {
-                                url: iAttrs.url,
+                                url: $scope.url,
                                 parallelUploads: 2,
                                 enqueueForUpload: true,
                                 dictDefaultMessage: iAttrs.message
@@ -42,9 +44,11 @@ angular.module('directives.input.upload_block', [])
                                 });
                             });
 
-                            setTimeout(function() {
-                                myDropzone.removeFile(file);
-                            }, 750);
+                            if($scope.autoremove == true) {
+                                setTimeout(function() {
+                                    myDropzone.removeFile(file);
+                                }, 750);
+                            }
 
                         });
 

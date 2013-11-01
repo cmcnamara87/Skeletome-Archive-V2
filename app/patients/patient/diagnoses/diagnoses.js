@@ -30,11 +30,7 @@ angular.module('patient.diagnoses', [])
                     });
                     return defer.promise;
 
-                }],
-                currentUser: ['AuthService', function(AuthService) {
-                    return AuthService.requireAuthenticated();
                 }]
-
             }
         });
     }])

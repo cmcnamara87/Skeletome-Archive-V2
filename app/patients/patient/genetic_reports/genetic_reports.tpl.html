@@ -1,36 +1,75 @@
 <div>
-    <div class="content-title">
-        Genetic Reports <button class="btn" ng-click="addGeneticReport()">Add</button>
+    <div class="block">
+        <div class="block-header">
+            <button class="btn btn-action" ng-click="addGeneticReport()">Add</button>
+        </div>
+        <div class="block-content">
+            <div ng-repeat="mutation in mutations" class="content-box">-->
+                <record resource="mutation">
+                    <dl>
+                        <dt>Name</dt>
+                        <dd>
+                            <field>
+                                <value-block value="mutation.name"></value-block>
+                            </field>
+                        </dd>
+
+                        <dt>Gene</dt>
+                        <dd>
+                            <!--<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>-->
+                        </dd>
+
+                        <dt>Mutation Type</dt>
+                        <dd>
+                            <!--<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>-->
+                        </dd>
+
+                        <dt>Pathogenicity</dt>
+                        <dd>
+                            <field>
+                                <value-block value="mutation.pathogenic"></value-block>
+                            </field>
+                        </dd>
+                    </dl>
+                </record>
+            </div>
+        </div>
     </div>
-
-    <div ng-repeat="mutation in mutations" class="content-box">
-        <record resource="mutation">
-            <dl>
-                <dt>Name</dt>
-                <dd>
-                    <field>
-                        <value-block value="mutation.name"></value-block>
-                    </field>
-                </dd>
-
-                <dt>Gene</dt>
-                <dd>
-                    <!--<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>-->
-                </dd>
-
-                <dt>Mutation Type</dt>
-                <dd>
-                    <!--<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>-->
-                </dd>
-
-                <dt>Pathogenicity</dt>
-                <dd>
-                    <field>
-                        <value-block value="mutation.pathogenic"></value-block>
-                    </field>
-                </dd>
-            </dl>
-        </record>
-    </div>
-
 </div>
+
+<!--<div>-->
+<!--<div class="content-title">-->
+<!--Genetic Reports <button class="btn" ng-click="addGeneticReport()">Add</button>-->
+<!--</div>-->
+
+<!--<div ng-repeat="mutation in mutations" class="content-box">-->
+<!--<record resource="mutation">-->
+<!--<dl>-->
+<!--<dt>Name</dt>-->
+<!--<dd>-->
+<!--<field>-->
+<!--<value-block value="mutation.name"></value-block>-->
+<!--</field>-->
+<!--</dd>-->
+
+<!--<dt>Gene</dt>-->
+<!--<dd>-->
+<!--&lt;!&ndash;<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>&ndash;&gt;-->
+<!--</dd>-->
+
+<!--<dt>Mutation Type</dt>-->
+<!--<dd>-->
+<!--&lt;!&ndash;<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>&ndash;&gt;-->
+<!--</dd>-->
+
+<!--<dt>Pathogenicity</dt>-->
+<!--<dd>-->
+<!--<field>-->
+<!--<value-block value="mutation.pathogenic"></value-block>-->
+<!--</field>-->
+<!--</dd>-->
+<!--</dl>-->
+<!--</record>-->
+<!--</div>-->
+
+<!--</div>-->
