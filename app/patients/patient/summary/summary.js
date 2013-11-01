@@ -17,11 +17,25 @@ angular.module('patient.summary', [])
                     });
 
                     return defer.promise;
+                }],
+                diagnoses: ['DiagnosisModel', '$route', '$q', function (DiagnosisModel, $route, $q) {
+                    var defer = $q.defer();
+
+                    var diagnoses = DiagnosisModel.index({
+                        patient_id: $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(diagnoses);
+                    }, function() {
+                        defer.reject();
+                    });
+
+                    return defer.promise;
                 }]
             }
         });
     }])
 
-    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', function ($scope, $location, patient) {
+    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', function ($scope, $location, patient, diagnoses) {
         $scope.patient = patient;
+        $scope.diagnoses = diagnoses;
     }]);

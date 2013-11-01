@@ -16,6 +16,7 @@ angular.module('directives.input.typeahead', [])
 
                 /**
                  * Called when a new token is added
+                 * token-chosen-fn="geneChosen(token)"
                  */
                 tokenChosenFn: '&',
                 tokens: '=model',
@@ -23,7 +24,16 @@ angular.module('directives.input.typeahead', [])
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
+                $scope.loadCount = 0;
 
+                if(!iAttrs.multi) {
+                    var message = "typeahead: multi attr missing";
+                    throw message + "\n";
+                }
+                if(!iAttrs.model) {
+                    var message = "typeahead: model attr missing";
+                    throw message + "\n";
+                }
 
                 /**
                  * Remove a token
@@ -134,7 +144,9 @@ angular.module('directives.input.typeahead', [])
                     console.log("Input changed");
                     if(!value.length) {
                         $scope.options = [];
+                        $scope.loadCount = 0;
                     } else {
+                        $scope.loadCount++;
                         $timeout(function() {
                             if(value == $scope.input) {
                                 $scope.selectedIndex = 0;
@@ -154,6 +166,8 @@ angular.module('directives.input.typeahead', [])
                                     $scope.optionsFn({
                                         'value': value
                                     }).then(function(options) {
+                                        $scope.loadCount = 0;
+
                                         if($scope.input != "") {
                                             $scope.options = options;
                                         }

@@ -319,6 +319,20 @@ myApp.services.factory('ReplyModel', function ($resource, apiUrl, Param) {
 
 
 
+myApp.services.factory('GeneticReportModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'genetic_report/:id', {
+            id: '@id' //this binds the ID of the model to the URL param,
+        },
+        {
+            update: {method:'PUT'}
+        });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+    return MyResource;
+});
 myApp.services.factory('GeneMutationModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'gene_mutation/:id', {
             id: '@id' //this binds the ID of the model to the URL param,

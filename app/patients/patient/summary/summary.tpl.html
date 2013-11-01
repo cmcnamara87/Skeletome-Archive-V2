@@ -33,7 +33,12 @@
                 <h2>Diagnoses</h2>
             </div>
             <div class="block-content">
-                Diagnoses here
+                <div class="resource-block">
+                    <div ng-repeat="diagnosis in diagnoses">
+                        {{ diagnosis.disorder.name }}
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>

@@ -3,11 +3,15 @@
 
   margin-bottom: 28px;
 
+
   &.is-editing {
-    border-bottom: 1px solid @borderColor;
-    max-width: 500px;
+
 
     .resource-block {
+      &:last-of-type {
+        border-bottom: 1px solid @borderColor;
+      }
+
       .bordered;
       .padded;
       margin-bottom: 0px;
@@ -29,11 +33,14 @@
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
   .resource-block {
     margin-bottom: 14px;
+    max-width: 500px;
 
+    /** No margin on the last one */
     &:last-of-type {
       margin-bottom: 0px;
     }
 
+    /** A heading for a block (can have multiple per block) */
     .resource-block-heading {
       font-weight: 600;
       font-size: 14px;
@@ -44,7 +51,6 @@
     }
 
     label {
-
       &.label-top {
         display: block;
         width: 100%;

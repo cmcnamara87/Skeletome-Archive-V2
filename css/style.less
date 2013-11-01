@@ -2,6 +2,7 @@
 @import "buttons.less";
 @import "resource.less";
 @import "clearfix.less";
+@import "activities.less";
 
 /**
  * Variables
@@ -441,12 +442,27 @@ input[type=text].full-width, textarea.full-width {
 */
 .typeahead {
   border: 1px solid @borderColor;
+  position: relative;
 }
 
 .typeahead input {
   border: none;
   box-sizing: border-box;
   width: 100%;
+}
+.typeahead-loader {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  padding: 10px 14px;
+  opacity: 0.8;
+}
+.typeahead-icon {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  padding: 10px 14px;
+  opacity: 0.3;
 }
 
 /*
@@ -794,13 +810,7 @@ The menubar element
 
 
 
-.activities {
-  .panel;
-  top: @menubarHeight;
-  left: auto;
-  width: @activitiesWidth;
-  padding: 14px;
-}
+
 
 /**
  *
@@ -883,6 +893,7 @@ The menubar element
 
 .submenubar {
   .bordered;
+  border-right: none;
   position: fixed;
   top: @menubarHeight;
   left: 0px;

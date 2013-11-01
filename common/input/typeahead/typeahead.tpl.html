@@ -14,6 +14,9 @@
     </div>
 
     <div ng-show="multi == 'true' || (multi == 'false' && !tokens)">
+        <img src="img/ajax-loader.gif" class="typeahead-loader" ng-show="loadCount"/>
+        <i class="icon icon-list typeahead-icon" ng-show="!loadCount"></i>
+
         <input type="text"
                id="{{ id }}"
                ng-model="input"

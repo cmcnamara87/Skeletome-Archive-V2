@@ -4,34 +4,60 @@
             <button class="btn btn-action" ng-click="addGeneticReport()">Add</button>
         </div>
         <div class="block-content">
-            <div ng-repeat="mutation in mutations" class="content-box">-->
-                <record resource="mutation">
-                    <dl>
-                        <dt>Name</dt>
-                        <dd>
-                            <field>
-                                <value-block value="mutation.name"></value-block>
-                            </field>
-                        </dd>
+            <div ng-repeat="report in reports">
+                <div cm-resource="report">
+                    <cm-edit>
+                        <div class="resource-block">
+                            <label class="resource-block-heading label-top">Gene</label>
+                            <typeahead multi="false" options-fn="findGene(value)" model="genes" token-chosen-fn="geneChosen(token, report)"></typeahead>
+                            <pre>
+                                {{ report.geneMutations | json }}
+                            </pre>
+                            <div>
+                                <button class="btn btn-action">Add New Gene Mutation</button>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">
+                                    Name
+                                </label>
+                                <input type="text" ng-model="report.geneMutation.name" placeholder="What is text name of the gene mutation?"/>
+                            </div>
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">
+                                    Gene
+                                </label>
+                                <typeahead multi="false" model="report.geneMutation.gene" options-fn="findGene(value)" placeholder="What gene is affected?"></typeahead>
+                            </div>
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">
+                                    Mutation Type
+                                </label>
+                                <typeahead multi="false" model="report.geneMutation.mutation_type"></typeahead>
+                            </div>
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">
+                                    Pathogenicity
+                                </label>
+                                <select>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                    <cm-display>
+                        <pre>
+                            {{ report | json }}
+                        </pre>
+                    </cm-display>
 
-                        <dt>Gene</dt>
-                        <dd>
-                            <!--<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>-->
-                        </dd>
-
-                        <dt>Mutation Type</dt>
-                        <dd>
-                            <!--<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>-->
-                        </dd>
-
-                        <dt>Pathogenicity</dt>
-                        <dd>
-                            <field>
-                                <value-block value="mutation.pathogenic"></value-block>
-                            </field>
-                        </dd>
-                    </dl>
-                </record>
+                </div>
             </div>
         </div>
     </div>
