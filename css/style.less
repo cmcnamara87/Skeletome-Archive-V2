@@ -3,6 +3,7 @@
 @import "resource.less";
 @import "clearfix.less";
 @import "activities.less";
+@import "tags.less";
 
 /**
  * Variables
@@ -13,8 +14,11 @@
 @placeholderTextColor: #96A6B1;
 @linkColor: #417BAE;
 
-@activitiesWidth: 400px;
+@activitiesWidth: 500px;
 @menubarHeight: 50px;
+@submenubarHeight: 60px;
+
+
 @submenubarHeight: 60px;
 
 
@@ -27,8 +31,14 @@
   background-color: white;
 }
 
-.padded {
+.spaced {
   padding: 14px;
+}
+.spaced-bottom {
+  margin-bottom: 14px;
+}
+.spaced-bottom-none {
+  margin-bottom: 0px;
 }
 
 /**
@@ -264,20 +274,7 @@ input[type=text].full-width, textarea.full-width {
 /**
  * An activity box
  */
-.activity {
-  margin-bottom: 14px;
-}
 
-.activity-box {
-  border: 1px solid @borderColor;
-  border-bottom: none;
-  background-color: white;
-  padding: 14px;
-}
-
-.activity-box-bottom {
-  border-bottom: 1px solid @borderColor;
-}
 
 .activity-icon {
   height: 48px;
@@ -340,29 +337,7 @@ input[type=text].full-width, textarea.full-width {
 
 }
 
-.activity-adder-tabs {
-  padding: 0;
-  margin: 0;
-}
 
-.activity-adder-tabs li {
-  display: inline-block;
-  list-style: none;
-}
-
-.activity-adder-tab {
-  padding: 14px;
-  display: block;
-}
-
-.activity-adder-tab.active {
-  background-color: white;
-  position: relative;
-  z-index: 1;
-  top: 1px;
-  border: 1px solid @borderColor;
-  border-bottom: 0;
-}
 
 .activity-comments {
 
@@ -906,7 +881,7 @@ The menubar element
   right: 0px;
 
   margin-right: @activitiesWidth;
-  .padded;
+  .spaced;
 
   ul {
     padding-left: 0px;

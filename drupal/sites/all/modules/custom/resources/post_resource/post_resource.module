@@ -37,8 +37,6 @@ class PostController extends EntityAPIController {
     public function save($entity, DatabaseTransaction $transaction = NULL) {
         parent::save($entity, $transaction);
 
-
-
         // Create an activity for this new post
         $activity = new stdClass();
         $activity->uid = $entity->uid;

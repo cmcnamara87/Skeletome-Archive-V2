@@ -1,19 +1,67 @@
 <div>
+    <!--<div class="activity">
+        <div class="activity-box">
+            Message Posted
+        </div>
+
+    </div>
+    <div class="activity">
+        <div>
+            <div class="activity-box">
+                <i class="icon icon-remove"></i>
+                Add <span class="label label-primary">Achondroplasia</span> as possible diagnosis?
+                <div class="pull-right">
+                    <a href="">Yes</a> <a href="">No</a>
+                </div>
+            </div>
+
+            <div class="activity-box">
+                <i class="icon icon-remove"></i>
+                Add <span class="label label-primary">Pseudoachondroplasia</span> as possible diagnosis?
+                <div class="pull-right">
+                    <a href="">Yes</a> <a href="">No</a>
+                </div>
+            </div>
+
+
+            <div class="activity-box">
+                <i class="icon icon-remove"></i>
+                Vote for <span class="label label-primary">Pseudoachondroplasia</span> as possible diagnosis?
+                <div class="pull-right">
+                    <a href="">27 <i class="icon icon-thumbs-up"></i></a> <a href="">12 <i class="icon icon-thumbs-down"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>-->
+
     <div class="activity activity-adder">
         <!-- Options -->
         <ul class="activity-adder-tabs">
-            <li><a href="" class="activity-adder-tab"  ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'">Add Post</a></li>
-            <li><a href="" class="activity-adder-tab" ng-class="{'active': adding == 'diagnosis'}" ng-click="adding = 'diagnosis'">Add Diagnosis</a></li>
+            <li><a href="" class="activity-adder-tab"  ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'">New Message</a></li>
+            <li><a href="" class="activity-adder-tab" ng-class="{'active': adding == 'diagnosis'}" ng-click="adding = 'diagnosis'">New Diagnosis</a></li>
         </ul>
 
         <div ng-switch on="adding">
             <div ng-switch-when="post">
                 <div class="activity-box">
-                    <textarea ng-model="newPost.text" placeholder="Write something about patient #{{ patient.id }}" class="full-width" />
+                    <div class="activity-box-element">
+                        <typeahead multi="true"
+                                   model="newPost.shares"
+                                   placeholder="TO:  What groups will this message go to?"
+                                   options-fn="findGroups(value)"
+                                    ></typeahead>
+                    </div>
+
+                    <div class="activity-box-element">
+                        <textarea ng-model="newPost.text" ck-editor ck-editor-usefocus="true" placeholder="MESSAGE: Write something about patient #{{ patient.id }}" class="full-width" />
+
+                    </div>
                 </div>
+
                 <div class="activity-box">
                     <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Pubmed</button>
-                    <button ng-click="addPost(newPost.text)" class="btn btn-action btn-action-selected pull-right">Post</button>
+                    <button ng-click="addPost(newPost)" class="btn btn-action btn-action-selected pull-right">Post</button>
                 </div>
             </div>
 

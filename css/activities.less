@@ -6,8 +6,74 @@
   padding: 14px;
   border-left: 1px solid @borderColor;
 
-  &.activities-none {
-    border-left: none;
+  /**
+  Group activity title
+  */
+  .activities-title {
+    font-size: 21px;
+    font-weight: 300px;
+    margin: 0;
+    color: @labelTextColor;
+    margin-bottom: 21px;
+  }
+
+}
+
+
+.activity {
+  margin-bottom: 14px;
+}
+
+.activity-box {
+  .spaced;
+  .bordered;
+  border-bottom: none;
+  background-color: white;
+}
+  .activity-box-element {
+    &:last-of-type {
+      .spaced-bottom-none;
+    }
+    .spaced-bottom
+  }
+
+.activity-box-bottom {
+  border-bottom: 1px solid @borderColor;
+}
+
+
+
+/**
+  * Activity Adder
+  */
+.activity-adder {
+
+  .activity-adder-tabs {
+    padding: 0;
+    margin: 0;
+
+    li {
+      display: inline-block;
+      list-style: none;
+    }
+
+    .activity-adder-tab {
+      &.active {
+        background-color: white;
+        z-index: 1;
+        border: 1px solid @borderColor;
+        border-bottom: 0;
+      }
+
+      position: relative;
+      top: 1px;
+      padding: 10px 14px;
+      display: block;
+      @inactiveAdderTabBackgroundColor: #F2F5F6;
+      background-color: @inactiveAdderTabBackgroundColor;
+      border: 1px solid @inactiveAdderTabBackgroundColor;
+      border: none;
+    }
   }
 
 }

@@ -5,15 +5,15 @@
 
 
   &.is-editing {
-
-
     .resource-block {
       &:last-of-type {
         border-bottom: 1px solid @borderColor;
       }
 
+      margin-right: 0px;
+
       .bordered;
-      .padded;
+      .spaced;
       margin-bottom: 0px;
       border-bottom: none;
       background-color: #EEF3F7;
@@ -33,6 +33,7 @@
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
   .resource-block {
     margin-bottom: 14px;
+    margin-right: 80px;
 //    max-width: 500px;
 
     /** No margin on the last one */

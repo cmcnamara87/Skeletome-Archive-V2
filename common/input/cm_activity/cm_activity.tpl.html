@@ -34,8 +34,7 @@
 
     <div ng-switch on="activity.type">
         <div ng-switch-when="post">
-            <div class="activity-box">
-                {{ activity.post.text }}
+            <div class="activity-box" ng-bind-html-unsafe="activity.post.text">
             </div>
         </div>
         <div ng-switch-when="diagnosis">

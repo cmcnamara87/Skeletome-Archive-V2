@@ -6,17 +6,21 @@
                     <div class="resource-controls">
                         <cm-edit-delete></cm-edit-delete>
                     </div>
-                    <div class="resource-block resource-block-narrow">
-                        {{ patient.clinical_summary }}
+                    <div class="resource-block resource-block-narrow" ng-bind-html-unsafe="patient.clinical_summary">
+
                     </div>
                 </cm-display>
                 <cm-edit>
-                    <div class="resource-block">
-                        <textarea ng-model="patient.clinical_summary"></textarea>
+
+                    <div style="height: 900px;">
+                        <textarea ng-model="patient.clinical_summary" ck-editor></textarea>
                     </div>
+
+
                     <div class="resource-block">
                         <cm-save-cancel></cm-save-cancel>
                     </div>
+
                 </cm-edit>
             </div>
         </div>

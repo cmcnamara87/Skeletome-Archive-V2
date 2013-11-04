@@ -55,9 +55,8 @@ angular.module('patient.share', ['patient.share.discussion', 'patient.share.diag
                 disorder_id: disorder.id,
                 disorder: disorder,
                 share_id: $scope.share.id,
-                patient_id: $scope.patient_id,
-
-            })
+                patient_id: $scope.patient_id
+            });
 
             // Create a temp activity
             // and add it to the ui straight away
