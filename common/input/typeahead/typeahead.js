@@ -93,7 +93,11 @@ angular.module('directives.input.typeahead', [])
                     $scope.input = "";
                     $scope.options = [];
 
-                    console.log("tokens is", $scope.tokens);
+                    // Set focus on next element if not multi
+                    if($scope.multi == "false") {
+                        var index = $("input, textarea, select").index($('input', iElement));
+                        $("input, textarea, select").eq(index + 1).focus();
+                    }
                 }
 
                 /**

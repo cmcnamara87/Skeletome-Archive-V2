@@ -29,8 +29,10 @@ angular.module('login', ['security'])
         };
 
         $scope.login = function(credentials) {
-            AuthService.login(credentials, function() {
+            $scope.error = null;
+            AuthService.login(credentials, function(error) {
                 console.log("Error logging in");
+                $scope.error = error;
             });
         }
 

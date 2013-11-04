@@ -1,101 +1,68 @@
 <div>
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-action" ng-click="addGeneticReport()">Add</button>
+            <button class="btn btn-action" ng-click="addGeneMutation()">Add Gene Mutation</button>
         </div>
         <div class="block-content">
-            <div ng-repeat="report in reports">
-                <div cm-resource="report">
-                    <cm-edit>
-                        <div class="resource-block">
-                            <label class="resource-block-heading label-top">Gene</label>
-                            <typeahead multi="false" options-fn="findGene(value)" model="genes" token-chosen-fn="geneChosen(token, report)"></typeahead>
-                            <pre>
-                                {{ report.geneMutations | json }}
-                            </pre>
-                            <div>
-                                <button class="btn btn-action">Add New Gene Mutation</button>
-                            </div>
-                        </div>
-                        <div class="resource-block">
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">
-                                    Name
-                                </label>
-                                <input type="text" ng-model="report.geneMutation.name" placeholder="What is text name of the gene mutation?"/>
-                            </div>
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">
-                                    Gene
-                                </label>
-                                <typeahead multi="false" model="report.geneMutation.gene" options-fn="findGene(value)" placeholder="What gene is affected?"></typeahead>
-                            </div>
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">
-                                    Mutation Type
-                                </label>
-                                <typeahead multi="false" model="report.geneMutation.mutation_type"></typeahead>
-                            </div>
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">
-                                    Pathogenicity
-                                </label>
-                                <select>
-                                    <option value="high">High</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="low">Low</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="resource-block">
-                            <cm-save-cancel></cm-save-cancel>
-                        </div>
-                    </cm-edit>
-                    <cm-display>
-                        <pre>
-                            {{ report | json }}
-                        </pre>
-                    </cm-display>
+            <table class="table-content">
+                <tr>
+                    <th>Name</th>
+                    <th>Gene</th>
+                    <th>Mutation Type</th>
+                    <th>Pathogenicity</th>
+                    <th></th>
+                </tr>
+                <tbody ng-repeat="geneMutation in geneMutations" cm-resource="geneMutation" remove-fn="removeGeneMutation(geneMutation)">
+                    <tr ng-show="$isEditing">
+                        <td colspan="5" class="is-editing">
+                            <div class="resource-block">
+                                <div class="resource-block-element">
+                                    <label class="label-top resource-block-heading">
+                                        Name
+                                    </label>
 
-                </div>
-            </div>
+                                    <input type="text" ng-model="geneMutation.name" placeholder="What is text name of the gene mutation?"/>
+                                </div>
+                                <div class="resource-block-element">
+                                    <label class="label-top resource-block-heading">
+                                        Gene
+                                    </label>
+                                    <typeahead multi="false" model="geneMutation.gene" options-fn="findGene(value)" token-chosen-fn="geneChosen(token, geneMutation)" placeholder="What gene is affected?"></typeahead>
+                                </div>
+                                <div class="resource-block-element">
+                                    <label class="label-top resource-block-heading">
+                                        Mutation Type
+                                    </label>
+                                    <typeahead multi="false" model="geneMutation.mutation_type" placeholder="What is the type of the mutation?" options-fn="findMutationType(value)" token-chosen-fn="mutationTypeChosen(token, geneMutation)"></typeahead>
+                                </div>
+                                <div class="resource-block-element">
+                                    <label class="label-top resource-block-heading">
+                                        Pathogenicity
+                                    </label>
+                                    <select ng-model="geneMutation.pathogenic">
+                                        <option value="High">High</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="Low">Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="resource-block">
+                                <cm-save-cancel></cm-save-cancel>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr ng-show="!$isEditing">
+                        <td>{{ geneMutation.name }}</td>
+                        <td>{{ geneMutation.gene.name }}</td>
+                        <td>{{ geneMutation.mutation_type.name }}</td>
+                        <td>{{ geneMutation.pathogenic }}</td>
+                        <td>
+                            <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
         </div>
     </div>
 </div>
-
-<!--<div>-->
-<!--<div class="content-title">-->
-<!--Genetic Reports <button class="btn" ng-click="addGeneticReport()">Add</button>-->
-<!--</div>-->
-
-<!--<div ng-repeat="mutation in mutations" class="content-box">-->
-<!--<record resource="mutation">-->
-<!--<dl>-->
-<!--<dt>Name</dt>-->
-<!--<dd>-->
-<!--<field>-->
-<!--<value-block value="mutation.name"></value-block>-->
-<!--</field>-->
-<!--</dd>-->
-
-<!--<dt>Gene</dt>-->
-<!--<dd>-->
-<!--&lt;!&ndash;<select-block value="mutation.gene_id" model="mutation" list="genes" edit-attr="id" display-attr="name"></select-block>&ndash;&gt;-->
-<!--</dd>-->
-
-<!--<dt>Mutation Type</dt>-->
-<!--<dd>-->
-<!--&lt;!&ndash;<select-block value="mutation.mutation_type_id" model="mutation" list="mutationTypes" edit-attr="id" display-attr="name"></select-block>&ndash;&gt;-->
-<!--</dd>-->
-
-<!--<dt>Pathogenicity</dt>-->
-<!--<dd>-->
-<!--<field>-->
-<!--<value-block value="mutation.pathogenic"></value-block>-->
-<!--</field>-->
-<!--</dd>-->
-<!--</dl>-->
-<!--</record>-->
-<!--</div>-->
-
-<!--</div>-->

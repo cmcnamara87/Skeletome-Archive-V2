@@ -36,9 +36,11 @@
                 <submenubar></submenubar>
 
                 <div class="main" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities}">
+
                     <div ng-view></div>
                 </div>
             </div>
+
             <div class="activities" ng-show="showActivities">
                 <activities>
                 </activities>

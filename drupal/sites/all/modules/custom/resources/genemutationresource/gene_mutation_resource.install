@@ -116,6 +116,13 @@ function gene_mutation_resource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
+            'patient_id' => array(
+                'description' => t('The id of the patient.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
             'pathogenic' => array(
                 'description' => t('Pathogenicity of the mutation e.g. highly unlikely to highly likely'),
                 'type' => 'varchar',

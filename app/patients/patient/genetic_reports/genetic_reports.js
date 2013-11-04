@@ -6,12 +6,12 @@ angular.module('patient.genetic_reports', [])
             templateUrl:'app/patients/patient/genetic_reports/genetic_reports.tpl.html',
             controller:'GeneticReportsCtrl',
             resolve:{
-                reports: ['GeneticReportModel', '$route', '$q', function (GeneticReportModel, $route, $q) {
+                geneMutations: ['GeneMutationModel', '$route', '$q', function (GeneMutationModel, $route, $q) {
                     var defer = $q.defer();
-                    var reports = GeneticReportModel.index({
+                    var geneMutations = GeneMutationModel.index({
                         patient_id: $route.current.params.patient_id
                     }, function() {
-                        defer.resolve(reports);
+                        defer.resolve(geneMutations);
                     }, function() {
                         defer.reject();
                     });
@@ -22,22 +22,30 @@ angular.module('patient.genetic_reports', [])
         });
     }])
 
-    .controller('GeneticReportsCtrl', ['$scope', '$q', '$location', '$routeParams', 'GeneMutationModel', 'GeneticReportModel', 'GeneModel', 'MutationTypeModel', 'reports', function ($scope, $q, $location, $routeParams, GeneMutationModel, GeneticReportModel, GeneModel, MutationTypeModel, reports) {
-        $scope.reports = reports;
+    .controller('GeneticReportsCtrl', ['$scope', '$q', '$location', '$routeParams', 'GeneMutationModel', 'GeneticReportModel', 'GeneModel', 'MutationTypeModel', 'geneMutations', function ($scope, $q, $location, $routeParams, GeneMutationModel, GeneticReportModel, GeneModel, MutationTypeModel, geneMutations) {
 
-        $scope.addGeneticReport = function() {
+        $scope.geneMutations = geneMutations;
 
-            var newGeneticReport = new GeneticReportModel({
-                patient_id: $routeParams.patient_id
+
+        $scope.addGeneMutation = function() {
+
+            var newGeneMutation = new GeneMutationModel({
+                patient_id: $routeParams.patient_id,
+                pathogenic: 'Low'
             });
 
-            $scope.reports.push(newGeneticReport);
+            $scope.geneMutations.unshift(newGeneMutation);
         }
-        $scope.findGene = function(value) {
+        $scope.removeGeneMutation = function(geneMutation) {
+            var index = $scope.geneMutations.indexOf(geneMutation);
+            $scope.geneMutations.splice(index, 1);
+        }
+
+        $scope.findGene = function(geneName) {
             var defer = $q.defer();
 
             var genes = GeneModel.index({
-                name: value
+                name: geneName
             }, function() {
                 defer.resolve(genes);
             }, function() {
@@ -51,6 +59,27 @@ angular.module('patient.genetic_reports', [])
             report.geneMutations = GeneMutationModel.index({
                  gene_id: gene.id
             });
+        }
+
+        $scope.findMutationType = function(mutationTypeName) {
+            var defer = $q.defer();
+
+            var mutationTypes = MutationTypeModel.index({
+                name: mutationTypeName
+            }, function() {
+                defer.resolve(mutationTypes);
+            }, function() {
+                defer.reject();
+            });
+
+            return defer.promise;
+        }
+        $scope.geneChosen = function(gene, geneMutation) {
+            console.log("gene chosen?");
+            geneMutation.gene_id = gene.id;
+        }
+        $scope.mutationTypeChosen = function(geneMutationType, geneMutation) {
+            geneMutation.mutation_type_id = geneMutationType.id;
         }
 
     }]);

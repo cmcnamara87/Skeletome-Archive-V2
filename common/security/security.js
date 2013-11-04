@@ -168,9 +168,9 @@ angular.module('security', [])
                         } else {
                             $location.path('/feed');
                         }
-                    }).error(function(error) {
-                       console.log("error is", error);
-                        error(error);
+                    }).error(function(error2) {
+                       console.log("error is", error2);
+                        error(error2);
                     });
                 })
             },

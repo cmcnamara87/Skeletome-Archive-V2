@@ -615,11 +615,17 @@ table.table-content {
 }
 
 .table-content td {
+  &.is-editing {
+    padding: 0;
+  }
+
   padding: 10px 21px;
   font-weight: normal;
   border-top: none;
   border-bottom: 1px solid @borderColor;
   color: #1E3346;
+
+
 }
 
 .table-content tr:hover td {
