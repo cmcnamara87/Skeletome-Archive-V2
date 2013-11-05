@@ -12,21 +12,21 @@
                 </a>
 
                 <div>
-                                        <span class="activity-message" ng-switch on="activity.type">
-                                            <span ng-switch-when="share">
-                                                shared <a href="#patient/{{ activity.share.patient_id }}">Patient #{{
-                                                activity.share.patient_id }}</a> with <a
-                                                    href="#/group/{{ activity.share.group.id }}">{{
-                                                activity.share.group.name }}</a>
-                                            </span>
-                                            <span ng-switch-default>
-                                                added a {{ activity.type }}
-                                            </span>
+                    <span class="activity-message" ng-switch on="activity.type">
+                        <span ng-switch-when="share">
+                            shared <a href="#patient/{{ activity.share.patient_id }}">Patient #{{
+                            activity.share.patient_id }}</a> with <a
+                                href="#/group/{{ activity.share.group.id }}">{{
+                            activity.share.group.name }}</a>
+                        </span>
+                        <span ng-switch-default>
+                            added a {{ activity.type }}
+                        </span>
 
-                                        </span>
-                                        <span class="activity-time" ng-show="activity.created">
-                                            - {{ activity.created*1000 | date:'medium' }}
-                                        </span>
+                    </span>
+                    <span class="activity-time" ng-show="activity.created">
+                        - {{ activity.created*1000 | date:'medium' }}
+                    </span>
                 </div>
             </div>
         </div>
@@ -82,40 +82,7 @@
         </div>
     </div>
 
-    <div class="activity-comments">
-        <div class="activity-box activity-box-comment" ng-show="activity.replies.length > $commentDisplayCount">
-            <button class="btn btn-more">
-                <i class="icon icon-angle-down"></i>
-                {{ activity.replies.length - $commentDisplayCount }} comments
-            </button>
-
-        </div>
-        <div ng-repeat="reply in activity.replies | limitTo:-$commentDisplayCount"
-             class="activity-box activity-box-comment">
-            <div class="media">
-                <div class="pull-left">
-                    <img src="img/shatner.png" alt="" style="width: 32px"/>
-                </div>
-
-                <div class="media-body">
-                    <div>
-                        <a href="#user/{{ reply.user.id }}" class="activity-user">
-                            Dr {{ reply.user.name }}
-                        </a>
-                                            <span class="activity-time" ng-show="reply.created">
-                                                - {{ reply.created*1000 | date:'medium' }}
-                                            </span>
-                    </div>
-
-                    <div>
-                        {{ reply.text }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="activity-box activity-box-bottom activity-box-comment">
-            <input type="text" placeholder="Add a comment" class="full-width" ng-model="newReply.text"/>
-            <!--<button ng-click="$addReplyToActivity(newReply.text, activity)">Add</button>-->
-        </div>
+    <div>
+        <cm-comments></cm-comments>
     </div>
 </div>

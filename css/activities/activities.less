@@ -1,0 +1,33 @@
+@import "activity.less";
+@import "adder.less";
+
+.activities {
+  .panel;
+  top: @menubarHeight;
+  left: auto;
+  width: @activitiesWidth;
+  border-left: 1px solid @borderColor;
+
+  /**
+  Group activity title
+  */
+  .activities-title {
+    font-size: 21px;
+    font-weight: 300px;
+    margin: 0;
+    color: @labelTextColor;
+    margin-bottom: 21px;
+  }
+
+
+  .activities-adder {
+    .spaced;
+    border-bottom: 1px solid @borderColor;
+  }
+  .activities-content {
+    .spaced;
+  }
+}
+
+
+

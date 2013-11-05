@@ -1,4 +1,4 @@
-angular.module('directives.input.cmActivity', [])
+angular.module('directives.input.cmActivity', ['directives.input.cmActivity.cmComments'])
 
 // A simple directive to display a gravatar image given an email
     .directive('cmActivity', ['ReplyModel', 'AuthService', function (ReplyModel, AuthService) {

@@ -1,0 +1,41 @@
+<div class="activity-comments">
+    <div class="activity-box activity-box-comment" ng-show="activity.replies.length > commentDisplayCount">
+        <button class="btn btn-more" ng-click="showMore()">
+            <i class="icon icon-angle-down"></i>
+            {{ activity.replies.length - commentDisplayCount }} comments
+        </button>
+    </div>
+
+    <div ng-repeat="reply in activity.replies | limitTo:-commentDisplayCount"
+         class="activity-box activity-box-comment">
+        <div class="media">
+
+            <!-- User icon -->
+            <div class="pull-left">
+                <img src="img/shatner.png" alt="" style="width: 32px"/>
+            </div>
+
+            <!-- User name + Date + Content -->
+            <div class="media-body">
+                <div>
+                    <a href="#/user/{{ reply.user.uid }}" class="activity-user">
+                        Dr {{ reply.user.name }}
+                    </a>
+                    <span class="activity-time" ng-show="reply.created">
+                        - {{ reply.created*1000 | date:'medium' }}
+                    </span>
+                </div>
+
+                <!-- Text -->
+                <div>
+                    {{ reply.text }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New comment next box -->
+    <div class="activity-box activity-box-bottom activity-box-comment">
+        <input type="text" placeholder="Add a comment" class="full-width" ng-model="newComment.text"/>
+    </div>
+</div>

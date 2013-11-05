@@ -20,7 +20,8 @@ angular.module('directives.input.typeahead', [])
                  */
                 tokenChosenFn: '&',
                 tokens: '=model',
-                placeholder: '@'
+                placeholder: '@',
+                delay: '@'
             },
             link: function($scope, iElement, iAttrs, FieldCtrl) {
                 $scope.selectedIndex = 3;
@@ -150,6 +151,10 @@ angular.module('directives.input.typeahead', [])
                         $scope.options = [];
                         $scope.loadCount = 0;
                     } else {
+                        var delay = 200;
+                        if(iAttrs.delay) {
+                            delay = iAttrs.delay;
+                        }
                         $scope.loadCount++;
                         $timeout(function() {
                             if(value == $scope.input) {
@@ -178,7 +183,7 @@ angular.module('directives.input.typeahead', [])
                                     });
                                 }
                             }
-                        }, 200);
+                        }, delay);
                     }
 
                 }

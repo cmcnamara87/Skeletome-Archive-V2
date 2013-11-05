@@ -2,7 +2,7 @@
 @import "buttons.less";
 @import "resource.less";
 @import "clearfix.less";
-@import "activities.less";
+@import "activities/activities.less";
 @import "tags.less";
 
 /**
@@ -14,7 +14,7 @@
 @placeholderTextColor: #96A6B1;
 @linkColor: #417BAE;
 
-@activitiesWidth: 500px;
+@activitiesWidth: 45%;
 @menubarHeight: 50px;
 @submenubarHeight: 60px;
 
@@ -271,85 +271,7 @@ input[type=text].full-width, textarea.full-width {
   margin-left: 7px;
 }
 
-/**
- * An activity box
- */
 
-
-.activity-icon {
-  height: 48px;
-  width: 48px;
-  font-size: 35px;
-  background-color: #EAEFF2;
-  color: #96A6B1;
-  border-radius: 7px;
-  line-height: 48px;
-  text-align: center;
-}
-
-.activity-title {
-  font-size: 21px;
-  font-weight: 300;
-  margin-bottom: 14px;
-  color: #417BAE;
-}
-
-/**
-    Activty Reference block
-*/
-.activity-reference {
-
-}
-
-.activity-reference-title {
-  font-weight: 600;
-  display: block;
-  margin-bottom: 3px;
-}
-
-.activity-reference-authors {
-  padding-left: 0;
-  color: #90ACC4;
-
-}
-
-.activity-reference-authors li {
-  display: inline-block;
-}
-
-.activity-reference-author {
-  color: #90ACC4;
-  text-decoration: underline;
-}
-
-.activity-user {
-  font-weight: 600;
-}
-
-.activity-message, .activity-time {
-  color: #96A6B1;
-}
-
-/**
-    Adds an actiivty
-*/
-.activity-adder {
-
-}
-
-
-
-.activity-comments {
-
-}
-
-.activity-box-comment {
-  background-color: #F1F5F9;
-}
-
-.activity-box-comment-add {
-  border-bottom: 1px solid @borderColor;
-}
 
 .votebox {
   margin-bottom: 7px;

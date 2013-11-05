@@ -66,6 +66,24 @@ angular.module('directives.activities', [])
             controller: ['$scope', '$q', '$routeParams', 'SessionService', 'GroupModel', 'ActivityModel', 'PostModel', 'ShareModel', function($scope, $q, $routeParams, SessionService, GroupModel, ActivityModel, PostModel, ShareModel) {
                 $scope.newPost = new PostModel({});
 
+
+                console.log("ropute params", $routeParams);
+                $scope.$watch(function() {
+                    return $routeParams.patient_id
+                }, function(patient_id) {
+                    console.log("patient id changed");
+                    if(patient_id) {
+                        $scope.allShares = ShareModel.index({
+                            patient_id: $routeParams.patient_id
+                        });
+                    }
+                })
+
+
+                $scope.findPubMed = function(value) {
+
+                }
+
                 $scope.addPost = function(newPost) {
 
                     var shares = angular.copy(newPost.shares);
@@ -112,36 +130,26 @@ angular.module('directives.activities', [])
                         });
                     });
 
-                    $scope.newPost = new PostModel({});
+                    $scope.newPost = new PostModel({
+//                        shares: shares
+                    });
                 }
 
 
                 $scope.findGroups = function(name) {
                     var defer = $q.defer();
 
-                    var groups = GroupModel.index({
-                        name: name
-                    }, function(groups) {
-                        // get an array of all group ids
-                        var groupIds = [];
-                        angular.forEach(groups, function(group, groupIndex) {
-                            groupIds.push(group.id);
-                        });
 
-                        ShareModel.index({
-                            group_id: groupIds,
-                            patient_id: $routeParams.patient_id
-                        }, function(shares) {
-                            var shareData = [];
-                            angular.forEach(shares, function(share, shareIndex) {
-                                shareData.push({id: share.id, name: share.group.name});
-                            });
-
-                            defer.resolve(shareData);
-                        })
-                    }, function() {
-                        defer.reject();
+                    // We have cached this data when the page loaded,
+                    // so lets go through and find shares that match (no ajax needed)
+                    var shareData = [];
+                    angular.forEach($scope.allShares, function(share, shareIndex) {
+                        if(share.group.name.toLowerCase().indexOf(name.toLowerCase()) != -1) {
+                            shareData.push({id: share.id, name: share.group.name});
+                        }
                     });
+
+                    defer.resolve(shareData);
 
                     return defer.promise;
                 }
