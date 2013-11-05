@@ -4,6 +4,7 @@
 @import "clearfix.less";
 @import "activities/activities.less";
 @import "tags.less";
+@import "menubar";
 
 /**
  * Variables
@@ -69,18 +70,18 @@ body {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Source Sans Pro" !important;
 }
-
-h1 {
-  font-weight: 300;
-  font-size: 35px;
-  margin: 0px;
-  margin-bottom: 30px;
-
-  padding: 20px;
-  background-color: white;
-  border: 1px solid #eee;
-
-}
+//
+//h1 {
+//  font-weight: 300;
+//  font-size: 35px;
+//  margin: 0px;
+//  margin-bottom: 30px;
+//
+//  padding: 20px;
+//  background-color: white;
+//  border: 1px solid #eee;
+//
+//}
 
 h2 {
   font-weight: 300;
@@ -715,84 +716,7 @@ The menubar element
 
 
 
-/**
- *
- * The Manu BAR
- *
- * The Blue main menubar across the top of the page
- *
- */
-.menubar {
-  background-color: #294457;
-  color: #F3F3F3;
-  vertical-align: middle;
-  height: 50px;
-}
 
-.menubar-item {
-  display: inline-block;
-}
-
-/*
-    The logo container for the sidebar
-*/
-.menubar-logo {
-  display: inline-block;
-  font-size: 21px;
-  color: white;
-  padding: 7px 14px 7px 21px;
-  cursor: pointer;
-}
-
-.menubar-logo:hover {
-  color: white;
-}
-
-.menubar-search input {
-  box-sizing: border-box;
-  border-radius: 3px;
-  height: 35px;
-  border: none;
-  background-color: #465C6C;
-  color: white;
-}
-
-.menubar-user {
-  float: right;
-}
-
-/*
-    A horizontal tab in the sidebar
-    :hover             - White text color
-    .selected          - Subtle darker background, white text color
-*/
-.menubar-tab {
-  display: inline-block;
-  margin: 0;
-  padding: 18px 14px;
-
-  background-color: #294457;
-
-  color: #8999ab;
-  text-decoration: none;
-  text-align: center;
-
-  font-size: 14px;
-}
-
-.menubar-tab:hover {
-  text-decoration: none;
-  color: white;
-}
-
-.menubar-tab.selected {
-  /*background-color: #1d384b;*/
-  color: white;
-}
-
-.menubar-dark {
-  background-color: #1B3345;
-}
 
 .submenubar {
   .bordered;

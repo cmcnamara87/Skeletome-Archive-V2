@@ -44,18 +44,20 @@
         </div>
 
         <div class="menubar menubar-dark" ng-show="content">
+            <div class="menubar-item menubar-buttongroup pull-right">
+                <a class="btn btn-action" href="">Favourite</a>
+            </div>
+
             <div class="menubar-item menubar-back">
                 <a href ng-click="back()">
                     <i class="icon icon-chevron-left"></i>
                 </a>
 
             </div>
-            <div class="menubar-item menubar-title">
+            <h1 class="menubar-item menubar-title">
                 {{ patient.fullName() }} {{ group.name }}
-            </div>
-            <div class="menubar-item menubar-buttongroup">
-                <a class="btn btn-action" href="">Favourite</a>
-            </div>
+            </h1>
+
         </div>
     </div>
 

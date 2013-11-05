@@ -16,16 +16,19 @@ angular.module('directives.navigation.menubar', [])
 
                     if($scope.tab == "patient" || $scope.tab == "group") {
                         // its a patient, show the dark menu
-                        $scope.content = true;
 
                         var parts = $location.path().split("/");
                         $scope.id = parts[2];
 
                         if($scope.tab == "patient") {
                             // load the patient
-                            $scope.patient = PatientModel.get({id: $scope.id});
+                            $scope.patient = PatientModel.get({id: $scope.id}, function() {
+                                $scope.content = true;
+                            });
                         } else {
-                            $scope.group = GroupModel.get({id: $scope.id});
+                            $scope.group = GroupModel.get({id: $scope.id}, function() {
+                                $scope.content = true;
+                            });
                         }
 
                     } else {
