@@ -69,11 +69,101 @@ class PatientController extends EntityAPIController {
         foreach($entity->shares as &$share) {
             $share->group = group_load($share->group_id);
         }
+
+        // Tags
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'tag_patient');
+        $query->propertyCondition('patient_id', $entity->id);
+        $result = $query->execute();
+
+        $ids = array_keys($result['tag_patient']);
+
+        $entity->patient_tags = tag_patient_load_multiple($ids);
+
+        foreach($entity->patient_tags as &$patient_tag) {
+            $patient_tag->tag = tag_load($patient_tag->tag_id);
+        }
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
+
+        $old_patient = patient_load($entity['id']);
+        if($entity['clinical_summary'] != $old_patient->clinical_summary) {
+            $clinical_summary_changed = true;
+        } else {
+            $clinical_summary_changed = false;
+        };
+
+
         parent::save($entity, $transaction);
+
+
+        $entity->tag_patients = array();
+
+        // analyse the clinical summary for terms
+        if($clinical_summary_changed) {
+            $recommendedTags = recommend_tags($entity['clinical_summary']);
+
+            foreach($recommendedTags as $recommendedTag) {
+
+                // do we have the tag?
+                $query = new EntityFieldQuery();
+                $query->entityCondition('entity_type', 'tag');
+
+                $query->propertyCondition('uri', (string)$recommendedTag->term->concept->fullId);
+                $result = $query->execute();
+                $ids = array_keys($result['tag']);
+
+
+                if(count($ids)) {
+                    // that tag is in our system already
+                    // Is the relationship there?
+                    $query = new EntityFieldQuery();
+                    $query->entityCondition('entity_type', 'tag_patient');
+                    $query->propertyCondition('tag_id', $ids[0]);
+                    $query->propertyCondition('patient_id', $entity['id']);
+                    $result = $query->execute();
+                    $tag_patient_ids = array_keys($result['tag_patient']);
+
+                    if(count($tag_patient_ids)) {
+                        // already exists, do nothing
+                    } else {
+                        // Now save the relationship
+                        $tag_patient = new stdClass();
+                        $tag_patient->patient_id = $entity['id'];
+                        $tag_patient->tag_id = $ids[0];
+                        $tag_patient->name = (string)$recommendedTag->term->name;
+                        tag_patient_save($tag_patient);
+
+                        // Give the tag back to the gui
+                        $tag_patient->tag = tag_load($ids[0]);
+                        $entity->tag_patients[] = $tag_patient;
+                    }
+
+                } else {
+
+                    // create the tag
+                    $tag = new stdClass();
+                    $tag->name = (string)$recommendedTag->term->concept->preferredName;
+                    $tag->uri = (string)$recommendedTag->term->concept->fullId;
+                    $tag->ontology = "HPO";
+                    tag_save($tag);
+
+                    // Now save the relationship
+                    $tag_patient = new stdClass();
+                    $tag_patient->patient_id = $entity['id'];
+                    $tag_patient->tag_id = $tag->id;
+                    $tag_patient->name = (string)$recommendedTag->term->name;
+                    tag_patient_save($tag_patient);
+                }
+            }
+        }
+
+
+
         self::addRelated($entity);
+
+
     }
 
     public function load($ids = array(), $conditions = array()) {
@@ -96,6 +186,9 @@ class PatientController extends EntityAPIController {
             }
             self::addRelated($entity);
         }
+
+
+
         return $entities;
     }
 

@@ -1,0 +1,124 @@
+<?php
+// tag_resource.install
+/**
+ * Implementation of hook_schema().
+ */
+function tag_resource_schema() {
+    $schema['tags'] = array(
+        'description' => t('Stores information about tags.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a tag.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The text matched'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'uri' => array(
+                'description' => t('The URI of the tag'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'ontology' => array(
+                'description' => t('The type of the tag (BDO, HPO)'),
+                'type' => 'varchar',
+                'length' => 255,
+            )
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['tags_patients'] = array(
+        'description' => t('Stores tags associated with a patient (mostly from Clincal summary).'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a patient tag.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'patient_id' => array(
+                'description' => t('The patient with the tag.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'tag_id' => array(
+                'description' => t('The tag.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The text matched'),
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+            ),
+
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'tag' => array(
+                'table' => 'tags',
+                'columns' => array('id' => 'tag_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['tags_posts'] = array(
+        'description' => t('Stores tags associated with a patient (mostly from Clincal summary).'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a post tag.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'post_id' => array(
+                'description' => t('The post with the tag.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'tag_id' => array(
+                'description' => t('The tag.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The text matched'),
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => FALSE,
+            ),
+
+        ),
+        'foreign keys' => array(
+            'post' => array(
+                'table' => 'posts',
+                'columns' => array('id' => 'post_id'),
+            ),
+            'tag' => array(
+                'table' => 'tags',
+                'columns' => array('id' => 'tag_id'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

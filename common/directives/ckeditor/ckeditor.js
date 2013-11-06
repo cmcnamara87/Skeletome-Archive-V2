@@ -7,6 +7,15 @@ angular.module('directives.ckeditor', [])
 
             var ck = null;
 
+            function destroyCKEditor(editor) {
+                console.log("trying to destroy instance");
+                editor.setData("");
+                setTimeout(function() {
+                    editor.destroy();
+                }, 0);
+                ck = null;
+            }
+
             elm.focus(function(ev) {
 
                 if(!ck) {
@@ -15,13 +24,7 @@ angular.module('directives.ckeditor', [])
                     ck.on('blur', function( event ) {
                         var text = $(event.editor.getData()).text().replace(/^\s\s*/, '').replace(/\s\s*$/, '');
                         if(text == "") {
-                            console.log("trying to destroy instance");
-//                            event.editor.removeAllListeners();
-                            event.editor.setData("");
-                            setTimeout(function() {
-                                event.editor.destroy();
-                            }, 0);
-                            ck = null;
+                            destroyCKEditor(event.editor);
                         } else {
                             $('#'+ event.editor.id +'_top').hide();
                         }
@@ -31,11 +34,20 @@ angular.module('directives.ckeditor', [])
                         $('#'+ event.editor.id +'_top').show();
                     });
 
+                    $scope.$watch(function() {
+                        return ngModel.$modelValue
+                    }, function(newValue, oldValue) {
+                        if((oldValue && oldValue != "") && (!newValue || newValue == "")) {
+                            destroyCKEditor(ck);
+                        }
+                    })
 
                     ck.on('pasteState', function () {
-                        $scope.$apply(function () {
-                            ngModel.$setViewValue(ck.getData());
-                        });
+                        if(ck) {
+                            $scope.$apply(function () {
+                                ngModel.$setViewValue(ck.getData());
+                            });
+                        }
                     });
 
                     ck.on( 'instanceReady', function(){
@@ -46,9 +58,23 @@ angular.module('directives.ckeditor', [])
                 }
             });
 
+            $scope.$watch(function() {
+                var count = 0;
+                if(ngModel.$modelValue) {
+                    count = ngModel.$modelValue.match(/ /g).length;
+                }
+                return count;
+            }, function(count) {
+                console.log("more spaces!", count);
+            })
+
             ngModel.$render = function (value) {
                 if(ck) {
                     ck.setData(ngModel.$modelValue);
+                } else {
+                    console.log("render the model now!", ngModel.$modelValue);
+                    elm.css('border', '1px solid red').val(ngModel.$modelValue);
+
                 }
             };
         }

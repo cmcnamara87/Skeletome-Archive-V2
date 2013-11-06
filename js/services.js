@@ -28,6 +28,9 @@ myApp.services.factory('baseUrl', function() {
 myApp.services.factory('fileUploadUrl', function(baseUrl) {
     return baseUrl + '/drupal/upload';
 });
+myApp.services.factory('recommendTagsUrl', function(baseUrl) {
+    return baseUrl + '/drupal/recommend_tags';
+});
 
 myApp.services.factory('tokenUrl', function(baseUrl) {
     return baseUrl + '/drupal/services/session/token';

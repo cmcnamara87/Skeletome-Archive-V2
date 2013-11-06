@@ -1,19 +1,27 @@
 <div>
     <div class="block">
+        <div class="block-header">
+            <button class="btn btn-action" ng-click="annotate()">Annotate</button>
+        </div>
         <div class="block-content">
             <div cm-resource="patient">
                 <cm-display>
                     <div class="resource-controls">
                         <cm-edit-delete></cm-edit-delete>
                     </div>
-                    <div class="resource-block resource-block-narrow" ng-bind-html-unsafe="patient.clinical_summary">
-
+                    <div class="resource-block resource-block-narrow" ng-bind-html-unsafe="patient.formattedSummary">
+                    </div>
+                    <div ng-repeat="tag in tags">
+                        {{ tag.term.name }}
+                        <!--{{ tag.term.concept }}-->
+                        {{ tag.from }}
+                        {{ tag.to }}
                     </div>
                 </cm-display>
                 <cm-edit>
 
-                    <div style="height: 900px;">
-                        <textarea ng-model="patient.clinical_summary" ck-editor></textarea>
+                    <div>
+                        <textarea style="width: 100%" ng-model="patient.clinical_summary" ck-editor placeholder="Write a clinical summary for this patient"></textarea>
                     </div>
 
 

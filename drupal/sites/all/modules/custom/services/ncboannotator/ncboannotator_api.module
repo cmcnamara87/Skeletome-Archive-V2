@@ -58,6 +58,258 @@ function ncboannotator_api_menu()
     /**
      * Service url
      */
-
+    $items['recommend_tags'] = array(
+        'title' => 'Tag recommendation',
+        'description' => 'Suggests tags based using the NCBO annotator',
+        'page callback' => 'recommend_tags',
+        'access arguments' => array('access content'),
+        'type' => MENU_CALLBACK,
+    );
     return $items;
+
+}
+
+
+
+function recommend_tags($text)
+{
+
+    $unique_concepts = array();
+    $annotator = new NCBOAnnotator(array(
+        "format" => "json"
+    ));
+    $annot_test = $annotator->annotate($text);
+
+    $code = $annot_test->code;
+    $data = $annot_test->data;
+
+    $xmlObj = simplexml_load_string($data);
+
+    $results = array();
+    $matched = array();
+
+    // Go through and strip out all the stuff we dont really need
+    if($xmlObj->data->annotatorResultBean->annotations->annotationBean) {
+        foreach($xmlObj->data->annotatorResultBean->annotations->annotationBean as $annotation) {
+            $new_annotation = array();
+
+            // get the score
+            $new_annotation['score'] = (int)$annotation->score;
+            // get the context (the text position and the term)
+//            $new_annotation['to'] = (int)$annotation->context->to;
+//            $new_annotation['from'] = (int)$annotation->context->from;
+            $new_annotation['term'] = $annotation->context->term;
+
+            $name = (string)$annotation->context->term->name;
+
+            if(!in_array($name, $matched)) {
+                $results[] = $new_annotation;
+                $matched[] = $name;
+            }
+        }
+    }
+
+    return json_decode(json_encode($results));
+
+
+    $text = $_POST['text'];
+
+    $output = '';
+    if ($text != '') {
+        $unique_concepts = _annotate_text($text);
+        $clean_concepts = _preprocess_concepts($unique_concepts);
+        $tags = _get_tags($clean_concepts);
+        foreach ($tags as $tag_tid => $tag) {
+            $output .= l($tag['value'], "taxonomy/term/" . $tag['tid'],
+                array('attributes' => array('class' => "weighted_suggestions tag name level1",
+                    'id' => $tag['tid'],
+                    'rel' => 'tag',
+                    'title' => $tag['value']
+                ),
+                    'html' => TRUE,
+                )
+            );
+        }
+
+    }
+    echo $output;
+    exit;
+}
+
+function _annotate_text($text)
+{
+    $unique_concepts = array();
+    $annotator = new NCBOAnnotator(array(
+        "format" => "json"
+    ));
+    $annot_test = $annotator->annotate($text);
+
+    $code = $annot_test->code;
+    $data = $annot_test->data;
+
+    $xmlObj = simplexml_load_string($data);
+
+    $results = array();
+
+    // Go through and strip out all the stuff we dont really need
+    if($xmlObj->data->annotatorResultBean->annotations->annotationBean) {
+        foreach($xmlObj->data->annotatorResultBean->annotations->annotationBean as $annotation) {
+            $new_annotation = array();
+
+            // get the score
+            $new_annotation['score'] = (string)$annotation->score;
+            // get the context (the text position and the term)
+            $new_annotation['context'] = $annotation->context;
+
+            $results[] = $new_annotation;
+        }
+    }
+
+    echo json_encode($results);
+    die();
+
+
+    $arrObjData = get_object_vars($xmlObj);
+
+    if ($code == 200) {
+        $data = get_object_vars($arrObjData['data']);
+        $annotated_data = get_object_vars($data['annotatorResultBean']);
+        $annotations = get_object_vars($annotated_data['annotations']);
+
+        if (!empty($annotations)) {
+            foreach ($annotations as $annot_bean) {
+                if (gettype($annot_bean) === 'array') {
+                    foreach ($annot_bean as $annot_bean_item) {
+                        $annot_bean_array = get_object_vars($annot_bean_item);
+                        $concept = get_object_vars($annot_bean_array['concept']);
+                        $context = get_object_vars($annot_bean_array['context']);
+
+                        $own_concept = array(
+                            'from' => $context['from'],
+                            'to' => $context['to'],
+                            'uri' => $concept['fullId'],
+                            'value' => $concept['preferredName'],
+                        );
+                        $unique_concepts[] = $own_concept;
+                    }
+                } else {
+                    $annot_bean_array = get_object_vars($annot_bean);
+                    $concept = get_object_vars($annot_bean_array['concept']);
+                    $context = get_object_vars($annot_bean_array['context']);
+
+                    $own_concept = array(
+                        'from' => $context['from'],
+                        'to' => $context['to'],
+                        'uri' => $concept['fullId'],
+                        'value' => $concept['preferredName'],
+                    );
+                    $unique_concepts[] = $own_concept;
+                }
+            }
+        }
+    }
+
+    return $unique_concepts;
+}
+
+function _preprocess_concepts($concepts)
+{
+    $unique_concepts = $concepts;
+    // SORT
+
+    for ($i = 0; $i < count($unique_concepts) - 1; $i++) {
+        for ($j = $i + 1; $j < count($unique_concepts); $j++) {
+            if ($unique_concepts[$j]['from'] < $unique_concepts[$i]['from']) {
+                $temp = $unique_concepts[$i];
+                $unique_concepts[$i] = $unique_concepts[$j];
+                $unique_concepts[$j] = $temp;
+            }
+        }
+    }
+
+    // SUBSUMPTION
+
+    $subsumed = array();
+    for ($i = 0; $i < count($unique_concepts) - 1; $i++) {
+        if (!in_array($i, $subsumed)) {
+            $current_i = $unique_concepts[$i];
+            for ($j = $i + 1; $j < count($unique_concepts); $j++) {
+                $current_j = $unique_concepts[$j];
+                if (($current_j['from'] >= $current_i['from']) && ($current_j['to'] <= $current_i['to'])) {
+                    $subsumed[] = $j;
+                }
+                if (($current_i['from'] >= $current_j['from']) && ($current_i['to'] <= $current_j['to'])) {
+                    $subsumed[] = $i;
+                    break;
+                }
+
+            }
+        }
+    }
+
+    // UN-SUBSUMED
+
+    $clean_concepts = array();
+    for ($i = 0; $i < count($unique_concepts); $i++) {
+        if (!in_array($i, $subsumed)) {
+            $clean_concepts[] = $unique_concepts[$i];
+        }
+    }
+
+    return $clean_concepts;
+}
+
+function _get_tags($concepts)
+{
+    $cs_term_uris = _get_csterm_uris();
+    $cs_term_names = _get_csterm_names();
+
+    $tags = array();
+    foreach ($concepts as $concept) {
+        if (array_key_exists($concept['uri'], $cs_term_uris) && !array_key_exists($cs_term_uris[$concept['uri']], $tags)) {
+            $tag_name = $cs_term_names[$cs_term_uris[$concept['uri']]];
+
+            $tag = array(
+                'uri' => $concept['uri'],
+                'value' => $tag_name,
+                'tid' => $cs_term_uris[$concept['uri']]
+            );
+
+            $tags[$cs_term_uris[$concept['uri']]] = $tag;
+        }
+    }
+
+    return $tags;
+}
+
+function _get_csterm_names()
+{
+    $cs_vid = -1;
+    $sql = 'SELECT vid, machine_name FROM {taxonomy_vocabulary} tv WHERE tv.machine_name = :machine_name';
+    $result = db_query($sql, array(':machine_name' => 'skeletome_vocabulary'));
+    foreach ($result as $row) {
+        $cs_vid = $row->vid;
+    }
+
+    $term_names = array();
+    $sql = 'SELECT tid, vid, name FROM {taxonomy_term_data} ttd WHERE ttd.vid = :vid';
+    $result = db_query($sql, array(':vid' => $cs_vid));
+    foreach ($result as $row) {
+        $term_names[$row->tid] = $row->name;
+    }
+
+    return $term_names;
+}
+
+function _get_csterm_uris()
+{
+    $term_uris = array();
+
+    $sql = 'SELECT entity_id, field_term_uri_value FROM {field_data_field_term_uri}';
+    $result = db_query($sql, array());
+    foreach ($result as $r) {
+        $term_uris[$r->field_term_uri_value] = $r->entity_id;
+    }
+
+    return $term_uris;
 }

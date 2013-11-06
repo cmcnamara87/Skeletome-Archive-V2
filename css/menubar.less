@@ -11,43 +11,69 @@
   color: #F3F3F3;
   vertical-align: middle;
   height: @menubarHeight;
+  overflow: hidden;
 
 
-  .menubar-dark {
+  &.menubar-dark {
     background-color: #1B3345;
   }
 
-  .menubar-title {
-    font-size: 21px;
-    font-weight: 300;
-    color: white;
-    line-height: @menubarHeight;
-    margin: 0;
-  }
-  .menubar-back a {
-    font-size: 21px;
-    line-height: @menubarHeight;
-    margin-left: 14px;
-    margin-right: 14px;
-    color: white;
-  }
+
 
 
 }
   .menubar-item {
     display: inline-block;
-  }
+    height: @menubarHeight;
+    line-height: @menubarHeight;
+    overflow: hidden;
+    padding: 0px 21px;
 
-  /*
+    &.menubar-title {
+      font-size: 21px;
+      font-weight: 300;
+      color: white;
+      margin: 0;
+    }
+
+    &.menubar-back {
+      &:hover {
+        background-color: #224057;
+      }
+      height: @menubarHeight;
+      font-size: 21px;
+
+      color: white;
+      background-color: #203c51;
+    }
+
+    /*
     The logo container for the sidebar
   */
-  .menubar-logo {
-    display: inline-block;
-    font-size: 21px;
-    color: white;
-    padding: 7px 14px 7px 21px;
-    cursor: pointer;
+    &.menubar-logo {
+      font-size: 21px;
+      color: white;
+      cursor: pointer;
+    }
+
+    &.menubar-tab {
+      &:hover {
+        text-decoration: none;
+        color: white;
+      }
+      &.selected {
+        color: white;
+      }
+
+      color: #8999ab;
+      text-decoration: none;
+      text-align: center;
+
+      font-size: 14px;
+    }
+
   }
+
 
 
 
@@ -69,25 +95,3 @@
     :hover             - White text color
     .selected          - Subtle darker background, white text color
 */
-.menubar-tab {
-  &:hover {
-    text-decoration: none;
-    color: white;
-  }
-  &.selected {
-    /*background-color: #1d384b;*/
-    color: white;
-  }
-
-  display: inline-block;
-  margin: 0;
-  padding: 18px 14px;
-
-  background-color: #294457;
-
-  color: #8999ab;
-  text-decoration: none;
-  text-align: center;
-
-  font-size: 14px;
-}

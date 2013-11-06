@@ -1,17 +1,25 @@
 .main {
   .panel;
   top: @menubarHeight;
-  background-color: white;
+//  background-color: white;
 }
   .main-submenubar {
     top: @menubarHeight + @submenubarHeight + 5px;
   }
   .main-activities {
     right: @activitiesWidth;
+    background-color: white;
   }
 
 .block-list {
 }
+
+/**
+  * A Section of content on a page
+  *
+  * Has a header and a content block. Multiple sections of content
+  * can be stacked on top of each other
+  */
 .block {
 }
   .block-header {
@@ -19,6 +27,7 @@
     padding: 14px 14px;
     border-top: none;
     position: relative;
+    background-color: white;
 
     h2 {
       font-size: 21px;
@@ -33,10 +42,15 @@
   }
 
   .block-content {
+    &.block-content-clear {
+      background-color: #E1E6E9 !important;
+    }
+
     .bordered;
     .spaced;
     border-top: none;
     border-left: none;
     border-right: none;
     padding-bottom: 14px;
+
   }

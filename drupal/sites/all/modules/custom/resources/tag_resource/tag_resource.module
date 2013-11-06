@@ -1,0 +1,448 @@
+<?php
+// tag_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function tag_resource_entity_info() {
+    return array(
+        'tag' => array(
+            'label' => t('tag'),
+            'base table' => 'tags',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'tag_patient' => array(
+            'label' => t('Patient Tags'),
+            'base table' => 'tags_patients',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'tag_post' => array(
+            'label' => t('Post Tags'),
+            'base table' => 'tags_posts',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+    );
+}
+
+
+function tag_load($id, $reset = FALSE) {
+    return reset(tag_load_multiple(array($id), $reset));
+}
+function tag_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $tags = array_values(entity_load('tag', $ids, $conditions, $reset));
+    return $tags;
+}
+function tag_save($entity) {
+    entity_save('tag', $entity);
+}
+function tag_delete($id) {
+    entity_delete('tag', $id);
+}
+
+function tag_patient_load($id, $reset = FALSE) {
+    return reset(tag_patient_load_multiple(array($id), $reset));
+}
+function tag_patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $tag_patient = array_values(entity_load('tag_patient', $ids, $conditions, $reset));
+    return $tag_patient;
+}
+function tag_patient_save($entity) {
+    entity_save('tag_patient', $entity);
+}
+function tag_patient_delete($id) {
+    entity_delete('tag_patient', $id);
+}
+
+function tag_post_load($id, $reset = FALSE) {
+    return reset(tag_post_load_multiple(array($id), $reset));
+}
+function tag_post_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $tag_post = array_values(entity_load('tag_post', $ids, $conditions, $reset));
+    return $tag_post;
+}
+function tag_post_save($entity) {
+    entity_save('tag_post', $entity);
+}
+function tag_post_delete($id) {
+    entity_delete('tag_post', $id);
+}
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function tag_resource_services_resources() {
+    $resource = array();
+
+    $resource['tag_post'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a tag tag_post',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_post'),
+            'callback' => '_tag_resource_tag_post_retrieve',
+            'access callback' => '_tag_resource_tag_post_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the tag tag_post to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a tag_post',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_post'),
+            'callback' => '_tag_resource_tag_post_create',
+            'access arguments' => array('tag resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag tag_post object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a tag_post',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_post'),
+            'callback' => '_tag_resource_tag_post_update',
+            'access callback' => '_tag_resource_tag_post_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag tag_post data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a tag_post',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_post'),
+            'callback' => '_tag_resource_tag_post_delete',
+            'access callback' => '_tag_resource_tag_post_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the tag to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_post'),
+            'callback' => '_tag_resource_tag_post_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resource['tag_patient'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a tag tag_patient',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_patient'),
+            'callback' => '_tag_resource_tag_patient_retrieve',
+            'access callback' => '_tag_resource_tag_patient_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the tag tag_patient to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a tag',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_patient'),
+            'callback' => '_tag_resource_tag_patient_create',
+            'access arguments' => array('tag resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag tag_patient object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a tag',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_patient'),
+            'callback' => '_tag_resource_tag_patient_update',
+            'access callback' => '_tag_resource_tag_patient_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag tag_patient data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a tag',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_patient'),
+            'callback' => '_tag_resource_tag_patient_delete',
+            'access callback' => '_tag_resource_tag_patient_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the tag to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource_tag_patient'),
+            'callback' => '_tag_resource_tag_patient_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+
+    $resource['tag'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a tag',
+            'file' => array('file' => 'inc', 'module' => 'tag_resource'),
+            'callback' => '_tag_resource_retrieve',
+            'access callback' => '_tag_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the tag to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a tag',
+            'file' => array('file' => 'inc', 'module' => 'tag_resource'),
+            'callback' => '_tag_resource_create',
+            'access callback' => '_tag_resource_access',
+            'access arguments' => array(),
+            'access arguments append' => FALSE,
+
+//            'access arguments' => array('tag resource create'),
+//            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a tag',
+            'file' => array('file' => 'inc', 'module' => 'tag_resource'),
+            'callback' => '_tag_resource_update',
+            'access callback' => '_tag_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The tag data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a tag',
+            'file' => array('file' => 'inc', 'module' => 'tag_resource'),
+            'callback' => '_tag_resource_delete',
+            'access callback' => '_tag_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the tag to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'tag_resource', 'name' => 'tag_resource'),
+            'callback' => '_tag_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 200),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    return $resource;
+}
+
+
