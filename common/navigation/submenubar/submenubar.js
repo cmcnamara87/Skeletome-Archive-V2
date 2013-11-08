@@ -9,13 +9,10 @@ angular.module('directives.navigation.submenubar', ['directives.navigation.subme
             link: function ($scope, element, attrs) {
                 $scope.$on('$routeChangeSuccess', function(event, current, previous) {
                     // route changed
-
-                    console.log("ROUTE DCHANGE SUCCESS");
-
                     var parts = $location.path().split("/");
 
                     $scope.type = parts[1];
-                    if($scope.type == "patient" || $scope.type == "group") {
+                    if($scope.type == "patient" || $scope.type == "group" || $scope.type == "patients" || $scope.type == "groups") {
                         $scope.id = parts[2];
                         console.log("Show sub menu bar");
                         $rootScope.showSubmenuBar = true;

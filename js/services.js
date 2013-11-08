@@ -161,6 +161,21 @@ myApp.services.factory('XRayModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
+myApp.services.factory('ListModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'list/:id', {
+            id: '@id' //this binds the ID of the model to the URL param,
+        },
+        {
+            update: {method:'PUT'}
+        });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+    return MyResource;
+});
+
 myApp.services.factory('VoteModel', function ($resource, apiUrl) {
     var MyResource = $resource(apiUrl + 'vote/:id', {
         id: '@id' //this binds the ID of the model to the URL param,

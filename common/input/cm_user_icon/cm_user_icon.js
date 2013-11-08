@@ -9,7 +9,7 @@ angular.module('directives.input.cmUserIcon', [])
             },
             templateUrl: 'common/input/cm_user_icon/cm_user_icon.tpl.html',
             link: function($scope, iElement, iAttrs) {
-
+                $scope.color = '#'+Math.floor(Math.random()*16777215).toString(16);
             }
         };
     }]);

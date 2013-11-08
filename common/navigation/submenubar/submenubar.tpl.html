@@ -1,4 +1,4 @@
-<div class="submenubar" ng-show="showSubmenuBar">
+<div class="submenubar" ng-show="showSubmenuBar" ng-class="{'submenubar-activities': showActivities}">
     <div ng-switch on="type">
         <div ng-switch-when="patient">
             <ul>
@@ -30,6 +30,40 @@
                 <li>
                     <submenubar-item url="#/patient/{{ id }}/diagnoses">
                         Diagnoses
+                    </submenubar-item>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-switch-when="groups">
+            <ul>
+                <li>
+                    <submenubar-item url="#/groups/my-groups{{}}">
+                        My Groups
+                    </submenubar-item>
+                </li>
+                <li>
+                    <submenubar-item url="#/groups/all-groups{{}}">
+                        All Groups
+                    </submenubar-item>
+                </li>
+            </ul>
+        </div>
+        <div ng-switch-when="patients">
+            <ul>
+                <li>
+                    <submenubar-item url="#/patients/my-patients{{}}">
+                        My Patients
+                    </submenubar-item>
+                </li>
+                <li>
+                    <submenubar-item url="#/patients/pinned">
+                        Pinned Patients
+                    </submenubar-item>
+                </li>
+                <li>
+                    <submenubar-item url="#/patients/my-patients">
+                        Group Patients
                     </submenubar-item>
                 </li>
             </ul>

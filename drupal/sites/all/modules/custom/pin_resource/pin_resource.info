@@ -1,0 +1,8 @@
+name = Pin Resource
+description = Stores the Pin resource
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = rest_server

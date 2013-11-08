@@ -1,3 +1,38 @@
+.submenubar {
+  &.submenubar-activities {
+    margin-right: @activitiesWidth;
+  }
+  .bordered;
+  border-right: none;
+  position: fixed;
+  top: @menubarHeight;
+  left: 0px;
+  right: 0px;
+
+  .spaced;
+
+  ul {
+    padding-left: 0px;
+    margin-bottom: 0px;
+  }
+  ul li {
+    list-style: none;
+    display: inline-block;
+  }
+  .submenubar-item {
+    display: block;
+    padding: 7px 14px;
+
+    color: @placeholderTextColor;
+    border-radius: 3px;
+  }
+  .submenubar-item.active {
+    background-color: @linkColor;
+    color: white;
+  }
+}
+
+
 /**
  *
  * The Manu BAR

@@ -1,0 +1,33 @@
+<div>
+    <div class="block">
+        <div class="block-header">
+            <button class="btn btn-action" ng-click="addList()">Add</button>
+        </div>
+    </div>
+    <div ng-repeat="list in lists">
+
+        <div class="block">
+            <div class="block-header">
+                <h2>{{ list.name }}</h2>
+
+            </div>
+            <div class="block-content">
+                <div cm-resource="list" remove-fn="removeList(list)">
+                    <cm-display>
+
+                    </cm-display>
+                    <cm-edit>
+                        <div class="resource-block">
+                            <label class="label-top resource-block-heading">Name of List</label>
+                            <input type="text" ng-model="list.name" placeholder="What is the name of your list?">
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

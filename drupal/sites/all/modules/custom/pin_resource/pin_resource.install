@@ -1,0 +1,92 @@
+<?php
+// pin_resource.install
+/**
+ * Implementation of hook_schema().
+ */
+function pin_resource_schema() {
+    $schema['pins'] = array(
+        'description' => t('Stores information about pins.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a pin.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the pin.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'text' => array(
+                'description' => t('The text for the pin'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'patient_id' => array(
+                'description' => t('The id of the patient pinned.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'list_id' => array(
+                'description' => t('The list the patient is pinned in'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'list' => array(
+                'table' => 'lists',
+                'columns' => array('id' => 'list_id'),
+            ),
+            'user' => array(
+                'table' => 'patients',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['lists'] = array(
+        'description' => t('Stores information about pins.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a pin.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the pin.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'name' => array(
+                'description' => t('The text for the pin'),
+                'type' => 'varchar',
+                'length' => 255,
+            )
+        ),
+        'foreign keys' => array(
+            'user' => array(
+                'table' => 'patients',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

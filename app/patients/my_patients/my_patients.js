@@ -21,11 +21,20 @@ angular.module('patients.my_patients', [])
                 }]
             }
         });
+
     }])
 
     .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients',
         function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
         $scope.patients = patients;
+
+
+            $scope.addPatient = function() {
+                var newPatient = new PatientModel({
+                    name_type: "name"
+                });
+                $scope.patients.unshift(newPatient);
+            }
 
         $scope.showAutosharing = function() {
             SmodalService.show('autosharing');

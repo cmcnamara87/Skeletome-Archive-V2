@@ -32,7 +32,7 @@ angular.module('directives.smodal', [])
                      */
                     scope.$open = function() {
                         scope.isShowing = true;
-                        $('body').append($overlay);
+                        el.prepend($overlay);
                         setTimeout(function() {
                             var $inputs = $('input', tElement);
                             if($inputs.length) {
@@ -40,7 +40,6 @@ angular.module('directives.smodal', [])
                             } else {
                                 $('.btn-action-selected', tElement).eq(0).focus();
                             }
-
                         }, 0)
                     }
 

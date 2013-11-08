@@ -1,84 +1,64 @@
 <div>
-    <div class="header">
-        <div class="header-title">
-            All Groups
+    <div class="block">
+        <div class="block-header">
+            <h2>All Groups</h2>
         </div>
-        <div class="header-search">
-            <div class="search">
-                <i class="icon icon-search"></i>
-                <input type="text" placeholder="Search" ng-model="search"/>
-                <ul class="search-results" ng-show="search.length">
-                    <li class="search-result" ng-repeat="patient in patients | filter:search">
-                        <a href="">
-                            {{ patient.id }} - {{ patient.fullName() }}
+        <table class="block-table">
+            <tr>
+                <th>Name <i class="icon icon-sort-down"></i></th>
+                <!--<th>Location</th>-->
+                <th>Members</th>
+                <th>Patients</th>
+                <th></th>
+            </tr>
+            <tr ng-repeat="group in groups | filter:search">
+                <!-- Groups -->
+                <td class="col-md-7">
+                    <div style="margin-bottom: 7px">
+                        <a href="#/group/{{ group.id }}">
+                            <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
                         </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+                    </div>
+                    <div>
+                        {{ group.description }}
+                    </div>
+                </td>
 
-        <div class="header-buttons">
-            <button class="btn btn-action" ng-click="showCreateGroup()">Create</button>
-        </div>
-    </div>
+                <!-- Locations -->
+                <!--<td>-->
+                <!--<a href="#/group/{{ membership.group.id }}">-->
+                <!--{{ membership.group.location }}-->
+                <!--</a>-->
+                <!--</td>-->
 
-
-    <table class="table-content">
-        <tr>
-            <th>Name <i class="icon icon-sort-down"></i></th>
-            <!--<th>Location</th>-->
-            <th>Members</th>
-            <th>Patients</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="group in groups | filter:search">
-            <!-- Groups -->
-            <td class="col-md-7">
-                <div style="margin-bottom: 7px">
-                    <a href="#/group/{{ group.id }}">
-                        <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
+                <!-- Members -->
+                <td>
+                    <a href="#/group/{{ group.id }}/members">
+                        <cm-facepile users="group.members" limit="5"></cm-facepile>
                     </a>
-                </div>
-                <div>
-                    {{ group.description }}
-                </div>
-            </td>
+                </td>
 
-            <!-- Locations -->
-            <!--<td>-->
-            <!--<a href="#/group/{{ membership.group.id }}">-->
-            <!--{{ membership.group.location }}-->
-            <!--</a>-->
-            <!--</td>-->
+                <td>
+                    <a href="#/group/{{ group.id }}/patients">
+                        {{ group.patient_count || "0" }}
+                    </a>
+                </td>
 
-            <!-- Members -->
-            <td>
-                <a href="#/group/{{ group.id }}/members">
-                    <cm-facepile users="group.members" limit="5"></cm-facepile>
-                </a>
-            </td>
+                <td>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon icon-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li ng-show="!group.membership"><a href="" ng-click="joinGroup(group)"><i class="icon icon-arrow-right"></i> Join</a></li>
 
-            <td>
-                <a href="#/group/{{ group.id }}/patients">
-                    {{ group.patient_count || "0" }}
-                </a>
-            </td>
-
-            <td>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon icon-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li ng-show="!group.membership"><a href="" ng-click="joinGroup(group)"><i class="icon icon-arrow-right"></i> Join</a></li>
-
-                        <li ng-show="group.membership"><a href="" ng-click="showLeaveGroup(group)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
-
+                            <li ng-show="group.membership"><a href="" ng-click="showLeaveGroup(group)"><i class="icon icon-arrow-left"></i> Leave</a></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <smodal name="leaveGroup">
         <div class="smodal-title">

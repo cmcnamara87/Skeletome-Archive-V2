@@ -224,7 +224,6 @@ input[type=text].full-width, textarea.full-width {
   max-width: 630px;
   min-width: 320px;
   height: auto;
-  z-index: 200;
   background-color: white;
   -webkit-transform: translateX(-50%) translateY(-50%);
   z-index: 2000;
@@ -672,37 +671,7 @@ The menubar element
 
 
 
-.submenubar {
-  .bordered;
-  border-right: none;
-  position: fixed;
-  top: @menubarHeight;
-  left: 0px;
-  right: 0px;
 
-  margin-right: @activitiesWidth;
-  .spaced;
-
-  ul {
-    padding-left: 0px;
-    margin-bottom: 0px;
-  }
-  ul li {
-    list-style: none;
-    display: inline-block;
-  }
-  .submenubar-item {
-    display: block;
-    padding: 7px 14px;
-
-    color: @placeholderTextColor;
-    border-radius: 3px;
-  }
-  .submenubar-item.active {
-    background-color: @linkColor;
-    color: white;
-  }
-}
 
 /*
     A sidebar item (a vertical tab)

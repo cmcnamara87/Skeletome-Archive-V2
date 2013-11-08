@@ -3,4 +3,5 @@ angular.module('patients',
         'patients.patient',
         'patients.group_patients',
         'patients.my_patients',
+        'patients.pinned_patients'
     ]);

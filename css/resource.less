@@ -3,6 +3,10 @@
 
   margin-bottom: 28px;
 
+  input[type=text], textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
 
   &.is-editing {
     .resource-block {
@@ -18,10 +22,7 @@
       border-bottom: none;
       background-color: #EEF3F7;
 
-      input[type=text], textarea {
-        width: 100%;
-        box-sizing: border-box;
-      }
+
     }
   }
 
@@ -33,8 +34,6 @@
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
   .resource-block {
     margin-bottom: 14px;
-    margin-right: 80px;
-//    max-width: 500px;
 
     /** No margin on the last one */
     &:last-of-type {

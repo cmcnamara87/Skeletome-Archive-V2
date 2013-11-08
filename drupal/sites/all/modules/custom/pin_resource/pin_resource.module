@@ -1,0 +1,323 @@
+<?php
+// pin_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function pin_resource_entity_info() {
+    return array(
+        'pin' => array(
+            'label' => t('pin'),
+            'base table' => 'pins',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'list' => array(
+            'label' => t('list'),
+            'base table' => 'lists',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        )
+    );
+}
+
+//class ListController extends EntityAPIController {
+//
+//    public function load($ids = array(), $conditions = array()) {
+//        $entities = parent::load($ids, $conditions);
+//
+//        foreach($entities as &$entity) {
+//            // Load in the linked object
+//            $entity->pin = pin_load($entity->pin_id);
+//        }
+//        return $entities;
+//    }
+//    public function save($entity, DatabaseTransaction $transaction = NULL) {
+//        parent::save($entity, $transaction);
+//        $entity->pin = pin_load($entity->pin_id);
+//    }
+//}
+
+
+function pin_load($id, $reset = FALSE) {
+    return reset(pin_load_multiple(array($id), $reset));
+}
+function pin_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $pins = array_values(entity_load('pin', $ids, $conditions, $reset));
+    return $pins;
+}
+function pin_save($entity) {
+    entity_save('pin', $entity);
+}
+function pin_delete($id) {
+    entity_delete('pin', $id);
+}
+
+function list_load($id, $reset = FALSE) {
+    return reset(list_load_multiple(array($id), $reset));
+}
+function list_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $pins = array_values(entity_load('list', $ids, $conditions, $reset));
+    return $pins;
+}
+function list_save($entity) {
+    entity_save('list', $entity);
+}
+function list_delete($id) {
+    entity_delete('list', $id);
+}
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function pin_resource_services_resources() {
+    $resource = array();
+
+    $resource['pin'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a pin',
+            'file' => array('file' => 'inc', 'module' => 'pin_resource'),
+            'callback' => '_pin_resource_retrieve',
+            'access callback' => '_pin_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the pin to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a pin',
+            'file' => array('file' => 'inc', 'module' => 'pin_resource'),
+            'callback' => '_pin_resource_create',
+            'access callback' => '_pin_resource_access',
+            'access arguments' => array(),
+            'access arguments append' => FALSE,
+
+//            'access arguments' => array('pin resource create'),
+//            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The pin object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a pin',
+            'file' => array('file' => 'inc', 'module' => 'pin_resource'),
+            'callback' => '_pin_resource_update',
+            'access callback' => '_pin_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The pin data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a pin',
+            'file' => array('file' => 'inc', 'module' => 'pin_resource'),
+            'callback' => '_pin_resource_delete',
+            'access callback' => '_pin_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the pin to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource'),
+            'callback' => '_pin_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 200),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    $resource['list'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a patient list',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource_list'),
+            'callback' => '_pin_resource_list_retrieve',
+            'access callback' => '_pin_resource_list_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the patient list to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a patient',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource_list'),
+            'callback' => '_pin_resource_list_create',
+            'access arguments' => array('patient resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient list object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a patient',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource_list'),
+            'callback' => '_pin_resource_list_update',
+            'access callback' => '_pin_resource_list_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient list data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a patient',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource_list'),
+            'callback' => '_pin_resource_list_delete',
+            'access callback' => '_pin_resource_list_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'pin_resource', 'name' => 'pin_resource_list'),
+            'callback' => '_pin_resource_list_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    return $resource;
+}
+
+

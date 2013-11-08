@@ -15,6 +15,7 @@
         </div>
         
         <div class="header-buttons">
+            <button class="btn btn-action" ng-click="addPatient()">Add Patient</button>
             <button class="btn btn-action" ng-click="showAutosharing()">Autosharing</button>
             <button class="btn btn-action" ng-click="showCreatePatient()">Create</button>
         </div>
@@ -29,22 +30,61 @@
             <th>Share</th>
             <th></th>
         </tr>
-        <tr ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search">
-            <td>
-                <a href="#/patient/{{ patient.id }}/summary">
-                    #00{{ patient.id }}
-                </a>
-            </td>
-            <td>
-                <a href="#/patient/{{ patient.id }}/summary">
-                    {{ patient.fullName() }}
-                </a>
-            </td>
+        <tbody ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search" cm-resource="patient">
+            <tr ng-show="$isEditing">
+                <td colspan="5">
+                    <div class="resource-block">
 
-            <td>
-                <a href="#/patient/{{ patient.id }}/diagnoses">
-                    <span class="label label-primary">{{ patient.diagnoses[0].disorder.name }}</span>
-                </a>
+                        <div class="resource-block-element clearfix">
+                            <label for="type_name" class="label-right">
+                                <input type="radio" name="type" value="name" id="type_name" ng-model="patient.name_type">
+                                Use Name
+                            </label>
+
+                            <label for="type_alias" class="label-right">
+                                <input type="radio" name="type" value="alias" id="type_alias" ng-model="patient.name_type">
+                                Use Alias
+                            </label>
+                        </div>
+
+                        <div ng-switch on="patient.name_type">
+                            <div ng-switch-when="name">
+                                <div class="resource-block-element">
+                                    <label for="first_name" class="resource-block-heading label-top">First Name</label>
+                                    <input type="text" id="first_name" placeholder="What's their first name?" ng-model="patient.first_name"/>
+                                </div>
+                                <div>
+                                    <label for="last_name" class="resource-block-heading label-top">Last Name</label>
+                                    <input type="text" id="last_name" placeholder="What's their last name?" ng-model="patient.last_name"/>
+                                </div>
+                            </div>
+                            <div ng-switch-when="alias">
+                                <label for="alias" class="resource-block-heading label-top" >Alias</label>
+                                <input type="text" id="alias" placeholder="What is the patient's alias?" ng-model="patient.alias"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="resource-block">
+                        <cm-save-cancel></cm-save-cancel>
+                    </div>
+                </td>
+            </tr>
+            <tr ng-show="!$isEditing">
+                <td>
+                    <a href="#/patient/{{ patient.id }}/summary">
+                        #00{{ patient.id }}
+                    </a>
+                </td>
+                <td>
+                    <a href="#/patient/{{ patient.id }}/summary">
+                        {{ patient.fullName() }}
+                    </a>
+                </td>
+
+                <td>
+                    <a href="#/patient/{{ patient.id }}/diagnoses">
+                        <span class="label label-primary">{{ patient.diagnoses[0].disorder.name }}</span>
+                    </a>
                 <span ng-show="patient.diagnoses.length > 1">
                     <a href="">
                         <span class="label label-primary">+ {{ patient.diagnoses.length - 1 }} more</span>
@@ -57,12 +97,12 @@
                     </a>
 
                 </span>
-            </td>
+                </td>
 
-            <td>
-                <a href="">
-                    <a class="label label-primary" href="#/patient/{{ patient.id }}/share/{{ patient.shares[0].id }}">{{ patient.shares[0].group.name }}</a>
-                </a>
+                <td>
+                    <a href="">
+                        <a class="label label-primary" href="#/patient/{{ patient.id }}/share/{{ patient.shares[0].id }}">{{ patient.shares[0].group.name }}</a>
+                    </a>
                 <span ng-show="patient.shares.length > 1">
                     <a href="">
                         <span class="label label-primary">+ {{ patient.shares.length - 1 }} more</span>
@@ -71,22 +111,23 @@
                 <span ng-show="!patient.shares.length" >
                     No shares
                 </span>
-            </td>
+                </td>
 
-            <td>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon icon-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="" ng-click="showSharePatient(patient)"><i class="icon icon-share-alt"></i> Share</a></li>
-                        <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
-                        <!--<li class="divider"></li>-->
-                        <!--<li><a href="#">Separated link</a></li>-->
-                    </ul>
-                </div>
-            </td>
-        </tr>
+                <td>
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon icon-angle-down"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="" ng-click="showSharePatient(patient)"><i class="icon icon-share-alt"></i> Share</a></li>
+                            <li><a href="" ng-click="showDeletePatient(patient)"><i class="icon icon-trash"></i> Delete</a></li>
+                            <!--<li class="divider"></li>-->
+                            <!--<li><a href="#">Separated link</a></li>-->
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
     </table>
 
 
@@ -173,34 +214,45 @@
             Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
         </div>
         <div class="smodal-content">
-            <table class="sform">
-                <tr class="sform-row">
-                    <td class="sform-label"><label for="first_name">Name</label></td>
-                    <td><div class="sform-inputs sform-inputs2">
-                        <input type="text" id="first_name" placeholder="First Name" ng-model="newPatient.first_name"/><input type="text" id="last_name" placeholder="Last Name" ng-model="newPatient.last_name" />
-                    </div></td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label">
-                        <label for="alias">Alias (opt)</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <input type="text" id="alias" placeholder="Alias" ng-model="newPatient.alias"/>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td>
-                        <label>Share</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div class="resource is-editing">
+                <div class="resource-block">
+                    <label class="label-top resource-block-heading">Name</label>
+                    <div class="resource-block-element clearfix">
+                        <label for="type_name" class="label-right">
+                            <input type="radio" name="type" value="name" ng-model="patient.name_type">
+                            Use Name
+                        </label>
+
+                        <label for="type_alias" class="label-right">
+                            <input type="radio" name="type" value="alias" ng-model="patient.name_type">
+                            Use Alias
+                        </label>
+                    </div>
+
+                    <div class="resource-block-element" ng-show="patient.name_type == 'name'">
+                        <label for="first_name" class="resource-block-heading label-top">First Name</label>
+                        <input type="text" id="first_name" placeholder="What's their first name?" ng-model="patient.first_name"/>
+                    </div>
+                    <div class="resource-block-element" ng-show="patient.name_type == 'name'">
+                        <label for="last_name" class="resource-block-heading label-top">Last Name</label>
+                        <input type="text" id="last_name" placeholder="What's their last name?" ng-model="patient.last_name"/>
+                    </div>
+                    <div class="resource-block-element" ng-show="patient.name_type == 'alias'">
+                        <label for="alias" class="resource-block-heading label-top" >Alias</label>
+                        <input type="text" id="alias" placeholder="What is the patient's alias?" ng-model="patient.alias"/>
+                    </div>
+                </div>
+
+                <div class="resource-block">
+                    <div class="resource-block-element">
+                        <label class="resource-block-heading label-top">Share</label>
+                        <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
+                    </div>
+                </div>
+                <div class="resource-block">
+                    <cm-save-cancel></cm-save-cancel>
+                </div>
+            </div>
         </div>
         <div class="smodal-buttons">
             <div class="pull-right">

@@ -1,76 +1,54 @@
 <div>
-    <div class="header">
-        <div class="header-title">
-            My Groups
-        </div>
-        <div class="header-search">
-            <div class="search">
-                <i class="icon icon-search"></i>
-                <input type="text" placeholder="Search" ng-model="search"/>
-                <ul class="search-results" ng-show="search.length">
-                    <li class="search-result" ng-repeat="patient in patients | filter:search">
-                        <a href="">
-                            {{ patient.id }} - {{ patient.fullName() }}
-                        </a>
-                    </li>
-                </ul>
+    <div class="block">
+        <div class="block-header">
+            <h2>My Groups</h2>
+            <div class="block-header-buttons">
+                <button class="btn btn-action" ng-click="showCreateGroup()">Create Group</button>
             </div>
         </div>
+            <table class="block-table">
+                <tr>
+                    <th>Name <i class="icon icon-sort-down"></i></th>
+                    <!--<th>Location</th>-->
+                    <th>Members</th>
+                    <th>Patients</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="membership in memberships | filter:search">
+                    <!-- Groups -->
+                    <td>
+                        <a href="#/group/{{ membership.group.id }}/summary">
+                            {{ membership.group.name }}
+                        </a>
+                    </td>
 
-        <div class="header-buttons">
-            <button class="btn btn-action" ng-click="showCreateGroup()">Create</button>
-        </div>
+                    <!-- Members -->
+                    <td>
+                        <a href="#/group/{{ membership.group.id }}/members">
+                            <cm-facepile users="membership.group.members" limit="5"></cm-facepile>
+                        </a>
+                    </td>
+
+                    <td>
+                        <a href="#/group/{{ membership.group.id }}/patients">
+                            {{ membership.group.patient_count || "0" }}
+                        </a>
+                    </td>
+
+                    <td>
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon icon-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="" ng-click="showDeleteMembership(membership)"><i class="icon icon-arrow-left"></i> Leave</a></li>
+                                <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </table>
     </div>
-
-    <table class="table-content">
-        <tr>
-            <th>Name <i class="icon icon-sort-down"></i></th>
-            <!--<th>Location</th>-->
-            <th>Members</th>
-            <th>Patients</th>
-            <th></th>
-        </tr>
-        <tr ng-repeat="membership in memberships | filter:search">
-            <!-- Groups -->
-            <td>
-                <a href="#/group/{{ membership.group.id }}/summary">
-                    {{ membership.group.name }}
-                </a>
-            </td>
-
-            <!-- Locations -->
-            <!--<td>-->
-                <!--<a href="#/group/{{ membership.group.id }}">-->
-                    <!--{{ membership.group.location }}-->
-                <!--</a>-->
-            <!--</td>-->
-
-            <!-- Members -->
-            <td>
-                <a href="#/group/{{ membership.group.id }}/members">
-                    <cm-facepile users="membership.group.members" limit="5"></cm-facepile>
-                </a>
-            </td>
-
-            <td>
-                <a href="#/group/{{ membership.group.id }}/patients">
-                    {{ membership.group.patient_count || "0" }}
-                </a>
-            </td>
-
-            <td>
-                <div class="btn-group pull-right">
-                    <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon icon-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="" ng-click="showDeleteMembership(membership)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                        <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    </table>
 
     <smodal name="deleteGroup">
         <div class="smodal-title">

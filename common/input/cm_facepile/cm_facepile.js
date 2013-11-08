@@ -10,7 +10,6 @@ angular.module('directives.input.cmFacepile', ['directives.input.cmUserIcon'])
             },
             templateUrl: 'common/input/cm_facepile/cm_facepile.tpl.html',
             link: function($scope, iElement, iAttrs) {
-
             }
         };
     }]);
