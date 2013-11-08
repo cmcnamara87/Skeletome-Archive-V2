@@ -1,11 +1,11 @@
-angular.module('directives.input.cmActivity.cmComments', [])
+angular.module('directives.activities.cmActivity.cmComments', [])
 
 // A simple directive to display a gravatar image given an email
     .directive('cmComments', ['ReplyModel', 'SessionService', function (ReplyModel, SessionService) {
         return {
             restrict: 'E',
             scope: true,
-            templateUrl: 'common/input/cm_activity/cm_comments/cm_comments.tpl.html',
+            templateUrl: 'common/activities/cm_activity/cm_comments/cm_comments.tpl.html',
             link: function ($scope, el, tAttrs) {
 
                 $scope.COMMENT_DISPLAY_DEFAULT = 3;

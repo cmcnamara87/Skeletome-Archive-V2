@@ -1,4 +1,5 @@
-@import "main.less";
+@import "layout.less";
+@import "block.less";
 @import "buttons.less";
 @import "resource.less";
 @import "clearfix.less";
@@ -21,7 +22,7 @@
 
 
 @submenubarHeight: 60px;
-
+@bodyBackgroundColor: #E1E6E9;
 
 
 /**
@@ -57,7 +58,7 @@
 }
 
 body {
-  background-color: #E1E6E9;
+  background-color: @bodyBackgroundColor;
   color: #1E3346;
   font-family: "Source Sans Pro";
   font-size: 14px;
@@ -481,54 +482,7 @@ Styleguide 2.1.3.
   width: 90%;
 }
 
-/*
-A small search embeddable in the header box
 
-:hover             - Subtle hover highlight.
-.stars-given       - A highlight indicating you've already given a star.
-.stars-given:hover - Subtle hover highlight on top of stars-given styling.
-.disabled          - Dims the button to indicate it cannot be used.
-
-Styleguide 2.1.3.
-*/
-table.table-content {
-  border-top: none;
-  background-color: white;
-  padding-bottom: 40px;
-  width: 100%;
-  margin-bottom: 80px;
-}
-
-.table-content tr {
-  border: none;
-}
-
-.table-content th {
-  border: none !important;
-  color: #4D718D;
-  border-bottom: 1px solid @borderColor !important;
-  font-weight: 600;
-  padding: 14px 21px;
-  background-color: white;
-}
-
-.table-content td {
-  &.is-editing {
-    padding: 0;
-  }
-
-  padding: 10px 21px;
-  font-weight: normal;
-  border-top: none;
-  border-bottom: 1px solid @borderColor;
-  color: #1E3346;
-
-
-}
-
-.table-content tr:hover td {
-  background-color: #f0f6fa;
-}
 
 .dropdown-menu {
   border-radius: 0px;
@@ -591,14 +545,14 @@ table.table-content {
   display: inline-block;
   margin-right: 1px;
   margin-bottom: 2px;
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   text-align: center;
   box-sizing: border-box;
   color: white;
-  border-radius: 32px;
+  border-radius: 28px;
   font-size: 14px;
-  line-height: 32px;
+  line-height: 28px;
 }
 
 .scircle-more {

@@ -1,0 +1,322 @@
+<?php
+// hpo_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function hpo_resource_entity_info() {
+    return array(
+        'hpo' => array(
+            'label' => t('hpo'),
+            'base table' => 'hpos',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'EntityAPIController',
+        ),
+        'hpo_patient' => array(
+            'label' => t('HPO Patient Link'),
+            'base table' => 'hpos_patients',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'HpoPatientController',
+        )
+    );
+}
+
+class HpoPatientController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            // Load in the linked object
+            $entity->hpo = hpo_load($entity->hpo_id);
+        }
+        return $entities;
+    }
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+        $entity->hpo = hpo_load($entity->hpo_id);
+    }
+}
+
+function hpo_load($id, $reset = FALSE) {
+    return reset(hpo_load_multiple(array($id), $reset));
+}
+function hpo_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $hpos = array_values(entity_load('hpo', $ids, $conditions, $reset));
+    return $hpos;
+}
+function hpo_save($entity) {
+    entity_save('hpo', $entity);
+}
+function hpo_delete($id) {
+    entity_delete('hpo', $id);
+}
+
+function hpo_patient_load($id, $reset = FALSE) {
+    return reset(hpo_patient_load_multiple(array($id), $reset));
+}
+function hpo_patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $hpos = array_values(entity_load('hpo_patient', $ids, $conditions, $reset));
+    return $hpos;
+}
+function hpo_patient_save($entity) {
+    entity_save('hpo_patient', $entity);
+}
+function hpo_patient_delete($id) {
+    entity_delete('hpo_patient', $id);
+}
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function hpo_resource_services_resources() {
+    $resource = array();
+
+    $resource['hpo'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a hpo',
+            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
+            'callback' => '_hpo_resource_retrieve',
+            'access callback' => '_hpo_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the hpo to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a hpo',
+            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
+            'callback' => '_hpo_resource_create',
+            'access callback' => '_hpo_resource_access',
+            'access arguments' => array(),
+            'access arguments append' => FALSE,
+
+//            'access arguments' => array('hpo resource create'),
+//            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The hpo object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a hpo',
+            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
+            'callback' => '_hpo_resource_update',
+            'access callback' => '_hpo_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The hpo data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a hpo',
+            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
+            'callback' => '_hpo_resource_delete',
+            'access callback' => '_hpo_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the hpo to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource'),
+            'callback' => '_hpo_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 200),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    $resource['hpo_patient'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a patient hpo_patient',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
+            'callback' => '_hpo_resource_hpo_patient_retrieve',
+            'access callback' => '_hpo_resource_hpo_patient_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the patient hpo_patient to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a patient',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
+            'callback' => '_hpo_resource_hpo_patient_create',
+            'access arguments' => array('patient resource create'),
+            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient hpo_patient object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a patient',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
+            'callback' => '_hpo_resource_hpo_patient_update',
+            'access callback' => '_hpo_resource_hpo_patient_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The patient hpo_patient data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a patient',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
+            'callback' => '_hpo_resource_hpo_patient_delete',
+            'access callback' => '_hpo_resource_hpo_patient_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the patient to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
+            'callback' => '_hpo_resource_hpo_patient_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 20),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    return $resource;
+}
+
+

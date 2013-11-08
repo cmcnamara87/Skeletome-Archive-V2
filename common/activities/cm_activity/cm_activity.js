@@ -1,11 +1,11 @@
-angular.module('directives.input.cmActivity', ['directives.input.cmActivity.cmComments'])
+angular.module('directives.activities.cmActivity', ['directives.activities.cmActivity.cmComments'])
 
 // A simple directive to display a gravatar image given an email
     .directive('cmActivity', ['ReplyModel', 'AuthService', function (ReplyModel, AuthService) {
         return {
             restrict: 'E',
             scope: true,
-            templateUrl: 'common/input/cm_activity/cm_activity.tpl.html',
+            templateUrl: 'common/activities/cm_activity/cm_activity.tpl.html',
             link: function ($scope, el, tAttrs) {
 
                 $scope.$commentDisplayCount = 3;

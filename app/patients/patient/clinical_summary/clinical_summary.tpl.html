@@ -1,7 +1,7 @@
 <div>
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-action" ng-click="annotate()">Annotate</button>
+            <h2>Summary</h2>
         </div>
         <div class="block-content">
             <div cm-resource="patient">
@@ -9,27 +9,56 @@
                     <div class="resource-controls">
                         <cm-edit-delete></cm-edit-delete>
                     </div>
-                    <div class="resource-block resource-block-narrow" ng-bind-html-unsafe="patient.formattedSummary">
-                    </div>
-                    <div ng-repeat="tag in tags">
-                        {{ tag.term.name }}
-                        <!--{{ tag.term.concept }}-->
-                        {{ tag.from }}
-                        {{ tag.to }}
-                    </div>
+
+                    <mentions text="patient.clinical_summary" mentions="patient.mentions"></mentions>
+
                 </cm-display>
                 <cm-edit>
 
                     <div>
-                        <textarea style="width: 100%" ng-model="patient.clinical_summary" ck-editor placeholder="Write a clinical summary for this patient"></textarea>
+                        <textarea style="width: 100%; height: 500px;" ck-editor ng-model="patient.clinical_summary" placeholder="Write a clinical summary for this patient"></textarea>
                     </div>
 
 
                     <div class="resource-block">
                         <cm-save-cancel></cm-save-cancel>
                     </div>
-
                 </cm-edit>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-header">
+            <h2>HPO Terms</h2>
+            <div class="block-header-buttons">
+                <button ng-click="addPatientHPO()" class="btn btn-action">Add</button>
+            </div>
+
+        </div>
+        <div class="block-content">
+            <div ng-repeat="patientHPO in patientHPOs">
+                <div cm-resource="patientHPO" remove-fn="removePatientHPO(patientHPO)">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                        </div>
+                        <div class="resource-block">
+                            {{ patientHPO.hpo.name }}
+                        </div>
+                    </cm-display>
+
+                    <cm-edit>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">HPO Term</label>
+                                <typeahead model="test" options-fn="findHPO(value)" multi="false" token-chosen-fn="hpoChosen(token, patientHPO)"></typeahead>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
             </div>
         </div>
     </div>

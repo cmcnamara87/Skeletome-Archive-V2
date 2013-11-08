@@ -1,0 +1,50 @@
+<?php
+// mention_resource.install
+/**
+ * Implementation of hook_schema().
+ */
+function mention_resource_schema() {
+    $schema['mentions'] = array(
+        'description' => t('Stores information about mentions.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a mention.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The text matched'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'content_id' => array(
+                'description' => t('The content (post, patient) with the mention.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'content_type' => array(
+                'description' => t('The content type e.g. post, patient'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'mentioned_id' => array(
+                'description' => t('The what is being mentioned.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'mentioned_type' => array(
+                'description' => t('The type of thing being mentioned e.g. disorder, user, hpo'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

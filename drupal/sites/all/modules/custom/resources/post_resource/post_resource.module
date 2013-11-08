@@ -27,15 +27,16 @@ class PostController extends EntityAPIController {
         foreach($entities as &$entity) {
             $entity->user = user_load_small($entity->uid);
 
-//            $annotator = new NCBOAnnotator();
-//            $annot_test = $annotator->annotate($entity->text);
-//            $entity->annotated = $annot_test;
+            $entity->mentions = mention_load_from_content($entity->id, "post");
         }
         return $entities;
 
     }
     public function save($entity, DatabaseTransaction $transaction = NULL) {
         parent::save($entity, $transaction);
+
+        // Scan the text for mentions
+        mention_reindex($entity->id, "post", html_entity_decode(strip_tags($entity->text)));
 
         // Create an activity for this new post
         $activity = new stdClass();

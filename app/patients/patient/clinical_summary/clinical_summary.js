@@ -17,22 +17,59 @@ angular.module('patient.clinical_summary', [])
                     });
 
                     return defer.promise;
+                }],
+                patientHPOs: ['HPOPatientModel', '$route', '$q', function (HPOPatientModel, $route, $q) {
+
+                    var defer = $q.defer();
+
+                    var patientHPOs = HPOPatientModel.index({
+                        'patient_id': $route.current.params.patient_id
+                    }, function(patientHPOs) {
+                        defer.resolve(patientHPOs);
+                    });
+
+                    return defer.promise;
                 }]
             }
         });
     }])
 
-    .controller('ClinicalSummaryCtrl', ['$scope', '$location','$http', 'patient', 'recommendTagsUrl', function ($scope, $location, $http, patient, recommendTagsUrl) {
+    .controller('ClinicalSummaryCtrl', ['$scope', '$q', '$location','$http', 'patient', 'patientHPOs', 'HPOModel', 'HPOPatientModel', function ($scope, $q, $location, $http, patient, patientHPOs, HPOModel, HPOPatientModel) {
         $scope.patient = patient;
+        $scope.patientHPOs = patientHPOs;
 
+        /**
+         * Add a new address
+         */
+        $scope.addPatientHPO = function() {
+            var newPatientHPO = new HPOPatientModel({
+                patient_id: $scope.patient.id
+            });
+            $scope.patientHPOs.unshift(newPatientHPO);
+        }
 
+        $scope.findHPO = function(value) {
+            var defer = $q.defer();
+            var hpos = HPOModel.index({
+                name: value
+            }, function(hpos) {
+                defer.resolve(hpos);
+            }, function(error){
+                console.log("HPO ERROR", error);
+            });
+            return defer.promise;
+        }
+        $scope.hpoChosen = function(hpo, patientHPO) {
+            // Find the gene mutations that match the gene
+            patientHPO.hpo_id = hpo.id;
+            patientHPO.hpo = hpo;
+        }
 
-        $scope.patient.formattedSummary = angular.copy($scope.patient.clinical_summary);
+        $scope.removePatientHPO = function(patientHPO) {
+            var index = $scope.patientHPOs.indexOf(patientHPO);
+            $scope.patientHPOs.splice(index, 1);
+        }
 
-        angular.forEach($scope.patient.patient_tags, function(patient_tag, tagIndex) {
-            var re = new RegExp(patient_tag.name.toLowerCase(), "gi");
-
-            $scope.patient.formattedSummary = $scope.patient.formattedSummary.replace(re, "<b><abbr title='" + patient_tag.tag.name + "'>" + patient_tag.name + "</abbr></b>");
-        });
-
+//
+//
     }]);

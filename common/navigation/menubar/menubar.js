@@ -7,36 +7,38 @@ angular.module('directives.navigation.menubar', [])
             restrict: 'E',
             templateUrl: 'common/navigation/menubar/menubar.tpl.html',
             link: function ($scope, element, attrs) {
-                $scope.$watch(function() {
+
+                var oldParts = null;
+
+                $scope.$on('$routeChangeSuccess', function(event, current, previous) {
+                    // route changed
                     var parts = $location.path().split("/");
-                    return parts[1];
-                }, function(pageType, oldPageType) {
 
-                    $scope.tab = pageType;
+                    if(!oldParts || parts[0] != oldParts[0] || parts[1] != oldParts[1]) {
+                        $scope.tab = parts[1];
 
-                    if($scope.tab == "patient" || $scope.tab == "group") {
-                        // its a patient, show the dark menu
+                        if($scope.tab == "patient" || $scope.tab == "group") {
+                            // its a patient, show the dark menu
 
-                        var parts = $location.path().split("/");
-                        $scope.id = parts[2];
+                            $scope.id = parts[2];
 
-                        if($scope.tab == "patient") {
-                            // load the patient
-                            $scope.patient = PatientModel.get({id: $scope.id}, function() {
+                            if($scope.tab == "patient") {
+                                // load the patient
                                 $scope.content = true;
-                            });
+                                $scope.patient = PatientModel.get({id: $scope.id}, function() {
+
+                                });
+                            } else {
+                                $scope.content = true;
+                                $scope.group = GroupModel.get({id: $scope.id}, function() {
+                                });
+                            }
                         } else {
-                            $scope.group = GroupModel.get({id: $scope.id}, function() {
-                                $scope.content = true;
-                            });
+                            $scope.content = false;
                         }
-
-                    } else {
-                        $scope.content = false;
                     }
 
-
-                    // Set up the back button
+                    oldParts = parts;
                 });
 
                 /**

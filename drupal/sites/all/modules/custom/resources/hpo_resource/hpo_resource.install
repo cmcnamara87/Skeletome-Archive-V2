@@ -1,0 +1,79 @@
+<?php
+// hpo_resource.install
+/**
+ * Implementation of hook_schema().
+ */
+function hpo_resource_schema() {
+    $schema['hpos'] = array(
+        'description' => t('Stores information about hpos.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for a hpo.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+                'description' => t('The text matched'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'uri' => array(
+                'description' => t('The URI of the hpo'),
+                'type' => 'varchar',
+                'length' => 255,
+            )
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['hpos_patients'] = array(
+        'description' => t('Stores link between a patient and a hpo term.'),
+        'fields' => array(
+            'id' => array(
+                'description' => t('The primary identifier for hpo patient link.'),
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'uid' => array(
+                'description' => t('The user that created the link.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'patient_id' => array(
+                'description' => t('The id of the patient with the hpo term.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+            'hpo_id' => array(
+                'description' => t('The id of the hpo term.'),
+                'type' => 'int',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+                'default' => 0,
+            ),
+        ),
+        'foreign keys' => array(
+            'patient' => array(
+                'table' => 'patients',
+                'columns' => array('id' => 'patient_id'),
+            ),
+            'hpo' => array(
+                'table' => 'hpos',
+                'columns' => array('id' => 'hpo_id'),
+            ),
+            'user' => array(
+                'table' => 'patients',
+                'columns' => array('uid' => 'uid'),
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}

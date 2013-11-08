@@ -61,7 +61,7 @@ function ncboannotator_api_menu()
     $items['recommend_tags'] = array(
         'title' => 'Tag recommendation',
         'description' => 'Suggests tags based using the NCBO annotator',
-        'page callback' => 'recommend_tags',
+        'page callback' => 'url_recommend_tags',
         'access arguments' => array('access content'),
         'type' => MENU_CALLBACK,
     );
@@ -69,11 +69,14 @@ function ncboannotator_api_menu()
 
 }
 
+function url_recommend_tags() {
+    $data = json_decode(file_get_contents("php://input"));
+    echo recommend_tags($data->text);
 
+}
 
 function recommend_tags($text)
 {
-
     $unique_concepts = array();
     $annotator = new NCBOAnnotator(array(
         "format" => "json"
@@ -84,6 +87,10 @@ function recommend_tags($text)
     $data = $annot_test->data;
 
     $xmlObj = simplexml_load_string($data);
+
+    echo $xmlObj->asXML();
+
+    die();
 
     $results = array();
     $matched = array();

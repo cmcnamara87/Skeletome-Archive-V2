@@ -30,12 +30,38 @@ angular.module('patient.summary', [])
                     });
 
                     return defer.promise;
+                }],
+                geneMutations: ['GeneMutationModel', '$route', '$q', function (GeneMutationModel, $route, $q) {
+                    var defer = $q.defer();
+                    var geneMutations = GeneMutationModel.index({
+                        patient_id: $route.current.params.patient_id
+                    }, function() {
+                        defer.resolve(geneMutations);
+                    }, function() {
+                        defer.reject();
+                    });
+
+                    return defer.promise;
+                }],
+                patientHpos: ['HPOPatientModel', '$route', '$q', function (HPOPatientModel, $route, $q) {
+
+                    var defer = $q.defer();
+
+                    var patientHPOs = HPOPatientModel.index({
+                        'patient_id': $route.current.params.patient_id
+                    }, function(patientHPOs) {
+                        defer.resolve(patientHPOs);
+                    });
+
+                    return defer.promise;
                 }]
             }
         });
     }])
 
-    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', function ($scope, $location, patient, diagnoses) {
+    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', 'geneMutations', 'patientHpos', function ($scope, $location, patient, diagnoses, geneMutations, patientHpos) {
         $scope.patient = patient;
         $scope.diagnoses = diagnoses;
+        $scope.geneMutations = geneMutations;
+        $scope.patientHpos = patientHpos;
     }]);

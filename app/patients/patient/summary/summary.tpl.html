@@ -11,11 +11,12 @@
                 <h2>HPO Terms</h2>
 
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href>Add</button>
                 </div>
             </div>
             <div class="block-content">
-                HPO Content in here
+                <div ng-repeat="patientHpo in patientHpos">
+                    {{ patientHpo.hpo.name }}
+                </div>
             </div>
         </div>
 
@@ -24,7 +25,23 @@
                 <h2>Gene Mutations</h2>
             </div>
             <div class="block-content">
-                Gene Mutation content here
+                <table class="table-content">
+                    <tr>
+                        <th>Name</th>
+                        <th>Gene</th>
+                        <th>Mutation Type</th>
+                        <th>Pathogenicity</th>
+                    </tr>
+                    <tbody ng-repeat="geneMutation in geneMutations">
+                        <tr>
+                            <td>{{ geneMutation.name }}</td>
+                            <td>{{ geneMutation.gene.name }}</td>
+                            <td>{{ geneMutation.mutation_type.name }}</td>
+                            <td>{{ geneMutation.pathogenic }}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
             </div>
         </div>
 

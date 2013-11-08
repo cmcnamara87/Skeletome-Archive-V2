@@ -27,10 +27,10 @@ angular.module('security', [])
                             SessionService.pathAfterLogin = $location.path();
                         }
 
+                        $location.path('/login');
+
                         console.log("Security: Not logged in.", AuthService.isLoggedIn());
 
-                        // Redirect to login
-                        $location.path('/login');
                     }
                 }
             });
@@ -97,6 +97,21 @@ angular.module('security', [])
             });
         }
 
+        function getCurrent(success, error) {
+            $http.post(connectUrl, {}).success(function (data) {
+                if(data.user.uid == 0) {
+                    // anonymous user, no one logged in
+                    success(null);
+                } else {
+                    storeSessionLogin(data, function() {
+                        success()
+                    }, function() {});
+                    SessionService.currentUser = new UserModel(data.user);
+                    success(SessionService.currentUser);
+                }
+            }, error);
+        }
+
         return {
 
                 /**
@@ -109,6 +124,7 @@ angular.module('security', [])
                     var currentUser = $cookieStore.get('currentUser');
                     SessionService.currentUser = currentUser;
 
+                    console.log("current iser is", currentUser);
                     // Get the token if we dont have it
                     // its okay if this takes a while to return, should all work out
                     // before we have to make any authenticated calls
@@ -135,18 +151,7 @@ angular.module('security', [])
             },
 
             current: function(success, error) {
-                $http.post(connectUrl, {}).success(function (data) {
-                    if(data.user.uid == 0) {
-                        // anonymous user, no one logged in
-                        success(null);
-                    } else {
-                        storeSessionLogin(data, function() {
-                            success()
-                        }, function() {});
-                        SessionService.currentUser = new UserModel(data.user);
-                        success(SessionService.currentUser);
-                    }
-                }, error);
+                getCurrent(success, error);
             },
 
             /**
@@ -170,7 +175,25 @@ angular.module('security', [])
                         }
                     }).error(function(error2) {
                        console.log("error is", error2);
-                        error(error2);
+                            if(error2[0].indexOf("Already logged in" != -1)) {
+                                getCurrent(function(data) {
+
+                                    console.log("already logged in")
+
+                                    if(SessionService.pathAfterLogin) {
+                                        $location.path(SessionService.pathAfterLogin);
+                                        SessionService.pathAfterLogin = null;
+                                    } else {
+                                        $location.path('/feed');
+                                    }
+
+                                }, function(error) {
+                                    console.log("no current user", error);
+                                })
+                            } else {
+                                error(error2);
+                            }
+
                     });
                 })
             },

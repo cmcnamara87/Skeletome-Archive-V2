@@ -1,4 +1,5 @@
 angular.module('directives',
     [
-        'directives.ckeditor'
+        'directives.ckeditor',
+        'directives.mentions'
     ]);

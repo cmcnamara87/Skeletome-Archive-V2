@@ -8,14 +8,20 @@ angular.module('feed', [])
                 activities: ['ActivityModel', 'SessionService', '$q', function (ActivityModel, SessionService, $q) {
                     var defer = $q.defer();
 
-                    var activities = ActivityModel.query({
-                        user_id: SessionService.currentUser.uid
-                    }, function () {
-                        console.log("in here", activities);
-                        defer.resolve(activities);
-                    }, function (error) {
+                    if(angular.isDefined(SessionService.currentUser)) {
+                        var activities = ActivityModel.query({
+                            user_id: SessionService.currentUser.uid,
+                            embed: 1
+                        }, function () {
+                            console.log("in here", activities);
+                            defer.resolve(activities);
+                        }, function (error) {
+                            defer.reject();
+                        });
+                    } else {
                         defer.reject();
-                    });
+                    }
+
 
                     return defer.promise;
                 }]

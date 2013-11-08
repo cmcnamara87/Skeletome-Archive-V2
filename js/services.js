@@ -231,6 +231,36 @@ myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
+myApp.services.factory('HPOModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'hpo/:id', {
+        id: '@id' //this binds the ID of the model to the URL param
+    },
+    {
+        update: {method:'PUT'}
+    });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+
+
+    return MyResource;
+});
+
+myApp.services.factory('HPOPatientModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'hpo_patient/:id', {
+        id: '@id' //this binds the ID of the model to the URL param
+    },
+    {
+        update: {method:'PUT'}
+    });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
+});
+
 myApp.services.factory('IdentifierModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'identifier/:id', {
         id: '@id' //this binds the ID of the model to the URL param,

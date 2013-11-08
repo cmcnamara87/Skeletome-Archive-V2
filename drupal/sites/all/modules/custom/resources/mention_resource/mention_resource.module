@@ -1,0 +1,397 @@
+<?php
+// mention_resource.module
+
+///**
+// * Implements hook_entity_info().
+// */
+function mention_resource_entity_info() {
+    return array(
+        'mention' => array(
+            'label' => t('mention'),
+            'base table' => 'mentions',
+            'entity keys' => array(
+                'id' => 'id',
+            ),
+            'entity class'           => 'Entity',
+            'controller class'       => 'MentionController',
+        )
+    );
+}
+
+class MentionController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            // Load in the linked object
+            $entity->{$entity->mentioned_type} = call_user_func($entity->mentioned_type . "_load", $entity->mentioned_id);
+        }
+        return $entities;
+    }
+}
+
+
+
+function mention_load($id, $reset = FALSE) {
+    return reset(mention_load_multiple(array($id), $reset));
+}
+function mention_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $mentions = array_values(entity_load('mention', $ids, $conditions, $reset));
+    return $mentions;
+}
+function mention_save($entity) {
+    entity_save('mention', $entity);
+}
+function mention_delete($id) {
+    entity_delete('mention', $id);
+}
+function mention_delete_for_content($content_id, $content_type) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'mention');
+    $query->propertyCondition('content_id', $content_id);
+    $query->propertyCondition('content_type', $content_type);
+    $result = $query->execute();
+    $old_mentions = array_keys($result['mention']);
+    foreach($old_mentions as $old_mention_id) {
+        mention_delete($old_mention_id);
+    }
+}
+
+function mention_load_from_content($content_id, $content_type) {
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'mention');
+    $query->propertyCondition('content_id', $content_id);
+    $query->propertyCondition('content_type', $content_type);
+    $result = $query->execute();
+    $mention_ids = array_keys($result['mention']);
+
+    return mention_load_multiple($mention_ids);
+}
+
+/**
+ * Scans contents for mentions and returns the mentions for that content
+ *
+ * Note: This method is slow due to its use of the NCBO annotator tool, so
+ * only call it when content has actually changed, and a update is
+ * necessary.
+ *
+ * @param $content_id
+ * @param $content_type
+ * @param $content
+ * @return array The new list of mentions
+ */
+function mention_reindex($content_id, $content_type, $content)
+{
+
+
+    // The list of mentions to return;
+    $mentions = array();
+
+    // Delete all mentions for this content
+    // before we reindex and add new ones
+    mention_delete_for_content($content_id, $content_type);
+
+    // 3 types of mentions
+    $sql = "SELECT *
+            FROM disorders
+            WHERE :content = disorders.name
+            OR :content LIKE concat('% ', disorders.name)
+            OR :content LIKE concat(disorders.name, ' %')
+            OR :content LIKE concat('% ', disorders.name, ' %')";
+    $results = db_query($sql, array(
+        'content'   => $content
+    ));
+
+    foreach($results->fetchAll() as $disorder) {
+
+        // Build our new mention
+        $new_mention = new stdClass();
+        $new_mention->content_id = $content_id;
+        $new_mention->content_type = $content_type;
+        $new_mention->mentioned_type = "disorder";
+        $new_mention->mentioned_id = $disorder->id;
+        $new_mention->name = $disorder->name;
+        // Save the mention
+        mention_save($new_mention);
+
+        // For the GUI we add in the HPO term for convenience
+        $new_mention->disorder = $disorder;
+
+        // Store the mention ready to give back to hte GUI
+        $mentions[] = $new_mention;
+    }
+
+
+
+
+    // HPO
+    $annotator = new NCBOAnnotator(array(
+        "format" => "json"
+    ));
+    $annot_test = $annotator->annotate($content);
+    $xmlData = simplexml_load_string($annot_test->data);
+
+    $annotations = $xmlData->data->annotatorResultBean->annotations->annotationBean;
+
+    // Go through and strip out all the stuff we dont really need
+    if($annotations) {
+        // Will store hpo terms we have already matched
+        $matched = array();
+
+        foreach($annotations as $annotation) {
+
+            // bleh dupicates from ncbo annotator
+            if(in_array($annotation->context->term->name, $matched)) {
+                continue;
+            } else {
+                $matched[] = (string)$annotation->context->term->name;
+            }
+
+            // Get the mentioned ID (may not exist)
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'hpo');
+            $query->propertyCondition('uri', $annotation->concept->fullId);
+            $result = $query->execute();
+            $hpo_ids = array_keys($result['hpo']);
+
+            if(count($hpo_ids)) {
+                // the term is already there, cool
+                $hpo = hpo_load($hpo_ids[0]);
+            } else {
+                // not there, lets just add it
+                $hpo = new stdClass();
+                $hpo->name = (string)$annotation->concept->preferredName;
+                $hpo->uri = (string)$annotation->concept->fullId;
+                hpo_save($hpo);
+            }
+
+            // Build our new mention
+            $new_mention = new stdClass();
+            $new_mention->content_id = $content_id;
+            $new_mention->content_type = $content_type;
+            $new_mention->mentioned_type = "hpo";
+            $new_mention->mentioned_id = $hpo->id;
+            $new_mention->name = (string)$annotation->context->term->name;
+            // Save the mention
+            mention_save($new_mention);
+
+            // For the GUI we add in the HPO term for convenience
+            $new_mention->hpo = $hpo;
+
+            // Store the mention ready to give back to hte GUI
+            $mentions[] = $new_mention;
+        }
+    }
+
+    return $mentions;
+}
+
+/*
+function mentions_recommend($text)
+{
+
+    $unique_concepts = array();
+    $annotator = new NCBOAnnotator(array(
+        "format" => "json"
+    ));
+    $annot_test = $annotator->annotate($text);
+
+    $code = $annot_test->code;
+    $data = $annot_test->data;
+
+    $xmlObj = simplexml_load_string($data);
+
+    $ncbo_mentions = array();
+    $matched = array();
+
+    // todo: merge these two sections below together
+    // todo: they dont really need to be separate
+
+    // Go through and strip out all the stuff we dont really need
+    if($xmlObj->data->annotatorResultBean->annotations->annotationBean) {
+        foreach($xmlObj->data->annotatorResultBean->annotations->annotationBean as $annotation) {
+            $new_annotation = array();
+
+            // get the score
+            $new_annotation['score'] = (int)$annotation->score;
+            // get the context (the text position and the term)
+//            $new_annotation['to'] = (int)$annotation->context->to;
+//            $new_annotation['from'] = (int)$annotation->context->from;
+            $new_annotation['term'] = $annotation->context->term;
+
+            $name = (string)$annotation->context->term->name;
+
+            if(!in_array($name, $matched)) {
+                $ncbo_mentions[] = $new_annotation;
+                $matched[] = $name;
+            }
+        }
+    }
+
+    $recommendations = array();
+
+    foreach($ncbo_mentions as $ncbo_mention) {
+
+
+
+        // do we have the mention?
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'mention');
+        $query->propertyCondition('uri', (string)$ncbo_mention->term->concept->fullId);
+        $result = $query->execute();
+        $ids = array_keys($result['mention']);
+
+        if(!count($ids)) {
+            // Create the mention
+            $mention = new stdClass();
+            $mention->name = (string)$ncbo_mention['term']->concept->preferredName;
+            $mention->uri = (string)$ncbo_mention['term']->concept->fullId;
+            $mention->ontology = "HPO";
+            mention_save($mention);
+        } else {
+            $mention = mention_load($ids[0]);
+        }
+
+        $recommendations[] = array(
+            "mention" => $mention,
+            "context" => $ncbo_mention['term']->name
+        );
+    }
+
+    return $recommendations;
+}
+*/
+
+/**
+ * Implementation of hook_services_resources().
+ */
+function mention_resource_services_resources() {
+    $resource = array();
+
+    $resource['mention'] = array(
+        'retrieve' => array(
+            'help' => 'Retrieves a mention',
+            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
+            'callback' => '_mention_resource_retrieve',
+            'access callback' => '_mention_resource_access',
+            'access arguments' => array('view'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the mention to get',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'create' => array(
+            'help' => 'Creates a mention',
+            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
+            'callback' => '_mention_resource_create',
+            'access callback' => '_mention_resource_access',
+            'access arguments' => array(),
+            'access arguments append' => FALSE,
+
+//            'access arguments' => array('mention resource create'),
+//            'access arguments append' => FALSE,
+            'args' => array(
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The mention object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'update' => array(
+            'help' => 'Updates a mention',
+            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
+            'callback' => '_mention_resource_update',
+            'access callback' => '_mention_resource_access',
+            'access arguments' => array('update'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'id',
+                    'type' => 'int',
+                    'description' => 'The id of the node to update',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+                array(
+                    'name' => 'data',
+                    'type' => 'struct',
+                    'description' => 'The mention data object',
+                    'source' => 'data',
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'delete' => array(
+            'help' => 'Deletes a mention',
+            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
+            'callback' => '_mention_resource_delete',
+            'access callback' => '_mention_resource_access',
+            'access arguments' => array('delete'),
+            'access arguments append' => TRUE,
+            'args' => array(
+                array(
+                    'name' => 'nid',
+                    'type' => 'int',
+                    'description' => 'The id of the mention to delete',
+                    'source' => array('path' => '0'),
+                    'optional' => FALSE,
+                ),
+            ),
+        ),
+        'index' => array(
+            'help' => 'List all nodes',
+            'file' => array('type' => 'inc', 'module' => 'mention_resource', 'name' => 'mention_resource'),
+            'callback' => '_mention_resource_index',
+            'args' => array(
+                array(
+                    'name' => 'page',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The zero-based index of the page to get, defaults to 0.',
+                    'default value' => 0,
+                    'source' => array('param' => 'page'),
+                ),
+                array(
+                    'name' => 'fields',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'The fields to get.',
+                    'default value' => '*',
+                    'source' => array('param' => 'fields'),
+                ),
+                array(
+                    'name' => 'parameters',
+                    'optional' => TRUE,
+                    'type' => 'array',
+                    'description' => 'Parameters array',
+                    'default value' => array(),
+                    'source' => array('param' => 'parameters'),
+                ),
+                array(
+                    'name' => 'pagesize',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'Number of records to get per page.',
+                    'default value' => variable_get('services_node_index_page_size', 200),
+                    'source' => array('param' => 'pagesize'),
+                ),
+            ),
+            'access arguments' => array('access content'),
+        ),
+    );
+
+    return $resource;
+}
+
+

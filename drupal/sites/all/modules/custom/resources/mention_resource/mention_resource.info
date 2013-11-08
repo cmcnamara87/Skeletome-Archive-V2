@@ -1,0 +1,8 @@
+name = Mention Resource
+description = Stores mentions in text of stuff (disorders, hpo terms, users)
+package = A - Resources
+
+core = 7.x
+
+dependencies[] = entity
+dependencies[] = rest_server

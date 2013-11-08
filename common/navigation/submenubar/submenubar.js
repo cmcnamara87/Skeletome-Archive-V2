@@ -7,12 +7,13 @@ angular.module('directives.navigation.submenubar', ['directives.navigation.subme
             restrict: 'E',
             templateUrl: 'common/navigation/submenubar/submenubar.tpl.html',
             link: function ($scope, element, attrs) {
-                $scope.$watch(function() {
+                $scope.$on('$routeChangeSuccess', function(event, current, previous) {
+                    // route changed
+
+                    console.log("ROUTE DCHANGE SUCCESS");
+
                     var parts = $location.path().split("/");
-                    return parts[1];
-                }, function(newValue) {
-                    // split it into its parts
-                    var parts = $location.path().split("/");
+
                     $scope.type = parts[1];
                     if($scope.type == "patient" || $scope.type == "group") {
                         $scope.id = parts[2];
