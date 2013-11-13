@@ -10,11 +10,15 @@
 @import "colors.less";
 @import "sidebar.less";
 @import "user.less";
+@import "table.less";
 
-/**
- * Variables
- */
-
+body {
+  background-color: @bodyBackgroundColor;
+  color: @bodyTextColor;
+  font-family: "Source Sans Pro";
+  font-size: 14px;
+  line-height: 21px;
+}
 
 
 /**
@@ -49,13 +53,7 @@
   overflow: auto;
 }
 
-body {
-  background-color: @bodyBackgroundColor;
-  color: @bodyTextColor;
-  font-family: "Source Sans Pro";
-  font-size: 14px;
-  line-height: 21px;
-}
+
 
 /*
     Headings

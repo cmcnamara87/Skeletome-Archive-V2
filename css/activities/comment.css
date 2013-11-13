@@ -269,12 +269,20 @@ html[xmlns] .clearfix {
   background-color: #f3f6f7;
   border-top: 1px solid #dbe1e3;
   padding: 14px;
+  padding: 10px;
+}
+.comment ::-webkit-input-placeholder {
+  color: #ffffff;
 }
 .comments-more {
   background-color: #f3f6f7;
   border-top: 1px solid #dbe1e3;
   padding: 14px;
+  padding: 10px;
   padding: 10px 14px;
+}
+.comments-more ::-webkit-input-placeholder {
+  color: #ffffff;
 }
 /**
   * An individual activity */
@@ -296,12 +304,18 @@ html[xmlns] .clearfix {
   border-top: 1px solid #dbe1e3;
   padding-top: 14px;
 }
+.activity .activity-content-box-message {
+  color: #616769;
+}
 .activity .activity-group {
   font-size: 12px;
   text-transform: uppercase;
 }
 .activity .activity-group .icon {
   margin-right: 7px;
+}
+.activity-patient .activity-patient-more {
+  margin-top: 14px;
 }
 .activity-patient .activity-patient-menu {
   list-style: none;
@@ -311,10 +325,10 @@ html[xmlns] .clearfix {
 }
 .activity-patient .activity-patient-menu li {
   display: inline-block;
+  margin: 0;
 }
 .activity-patient .activity-patient-menu li button {
-  padding: 0;
-  margin-right: 14px;
+  padding: 4px 8px;
   background-color: white;
   border-radius: 2px;
   color: #c9cccd;
@@ -322,10 +336,8 @@ html[xmlns] .clearfix {
 }
 .activity-patient .activity-patient-menu li button.selected {
   color: #616769;
-}
-.activity-patient .activity-patient-menu li + li {
-  padding-left: 14px;
-  border-left: 1px solid #dbe1e3;
+  border: 1px solid #dbe1e3;
+  border-bottom: none !important;
 }
 /**
   * Activity Adder
@@ -411,7 +423,7 @@ html[xmlns] .clearfix {
 .submenubar .submenubar-item {
   display: block;
   padding: 4px 12px;
-  color: #96a6b1;
+  color: #ffffff;
   border-radius: 100px;
 }
 .submenubar .submenubar-item.active {

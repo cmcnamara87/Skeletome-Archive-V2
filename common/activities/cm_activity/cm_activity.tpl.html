@@ -25,8 +25,18 @@
                         <a href="#/user/{{ activity.user.uid }}">Dr {{ activity.user.name }}</a>
                     </div>
                     <div class="user-info">
-                        shared <a href="#/patient/{{ activity.patient.id }}/summary">Patient #54223</a>
-                        <span class="user-date"> - {{ activity.created | relativedate }}</span>
+                        <div ng-switch on="activity.type">
+                            <div ng-switch-when="post">
+                                sent a message about <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> to
+                                <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
+                            </div>
+                            <div ng-switch-when="share">
+                                shared <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> with
+                                <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
+                                <span class="user-date"> - {{ activity.created | relativedate }}</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -34,45 +44,10 @@
         <div class="activity-content-box activity-content-box-message" ng-show="activity.post">
             <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
         </div>
-        <div class="activity-content-box activity-patient" ng-show="activity.patient">
-            <ul class="activity-patient-menu">
-                <li>
-                    <button ng-class="{'selected': patientInfo == 'clinicalSummary'}" ng-click="patientInfo = 'clinicalSummary'">Clinical Summary</button>
-                </li>
-                <li>
-                    <button ng-click="patientInfo = 'xRays'" ng-class="{'selected': patientInfo == 'xRays'}">
-                        X-Rays
-                    </button>
-
-                </li>
-                <li>
-                    <button ng-click="patientInfo = 'geneticReport'" ng-class="{'selected': patientInfo == 'geneticReport'}">
-                        Genetic Reports
-                    </button>
-                </li>
-            </ul>
-            <div ng-switch on="patientInfo" class="activity-patient-content">
-                <div ng-switch-when="clinicalSummary">
-                    <div ng-show="!activity.patient.clinical_summary.length">
-                        No clinical summary.
-                    </div>
-                    <div ng-show="activity.patient.clinical_summary.length">
-                        <mentions text="activity.patient.clinical_summary" mentions="activity.patient.mentions"></mentions>
-                    </div>
-
-                </div>
-                <div ng-switch-when="xRays">
-                    xrays
-                </div>
-                <div ng-switch-when="geneticReport">
-                    genetic reports
-                </div>
-            </div>
-            <div class="activity-patient-more">
-                <a href="#/patient/{{ activity.patient.id }}/summary" class="btn btn-more">More information</a>
-            </div>
-
+        <div class="activity-content-box">
+            <cm-activity-patient></cm-activity-patient>
         </div>
+
     </div>
     <cm-comments></cm-comments>
 

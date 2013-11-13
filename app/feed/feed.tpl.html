@@ -4,22 +4,21 @@
         <button class="btn btn-action" ng-click="showCreatePatient()">Add New Patient</button>
     </div>
 </div>-->
-<div class="block">
-    <div class="block-content block-content-clear">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" ng-show="activites.length == 0">
-                    No activities found.
+
+<div class="feed">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12" ng-show="activites.length == 0">
+                No activities found.
+            </div>
+            <div class="col-md-6">
+                <div ng-repeat="activity in activitiesEven">
+                    <cm-activity></cm-activity>
                 </div>
-                <div class="col-md-6">
-                    <div ng-repeat="activity in activitiesEven">
-                        <cm-activity></cm-activity>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div ng-repeat="activity in activitiesOdd">
-                        <cm-activity></cm-activity>
-                    </div>
+            </div>
+            <div class="col-md-6">
+                <div ng-repeat="activity in activitiesOdd">
+                    <cm-activity></cm-activity>
                 </div>
             </div>
         </div>

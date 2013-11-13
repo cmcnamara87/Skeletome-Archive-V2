@@ -10,7 +10,9 @@
   &:hover a {
     color: @highlightColor !important;
   }
+
   margin-bottom: 14px;
+  border: 1px solid @borderColor;
 
 
   .activity-content {
@@ -51,21 +53,21 @@
     margin-bottom: @activityPadding;
     li {
       display: inline-block;
+      margin: 0;
       button {
         &.selected {
           color: @submenuSelectedTextColor;
+          border: 1px solid @borderColor;
+          border-bottom: none !important;
+
         }
-        padding: 0;
-        margin-right: @activityPadding;
+        padding: 4px 8px;
+//        border-bottom: 1px solid @borderColor !important;
         background-color: white;
         border-radius: 2px;
         color: @submenuTextColor;
         border: none;
       }
-    }
-    li + li {
-      padding-left: @activityPadding;
-      border-left: 1px solid @borderColor;
     }
   }
 }

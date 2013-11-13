@@ -52,31 +52,6 @@ var myApp = angular.module('myApp', [
             }
         });
 
-//        $routeProvider.when('/patient', {
-//            templateUrl: 'partials/patient/new_patient.html',
-//            controller: 'NewPatientCtrl'
-//        });
-//        $routeProvider.when('/patient/:patient_id/case-summary', {
-//            templateUrl: 'partials/patient/case_summary.html',
-//            controller: 'PatientCtrl',
-//            resolve: {
-//                patient: function ($q, $route, PatientModel) {
-//                    console.log("resolving patient");
-//                    var defer = $q.defer();
-//
-//                    var patient = PatientModel.get({
-//                        'id': $route.current.params.patient_id
-//                    }, function () {
-//                        defer.resolve(patient);
-//                    });
-//                    return defer.promise;
-//                },
-//                user: function (auth) {
-//                    return auth.checkCurrentUser();
-//                }
-//            }
-//        });
-
         /**
          * Group Pages
          */
@@ -125,23 +100,6 @@ var myApp = angular.module('myApp', [
             redirectTo: '/feed'
         });
     }]);
-
-myApp.run(function ($rootScope, $templateCache) {
-    $rootScope.$on('$viewContentLoaded', function () {
-        $templateCache.removeAll();
-    });
-});
-myApp.run(function ($rootScope, $location, $anchorScroll, $routeParams) {
-    //when the route is changed scroll to the proper element.
-    $rootScope.$on('$viewContentLoaded', function (newRoute, oldRoute) {
-        console.log("ROUTE CHANGED! SCROLL TO" + $location.hash());
-//        $location.hash($routeParams.scrollTo);
-
-        $anchorScroll();
-
-
-    });
-});
 
 
 

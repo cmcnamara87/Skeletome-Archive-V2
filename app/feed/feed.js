@@ -29,11 +29,13 @@ angular.module('feed', [])
         });
     }])
 
-    .controller('FeedCtrl', ['$scope', '$location', 'activities', function ($scope, $location, activities) {
+    .controller('FeedCtrl', ['$scope', '$location', 'activities', '$rootScope', function ($scope, $location, activities, $rootScope) {
 //        $scope.patients = patients;
 
+        $scope.isFeed = true;
+
         // Load all patients
-        $scope.activities = activities;
+        $scope.activities = activities; //[activities[0]];
 
         // We need to split the activities into even and odd
         // just to fill in the 2 columns easily

@@ -107,8 +107,7 @@
                 </div>
             </div>
 
-            <div class="main main-sidebar" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities}">
-
+            <div class="main main-sidebar" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
                 <div ng-view></div>
             </div>
         </div>
@@ -146,7 +145,7 @@
     <script src="js/directives.js"></script>
 
     <!-- Google maps -->
-    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+    <!--<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>-->
 
     <!-- Navigation -->
     <script src="common/navigation/navigation.js"></script>
