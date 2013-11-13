@@ -8,8 +8,8 @@
   top: @menubarHeight;
   left: 0px;
   right: 0px;
-
-  .spaced;
+  height: @submenubarHeight;
+  padding: 11px;
 
   ul {
     padding-left: 0px;
@@ -21,13 +21,13 @@
   }
   .submenubar-item {
     display: block;
-    padding: 7px 14px;
+    padding: 4px 12px;
 
     color: @placeholderTextColor;
-    border-radius: 3px;
+    border-radius: 100px;
   }
   .submenubar-item.active {
-    background-color: @linkColor;
+    background-color: @highlightColor;
     color: white;
   }
 }
@@ -42,11 +42,12 @@
  */
 
 .menubar {
-  background-color: #294457;
+  background-color: @menubarColor;
   color: #F3F3F3;
   vertical-align: middle;
   height: @menubarHeight;
   overflow: hidden;
+  position: relative;
 
 
   &.menubar-dark {
@@ -55,8 +56,63 @@
 
 
 
+  .menubar-left {
+    float: left;
+    height: @menubarHeight
+  }
 
-}
+  .menubar-right {
+    float: right;
+    height: @menubarHeight;
+  }
+
+  .menubar-logo {
+    font-size: 21px;
+    color: white;
+    cursor: pointer;
+    font-weight: 600;
+    text-transform: uppercase;
+    a {
+      color: white;
+    }
+    .icon {
+      margin-right: 7px;
+    }
+  }
+
+  .menubar-notifications {
+    font-size: 18px;
+  }
+  .menubar-search {
+
+    position: relative;
+
+    .icon {
+      position: absolute;
+      top: 22px;
+      left: 35px;
+      color: @menubarColor;
+    }
+
+    input[type=text] {
+      &:focus {
+        width: 300px;
+        background-color: white;
+      }
+
+
+      padding: 8px 14px;
+      padding-left: 35px;
+      line-height: 14px;
+      border: none;
+      border-radius: 100px;
+      width: 150px;
+      background-color: @menubarSearchBackgroundColor;
+      transition: 0.1s ease-in;
+    }
+  }
+
+
   .menubar-item {
     display: inline-block;
     height: @menubarHeight;
@@ -85,11 +141,9 @@
     /*
     The logo container for the sidebar
   */
-    &.menubar-logo {
-      font-size: 21px;
-      color: white;
-      cursor: pointer;
-    }
+    &
+
+
 
     &.menubar-tab {
       &:hover {
@@ -108,18 +162,11 @@
     }
 
   }
-
-
-
-
-.menubar-search input {
-  box-sizing: border-box;
-  border-radius: 3px;
-  height: 35px;
-  border: none;
-  background-color: #465C6C;
-  color: white;
 }
+
+
+
+
 
 .menubar-user {
   float: right;

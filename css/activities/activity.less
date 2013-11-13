@@ -1,101 +1,71 @@
+@import "comment.less";
+@activityPadding: 14px;
+
 /**
   * An individual activity */
 .activity {
+  a {
+    transition: color 0.2s;
+  }
+  &:hover a {
+    color: @highlightColor !important;
+  }
   margin-bottom: 14px;
 
-  /* A segment in an activity */
-  .activity-box {
 
-    /** the last box */
-    &.activity-box-bottom {
-      border-bottom: 1px solid @borderColor;
-    }
-
-    /** a comment type box */
-    &.activity-box-comment {
-      background-color: #F1F5F9;
-    }
-
-
+  .activity-content {
     .spaced;
-    .bordered;
-    border-bottom: none;
     background-color: white;
+  }
 
-    p:last-of-type {
-      margin-bottom: 0;
+  .activity-content-box + .activity-content-box {
+    margin-top: @activityPadding;
+    border-top: 1px solid @borderColor;
+    padding-top: @activityPadding;
+  }
+
+  .activity-content-box-message {
+    color: @submenuSelectedTextColor;
+  }
+
+  // The group's name the activity belongs to
+  .activity-group {
+    .icon {
+      margin-right: 7px;
     }
-
-
-    /* A part inside one of the boxes */
-    .activity-box-element {
-      &:last-of-type {
-        .spaced-bottom-none;
-      }
-      .spaced-bottom
-    }
-
+    font-size: 12px;
+    text-transform: uppercase;
   }
 }
 
 
 
-
-activity-icon {
-  height: 48px;
-  width: 48px;
-  font-size: 35px;
-  background-color: #EAEFF2;
-  color: #96A6B1;
-  border-radius: 7px;
-  line-height: 48px;
-  text-align: center;
+.activity-patient {
+  .activity-patient-more {
+    margin-top: 14px;
+  }
+  .activity-patient-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: @activityPadding;
+    li {
+      display: inline-block;
+      button {
+        &.selected {
+          color: @submenuSelectedTextColor;
+        }
+        padding: 0;
+        margin-right: @activityPadding;
+        background-color: white;
+        border-radius: 2px;
+        color: @submenuTextColor;
+        border: none;
+      }
+    }
+    li + li {
+      padding-left: @activityPadding;
+      border-left: 1px solid @borderColor;
+    }
+  }
 }
-
-.activity-title {
-  font-size: 21px;
-  font-weight: 300;
-  margin-bottom: 14px;
-  color: #417BAE;
-}
-
-/**
-    Activty Reference block
-*/
-.activity-reference {
-
-}
-
-.activity-reference-title {
-  font-weight: 600;
-  display: block;
-  margin-bottom: 3px;
-}
-
-.activity-reference-authors {
-  padding-left: 0;
-  color: #90ACC4;
-
-}
-
-.activity-reference-authors li {
-  display: inline-block;
-}
-
-.activity-reference-author {
-  color: #90ACC4;
-  text-decoration: underline;
-}
-
-.activity-user {
-  font-weight: 600;
-}
-
-.activity-message, .activity-time {
-  color: #96A6B1;
-}
-
-
-
-
-

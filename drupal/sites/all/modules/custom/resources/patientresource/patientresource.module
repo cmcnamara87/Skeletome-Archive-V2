@@ -51,25 +51,6 @@ class PatientController extends EntityAPIController {
     private function addRelated(&$entity) {
         $entity->user = user_load_small($entity->uid);
 
-        // Add in the diagnoses
-        $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'diagnosis');
-        $query->propertyCondition('patient_id', $entity->id);
-        $result = $query->execute();
-        $ids = array_keys($result['diagnosis']);
-        $entity->diagnoses = diagnosis_load_multiple($ids);
-
-        // Get the share count
-        $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'share');
-        $query->propertyCondition('patient_id', $entity->id);
-        $result = $query->execute();
-        $ids = array_keys($result['share']);
-        $entity->shares = share_load_multiple($ids);
-        foreach($entity->shares as &$share) {
-            $share->group = group_load($share->group_id);
-        }
-
         $entity->mentions = mention_load_from_content($entity->id, "patient");
     }
 

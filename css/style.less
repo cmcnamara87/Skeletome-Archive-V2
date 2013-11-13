@@ -6,23 +6,15 @@
 @import "activities/activities.less";
 @import "tags.less";
 @import "menubar";
+@import "typeahead.less";
+@import "colors.less";
+@import "sidebar.less";
+@import "user.less";
 
 /**
  * Variables
  */
-@bodyTextColor: #1E3346;
-@labelTextColor: #637C90;
-@borderColor: #C7D5DF;
-@placeholderTextColor: #96A6B1;
-@linkColor: #417BAE;
 
-@activitiesWidth: 45%;
-@menubarHeight: 60px;
-@submenubarHeight: 60px;
-
-
-@submenubarHeight: 60px;
-@bodyBackgroundColor: #E1E6E9;
 
 
 /**
@@ -59,7 +51,7 @@
 
 body {
   background-color: @bodyBackgroundColor;
-  color: #1E3346;
+  color: @bodyTextColor;
   font-family: "Source Sans Pro";
   font-size: 14px;
   line-height: 21px;
@@ -109,15 +101,16 @@ em {
     Anchors
 */
 a {
-  color: #417BAE;
+  color: @bodyTextColor;
 }
 
 a:hover {
-  color: #5B98CC;
-  text-decoration: none;
+  text-decoration: underline;
+  color: darken(@bodyTextColor, 10%);
 }
 
 a:visited {
+  color: darken(@bodyTextColor, 10%);
 }
 
 
@@ -187,6 +180,7 @@ input[type=text].full-width, textarea.full-width {
   border: 1px solid @borderColor;
   margin-top: 14px;
   margin-left: 14px;
+  color: red;
 }
 
 .story-content {
@@ -335,116 +329,7 @@ input[type=text].full-width, textarea.full-width {
   width: 100%;
 }
 
-/*
-    A typehead that can either have a single token, or multi-token entry
-*/
-.typeahead {
-  border: 1px solid @borderColor;
-  position: relative;
-}
 
-.typeahead input {
-  border: none;
-  box-sizing: border-box;
-  width: 100%;
-}
-.typeahead-loader {
-  position: absolute;
-  top: 2px;
-  right: 0;
-  padding: 10px 14px;
-  opacity: 0.8;
-}
-.typeahead-icon {
-  position: absolute;
-  top: 3px;
-  right: 0;
-  padding: 10px 14px;
-  opacity: 0.3;
-}
-
-/*
-    A dark blue token with a remove X on the right side
-*/
-.typeahead-token {
-  text-align: left;
-}
-
-.typeahead-token:active {
-  position: relative;
-  top: 1px;
-}
-
-/*
-    Single Token: A large token (for single entry) full width
-*/
-.typeahead-token-single {
-  display: block;
-  padding: 10px 14px;
-  width: 100%;
-  background-color: #E1EDF8;
-  border: 1px solid #B7D1E9;
-  color: #6D8AA5;
-}
-
-.typeahead-token-single .icon-remove {
-  margin-left: 10px;
-  position: relative;
-  top: 3px;
-}
-
-/*
-    Multi Tokens: Padding around the collection of tokens
-*/
-.typeahead-tokens {
-  padding: 10px;
-}
-
-/*
-    Multi Token: A small inline token
-*/
-.typeahead-token-multi {
-  display: inline-block;
-  background-color: #417BAE;
-  color: white;
-  padding: 5px 12px;
-  border-radius: 3px;
-  margin-right: 7px;
-  margin-bottom: 7px;
-  border: none;
-}
-
-/*
-    Options list: The auto-complet edropdown that displays suggestions for tokens
-*/
-.typeahead-options-wrapper {
-  position: relative;
-}
-
-.typeahead-options {
-  position: absolute;
-  left: 5px;
-  cursor: pointer;
-  background-color: white;
-  border-top: 1px solid @borderColor;
-  list-style-type: none;
-  padding: 0;
-  min-width: 200px;
-}
-
-.typeahead-options-inside {
-  top: -7px;
-}
-
-.typeahead-option {
-  padding: 10px;
-  border: 1px solid @borderColor;
-  border-top: none;
-}
-
-.typeahead-option.selected {
-  background-color: #F1F5F9;
-}
 
 /*
 A small search embeddable in the header box

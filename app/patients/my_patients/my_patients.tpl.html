@@ -1,36 +1,17 @@
 <div>
-    <div class="header">
-        <div class="header-search">
-            <div class="search">
-                <i class="icon icon-search"></i>
-                <input type="text" placeholder="Search" ng-model="search"/>
-                <ul class="search-results" ng-show="search.length">
-                    <li class="search-result" ng-repeat="patient in patients | filter:search">
-                        <a href="">
-                            {{ patient.id }} - {{ patient.fullName() }}
-                        </a>
-                    </li>
-                </ul>
-            </div>
+    <div class="block">
+        <div class="block-header">
+            <button class="btn btn-action"><i class="icon icon-plus-circle"></i> New Patient</button>
         </div>
-        
-        <div class="header-buttons">
-            <button class="btn btn-action" ng-click="addPatient()">Add Patient</button>
-            <button class="btn btn-action" ng-click="showAutosharing()">Autosharing</button>
-            <button class="btn btn-action" ng-click="showCreatePatient()">Create</button>
-        </div>
-    </div>
-
-
-    <table class="table-content">
-        <tr>
-            <th>ID <i class="icon icon-sort-down"></i></th>
-            <th>Patient</th>
-            <th>Diagnoses</th>
-            <th>Share</th>
-            <th></th>
-        </tr>
-        <tbody ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search" cm-resource="patient">
+        <table class="block-table">
+            <tr>
+                <th>ID <i class="icon icon-sort-down"></i></th>
+                <th>Patient</th>
+                <th>Diagnoses</th>
+                <th>Share</th>
+                <th></th>
+            </tr>
+            <tbody ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search" cm-resource="patient">
             <tr ng-show="$isEditing">
                 <td colspan="5">
                     <div class="resource-block">
@@ -127,9 +108,9 @@
                     </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+    </div>
 
     <smodal name="autosharing">
 

@@ -1,13 +1,31 @@
+@activitiesWidth: 45%;
+@menubarHeight: 60px;
+@submenubarHeight: 54px;
+@sidebarWidth: 230px;
+
 .main {
   .panel;
   top: @menubarHeight;
 //  background-color: white;
 }
   .main-submenubar {
-    top: @menubarHeight + @submenubarHeight + 5px;
+    top: @menubarHeight + @submenubarHeight;
+  }
+  .main-sidebar {
+    left: @sidebarWidth;
   }
   .main-activities {
     right: @activitiesWidth;
     background-color: white;
   }
 
+
+
+.sidebar {
+  .panel;
+
+  top: @menubarHeight;
+  left: 0;
+  right: auto;
+  width: @sidebarWidth;
+}

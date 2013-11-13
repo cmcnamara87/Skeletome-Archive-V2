@@ -1,4 +1,4 @@
-angular.module('directives.activities.cmActivity', ['directives.activities.cmActivity.cmComments'])
+angular.module('directives.activities.cmActivity', ['directives.activities.cmActivity.cmComments', 'directives.activities.cmActivity.cmActivityPatient'])
 
 // A simple directive to display a gravatar image given an email
     .directive('cmActivity', ['ReplyModel', 'AuthService', function (ReplyModel, AuthService) {
@@ -8,8 +8,7 @@ angular.module('directives.activities.cmActivity', ['directives.activities.cmAct
             templateUrl: 'common/activities/cm_activity/cm_activity.tpl.html',
             link: function ($scope, el, tAttrs) {
 
-                $scope.$commentDisplayCount = 3;
-                $scope.$commentDisplayDefault = 3;
+                $scope.patientInfo = "clinicalSummary";
 
                 $scope.$addReplyToActivity = function(text, activity) {
                     var newReply = new ReplyModel({

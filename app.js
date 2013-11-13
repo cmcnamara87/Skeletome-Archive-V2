@@ -6,6 +6,7 @@ var myApp = angular.module('myApp', [
         'myApp.services',
         'myApp.directives',
         'directives',
+        'filters',
         'ngCookies',
         'patients',
         'groups',

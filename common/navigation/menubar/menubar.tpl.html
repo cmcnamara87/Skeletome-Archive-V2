@@ -2,10 +2,39 @@
     <div ng-show="currentUser">
         <div class="menubar" ng-show="!content">
 
-            <!-- The logo -->
-            <a class="menubar-item menubar-logo"><img style="height: 30px" src="img/skeletome_logo.png" alt=""/> Skeletome</a>
+            <div class="menubar-left">
+                <!-- stuff on the left side of the menu bar -->
+                <!-- The logo -->
+                <div class="menubar-item menubar-logo">
+                    <a href="#">
+                        <i class="icon icon-reorder"></i>
+                    </a>
+                    <a href="#/feed">
+                        Archive
+                    </a>
+                </div>
+            </div>
 
-            <a class="menubar-item menubar-tab"
+            <div class="menubar-middle">
+                <!-- expands to fill the space between left and right -->
+            </div>
+            <div class="menubar-right">
+                <!-- stuff on the right side of the menu bar -->
+                <div class="menubar-item menubar-notifications">
+                    <i class="icon icon-bell"></i>
+                </div>
+                <div class="menubar-item menubar-search">
+                    <input type="text" class="menubar-search"/>
+                    <i class="icon icon-search"></i>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!--<a class="menubar-item menubar-tab"
                ng-class="{'selected': tab=='feed'}"
                href="#/feed">
                 <i class="icon icon-th-list"></i> Home
@@ -19,7 +48,7 @@
                ng-class="{'selected': tab=='group' || tab=='groups'}"
                href="#/groups/my-groups">
                 <i class="icon icon-group"></i> Groups
-            </a>
+            </a>-->
 
         </div>
 
@@ -28,7 +57,7 @@
                 <a class="btn btn-action" href="">Favourite</a>
             </div>-->
 
-            <a class="menubar-item menubar-back" href ng-click="back()">
+            <a class="menubar-item menubar-back pull-right" href ng-click="back()">
                 <i class="icon icon-remove"></i>
             </a>
 

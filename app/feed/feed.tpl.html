@@ -5,12 +5,12 @@
     </div>
 </div>-->
 <div class="block">
-    <div class="block-header">
-        <button class="btn btn-action" ng-click="addGeneMutation()">Add Gene Mutation</button>
-    </div>
     <div class="block-content block-content-clear">
         <div class="container">
             <div class="row">
+                <div class="col-md-12" ng-show="activites.length == 0">
+                    No activities found.
+                </div>
                 <div class="col-md-6">
                     <div ng-repeat="activity in activitiesEven">
                         <cm-activity></cm-activity>

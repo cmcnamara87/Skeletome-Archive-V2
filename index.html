@@ -17,8 +17,8 @@
     <link rel="stylesheet" href="lib/datepicker/css/datepicker.css"/>
 
     <!-- load in the stylesheet -->
-    <link rel="stylesheet/less" type="text/css" href="css/style.less" />
-    <script src="lib/less/less-1.5.0.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!--<script src="lib/less/less-1.5.0.min.js" type="text/javascript"></script>-->
 
 
     <!-- Load in CK Editor -->
@@ -34,20 +34,88 @@
         <!-- Menu bar -->
         <menubar></menubar>
 
-        <div class="row">
-            <div>
-                <submenubar></submenubar>
+        <div>
+            <submenubar></submenubar>
 
-                <div class="main" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities}">
+            <div class="sidebar">
+                <div class="sidebar-box">
+                    <div class="media">
+                        <div class="pull-left">
+                            <img src="img/shatner.png" alt="">
+                        </div>
+                        <div class="media-body user">
+                            <div class="user-username">
+                                <a href="#/user/{{ currentUser.uid }}">Dr {{ currentUser.name }}</a>
+                            </div>
+                            <div class="user-userinfo">
+                                {{ currentUser.created }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <div ng-view></div>
+                <div class="sidebar-box ">
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="#/feed" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-list"></i>
+                                Newsfeed
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#/patients/my-patients" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-user"></i>
+                                My Patients
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-star"></i>
+                                Favourites
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-file-text"></i>
+                                Notes
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-box">
+                    <ul class="sidebar-menu">
+                        <li>
+                            <a href="#" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-user-md"></i>
+                                My Groups
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-user"></i>
+                                Community Patients
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="sidebar-menu-item" menu-item>
+                                <i class="icon icon-book"></i>
+                                Contacts
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
-            <div class="activities" ng-show="showActivities">
-                <activities>
-                </activities>
+            <div class="main main-sidebar" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities}">
+
+                <div ng-view></div>
             </div>
+        </div>
+
+        <div class="activities" ng-show="showActivities">
+            <activities>
+            </activities>
         </div>
     </div>
 
@@ -88,6 +156,7 @@
     <script src="common/activities/activities.js"></script>
     <script src="common/navigation/breadcrumbbar/breadcrumbbar.js"></script>
     <script src="common/navigation/loadingroute/loadingroute.js"></script>
+    <script src="common/navigation/menu_item/menu_item.js"></script>
 
     <script src="common/smodal/smodal.js"></script>
 
@@ -95,6 +164,10 @@
     <script src="common/directives/directives.js"></script>
     <script src="common/directives/ckeditor/ckeditor.js"></script>
     <script src="common/directives/mentions/mentions.js"></script>
+
+
+    <script src="common/filters/filters.js"></script>
+    <script src="common/filters/relative_date/relative_date.js"></script>
 
 
     <script src="common/input/input.js"></script>
@@ -112,6 +185,7 @@
     <script src="common/input/cm_edit_delete/cm_edit_delete.js"></script>
     <script src="common/activities/cm_activity/cm_activity.js"></script>
     <script src="common/activities/cm_activity/cm_comments/cm_comments.js"></script>
+    <script src="common/activities/cm_activity/cm_activity_patient/cm_activity_patient.js"></script>
     <script src="common/input/cm_diagnosis/cm_diagnosis.js"></script>
     <script src="common/input/cm_facepile/cm_facepile.js"></script>
     <script src="common/input/cm_user_icon/cm_user_icon.js"></script>

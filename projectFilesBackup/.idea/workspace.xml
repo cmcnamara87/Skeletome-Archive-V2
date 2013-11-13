@@ -1,0 +1,1563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e0dce322-60ea-4c5d-ac83-5865842d8831" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/colors.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/navigation/menu_item/menu_item.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/sidebar.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/navigation/sidemenu/sidemenu.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/common/navigation/sidemenu/sidemenu.tpl.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/css/typeahead.less" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/css/app.css" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/activities/activity.less" afterPath="$PROJECT_DIR$/css/activities/activity.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.js" afterPath="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.tpl.html" afterPath="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/activities/cm_activity/cm_comments/cm_comments.js" afterPath="$PROJECT_DIR$/common/activities/cm_activity/cm_comments/cm_comments.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/feed/feed.tpl.html" afterPath="$PROJECT_DIR$/app/feed/feed.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/layout.less" afterPath="$PROJECT_DIR$/css/layout.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/menubar.less" afterPath="$PROJECT_DIR$/css/menubar.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/navigation/menubar/menubar.tpl.html" afterPath="$PROJECT_DIR$/common/navigation/menubar/menubar.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/patients/my_patients/my_patients.tpl.html" afterPath="$PROJECT_DIR$/app/patients/my_patients/my_patients.tpl.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/navigation/navigation.js" afterPath="$PROJECT_DIR$/common/navigation/navigation.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/style.less" afterPath="$PROJECT_DIR$/css/style.less" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/navigation/submenubar/submenubar.tpl.html" afterPath="$PROJECT_DIR$/common/navigation/submenubar/submenubar.tpl.html" />
+    </list>
+    <list id="61949068-29e2-4e65-8a30-9b4033254c0f" name="Rejected commit: Default" comment="Testing Git Integration in PHPStorm" />
+    <ignored path="skelarchv2.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <file path="/Dummy.txt" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384218742503" ignored="false" />
+    <file path="/skeletome2.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377748037163" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/themes/skeletome/css/skeletome2.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378272877908" ignored="false" />
+    <file path="/page--front.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375665532361" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_builder/templates/page--front.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376632675789" ignored="false" />
+    <file path="/patient.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375767552923" ignored="false" />
+    <file path="/skelarch.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375680458174" ignored="false" />
+    <file path="/html.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377065106889" ignored="false" />
+    <file path="/page.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375743139793" ignored="false" />
+    <file path="/index.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302549348" ignored="false" />
+    <file path="/app.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377489872540" ignored="false" />
+    <file path="/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384215623374" ignored="false" />
+    <file path="/.htaccess" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375755143483" ignored="false" />
+    <file path="/dummy.xml" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302796218" ignored="false" />
+    <file path="/select.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375764133847" ignored="false" />
+    <file path="/schema.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375764226227" ignored="false" />
+    <file path="/patient.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375767308651" ignored="false" />
+    <file path="/controllers.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377478935784" ignored="false" />
+    <file path="/noteresource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375921899348" ignored="false" />
+    <file path="/details.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375856462670" ignored="false" />
+    <file path="/patients.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377130933489" ignored="false" />
+    <file path="/groups.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377565461204" ignored="false" />
+    <file path="/patientresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377578157645" ignored="false" />
+    <file path="/patientresource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1375927813779" ignored="false" />
+    <file path="/patientresource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383805124649" ignored="false" />
+    <file path="/patientresource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383798448210" ignored="false" />
+    <file path="/noteresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376009816399" ignored="false" />
+    <file path="/xrayresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376010572292" ignored="false" />
+    <file path="/groupresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376010954041" ignored="false" />
+    <file path="/discussionresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376012828868" ignored="false" />
+    <file path="/discussionresource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376263361422" ignored="false" />
+    <file path="/genemutationresource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376262662704" ignored="false" />
+    <file path="/clinical_feature_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376028369742" ignored="false" />
+    <file path="/groupresource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382937283740" ignored="false" />
+    <file path="/groupresource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376629880767" ignored="false" />
+    <file path="/discussionresource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376267099455" ignored="false" />
+    <file path="/discussionresource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376263313620" ignored="false" />
+    <file path="/clinical_feature_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376266499828" ignored="false" />
+    <file path="/clinical_feature.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376264979292" ignored="false" />
+    <file path="/clinical_feature_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376267916241" ignored="false" />
+    <file path="/post_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376971631761" ignored="false" />
+    <file path="/post_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381295424773" ignored="false" />
+    <file path="/patient.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377561462634" ignored="false" />
+    <file path="/services.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383264239902" ignored="false" />
+    <file path="/directives.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378178937456" ignored="false" />
+    <file path="/filters.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376280205054" ignored="false" />
+    <file path="/style.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383023519010" ignored="false" />
+    <file path="/new_group.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376356142667" ignored="false" />
+    <file path="/group.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377576027660" ignored="false" />
+    <file path="/NewGroupCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376616780179" ignored="false" />
+    <file path="/HTML Fragment (directives.js:528).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376350650793" ignored="false" />
+    <file path="/GroupsCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376634427702" ignored="false" />
+    <file path="/GroupCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376626058217" ignored="false" />
+    <file path="/group_resource_member.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376607598464" ignored="false" />
+    <file path="/group_resource_membership.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377043858609" ignored="false" />
+    <file path="/new_patient.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376961213873" ignored="false" />
+    <file path="/NewPatientCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376626953734" ignored="false" />
+    <file path="/share.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376632255609" ignored="false" />
+    <file path="/ShareCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376875294353" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/themes/skeletome/templates/page.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379890360671" ignored="false" />
+    <file path="/PatientCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377739889942" ignored="false" />
+    <file path="/group_resource_share.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379460280166" ignored="false" />
+    <file path="/PatientsCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377731810928" ignored="false" />
+    <file path="/services.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376867041764" ignored="false" />
+    <file path="/post_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383802239366" ignored="false" />
+    <file path="/post_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377134141142" ignored="false" />
+    <file path="/splash.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376889749094" ignored="false" />
+    <file path="$PROJECT_DIR$/angular/app/lib/font-awesome 3/less/font-awesome.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376963019860" ignored="false" />
+    <file path="/post_resource_type.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1376972104872" ignored="false" />
+    <file path="/diagnosis_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383280710497" ignored="false" />
+    <file path="/diagnosis_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381465284674" ignored="false" />
+    <file path="/diagnosis_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377055283978" ignored="false" />
+    <file path="/diagnosis_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379478459718" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_angular/js/directives/feedback.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377064959222" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_angular/js/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377065084671" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/themes/skeletome/templates/html.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377068402213" ignored="false" />
+    <file path="/home.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377578576491" ignored="false" />
+    <file path="/FeedCtrl.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377126478869" ignored="false" />
+    <file path="/post_resource_reply.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377135357281" ignored="false" />
+    <file path="/TextBlock.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378273341954" ignored="false" />
+    <file path="/EditBlock.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377147108932" ignored="false" />
+    <file path="/HTML Fragment (PairBlock.js:193).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377147575759" ignored="false" />
+    <file path="/PairBlock.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377151996595" ignored="false" />
+    <file path="/HTML Fragment (PairBlock.js:218).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377148644752" ignored="false" />
+    <file path="/HTML Fragment (TextBlock.js:193).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377148401000" ignored="false" />
+    <file path="/HTML Fragment (PairBlock.js:183).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377148935452" ignored="false" />
+    <file path="/patientresource_identifier.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377151260238" ignored="false" />
+    <file path="/HTML Fragment (PairBlock.js:204).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377151866077" ignored="false" />
+    <file path="/genemutationresource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377217625112" ignored="false" />
+    <file path="/gene_mutation_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383280965245" ignored="false" />
+    <file path="/gene_mutation_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377481965743" ignored="false" />
+    <file path="/GeneticReportModal.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377239108525" ignored="false" />
+    <file path="$PROJECT_DIR$/../../../voting/index.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377479161538" ignored="false" />
+    <file path="$PROJECT_DIR$/../../../voting/js/list.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377474712499" ignored="false" />
+    <file path="/list.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377474712499" ignored="false" />
+    <file path="$PROJECT_DIR$/../../../voting/js/controllers.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377478969322" ignored="false" />
+    <file path="$PROJECT_DIR$/../../../voting/js/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377479152023" ignored="false" />
+    <file path="$PROJECT_DIR$/../../../voting/css/app.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377478682788" ignored="false" />
+    <file path="/gene_mutation_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377481360508" ignored="false" />
+    <file path="/xrayresource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377487139659" ignored="false" />
+    <file path="/sidebar.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377647766409" ignored="false" />
+    <file path="/HTML Fragment (sidebar.js:133).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377500503777" ignored="false" />
+    <file path="/sidebar.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377838288963" ignored="false" />
+    <file path="/a.dummy" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383890697697" ignored="false" />
+    <file path="/user.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377558037183" ignored="false" />
+    <file path="/my_patients.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377844141985" ignored="false" />
+    <file path="/community_patients.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377562524174" ignored="false" />
+    <file path="/case_details.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377821795025" ignored="false" />
+    <file path="/xrayresource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379375038984" ignored="false" />
+    <file path="/case_summary.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377756068566" ignored="false" />
+    <file path="/patient_details.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377733721501" ignored="false" />
+    <file path="/community.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377565335512" ignored="false" />
+    <file path="/my_groups.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377567269534" ignored="false" />
+    <file path="/all_groups.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377567741085" ignored="false" />
+    <file path="/route_changer.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377575134844" ignored="false" />
+    <file path="/login.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377654700066" ignored="false" />
+    <file path="/scroll_to.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1377734594863" ignored="false" />
+    <file path="/navigation.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378272318573" ignored="false" />
+    <file path="/tabbar.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383086046951" ignored="false" />
+    <file path="/tabbar.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382936032974" ignored="false" />
+    <file path="/menubar.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383880806593" ignored="false" />
+    <file path="/menubar.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384238527098" ignored="false" />
+    <file path="/my_patients.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383891288868" ignored="false" />
+    <file path="/my_patients.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384219394640" ignored="false" />
+    <file path="/clinical_summary.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383875923446" ignored="false" />
+    <file path="/clinical_summary.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383876029921" ignored="false" />
+    <file path="/genetic_report.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378080795017" ignored="false" />
+    <file path="/patient.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378084756110" ignored="false" />
+    <file path="/genetic_reports.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383527388494" ignored="false" />
+    <file path="/genetic_reports.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383528050143" ignored="false" />
+    <file path="/diagnoses.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383273393084" ignored="false" />
+    <file path="/diagnoses.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383273013295" ignored="false" />
+    <file path="/xrays.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383269595387" ignored="false" />
+    <file path="/xrays.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383271175045" ignored="false" />
+    <file path="/summary_dashboard.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1380764068546" ignored="false" />
+    <file path="/summary_dashboard.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378097595239" ignored="false" />
+    <file path="/contact_information.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383266918690" ignored="false" />
+    <file path="/contact_information.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383266049286" ignored="false" />
+    <file path="/breadcrumbbar.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382678647548" ignored="false" />
+    <file path="/other_ids.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379381889841" ignored="false" />
+    <file path="/other_ids.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379381854848" ignored="false" />
+    <file path="/consent.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379396443763" ignored="false" />
+    <file path="/groups.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381722292867" ignored="false" />
+    <file path="/patients.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382938244295" ignored="false" />
+    <file path="/patient.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381463371452" ignored="false" />
+    <file path="/sharing.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379464112132" ignored="false" />
+    <file path="/sharing.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379294651177" ignored="false" />
+    <file path="/group.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378259639072" ignored="false" />
+    <file path="/group.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378166944822" ignored="false" />
+    <file path="/community.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381277014668" ignored="false" />
+    <file path="/community.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378167684081" ignored="false" />
+    <file path="/share.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381709938794" ignored="false" />
+    <file path="/share.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383542135398" ignored="false" />
+    <file path="/discussion.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381289293004" ignored="false" />
+    <file path="/discussion.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381297195852" ignored="false" />
+    <file path="/HTML Fragment (directives.js:395).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378174522968" ignored="false" />
+    <file path="/group_patients.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381730174570" ignored="false" />
+    <file path="/group_patients.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381731781158" ignored="false" />
+    <file path="/my_groups.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382934843696" ignored="false" />
+    <file path="/my_groups.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383891001430" ignored="false" />
+    <file path="/feed.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384301024010" ignored="false" />
+    <file path="/summary.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383876299043" ignored="false" />
+    <file path="/summary.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383876348311" ignored="false" />
+    <file path="/member.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378259578407" ignored="false" />
+    <file path="/members.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378260638865" ignored="false" />
+    <file path="/members.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382937132207" ignored="false" />
+    <file path="/patients.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378266725901" ignored="false" />
+    <file path="/user.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383106191131" ignored="false" />
+    <file path="/resource_helper.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378268527561" ignored="false" />
+    <file path="/resource_helper.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382940070026" ignored="false" />
+    <file path="/route_change.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378272097780" ignored="false" />
+    <file path="/loadingroute.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378272931700" ignored="false" />
+    <file path="/loadingroute.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378272398251" ignored="false" />
+    <file path="/HTML Fragment (TextBlock.js:182).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378274377875" ignored="false" />
+    <file path="/value_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379380510224" ignored="false" />
+    <file path="/value_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379305585885" ignored="false" />
+    <file path="/street_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378345814445" ignored="false" />
+    <file path="/address_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379387576133" ignored="false" />
+    <file path="/patientresource_addresslookup.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378344882243" ignored="false" />
+    <file path="/input.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378858220986" ignored="false" />
+    <file path="/gene_mutation_resource_gene.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378354185819" ignored="false" />
+    <file path="/select_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378429137900" ignored="false" />
+    <file path="/select_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378427747937" ignored="false" />
+    <file path="/addresses.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379379722134" ignored="false" />
+    <file path="/addresses.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379396096836" ignored="false" />
+    <file path="/address_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379290602463" ignored="false" />
+    <file path="/date_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379031897461" ignored="false" />
+    <file path="/date_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379396274331" ignored="false" />
+    <file path="/upload_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383270886777" ignored="false" />
+    <file path="/upload_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383263837855" ignored="false" />
+    <file path="/skeletome_file_upload.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378872236005" ignored="false" />
+    <file path="/consent.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378873406396" ignored="false" />
+    <file path="/consent_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1378863542762" ignored="false" />
+    <file path="/savecancel_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381196850337" ignored="false" />
+    <file path="/savecancel_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381196862310" ignored="false" />
+    <file path="/record.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379459954330" ignored="false" />
+    <file path="/record.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379461626532" ignored="false" />
+    <file path="/record_table.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379044763425" ignored="false" />
+    <file path="/test.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379030453709" ignored="false" />
+    <file path="/test.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379029035497" ignored="false" />
+    <file path="/record-table.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379037098094" ignored="false" />
+    <file path="/consent_file.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379046434060" ignored="false" />
+    <file path="/share_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379465361136" ignored="false" />
+    <file path="/share_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379457790671" ignored="false" />
+    <file path="/text_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379306679952" ignored="false" />
+    <file path="/text_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379458561688" ignored="false" />
+    <file path="/xray_block.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379465468780" ignored="false" />
+    <file path="/xray_block.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379459053177" ignored="false" />
+    <file path="/dropzone.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379313049502" ignored="false" />
+    <file path="/field.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381186215733" ignored="false" />
+    <file path="/field.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381196762655" ignored="false" />
+    <file path="/add_button.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379385016714" ignored="false" />
+    <file path="/add_button.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379385050120" ignored="false" />
+    <file path="/consent_file.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379396423452" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_about/templates/team_page.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379465023048" ignored="false" />
+    <file path="/group_diagnosis.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379483448753" ignored="false" />
+    <file path="/group_diagnosis.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379484360368" ignored="false" />
+    <file path="/lookup.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379479199957" ignored="false" />
+    <file path="/lookup.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379480960289" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_builder/skeletome_builder.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384149530093" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_builder/pages.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1379889544525" ignored="false" />
+    <file path="/feed.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383882210537" ignored="false" />
+    <file path="/modal.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1380150631699" ignored="false" />
+    <file path="/modal.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1380082945504" ignored="false" />
+    <file path="/smodal.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381726687463" ignored="false" />
+    <file path="/smodal.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383890718965" ignored="false" />
+    <file path="/typeahead.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384146600541" ignored="false" />
+    <file path="/typeahead.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384141544478" ignored="false" />
+    <file path="$USER_HOME$/Downloads/angular-app-master/client/src/common/directives/modal.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1380252166771" ignored="false" />
+    <file path="/record2.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381214975913" ignored="false" />
+    <file path="/cm_display.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381208666387" ignored="false" />
+    <file path="/HTML Fragment (cm_display.js:189).html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381208683478" ignored="false" />
+    <file path="/cm_save_cancel.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381211858686" ignored="false" />
+    <file path="/cm_save_cancel.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381210695614" ignored="false" />
+    <file path="/cm_resource.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383522848711" ignored="false" />
+    <file path="/cm_edit_delete.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383174831044" ignored="false" />
+    <file path="/cm_edit_delete.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383198015579" ignored="false" />
+    <file path="/story.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381284338583" ignored="false" />
+    <file path="/activity_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381294645858" ignored="false" />
+    <file path="/activity_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383881385682" ignored="false" />
+    <file path="/activity_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383882777728" ignored="false" />
+    <file path="/activity_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381294546966" ignored="false" />
+    <file path="/cm_activity.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383804377959" ignored="false" />
+    <file path="/cm_diagnosis.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381710189319" ignored="false" />
+    <file path="$USER_HOME$/Desktop/skeletome-prof/SkelArch/distro/skelarch/sites/all/modules/skeletome_patient/clinical_summary/clinical_summary.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381469473783" ignored="false" />
+    <file path="/hpoterm_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381472020588" ignored="false" />
+    <file path="/cm_facepile.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383888602526" ignored="false" />
+    <file path="/cm_facepile.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383888693268" ignored="false" />
+    <file path="/user_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382933182058" ignored="false" />
+    <file path="/all_groups.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383890373940" ignored="false" />
+    <file path="/all_groups.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382935415481" ignored="false" />
+    <file path="/cm_labellist.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381731047550" ignored="false" />
+    <file path="/cm_labellist.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1381731014899" ignored="false" />
+    <file path="$USER_HOME$/Downloads/angular-app-master 2/client/src/common/security/retryQueue.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382585332205" ignored="false" />
+    <file path="$USER_HOME$/Downloads/angular-client-side-auth-master 2/client/js/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382585993534" ignored="false" />
+    <file path="/sessions.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382590524083" ignored="false" />
+    <file path="/authentication.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382592692881" ignored="false" />
+    <file path="/security.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383879479574" ignored="false" />
+    <file path="/login.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383519039307" ignored="false" />
+    <file path="/login.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383518899670" ignored="false" />
+    <file path="/register.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382924607124" ignored="false" />
+    <file path="/register.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1382933973734" ignored="false" />
+    <file path="/style.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302205988" ignored="false" />
+    <file path="/cm_activity.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384303033543" ignored="false" />
+    <file path="/submenubar.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384211091544" ignored="false" />
+    <file path="/submenubar.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383889906791" ignored="false" />
+    <file path="/activityaside.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383104853647" ignored="false" />
+    <file path="/activityaside.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383105063275" ignored="false" />
+    <file path="/submenubar_item.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383097295007" ignored="false" />
+    <file path="/submenubar_item.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383886464664" ignored="false" />
+    <file path="/user.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383106170635" ignored="false" />
+    <file path="/adder.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383624220898" ignored="false" />
+    <file path="/activities.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383627743159" ignored="false" />
+    <file path="/activities.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383879993805" ignored="false" />
+    <file path="/main.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383699399434" ignored="false" />
+    <file path="/buttons.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383193695135" ignored="false" />
+    <file path="/resource.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383533449523" ignored="false" />
+    <file path="/activities.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302503657" ignored="false" />
+    <file path="/editor.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383533778647" ignored="false" />
+    <file path="/ckeditor.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383804222042" ignored="false" />
+    <file path="/labels.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383538162707" ignored="false" />
+    <file path="/adder.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383627617387" ignored="false" />
+    <file path="/comment.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383628210996" ignored="false" />
+    <file path="/activity.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384300723452" ignored="false" />
+    <file path="/cm_comments.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383870533399" ignored="false" />
+    <file path="/cm_comments.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383629526463" ignored="false" />
+    <file path="/menubar.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384298682817" ignored="false" />
+    <file path="/ncboannotator_api.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383794395705" ignored="false" />
+    <file path="/tag_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383711893814" ignored="false" />
+    <file path="/tag_resource.install" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383712357617" ignored="false" />
+    <file path="/tag_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383782522435" ignored="false" />
+    <file path="/mention_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383787077008" ignored="false" />
+    <file path="/mention_resource.inc" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383788277399" ignored="false" />
+    <file path="/hpo_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383789549408" ignored="false" />
+    <file path="/mention_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383873777225" ignored="false" />
+    <file path="/mentions.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383874229115" ignored="false" />
+    <file path="/block.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383890189082" ignored="false" />
+    <file path="/hpo_resource.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383875825873" ignored="false" />
+    <file path="/pin_resource.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383885375354" ignored="false" />
+    <file path="/pinned_patients.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383888046726" ignored="false" />
+    <file path="/pinned_patients.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383887805284" ignored="false" />
+    <file path="/cm_user_icon.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383888734622" ignored="false" />
+    <file path="/cm_user_icon.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1383888844877" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/app/index.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384128900003" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/bower.json" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384128382027" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/app/scripts/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384128925703" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/app/scripts/controllers/main.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384127941232" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/Gruntfile.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384128741341" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/se_mouse.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384148979482" ignored="false" />
+    <file path="/se_mouse.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217593766" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/concepts.json" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384148294858" ignored="false" />
+    <file path="/concepts.json" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129307748" ignored="false" />
+    <file path="/queries.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129381097" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/queries.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129383134" ignored="false" />
+    <file path="/query.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129386250" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/query.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129388333" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/result.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129405656" ignored="false" />
+    <file path="/result.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129396032" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/concepts.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384131542971" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/index.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384129553440" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/js/sparqlendpoint.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384149222151" ignored="false" />
+    <file path="/sparqlendpoint.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217050156" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/js/typeahead/typeahead.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384146651475" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/js/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384134961820" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/js/typeahead/typeahead.tpl.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384141545816" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/css/typeahead.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384143001349" ignored="false" />
+    <file path="/typeahead.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384142981601" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark/data/query.json" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384148246802" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_sparql/skeletome_sparql.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384150634794" ignored="false" />
+    <file path="/skeletome_sparql.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384150634794" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_sparql/skeletome_sparql.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384151728800" ignored="false" />
+    <file path="/skeletome_sparql.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384151634923" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_about/skeletome_about.module" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384150927359" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_sparql/templates/sparql.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384153297529" ignored="false" />
+    <file path="/sparql.tpl.php" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384153295155" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_angular/js/controllers/sparql.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384153344393" ignored="false" />
+    <file path="$PROJECT_DIR$/../drupalv2/sites/all/modules/custom/skeletome_angular/skeletome_angular.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384153181240" ignored="false" />
+    <file path="/skeletome_angular.info" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384153178090" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/js/sparqlendpoint.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217982259" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/js/textarea/textarea.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384215417586" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/se_mouse.html" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217609309" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/js/cmtextarea/cmtextarea.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217996722" ignored="false" />
+    <file path="/cmtextarea.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384216512320" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/js/app.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384215626605" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/css/main.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217642032" ignored="false" />
+    <file path="/main.css" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384217641277" ignored="false" />
+    <file path="$USER_HOME$/Desktop/biolark 2/js/typeahead/typeahead.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384218012972" ignored="false" />
+    <file path="/colors.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302280118" ignored="false" />
+    <file path="/layout.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384302133520" ignored="false" />
+    <file path="/sidebar.less" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384298572799" ignored="false" />
+    <file path="/menu_item.js" changelist="e0dce322-60ea-4c5d-ac83-5865842d8831" time="1384235084394" ignored="false" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="DatabaseView">
+    <flatten value="false" />
+    <groupTables value="false" />
+    <sortChildren value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="skelarchv2">
+      <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/services" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/angularjs" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/angularjs/js" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/angularjs/libs" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/angularjs/partials" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/noteresource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/noteresource/noteresource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/noteresource/noteresource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/noteresource/noteresource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/noteresource/noteresource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/xrayresource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/xrayresource/xrayresource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/xrayresource/xrayresource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/xrayresource/xrayresource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/xrayresource/xrayresource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/groupresource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/groupresource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/groupresource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/groupresource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/groupresource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/group_resource_share.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/groupresource/group_resource_membership.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/post_resource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource_type.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/post_resource/post_resource_reply.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/patientresource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource_address.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource_identifier.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/patientresource/patientresource_addresslookup.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/resource_helper" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resource_helper/resource_helper.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resource_helper/resource_helper.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resource_helper/resource_helper.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/consent_resource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/consent_resource/consent_resource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/consent_resource/consent_resource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/consent_resource/consent_resource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/consent_resource/consent_resource_file.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/x_ray" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/x_ray/x_ray.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/x_ray/x_ray.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/x_ray/x_ray.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/images" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/images/ui-anim_basic_16x16.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/includes" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/includes/patient_export.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/includes/patient_export_page.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v2" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v2/patient_ci.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v2/patient_ci.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v3" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v3/patient_ci.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/v3/patient_ci.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/throbber.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/patient_ci.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/patient_ci.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/patient_ci.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_ci/jquery.jeditable.min.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_cs" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_cs/patient_cs.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_cs/patient_cs.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_cs/patient_cs.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag/images" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag/images/ui-anim_basic_16x16.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag/patient_diag.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag/patient_diag.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_diag/patient_diag.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags/images" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags/images/ui-anim_basic_16x16.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags/patient_tags.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags/patient_tags.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_tags/patient_tags.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_xray" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_xray/patient_xray.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_xray/patient_xray.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/leftovers.txt" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_notes" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_notes/patient_notes.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_notes/patient_notes.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_genrep" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_genrep/patient_genrep.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_genrep/patient_genrep.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_consent" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_consent/patient_consent.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_consent/patient_consent.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_consent/patient_consent.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_letters" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_letters/patient_letters.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_letters/patient_letters.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_letters/patient_letters.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/img" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/img/ra1.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/img/ra2.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/img/ra3.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/img/ra4.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/back" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/back/patient_sharing.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/back/patient_sharing.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/throbber.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/patient_sharing.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/patient_sharing.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/patient_sharing.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/jquery.multiselect.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_sharing/jquery.multiselect.min.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview/images" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview/images/ui-anim_basic_16x16.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview/patient_overview.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview/patient_overview.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient/patient_overview/patient_overview.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis/diagnosis.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis/diagnosis.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis/diagnosis.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/consent_item" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/consent_item/consent_item.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/consent_item/consent_item.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/consent_item/consent_item.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient_note" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient_note/patient_note.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient_note/patient_note.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/patient_note/patient_note.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/forum_summary" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/forum_summary/forum_summary.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/forum_summary/forum_summary.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/forum_summary/forum_summary.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/gene_mutation" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/gene_mutation/gene_mutation.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/gene_mutation/gene_mutation.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/gene_mutation/gene_mutation.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/genetic_report" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/genetic_report/genetic_report.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/genetic_report/genetic_report.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/genetic_report/genetic_report.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group/skeletome_group.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group/skeletome_group.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group/skeletome_group.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group/skeletome_group.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/skeletome_group/skeletome_group.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/js" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/js/media_gallery.edit.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/css" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/css/media_gallery.edit.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/edit.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/delete.gif" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/stack_bg.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/draggable.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/prev_next.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/hover-bubble.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/empty_gallery.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/hover-dark-bg.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/gallery-icon-sprite.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/hover-bubble-middle.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/images/creative-commons-sprite.png" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/README.txt" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/LICENSE.txt" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/ellipsis.xml" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media.pages.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/xray_collection.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/colorbox-display.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/xray_collection.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.form.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.ie7.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.admin.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.pages.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.theme.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.fields.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/fields_rsi_prevention.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.addimage.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.dragdrop.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.patient.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media_gallery.dragdrop.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_collection/media-gallery-media-item-thumbnail.tpl.php" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary/clinical_summary.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary/clinical_summary.css" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary/clinical_summary.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary/clinical_summary.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/clinical_summary/clinical_summary.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/reference_letter" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/reference_letter/reference_letter.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/reference_letter/reference_letter.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/reference_letter/reference_letter.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_description" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_description/xray_description.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_description/xray_description.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/xray_description/xray_description.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis_comment" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis_comment/diagnosis_comment.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis_comment/diagnosis_comment.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/diagnosis_comment/diagnosis_comment.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/contact_information" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/contact_information/contact_information.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/contact_information/contact_information.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_patient/contact_information/contact_information.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/diagnosis_resource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource_vote.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/diagnosis_resource/diagnosis_resource_disorder.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/genemutationresource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource_gene.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource_mutation_type.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/genemutationresource/gene_mutation_resource_genetic_report.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/services/skeletome_file_upload" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_file_upload/skeletome_file_upload.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_file_upload/skeletome_file_upload.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/skeletome_file_upload/skeletome_file_upload.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/resources/clinical_feature_resource" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/clinical_feature_resource/clinical_feature_resource.inc" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/clinical_feature_resource/clinical_feature_resource.info" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/clinical_feature_resource/clinical_feature_resource.module" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/drupal/sites/all/modules/custom/clinical_feature_resource/clinical_feature_resource.install" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+      </favorite_root>
+      <favorite_root url="file://$PROJECT_DIR$/app" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/app/feed" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/feed/feed.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/feed/feed.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/user" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+        <favorite_root url="file://$PROJECT_DIR$/app/groups" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/groups/group" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/group/members" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/members/members.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/members/members.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/group/summary" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/summary/summary.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/summary/summary.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/group/group.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/group/patients" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/patients/patients.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/groups/group/patients/patients.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/groups/groups.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/groups/my_groups" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/my_groups/my_groups.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/groups/my_groups/my_groups.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/app/patients" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/app/patients/patient" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/share.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/diagnoses" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/diagnoses/diagnoses.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/diagnoses/diagnoses.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/discussion" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+                <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/discussion/discussion.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+                <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/discussion/discussion.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              </favorite_root>
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/share/share.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/xrays" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/xrays/xrays.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/xrays/xrays.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/consent" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/consent/consent.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/consent/consent.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/sharing" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/sharing/sharing.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/sharing/sharing.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/addresses" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/addresses/addresses.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/addresses/addresses.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/community" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/community/community.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/community/community.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/diagnoses" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/diagnoses/diagnoses.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/diagnoses/diagnoses.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/other_ids" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/other_ids/other_ids.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/other_ids/other_ids.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/patient.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/genetic_reports" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/genetic_reports/genetic_reports.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/genetic_reports/genetic_reports.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/clinical_summary" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/clinical_summary/clinical_summary.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/clinical_summary/clinical_summary.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/summary_dashboard" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/summary_dashboard/summary_dashboard.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/summary_dashboard/summary_dashboard.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/contact_information" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/contact_information/contact_information.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/app/patients/patient/contact_information/contact_information.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/patients/my_patients" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/my_patients/my_patients.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/my_patients/my_patients.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/app/patients/patients.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/app/patients/group_patients" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/group_patients/group_patients.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/app/patients/group_patients/group_patients.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+        </favorite_root>
+      </favorite_root>
+      <favorite_root url="file://$PROJECT_DIR$/js/services.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+      <favorite_root url="file://$PROJECT_DIR$/common" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+        <favorite_root url="file://$PROJECT_DIR$/common/activities" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/common/input/test" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/test/test.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/test/test.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/field" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/field/field.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/field/field.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/record" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/record/record.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/record/record.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/input.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          <favorite_root url="file://$PROJECT_DIR$/common/input/date_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/date_block/date_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/date_block/date_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/text_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/text_block/text_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/text_block/text_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/xray_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/xray_block/xray_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/xray_block/xray_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/share_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/share_block/share_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/share_block/share_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/value_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/value_block/value_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/value_block/value_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/consent_file" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/consent_file/consent_file.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/consent_file/consent_file.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/gender_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/gender_block/gender_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/gender_block/gender_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/lookup_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/lookup_block/lookup_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/lookup_block/lookup_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/select_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/select_block/select_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/select_block/select_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/upload_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/upload_block/upload_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/upload_block/upload_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/address_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/address_block/address_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/address_block/address_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/diagnosis_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+          <favorite_root url="file://$PROJECT_DIR$/common/input/savecancel_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/savecancel_block/savecancel_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/savecancel_block/savecancel_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/input/disorder_vote_block" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/input/disorder_vote_block/disorder_vote_block.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/input/disorder_vote_block/disorder_vote_block.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+        </favorite_root>
+        <favorite_root url="file://$PROJECT_DIR$/common/navigation" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+          <favorite_root url="file://$PROJECT_DIR$/common/navigation/tabbar" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/tabbar/tabbar.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/tabbar/tabbar.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/feed.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/user.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/group.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/share.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/groups.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/patient.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+              <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/types/patients.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            </favorite_root>
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/menubar.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/menubar/menubar.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/navigation/loadingroute" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/loadingroute/loadingroute.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/loadingroute/loadingroute.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/navigation/breadcrumbbar" module="skelarchv2" type="directory" klass="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode">
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/breadcrumbbar/breadcrumbbar.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+            <favorite_root url="file://$PROJECT_DIR$/common/navigation/breadcrumbbar/breadcrumbbar.tpl.html" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+          </favorite_root>
+          <favorite_root url="file://$PROJECT_DIR$/common/navigation/navigation.js" type="psiFile" klass="com.intellij.ide.projectView.impl.nodes.PsiFileNode" />
+        </favorite_root>
+      </favorite_root>
+    </favorites_list>
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="activity.less" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/activities/activity.less">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="0" selection-start="329" selection-end="329" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cm_activity.tpl.html" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_activity.tpl.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="20" selection-start="1493" selection-end="1493" vertical-scroll-proportion="-28.125">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="23" column="30" selection-start="885" selection-end="885" vertical-scroll-proportion="-2.1986532">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cm_activity.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_activity.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="cm_comments.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_comments/cm_comments.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="18" column="19" selection-start="811" selection-end="811" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myStructureFilterPaths" />
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/common/navigation/menu_item/menu_item.js" />
+        <option value="$PROJECT_DIR$/common/navigation/navigation.js" />
+        <option value="$PROJECT_DIR$/common/navigation/menubar/menubar.tpl.html" />
+        <option value="$PROJECT_DIR$/css/sidebar.less" />
+        <option value="$PROJECT_DIR$/css/menubar.less" />
+        <option value="$PROJECT_DIR$/app/feed/feed.tpl.html" />
+        <option value="$PROJECT_DIR$/css/layout.less" />
+        <option value="$PROJECT_DIR$/css/style.less" />
+        <option value="$PROJECT_DIR$/css/style.css" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/css/colors.less" />
+        <option value="$PROJECT_DIR$/css/activities/activities.less" />
+        <option value="$PROJECT_DIR$/css/activities/activity.less" />
+        <option value="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.js" />
+        <option value="$PROJECT_DIR$/common/activities/cm_activity/cm_comments/cm_comments.js" />
+        <option value="$PROJECT_DIR$/common/activities/cm_activity/cm_activity.tpl.html" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="77" />
+    <option name="y" value="22" />
+    <option name="width" value="1400" />
+    <option name="height" value="1318" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+          <State>
+            <id>File Watchers</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>CoffeeScript</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents ProjectPane="true" />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="img" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cm_activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="skelarchv2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="common" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="activities" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cm_activity" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="cm_comments" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="40" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="43" />
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="recentsLimit" value="5" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth0" value="29" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
+    <property name="last_opened_file_path" value="/usr/local/bin/lessc" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="43" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="186" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="222" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="31" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="30" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
+    <property name="FullScreen" value="false" />
+    <property name="options.splitter.details.proportions" value="0.31932774" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder0" value="0" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder1" value="1" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="options.searchVisible" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common/navigation" />
+      <recent name="$PROJECT_DIR$/img" />
+      <recent name="$PROJECT_DIR$/common/security" />
+      <recent name="$PROJECT_DIR$/drupal/sites/all/modules/custom" />
+      <recent name="$PROJECT_DIR$/common/input" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/common/activities" />
+      <recent name="$PROJECT_DIR$/css/activities" />
+      <recent name="$PROJECT_DIR$/lib" />
+      <recent name="$PROJECT_DIR$/img" />
+      <recent name="$PROJECT_DIR$/drupal/sites/all/modules/custom/resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.Debug">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="$PROJECT_DIR$">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="embedded" />
+        <option name="fileUrl" />
+      </JSDebuggerConfigurationSettings>
+      <method />
+    </configuration>
+    <configuration default="false" name="Karma Debug" type="JavascriptDebugSession" factoryName="Remote" singleton="true">
+      <JSRemoteDebuggerConfigurationSettings>
+        <option name="engineId" value="chrome" />
+        <option name="fileUrl" value="http://localhost:9876/debug.html" />
+      </JSRemoteDebuggerConfigurationSettings>
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Debug" type="JavascriptDebugSession" factoryName="Local" singleton="true">
+      <JSDebuggerConfigurationSettings>
+        <option name="engineId" value="chrome" />
+        <option name="fileUrl" value="http://localhost:8888/skelarchv2/" />
+      </JSDebuggerConfigurationSettings>
+      <RunnerSettings RunnerId="JavascriptDebugRunner" />
+      <ConfigurationWrapper RunnerId="JavascriptDebugRunner" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Karma Run" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/local/bin/node" path-to-js-file="/usr/local/bin/karma" application-parameters="start /Users/uqcmcna1/Dropbox/Skeletome/Drupals/skelarchv2/sites/all/themes/skelarch/config/karma.conf.js --single-run --no-auto-watch --reporters dots" working-dir="$PROJECT_DIR$/sites/all/themes/skelarch/app">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Karma Server" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/local/bin/node" path-to-js-file="/usr/local/bin/karma" application-parameters="start /Users/uqcmcna1/Dropbox/Skeletome/Drupals/skelarchv2/sites/all/themes/skelarch/config/karma.conf.js --no-single-run --auto-watch --reporters dots" working-dir="$PROJECT_DIR$/sites/all/themes/skelarch/app">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unnamed" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application">
+      <method />
+    </configuration>
+    <list size="5">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.Karma Debug" />
+      <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.Debug" />
+      <item index="2" class="java.lang.String" itemvalue="Node.js.Karma Run" />
+      <item index="3" class="java.lang.String" itemvalue="Node.js.Karma Server" />
+      <item index="4" class="java.lang.String" itemvalue="PHP Web Application.Unnamed" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e0dce322-60ea-4c5d-ac83-5865842d8831" name="Default" comment="" />
+      <created>1375662116872</created>
+      <updated>1375662116872</updated>
+    </task>
+    <task id="LOCAL-00001" summary="PHPStorm idea file updated? Who knows.">
+      <created>1379554818047</created>
+      <updated>1379554818047</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Stopped the breadcrumb bar collapsing when it had no content.">
+      <created>1380001505085</created>
+      <updated>1380001505085</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Styling my patients page.">
+      <created>1380151940817</created>
+      <updated>1380151940817</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <are-modules-shown value="true" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="true" />
+      <is-preview-enabled value="true" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="77" y="22" width="1400" height="1318" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17105263" sideWeight="0.75792986" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975206" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24166666" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.18726592" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.31314623" sideWeight="0.77416664" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22583333" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3100511" sideWeight="0.39554796" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32916668" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.17490062" sideWeight="0.6702479" order="5" side_tool="false" content_ui="tabs" x="958" y="422" width="1521" height="399" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32975206" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="true" />
+    <option name="myTodoPanelSettings">
+      <value>
+        <are-packages-shown value="false" />
+        <are-modules-shown value="false" />
+        <flatten-packages value="false" />
+        <is-autoscroll-to-source value="false" />
+      </value>
+    </option>
+    <option name="PERFORM_UPDATE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_COMMIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_EDIT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_CHECKOUT_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ADD_REMOVE_IN_BACKGROUND" value="true" />
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="false" />
+    <option name="CHECK_LOCALLY_CHANGED_CONFLICTS_IN_BACKGROUND" value="false" />
+    <option name="CHANGED_ON_SERVER_INTERVAL" value="60" />
+    <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
+    <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
+    <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
+    <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
+    <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
+    <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
+    <option name="INCLUDE_TEXT_INTO_SHELF" value="false" />
+    <option name="SHOW_FILE_HISTORY_DETAILS" value="true" />
+    <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
+    <option name="SHOW_DIRTY_RECURSIVELY" value="false" />
+    <option name="LIMIT_HISTORY" value="true" />
+    <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
+    <option name="UPDATE_FILTER_SCOPE_NAME" />
+    <option name="USE_COMMIT_MESSAGE_MARGIN" value="false" />
+    <option name="COMMIT_MESSAGE_MARGIN_SIZE" value="72" />
+    <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
+    <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
+    <option name="LAST_COMMIT_MESSAGE" value="Styling my patients page." />
+    <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="REFORMAT_BEFORE_FILE_COMMIT" value="false" />
+    <option name="FILE_HISTORY_DIALOG_COMMENTS_SPLITTER_PROPORTION" value="0.8" />
+    <option name="FILE_HISTORY_DIALOG_SPLITTER_PROPORTION" value="0.5" />
+    <option name="ACTIVE_VCS_NAME" />
+    <option name="UPDATE_GROUP_BY_PACKAGES" value="false" />
+    <option name="UPDATE_GROUP_BY_CHANGELIST" value="false" />
+    <option name="UPDATE_FILTER_BY_SCOPE" value="false" />
+    <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
+    <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
+    <MESSAGE value="Testing Git Integration in PHPStorm" />
+    <MESSAGE value="PHPStorm idea file updated? Who knows." />
+    <MESSAGE value="Still testing GIt integration in PHPStorm" />
+    <MESSAGE value="Stopped the breadcrumb bar collapsing when it had no content." />
+    <MESSAGE value="Styling my patients page." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="9" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/feed/feed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/menubar.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="95" column="0" selection-start="1429" selection-end="1429" vertical-scroll-proportion="0.39198607">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/navigation/menubar/menubar.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="8" selection-start="543" selection-end="543" vertical-scroll-proportion="0.21702127">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/activities/activities.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="27" selection-start="319" selection-end="319" vertical-scroll-proportion="0.21267723">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/colors.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1040" column="19" selection-start="19621" selection-end="19621" vertical-scroll-proportion="0.2618849">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/colors.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="0" selection-start="137" selection-end="137" vertical-scroll-proportion="0.08757298">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/layout.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="9" selection-start="388" selection-end="388" vertical-scroll-proportion="0.3002502">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/feed/feed.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="20" column="18" selection-start="738" selection-end="738" vertical-scroll-proportion="0.25531915">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/style.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="111" column="13" selection-start="1476" selection-end="1476" vertical-scroll-proportion="0.43536282">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/sidebar.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="10" selection-start="10" selection-end="10" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/activities/activity.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="0" selection-start="329" selection-end="329" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_activity.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="460" selection-end="460" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_comments/cm_comments.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="19" selection-start="811" selection-end="811" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/activities/cm_activity/cm_activity.tpl.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="20" selection-start="1493" selection-end="1493" vertical-scroll-proportion="-28.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="30" selection-start="885" selection-end="885" vertical-scroll-proportion="-2.1986532">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
+

@@ -32,6 +32,9 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
             // embed the patient
             $share = share_load($activity->share_id);
             $activity->patient = patient_load($share->patient_id);
+            if(strlen($activity->patient->clinical_summary) > 250) {
+                $activity->patient->clinical_summary = substr(strip_tags($activity->patient->clinical_summary), 0, 250) . "...";
+            }
             $activity->group = group_load($share->group_id);
         }
     }

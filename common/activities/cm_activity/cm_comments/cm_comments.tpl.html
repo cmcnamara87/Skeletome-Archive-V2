@@ -1,5 +1,5 @@
-<div class="activity-comments">
-    <div class="activity-box activity-box-comment" ng-show="activity.replies.length > commentDisplayCount">
+<div class="comments">
+    <div class="comments-more" ng-show="activity.replies.length > commentDisplayCount">
         <button class="btn btn-more" ng-click="showMore()">
             <i class="icon icon-angle-down"></i>
             {{ activity.replies.length - commentDisplayCount }} comments
@@ -7,7 +7,7 @@
     </div>
 
     <div ng-repeat="reply in activity.replies | limitTo:-commentDisplayCount"
-         class="activity-box activity-box-comment">
+         class="comment">
         <div class="media">
 
             <!-- User icon -->
@@ -17,12 +17,18 @@
 
             <!-- User name + Date + Content -->
             <div class="media-body">
-                <div>
-                    <a href="#/user/{{ reply.user.uid }}" class="activity-user">
-                        Dr {{ reply.user.name }}
-                    </a>
-                    <span class="activity-time" ng-show="reply.created">
-                        - {{ reply.created*1000 | date:'medium' }}
+
+                <div class="user">
+                    <span class="user-username">
+                        <a href="#/user/{{ reply.user.uid }}">
+                            Dr {{ reply.user.name }}
+                        </a>
+                    </span>
+                    <span class="user-info" ng-show="reply.created">
+                        <span class="user-date">
+                        - {{ reply.created | relativedate }}
+                        </span>
+
                     </span>
                 </div>
 
@@ -33,7 +39,7 @@
     </div>
 
     <!-- New comment next box -->
-    <div class="activity-box activity-box-bottom activity-box-comment">
+    <div class="comment">
         <input type="text" placeholder="Add a comment" class="full-width" ng-model="newComment.text"/>
     </div>
 </div>

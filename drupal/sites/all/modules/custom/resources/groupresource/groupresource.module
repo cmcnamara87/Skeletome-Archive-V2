@@ -40,47 +40,6 @@ class GroupController extends EntityAPIController {
 
     public function load($ids = array(), $conditions = array()) {
         $entities = parent::load($ids, $conditions);
-
-        foreach($entities as &$entity) {
-            $entity->user = user_load_small($entity->uid);
-
-            $entity->administrator = user_load_small($entity->administrator_id);
-
-            // Add in members
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'membership');
-            $query->propertyCondition('group_id', $entity->id);
-            $result = $query->execute();
-            $ids = array_keys($result['membership']);
-            $entity->members = membership_load_multiple($ids);
-            foreach($entity->members as &$member) {
-                $member->user = user_load_small($member->user_id);
-            }
-
-            global $user;
-
-            // Get the patient count
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'share');
-            $query->propertyCondition('group_id', $entity->id);
-            $query->count();
-            $result = $query->execute();
-            $entity->patient_count = $result;
-
-
-            // get the membership of the current user
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'membership');
-            $query->propertyCondition('group_id', $entity->id);
-            $query->propertyCondition('user_id', $user->uid);
-            $result = $query->execute();
-            $ids = array_keys($result['membership']);
-
-            if(count($ids)) {
-                $entity->membership = membership_load($ids[0]);
-            }
-
-        }
         return $entities;
 
     }
@@ -136,10 +95,63 @@ class ShareController extends EntityAPIController {
 
 
 function group_load($id, $reset = FALSE) {
-    return reset(group_load_multiple(array($id), $reset));
+    return reset(group_load_multiple(array($id)));
 }
+//function group_load_small($id, $reset = FALSE) {
+//    return reset(group_load_multiple(array($id), true));
+//}
+//function group_load_small_multiple($ids) {
+//    return group_load_multiple($ids, true);
+//}
 function group_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return array_values(entity_load('group', $ids, $conditions, $reset));
+
+    $groups = array_values(entity_load('group', $ids, $conditions, $reset));
+
+//    if(!$small) {
+//        foreach($groups as &$entity) {
+//            $entity->user = user_load_small($entity->uid);
+//
+//            $entity->administrator = user_load_small($entity->administrator_id);
+//
+//            // Add in members
+//            $query = new EntityFieldQuery();
+//            $query->entityCondition('entity_type', 'membership');
+//            $query->propertyCondition('group_id', $entity->id);
+//            $result = $query->execute();
+//            $ids = array_keys($result['membership']);
+//            $entity->members = membership_load_multiple($ids);
+//            foreach($entity->members as &$member) {
+//                $member->user = user_load_small($member->user_id);
+//            }
+//
+//            global $user;
+//
+//            // Get the patient count
+//            $query = new EntityFieldQuery();
+//            $query->entityCondition('entity_type', 'share');
+//            $query->propertyCondition('group_id', $entity->id);
+//            $query->count();
+//            $result = $query->execute();
+//            $entity->patient_count = $result;
+//
+//
+//            // get the membership of the current user
+//            $query = new EntityFieldQuery();
+//            $query->entityCondition('entity_type', 'membership');
+//            $query->propertyCondition('group_id', $entity->id);
+//            $query->propertyCondition('user_id', $user->uid);
+//            $result = $query->execute();
+//            $ids = array_keys($result['membership']);
+//
+//            if(count($ids)) {
+//                $entity->membership = membership_load($ids[0]);
+//            }
+//
+//        }
+//    }
+
+    return $groups;
+
 }
 function group_save($entity) {
     entity_save('group', $entity);

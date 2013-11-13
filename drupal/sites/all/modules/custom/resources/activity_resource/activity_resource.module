@@ -35,6 +35,8 @@ class ActivityController extends EntityAPIController {
         foreach($entities as &$entity) {
             // Load in the user details
             $entity->user = user_load_small($entity->uid);
+
+            // Its probably a patient
             // Load in the linked object
             $entity->{$entity->type} = call_user_func($entity->type . "_load", $entity->object_id);
 

@@ -44,14 +44,14 @@ function user_load_multiple_small($uids = array(), $conditions = array(), $reset
         $small_user = new stdClass();
         $small_user->uid = $user->uid;
         $small_user->name = $user->name;
-        $small_user->mail = $user->mail;
-        $small_user->roles = $user->roles;
-
-        $small_user->created = $user->created;
-        $small_user->access = $user->access;
-        $small_user->login = $user->login;
-        $small_user->status = $user->status;
-        $small_user->timezone = $user->timezone;
+//        $small_user->mail = $user->mail;
+//        $small_user->roles = $user->roles;
+//
+//        $small_user->created = $user->created;
+//        $small_user->access = $user->access;
+//        $small_user->login = $user->login;
+//        $small_user->status = $user->status;
+//        $small_user->timezone = $user->timezone;
 
         $small_users[] = $small_user;
     }

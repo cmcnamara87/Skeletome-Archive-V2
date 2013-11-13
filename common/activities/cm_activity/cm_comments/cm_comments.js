@@ -8,7 +8,7 @@ angular.module('directives.activities.cmActivity.cmComments', [])
             templateUrl: 'common/activities/cm_activity/cm_comments/cm_comments.tpl.html',
             link: function ($scope, el, tAttrs) {
 
-                $scope.COMMENT_DISPLAY_DEFAULT = 3;
+                $scope.COMMENT_DISPLAY_DEFAULT = 2;
 
                 $scope.commentDisplayCount = $scope.COMMENT_DISPLAY_DEFAULT;
 

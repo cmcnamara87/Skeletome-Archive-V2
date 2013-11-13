@@ -1,0 +1,1289 @@
+.main {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  top: 60px;
+}
+.main-submenubar {
+  top: 114px;
+}
+.main-sidebar {
+  left: 230px;
+}
+.main-activities {
+  right: 45%;
+  background-color: white;
+}
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+  top: 60px;
+  left: 0;
+  right: auto;
+  width: 230px;
+}
+/**
+  * A Section of content on a page
+  *
+  * Has a header and a content block. Multiple sections of content
+  * can be stacked on top of each other
+  */
+.block-header {
+  border-bottom: 1px solid #dbe1e3;
+  padding: 14px 14px;
+  border-top: none;
+  position: relative;
+  background-color: white;
+}
+.block-header h2 {
+  font-size: 21px;
+  margin: 0;
+  font-weight: 400;
+}
+.block-header .block-header-buttons {
+  position: absolute;
+  right: 14px;
+  top: 8px;
+}
+.block-table {
+  border-top: none;
+  background-color: white;
+  width: 100%;
+}
+.block-table tr {
+  border: none;
+}
+.block-table th {
+  border: none !important;
+  color: #4D718D;
+  border-bottom: 1px solid #dbe1e3 !important;
+  font-weight: 600;
+  padding: 14px 21px;
+  background-color: white;
+}
+.block-table td {
+  padding: 10px 21px;
+  font-weight: normal;
+  border-top: none;
+  border-bottom: 1px solid #dbe1e3;
+  color: #1E3346;
+}
+.block-table td.is-editing {
+  padding: 0;
+}
+.block-content {
+  border: 1px solid #dbe1e3;
+  background-color: white;
+  padding: 14px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  padding-bottom: 14px;
+}
+.block-content.block-content-clear {
+  background-color: #E1E6E9 !important;
+}
+/*
+A small search embeddable in the header box
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+table.table-content {
+  border-top: none;
+  background-color: white;
+  width: 100%;
+}
+.table-content tr {
+  border: none;
+}
+.table-content th {
+  border: none !important;
+  color: #4D718D;
+  border-bottom: 1px solid #dbe1e3 !important;
+  font-weight: 600;
+  padding: 14px 21px;
+  background-color: white;
+}
+.table-content td {
+  padding: 10px 21px;
+  font-weight: normal;
+  border-top: none;
+  border-bottom: 1px solid #dbe1e3;
+  color: #1E3346;
+}
+.table-content td.is-editing {
+  padding: 0;
+}
+.btn:active {
+  box-shadow: none;
+}
+.btn-more {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.btn-action {
+  border: 1px solid #dbe1e3;
+  border-radius: 3px;
+  background-color: transparent;
+  padding: 5px 10px;
+  outline: none !important;
+  color: #637c90;
+}
+.btn-action:hover {
+  color: #849eb0;
+}
+.btn-action:active {
+  background-color: #ebf2f7;
+  -webkit-box-shadow: none;
+}
+.btn-action.btn-action-selected {
+  background-color: #417BAE;
+  border: 1px solid #417BAE;
+  color: white;
+}
+.btn-action.btn-action-selected:hover {
+  background-color: #498ac3;
+  border: 1px solid #498ac3;
+}
+.btn-action.btn-action-selected:active {
+  background-color: #336997;
+  border: 1px solid #336997;
+  -webkit-box-shadow: inset 0 2px 0px #1d4971;
+}
+.btn-action-small {
+  padding: 3px 9px;
+}
+.btn-group.open .dropdown-toggle {
+  -webkit-box-shadow: inset 0 1px 0px #dbe1e3;
+  color: #96A6B1;
+}
+.btn-search {
+  background-color: transparent;
+  border: 0;
+  color: #81A0A2;
+  font-size: 14px;
+  position: relative;
+  top: 10px;
+  left: 5px;
+}
+.resource {
+  margin-bottom: 28px;
+  /** Controls like edit / delete buttons */
+  /** A block of content for the resource e.g. (first name + last name, or date of birth) */
+}
+.resource input[type=text],
+.resource textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.resource.is-editing .resource-block {
+  margin-right: 0px;
+  border: 1px solid #dbe1e3;
+  background-color: white;
+  padding: 14px;
+  margin-bottom: 0px;
+  border-bottom: none;
+  background-color: #EEF3F7;
+}
+.resource.is-editing .resource-block:last-of-type {
+  border-bottom: 1px solid #dbe1e3;
+}
+.resource .resource-controls {
+  float: right;
+}
+.resource .resource-block {
+  margin-bottom: 14px;
+  /** No margin on the last one */
+  /** A heading for a block (can have multiple per block) */
+}
+.resource .resource-block:last-of-type {
+  margin-bottom: 0px;
+}
+.resource .resource-block .resource-block-heading {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  color: #637c90;
+}
+.resource .resource-block label.label-top {
+  display: block;
+  width: 100%;
+}
+.resource .resource-block label.label-right {
+  padding-right: 14px;
+  margin-bottom: 0;
+  color: #637c90;
+  font-weight: normal;
+}
+.resource .resource-block label.label-right input {
+  margin-right: 5px;
+}
+.resource .resource-block .resource-block-element {
+  margin-bottom: 14px;
+}
+.resource .resource-block .resource-block-element.resource-block-element:last-of-type {
+  margin-bottom: 0px;
+}
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
+}
+.clearfix {
+  display: inline-block;
+}
+html[xmlns] .clearfix {
+  display: block;
+}
+* html .clearfix {
+  height: 1%;
+}
+.comment {
+  background-color: #f3f6f7;
+  border-top: 1px solid #dbe1e3;
+  padding: 14px;
+}
+.comments-more {
+  background-color: #f3f6f7;
+  border-top: 1px solid #dbe1e3;
+  padding: 14px;
+  padding: 10px 14px;
+}
+/**
+  * An individual activity */
+.activity {
+  margin-bottom: 14px;
+}
+.activity a {
+  transition: color 0.2s;
+}
+.activity:hover a {
+  color: #49a9ba !important;
+}
+.activity .activity-content {
+  padding: 14px;
+  background-color: white;
+}
+.activity .activity-content-box + .activity-content-box {
+  margin-top: 14px;
+  border-top: 1px solid #dbe1e3;
+  padding-top: 14px;
+}
+.activity .activity-content-box-message {
+  color: #616769;
+}
+.activity .activity-group {
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.activity .activity-group .icon {
+  margin-right: 7px;
+}
+.activity-patient .activity-patient-more {
+  margin-top: 14px;
+}
+.activity-patient .activity-patient-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 14px;
+}
+.activity-patient .activity-patient-menu li {
+  display: inline-block;
+}
+.activity-patient .activity-patient-menu li button {
+  padding: 0;
+  margin-right: 14px;
+  background-color: white;
+  border-radius: 2px;
+  color: #c9cccd;
+  border: none;
+}
+.activity-patient .activity-patient-menu li button.selected {
+  color: #616769;
+}
+.activity-patient .activity-patient-menu li + li {
+  padding-left: 14px;
+  border-left: 1px solid #dbe1e3;
+}
+/**
+  * Activity Adder
+  */
+.activity-adder .activity-adder-tabs {
+  padding: 0;
+  margin: 0;
+}
+.activity-adder .activity-adder-tabs li {
+  display: inline-block;
+  list-style: none;
+}
+.activity-adder .activity-adder-tabs .activity-adder-tab {
+  position: relative;
+  top: 1px;
+  padding: 10px 14px;
+  display: block;
+  background-color: #f2f5f6;
+  border: 1px solid #f2f5f6;
+  border: none;
+}
+.activity-adder .activity-adder-tabs .activity-adder-tab.active {
+  background-color: white;
+  z-index: 1;
+  border: 1px solid #dbe1e3;
+  border-bottom: 0;
+}
+.activities {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  top: 60px;
+  left: auto;
+  width: 45%;
+  border-left: 1px solid #dbe1e3;
+  /**
+  Group activity title
+  */
+}
+.activities .activities-title {
+  font-size: 21px;
+  font-weight: 300px;
+  margin: 0;
+  color: #637c90;
+  margin-bottom: 21px;
+}
+.activities .activities-adder {
+  padding: 14px;
+  border-bottom: 1px solid #dbe1e3;
+}
+.activities .activities-content {
+  padding: 14px;
+}
+.label {
+  font-weight: 400;
+  letter-spacing: 0.5px;
+}
+.submenubar {
+  border: 1px solid #dbe1e3;
+  background-color: white;
+  border-right: none;
+  position: fixed;
+  top: 60px;
+  left: 0px;
+  right: 0px;
+  height: 54px;
+  padding: 11px;
+}
+.submenubar.submenubar-activities {
+  margin-right: 45%;
+}
+.submenubar ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.submenubar ul li {
+  list-style: none;
+  display: inline-block;
+}
+.submenubar .submenubar-item {
+  display: block;
+  padding: 4px 12px;
+  color: #96a6b1;
+  border-radius: 100px;
+}
+.submenubar .submenubar-item.active {
+  background-color: #49a9ba;
+  color: white;
+}
+/**
+ *
+ * The Manu BAR
+ *
+ * The Blue main menubar across the top of the page
+ *
+ */
+.menubar {
+  background-color: #5cabba;
+  color: #F3F3F3;
+  vertical-align: middle;
+  height: 60px;
+  overflow: hidden;
+  position: relative;
+}
+.menubar.menubar-dark {
+  background-color: #0E2435;
+}
+.menubar .menubar-left {
+  float: left;
+  height: 60px;
+}
+.menubar .menubar-right {
+  float: right;
+  height: 60px;
+}
+.menubar .menubar-logo {
+  font-size: 21px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.menubar .menubar-logo a {
+  color: white;
+}
+.menubar .menubar-logo .icon {
+  margin-right: 7px;
+}
+.menubar .menubar-notifications {
+  font-size: 18px;
+}
+.menubar .menubar-search {
+  position: relative;
+}
+.menubar .menubar-search .icon {
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  color: #5cabba;
+}
+.menubar .menubar-search input[type=text] {
+  padding: 8px 14px;
+  padding-left: 35px;
+  line-height: 14px;
+  border: none;
+  border-radius: 100px;
+  width: 150px;
+  background-color: #44919f;
+  transition: 0.1s ease-in;
+}
+.menubar .menubar-search input[type=text]:focus {
+  width: 300px;
+  background-color: white;
+}
+.menubar .menubar-item {
+  display: inline-block;
+  height: 60px;
+  line-height: 60px;
+  overflow: hidden;
+  padding: 0px 21px;
+  /*
+    The logo container for the sidebar
+  */
+}
+.menubar .menubar-item.menubar-title {
+  font-size: 21px;
+  font-weight: 300;
+  color: white;
+  margin: 0;
+}
+.menubar .menubar-item.menubar-back {
+  height: 60px;
+  font-size: 21px;
+  color: white;
+  background-color: #0E2435;
+}
+.menubar .menubar-item.menubar-back:hover {
+  background-color: #133047;
+}
+.menubar .menubar-item .menubar .menubar-item.menubar-tab {
+  color: #8999ab;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+}
+.menubar .menubar-item .menubar .menubar-item.menubar-tab:hover {
+  text-decoration: none;
+  color: white;
+}
+.menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
+  color: white;
+}
+.menubar-user {
+  float: right;
+}
+/*
+    A horizontal tab in the sidebar
+    :hover             - White text color
+    .selected          - Subtle darker background, white text color
+*/
+/*
+    A typehead that can either have a single token, or multi-token entry
+*/
+.typeahead input,
+.typeahead button,
+.typeahead textarea {
+  border: 1px solid #dbe1e3;
+  outline: 0;
+}
+::-webkit-input-placeholder,
+button {
+  color: #96A6B1;
+}
+/**
+    Text inputs and text areas
+*/
+.typeahead input[type=text],
+.typeahead textarea {
+  padding: 10px 14px;
+}
+.typeahead input[type=text].full-width,
+.typeahead textarea.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+.typeahead {
+  border: 1px solid #dbe1e3;
+  position: relative;
+}
+.typeahead input {
+  border: none;
+  box-sizing: border-box;
+  width: 100%;
+}
+.typeahead-loader {
+  position: absolute;
+  top: 2px;
+  right: 0;
+  padding: 10px 14px;
+  opacity: 0.8;
+}
+.typeahead-icon {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  padding: 10px 14px;
+  opacity: 0.3;
+}
+/*
+    A dark blue token with a remove X on the right side
+*/
+.typeahead-token {
+  text-align: left;
+}
+.typeahead-token:active {
+  position: relative;
+  top: 1px;
+}
+/*
+    Single Token: A large token (for single entry) full width
+*/
+.typeahead-token-single {
+  display: block;
+  padding: 10px 14px;
+  width: 100%;
+  background-color: #E1EDF8;
+  border: 1px solid #B7D1E9;
+  color: #6D8AA5;
+}
+.typeahead-token-single .icon-remove {
+  margin-left: 10px;
+  position: relative;
+  top: 3px;
+}
+/*
+    Multi Tokens: Padding around the collection of tokens
+*/
+.typeahead-tokens {
+  padding: 10px;
+}
+/*
+    Multi Token: A small inline token
+*/
+.typeahead-token-multi {
+  display: inline-block;
+  background-color: #417BAE;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 3px;
+  margin-right: 7px;
+  margin-bottom: 7px;
+  border: none;
+}
+/*
+    Options list: The auto-complet edropdown that displays suggestions for tokens
+*/
+.typeahead-options-wrapper {
+  position: relative;
+}
+.typeahead-options {
+  position: absolute;
+  left: 5px;
+  cursor: pointer;
+  background-color: white;
+  border-top: 1px solid #dbe1e3;
+  list-style-type: none;
+  padding: 0;
+  min-width: 200px;
+}
+.typeahead-options-inside {
+  top: -7px;
+}
+.typeahead-option {
+  padding: 10px;
+  border: 1px solid #dbe1e3;
+  border-top: none;
+}
+.typeahead-option.selected {
+  background-color: #F1F5F9;
+}
+.sidebar {
+  background-color: #f4f6f7;
+  border: 1px solid #dbe1e3;
+}
+.sidebar .sidebar-box {
+  border-bottom: 1px solid #dbe1e3;
+  padding: 14px;
+}
+.sidebar .sidebar-menu {
+  list-style: none;
+  padding-left: 0px;
+  margin: 0px;
+}
+.sidebar .sidebar-menu .sidebar-menu-item {
+  color: #616769;
+  display: block;
+}
+.sidebar .sidebar-menu .sidebar-menu-item.selected {
+  color: #49a9ba;
+}
+.sidebar .sidebar-menu .sidebar-menu-item .icon {
+  opacity: 0.6;
+  margin-right: 10px;
+}
+.sidebar .sidebar-menu li + li {
+  margin-top: 10px;
+}
+.user .user-username {
+  text-transform: capitalize;
+}
+.user .user-username a {
+  color: #494d4e;
+  font-weight: 600;
+}
+.user .user-username a:hover {
+  text-decoration: underline;
+}
+.user .user-info {
+  color: #7a8183;
+}
+.user .user-date {
+  color: #aeb3b5;
+}
+/**
+ * Variables
+ */
+/**
+  * Creates a bordered box
+*/
+.bordered {
+  border: 1px solid #dbe1e3;
+  background-color: white;
+}
+.spaced {
+  padding: 14px;
+}
+.spaced-bottom {
+  margin-bottom: 14px;
+}
+.spaced-bottom-none {
+  margin-bottom: 0px;
+}
+/**
+  * Creates a panel locked to all 4 edges of the page
+  *
+  * Edge locking can be turned off by setting a property to auto
+*/
+.panel {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+}
+body {
+  background-color: #e1e6e9;
+  color: #949a9c;
+  font-family: "Source Sans Pro";
+  font-size: 14px;
+  line-height: 21px;
+}
+/*
+    Headings
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Source Sans Pro" !important;
+}
+h2 {
+  font-weight: 300;
+  font-size: 28px;
+}
+h3 {
+  font-weight: 300;
+  font-size: 21px;
+}
+h4 {
+  font-weight: 300;
+}
+/*
+    Emphasis
+*/
+/*
+    Anchors
+*/
+a {
+  color: #949a9c;
+}
+a:hover {
+  text-decoration: underline;
+  color: #7a8183;
+}
+a:visited {
+  color: #7a8183;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.form-label {
+  color: #637C90;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.placeholder {
+  color: #4D718D;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+input,
+button,
+textarea {
+  border: 1px solid #dbe1e3;
+  outline: 0;
+}
+::-webkit-input-placeholder,
+button {
+  color: #96A6B1;
+}
+/**
+    Text inputs and text areas
+*/
+input[type=text],
+textarea {
+  padding: 10px 14px;
+}
+input[type=text].full-width,
+textarea.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+.story {
+  width: 500px;
+  background-color: white;
+  border: 1px solid #dbe1e3;
+  margin-top: 14px;
+  margin-left: 14px;
+  color: red;
+}
+.story-content {
+  padding: 14px;
+}
+.content-section {
+  margin-bottom: 35px;
+}
+.content-heading {
+  font-size: 21px;
+  font-weight: 300;
+  border-bottom: 1px solid #D8E1E8;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  padding-left: 7px;
+  margin-top: 7px;
+}
+.content-heading-buttons {
+  float: right;
+  position: relative;
+  top: -7px;
+}
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid #dbe1e3;
+}
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  padding: 28px 21px;
+  font-weight: 300;
+  font-size: 28px;
+}
+.smodal-description {
+  padding: 0px 21px;
+}
+.smodal-content {
+  padding: 21px 21px 0 21px;
+}
+.smodal-buttons {
+  padding: 1px 21px 21px 21px;
+  overflow: hidden;
+}
+.smodal-buttons button {
+  margin-left: 7px;
+}
+.votebox {
+  margin-bottom: 7px;
+}
+.votebox-buttonwrapper {
+  display: inline-block;
+  padding-right: 7px;
+}
+.votebox-buttonwrapper button {
+  width: 110px;
+  text-align: center;
+}
+/*
+    A form (often used in the modal boxes)
+*/
+.sform {
+  width: 100%;
+  padding-left: 14px;
+}
+.sform-row td {
+  padding-bottom: 14px;
+}
+.sform-label {
+  position: relative;
+  top: 3px;
+  width: 120px;
+  margin-right: 14px;
+  text-align: right;
+  white-space: nowrap;
+  vertical-align: top;
+}
+.sform-label label {
+  text-align: right;
+}
+.sform-inputs {
+  width: 100%;
+}
+.sform-inputs input {
+  width: 100%;
+}
+.sform-inputs2 input {
+  width: 49%;
+  box-sizing: border-box;
+}
+.sform-inputs2 input:first-of-type {
+  margin-right: 2%;
+}
+.form-patient .input-wrapper input {
+  width: 100%;
+}
+/*
+A small search embeddable in the header box
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.search {
+  border: 1px solid #dbe1e3;
+  padding-left: 7px;
+  border-radius: 100px;
+  color: #96A6B1;
+  position: relative;
+}
+.search input {
+  padding: 5px 10px;
+  padding-left: 0px;
+  margin-left: 5px;
+  outline: none;
+  width: 200px;
+  border: none;
+}
+.search-results {
+  position: absolute;
+  background-color: white;
+  left: 11px;
+  border: 1px solid #dbe1e3;
+  width: 90%;
+}
+.dropdown-menu {
+  border-radius: 0px;
+  padding: 0;
+  box-shadow: none;
+  border: 1px solid #dbe1e3;
+  border-bottom: 2px solid #dbe1e3;
+}
+.dropdown-menu > li > a {
+  padding: 8px 12px;
+}
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  background-color: #417BAE;
+}
+/*
+    A block containing the title of a content page, search and buttons relevant to the page.
+    Styleguide 2.1.3.
+*/
+.header {
+  padding: 21px 14px;
+  height: 65px;
+  border: 1px solid #dbe1e3;
+  border-left: none;
+  background-color: white;
+}
+.header-title {
+  font-size: 28px;
+  font-weight: 300;
+  float: left;
+}
+.header-search {
+  float: left;
+  position: relative;
+  margin-left: 14px;
+  top: -6px;
+}
+.header-search input {
+  border-radius: 100px;
+}
+.header-buttons {
+  float: right;
+  position: relative;
+  top: -6px;
+}
+.header-buttons button {
+  margin-left: 7px;
+}
+.scircle {
+  display: inline-block;
+  margin-right: 1px;
+  margin-bottom: 2px;
+  height: 28px;
+  width: 28px;
+  text-align: center;
+  box-sizing: border-box;
+  color: white;
+  border-radius: 28px;
+  font-size: 14px;
+  line-height: 28px;
+}
+.scircle-more {
+  background-color: #88a8bf;
+  /*#417BAE;*/
+}
+.scircle-user {
+  background-color: #B9CBDA;
+  font-size: 18px;
+  position: relative;
+  top: 2px;
+}
+.content-box {
+  padding: 14px !important;
+  border-bottom: 1px solid #DFE7EC !important;
+  background-color: white;
+}
+.content-table {
+  border: none;
+  border-bottom: 1px solid #dfe6ea !important;
+  table-layout: fixed;
+}
+.content-table tr th {
+  background-color: white;
+  color: #A7B5BE;
+  border-top: none !important;
+  padding: 14px !important;
+  font-weight: normal;
+}
+.content-table td {
+  background-color: white;
+  border-top: 1px solid #dfe6ea !important;
+  padding: 14px !important;
+}
+/*
+The menubar element
+*/
+/*
+    The heading for the menu
+*/
+/*
+    A sidebar item (a vertical tab)
+    :hover             - White text color
+    :selected          - Thick red border on left side
+*/
+/*.menubar-item {
+    display: block;
+    padding: 14px 21px;
+
+    background-color: #1d384b;
+    border-left: 5px solid #1d384b;
+
+    font-weight: 300;
+    color: #969FAD;
+}
+    .menubar-item:hover {
+        color: white;
+        text-decoration: none;
+    }
+    .menubar-item.selected, a.menubar-item.selected:hover {
+        border-left: 5px solid #EC5858;
+        margin-right: 1px;
+        color: white;
+        text-decoration: none;
+        font-weight: 400;
+    }
+
+.menubar-item-inner {
+
+    padding-left: 14px;
+    background-color: #193040;
+}
+.menubar-item-item {
+    padding: 7px 28px;
+    margin-bottom: 0px;
+    border-left: 5px solid #193040;
+    background-color: transparent;
+}*/
+/**
+ * Quick Access box
+ *
+ * Displays quick access information on feed page
+ */
+.quickaccess {
+  border: 1px solid #dbe1e3;
+  background: white;
+}
+.section {
+  background-color: white;
+  padding: 21px;
+  margin-bottom: 21px;
+}
+header {
+  background-color: #376264;
+}
+.group-item {
+  margin-bottom: 28px;
+}
+.group-item:last-of-type {
+  margin-bottom: 0;
+}
+.btn.btn-title {
+  font-size: 14px;
+  border: 2px solid #B7CFE4;
+  background-color: white;
+}
+.btn.btn-primary {
+  background-color: #6F91AA;
+  border: none;
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 10px;
+  padding: 2px 5px;
+}
+.navbar-archive {
+  border-radius: 0px;
+  background-color: #376264;
+  color: #2e82be;
+  margin-bottom: 0;
+  height: 75px;
+}
+.navbar-nav-archive > li > a {
+  color: #2e82be;
+  padding-top: 26px;
+  padding-bottom: 26px;
+}
+.uploadblock {
+  overflow: hidden;
+}
+/**
+  * Dropzone
+  */
+.dropzone .preview,
+.dropzone-previews .preview {
+  margin: 0;
+}
+.dropzone {
+  border: 2px dashed #dbe1e3;
+  min-height: 160px;
+  color: #637c90;
+  font-weight: 600;
+  text-align: center;
+  line-height: 160px;
+}
+.is-editable:hover {
+  background-color: #FFFCD4;
+  cursor: text;
+}
+.is-editable:hover.is-editing {
+  background-color: transparent;
+}
+.inputblock-values {
+  padding: 7px;
+}
+.inputblock-info {
+  color: grey;
+}
+.inputblock-buttons {
+  padding: 7px;
+}
+.inputblock-input {
+  padding: 7px;
+  background-color: #FFFCD4;
+  border: 1px solid #F9EBB6;
+}
+.valueblock-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+.textblock-input {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.addressblock-row {
+  margin-bottom: 7px;
+}
+.addressblock-areas {
+  overflow: hidden;
+  margin-bottom: 2px;
+}
+.addressblock-area {
+  float: left;
+  margin-right: 2px;
+}
+/*
+A button suitable for giving stars to someone.
+
+:hover             - Subtle hover highlight.
+.stars-given       - A highlight indicating you've already given a star.
+.stars-given:hover - Subtle hover highlight on top of stars-given styling.
+.disabled          - Dims the button to indicate it cannot be used.
+
+Styleguide 2.1.3.
+*/
+.dateblock-date {
+  overflow: hidden;
+  display: block;
+}
+.dateblock-date-input {
+  width: 100%;
+}
+.add-on {
+  position: relative;
+  top: 10px;
+  margin-left: 7px;
+}
+.btn.btn-save {
+  background-color: #47a0d6;
+  color: white;
+  padding: 2px 10px;
+}
+.btn.btn-cancel {
+  background-color: transparent;
+  color: #3e4a55;
+  padding: 2px 10px;
+  padding-left: 7px;
+}
