@@ -2,18 +2,16 @@
   &.submenubar-activities {
     margin-right: @activitiesWidth;
   }
-  .bordered;
-  border-right: none;
-  position: fixed;
-  top: @menubarHeight;
-  left: 0px;
-  right: 0px;
+  background-color: white;
   height: @submenubarHeight;
-  padding: 11px;
 
   ul {
     padding-left: 0px;
     margin-bottom: 0px;
+
+    margin: @defaultSpace;
+    padding-bottom: @defaultSpace;
+    border-bottom: 1px solid @borderColor;
   }
   ul li {
     list-style: none;

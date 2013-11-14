@@ -1,7 +1,7 @@
-
+.nodata {
+  color: @noDataTextColor;
+}
 .resource {
-
-  margin-bottom: 28px;
 
   input[type=text], textarea {
     width: 100%;
@@ -20,9 +20,7 @@
       .spaced;
       margin-bottom: 0px;
       border-bottom: none;
-      background-color: #EEF3F7;
-
-
+      background-color: @backgroundColorLight;
     }
   }
 
@@ -33,12 +31,17 @@
 
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
   .resource-block {
-    margin-bottom: 14px;
 
     /** No margin on the last one */
     &:last-of-type {
       margin-bottom: 0px;
     }
+    &.resource-block-has-buttons {
+      margin-right: 80px;
+    }
+
+    margin-bottom: 14px;
+
 
     /** A heading for a block (can have multiple per block) */
     .resource-block-heading {
@@ -47,7 +50,7 @@
       margin: 0;
       margin-bottom: 7px;
       text-transform: uppercase;
-      color: @labelTextColor;
+      color: @highlightColor;
     }
 
     label {
@@ -78,5 +81,9 @@
 
 
 
+
   }
+}
+.resource + .resource {
+  margin-top: @defaultSpace * 2;
 }

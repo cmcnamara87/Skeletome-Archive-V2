@@ -19,10 +19,10 @@ function xrayresource_entity_info() {
 }
 
 function xray_load($id, $reset = FALSE) {
-    return array_shift(xray_load_multiple(array($id), $reset));
+    return reset(xray_load_multiple(array($id), $reset));
 }
 function xray_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('xray', $ids, $conditions, $reset);
+    return array_values(entity_load('xray', $ids, $conditions, $reset));
 }
 function xray_save($entity) {
     entity_save('xray', $entity);

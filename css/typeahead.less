@@ -2,12 +2,12 @@
     A typehead that can either have a single token, or multi-token entry
 */
 .typeahead input, .typeahead button, .typeahead textarea {
-    border: 1px solid @borderColor;
+//    border: 1px solid @borderColor;
     outline: 0;
 }
 
 ::-webkit-input-placeholder, button {
-    color: #96A6B1;
+//    color: #96A6B1;
 }
 
 /**
@@ -66,9 +66,9 @@
     display: block;
     padding: 10px 14px;
     width: 100%;
-    background-color: #E1EDF8;
-    border: 1px solid #B7D1E9;
-    color: #6D8AA5;
+    background-color: @typeaheadTokenColor;
+    border: 1px solid @typeaheadTokenBorderColor;
+    color: @highlightColor;
 }
 
 .typeahead-token-single .icon-remove {
@@ -82,6 +82,7 @@
 */
 .typeahead-tokens {
     padding: 10px;
+  background-color: white;
 }
 
 /*
@@ -89,13 +90,13 @@
 */
 .typeahead-token-multi {
     display: inline-block;
-    background-color: #417BAE;
-    color: white;
+    background-color: @typeaheadTokenColor;
+    border: 1px solid @typeaheadTokenBorderColor;
+    color: @highlightColor !important;
     padding: 5px 12px;
     border-radius: 3px;
     margin-right: 7px;
     margin-bottom: 7px;
-    border: none;
 }
 
 /*
@@ -127,5 +128,7 @@
 }
 
 .typeahead-option.selected {
-    background-color: #F1F5F9;
+    background-color: lighten(@highlightColorLight, 10%);
+  border: 1px solid @typeaheadTokenBorderColor;
+  color: @highlightColor;
 }

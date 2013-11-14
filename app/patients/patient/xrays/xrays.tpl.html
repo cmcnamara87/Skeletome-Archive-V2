@@ -1,49 +1,53 @@
 <div>
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-action" ng-click="addXRay()">Add</button>
+            <div class="block-header-buttons">
+                <button class="btn btn-action" ng-click="addXRay()"><i class="icon icon-plus-sign"></i> Add</button>
+            </div>
+            <h2>X-Rays</h2>
         </div>
         <div class="block-content">
-            <div ng-repeat="xray in xrays">
-                <div cm-resource="xray" remove-fn="removeXRay(xray)">
-                    <cm-display>
-                        <div class="resource-controls">
-                            <cm-edit-delete></cm-edit-delete>
-                        </div>
-                        <div class="resource-block">
-                            <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}"/>
-                            {{ xray.name }}
-                            {{ xray.description }}
-                        </div>
-                    </cm-display>
-                    <cm-edit>
-                        <div class="resource-block">
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">File</label>
-                                <div ng-show="!xray.id">
-                                    <upload-block url="{{ fileUploadUrl }}" message="Drop an X-Ray image here (or click here)" autoremove="false" uploaded-fn="xrayUploaded(file, xray)">
-                                    </upload-block>
-                                </div>
-                                <div ng-show="xray.id">
-                                    <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}"/>
-                                </div>
-                            </div>
+            <div ng-show="!xrays.length" class="nodata">
+                No xrays.
+            </div>
 
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">Name</label>
-                                <input type="text" ng-model="xray.name"/>
+            <div ng-repeat="xray in xrays" cm-resource="xray" remove-fn="removeXRay(xray)">
+                <cm-display>
+                    <div class="resource-controls">
+                        <cm-edit-delete></cm-edit-delete>
+                    </div>
+                    <div class="resource-block">
+                        <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}"/>
+                        {{ xray.name }}
+                        {{ xray.description }}
+                    </div>
+                </cm-display>
+                <cm-edit>
+                    <div class="resource-block">
+                        <div class="resource-block-element">
+                            <label class="label-top resource-block-heading">File</label>
+                            <div ng-show="!xray.id">
+                                <upload-block url="{{ fileUploadUrl }}" message="Drop an X-Ray image here (or click here)" autoremove="false" uploaded-fn="xrayUploaded(file, xray)">
+                                </upload-block>
                             </div>
-                            <div class="resource-block-element">
-                                <label class="label-top resource-block-heading">Description</label>
-                                <textarea ng-model="xray.description"></textarea>
+                            <div ng-show="xray.id">
+                                <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}"/>
                             </div>
                         </div>
-                        <div class="resource-block">
-                            <cm-save-cancel></cm-save-cancel>
-                        </div>
-                    </cm-edit>
 
-                </div>
+                        <div class="resource-block-element">
+                            <label class="label-top resource-block-heading">Name</label>
+                            <input type="text" ng-model="xray.name"/>
+                        </div>
+                        <div class="resource-block-element">
+                            <label class="label-top resource-block-heading">Description</label>
+                            <textarea ng-model="xray.description"></textarea>
+                        </div>
+                    </div>
+                    <div class="resource-block">
+                        <cm-save-cancel></cm-save-cancel>
+                    </div>
+                </cm-edit>
             </div>
         </div>
     </div>

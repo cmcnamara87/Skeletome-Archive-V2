@@ -7,9 +7,15 @@
   a {
     transition: color 0.2s;
   }
-  &:hover a {
-    color: @highlightColor !important;
+  &:hover {
+    a {
+     color: @highlightColor !important;
+    }
+    .mentions a {
+//      text-decoration: underline;
+    }
   }
+
 
   margin-bottom: 14px;
   border: 1px solid @borderColor;
@@ -27,7 +33,7 @@
   }
 
   .activity-content-box-message {
-    color: @submenuSelectedTextColor;
+    color: @bodyTextColor;
   }
 
   // The group's name the activity belongs to
@@ -43,6 +49,13 @@
 
 
 .activity-patient {
+  h4 {
+    color: darken(@bodyTextColor, 20%);
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 14px;
+  }
   .activity-patient-more {
     margin-top: 14px;
   }
@@ -50,7 +63,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-bottom: @activityPadding;
     li {
       display: inline-block;
       margin: 0;
@@ -59,6 +71,9 @@
           color: @submenuSelectedTextColor;
           border: 1px solid @borderColor;
           border-bottom: none !important;
+          position: relative;
+          top: 1px;
+          z-index: 1;
 
         }
         padding: 4px 8px;
@@ -69,5 +84,9 @@
         border: none;
       }
     }
+  }
+  .activity-patient-content {
+    border: 1px solid @borderColor;
+    .spaced;
   }
 }

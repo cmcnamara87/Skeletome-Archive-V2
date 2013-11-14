@@ -58,18 +58,13 @@
 .block {
   margin: 14px;
 }
-.block + .block {
-  margin-top: 28px;
-}
 .block-header {
   border-bottom: 1px solid #dbe1e3;
-  padding: 14px;
+  padding: 14px 14px;
   border-top: none;
-  margin-bottom: 7px;
   padding-top: 0;
   position: relative;
   background-color: white;
-  height: 40px;
 }
 .block-header h2 {
   font-size: 21px;
@@ -219,10 +214,8 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
-.nodata {
-  color: #949a9c;
-}
 .resource {
+  margin-bottom: 28px;
   /** Controls like edit / delete buttons */
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
 }
@@ -247,15 +240,12 @@ Styleguide 2.1.3.
   float: right;
 }
 .resource .resource-block {
-  /** No margin on the last one */
   margin-bottom: 14px;
+  /** No margin on the last one */
   /** A heading for a block (can have multiple per block) */
 }
 .resource .resource-block:last-of-type {
   margin-bottom: 0px;
-}
-.resource .resource-block.resource-block-has-buttons {
-  margin-right: 80px;
 }
 .resource .resource-block .resource-block-heading {
   font-weight: 600;
@@ -283,9 +273,6 @@ Styleguide 2.1.3.
 }
 .resource .resource-block .resource-block-element.resource-block-element:last-of-type {
   margin-bottom: 0px;
-}
-.resource + .resource {
-  margin-top: 28px;
 }
 .clearfix:after {
   content: ".";
@@ -599,7 +586,12 @@ html[xmlns] .clearfix {
 .typeahead input,
 .typeahead button,
 .typeahead textarea {
+  border: 1px solid #dbe1e3;
   outline: 0;
+}
+::-webkit-input-placeholder,
+button {
+  color: #96A6B1;
 }
 /**
     Text inputs and text areas
@@ -653,9 +645,9 @@ html[xmlns] .clearfix {
   display: block;
   padding: 10px 14px;
   width: 100%;
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba;
+  background-color: #E1EDF8;
+  border: 1px solid #B7D1E9;
+  color: #6D8AA5;
 }
 .typeahead-token-single .icon-remove {
   margin-left: 10px;
@@ -673,13 +665,13 @@ html[xmlns] .clearfix {
 */
 .typeahead-token-multi {
   display: inline-block;
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba !important;
+  background-color: #417BAE;
+  color: white;
   padding: 5px 12px;
   border-radius: 3px;
   margin-right: 7px;
   margin-bottom: 7px;
+  border: none;
 }
 /*
     Options list: The auto-complet edropdown that displays suggestions for tokens
@@ -706,9 +698,7 @@ html[xmlns] .clearfix {
   border-top: none;
 }
 .typeahead-option.selected {
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba;
+  background-color: #F1F5F9;
 }
 .sidebar {
   background-color: #f4f6f7;
@@ -760,16 +750,12 @@ html[xmlns] .clearfix {
   background-color: #f4f6f7;
   font-weight: 400;
   border-top: none;
-  color: #303334;
 }
 .table tbody > tr > td {
   border: none !important;
   padding: 6px !important;
   margin: 0px !important;
   vertical-align: middle;
-}
-.table tr:hover.is-editing td {
-  background-color: white;
 }
 .table tr:hover td {
   background-color: #eff8f9;
@@ -797,48 +783,6 @@ html[xmlns] .clearfix {
   float: right;
   position: relative;
   top: 0px;
-}
-.resource.ng-enter,
-.resource.ng-leave,
-.resource.ng-move {
-  -webkit-transition: 0.1s linear all;
-  -moz-transition: 0.1s linear all;
-  -o-transition: 0.1s linear all;
-  transition: 0.1s linear all;
-  position: relative;
-}
-.resource.ng-enter {
-  left: -50px;
-  opacity: 0;
-}
-.resource.ng-enter.ng-enter-active {
-  left: 0;
-  opacity: 1;
-}
-.resource.ng-leave {
-  left: 0;
-  opacity: 1;
-}
-.resource.ng-leave.ng-leave-active {
-  left: -50px;
-  opacity: 0;
-}
-.resource.ng-move {
-  opacity: 0.5;
-}
-.resource.ng-move.ng-move-active {
-  opacity: 1;
-}
-.pills {
-  display: inline-block;
-  background-color: #fffabf;
-  color: #7d785e;
-  padding: 5px 14px;
-  border-radius: 100px;
-  border: 1px solid #E6E1CE;
-}
-.pills + .pills {
-  margin-left: 4px;
 }
 body {
   background-color: #e1e6e9;
@@ -1407,9 +1351,6 @@ Styleguide 2.1.3.
   position: relative;
   top: 10px;
   margin-left: 7px;
-}
-.savecancel {
-  text-align: right;
 }
 .btn.btn-save {
   background-color: #47a0d6;

@@ -1,7 +1,8 @@
 @activitiesWidth: 45%;
 @menubarHeight: 60px;
-@submenubarHeight: 54px;
+@submenubarHeight: 60px;
 @sidebarWidth: 230px;
+@defaultSpace: 14px;
 
 .main {
   .panel;
@@ -21,6 +22,9 @@
     right: @activitiesWidth;
     background-color: white;
   }
+  .main-feed {
+    background-color: @backgroundColorDark;
+  }
 
 .sidebar {
   .panel;
@@ -34,4 +38,13 @@
 .feed {
   padding: 14px 0px;
   background-color: @backgroundColorDark;
+}
+
+.submenubar {
+  .panel;
+  top: @menubarHeight;
+  left: 0px;
+  right: 0px;
+  bottom: auto;
+  height: @submenubarHeight;
 }

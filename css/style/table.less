@@ -5,21 +5,29 @@
   tbody>tr>th {
     background-color: @backgroundColorLight;
     font-weight: 400;
-
     border-top: none;
+    color: @tableHeaderTextColor;
   }
   tbody>tr>td {
     border: none !important;
-    border-bottom: 1px solid @borderColor  !important;
     padding: 6px !important;
     margin: 0px !important;
     vertical-align: middle;
   }
+  tr:hover {
+    &.is-editing td {
+      background-color: white;
+    }
+    td {
+      background-color: lighten(@highlightColorLight, 15%);
+    }
+
+    a {
+      color: @highlightColor;
+      text-decoration: underline;
+    }
+  }
   tbody {
     border: none !important;
-  }
-  a {
-    margin: 0;
-    padding: 0;
   }
 }

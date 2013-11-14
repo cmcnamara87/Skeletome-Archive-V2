@@ -1,6 +1,7 @@
 angular.module('directives.navigation',
     [
         'directives.navigation.menubar',
+        'directives.navigation.sidemenu',
         'directives.navigation.submenubar',
         'directives.navigation.breadcrumbbar',
         'directives.navigation.loadingroute',

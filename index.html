@@ -36,78 +36,10 @@
 
         <div>
             <submenubar></submenubar>
+            <sidemenu></sidemenu>
 
-            <div class="sidebar">
-                <div class="sidebar-box">
-                    <div class="media">
-                        <div class="pull-left">
-                            <img src="img/shatner.png" alt="">
-                        </div>
-                        <div class="media-body user">
-                            <div class="user-username">
-                                <a href="#/user/{{ currentUser.uid }}">Dr {{ currentUser.name }}</a>
-                            </div>
-                            <div class="user-userinfo">
-                                {{ currentUser.created }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="sidebar-box ">
-                    <ul class="sidebar-menu">
-                        <li>
-                            <a href="#/feed" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-list"></i>
-                                Newsfeed
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#/patients/my-patients" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-user"></i>
-                                My Patients
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-star"></i>
-                                Favourites
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-file-text"></i>
-                                Notes
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="sidebar-box">
-                    <ul class="sidebar-menu">
-                        <li>
-                            <a href="#" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-user-md"></i>
-                                My Groups
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-user"></i>
-                                Community Patients
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-menu-item" menu-item>
-                                <i class="icon icon-book"></i>
-                                Contacts
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="main main-sidebar" ng-class="{'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
+            <div class="main" ng-class="{'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
                 <div ng-view></div>
             </div>
         </div>
@@ -137,6 +69,10 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-cookies.js"></script>
     <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/angular-route.js"></script>
+    <script src="lib/angular/angular-animate.js"></script>
+
+
     <script src="app.js"></script>
     <script src="js/services.js"></script>
 
@@ -149,6 +85,7 @@
 
     <!-- Navigation -->
     <script src="common/navigation/navigation.js"></script>
+    <script src="common/navigation/sidemenu/sidemenu.js"></script>
     <script src="common/navigation/menubar/menubar.js"></script>
     <script src="common/navigation/submenubar/submenubar.js"></script>
     <script src="common/navigation/submenubar/item/submenubar_item.js"></script>

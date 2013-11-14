@@ -1,0 +1,69 @@
+<div class="sidebar" ng-show="showSidemenu">
+    <div class="sidebar-box">
+        <div class="media">
+            <div class="pull-left">
+                <img src="img/shatner.png" alt="">
+            </div>
+            <div class="media-body user">
+                <div class="user-username">
+                    <a href="#/user/{{ currentUser.uid }}">Dr {{ currentUser.name }}</a>
+                </div>
+                <div class="user-userinfo">
+                    {{ currentUser.created }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar-box ">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#/feed" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-list icon-fixed-width"></i>
+                    Newsfeed
+                </a>
+            </li>
+            <li>
+                <a href="#/patients/my-patients" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-user icon-fixed-width"></i>
+                    My Patients
+                </a>
+            </li>
+            <li>
+                <a href="#" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-star icon-fixed-width"></i>
+                    Favourites
+                </a>
+            </li>
+            <li>
+                <a href="#" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-file-text icon-fixed-width"></i>
+                    Notes
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="sidebar-box">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="#/groups/my-groups" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-user-md icon-fixed-width"></i>
+                    My Groups
+                </a>
+            </li>
+            <li>
+                <a href="#" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-user icon-fixed-width"></i>
+                    Community Patients
+                </a>
+            </li>
+            <li>
+                <a href="#" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-book icon-fixed-width"></i>
+                    Contacts
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

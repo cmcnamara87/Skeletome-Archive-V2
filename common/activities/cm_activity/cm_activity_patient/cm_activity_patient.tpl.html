@@ -1,62 +1,72 @@
 <div class="activity-patient" ng-show="activity.patient">
-    <ul class="activity-patient-menu">
-        <li>
-            <button ng-class="{'selected': patientInfo == 'clinicalSummary'}" ng-click="patientInfo = 'clinicalSummary'">Clinical Summary</button>
-        </li>
-        <li>
-            <button ng-click="patientInfo = 'xRays'" ng-class="{'selected': patientInfo == 'xRays'}">
-                X-Rays
-            </button>
+    <h4><a href="#/patient/{{ activity.patient.id }}">Patient #{{ activity.patient.id }}</a></h4>
+    <div >
+        <ul class="activity-patient-menu">
+            <li>
+                <button ng-class="{'selected': patientInfo == 'clinicalSummary'}" ng-click="patientInfo = 'clinicalSummary'">Clinical Summary</button>
+            </li>
+            <li>
+                <button ng-click="patientInfo = 'xRays'" ng-class="{'selected': patientInfo == 'xRays'}">
+                    X-Rays
+                </button>
 
-        </li>
-        <li>
-            <button ng-click="patientInfo = 'geneticReport'" ng-class="{'selected': patientInfo == 'geneticReport'}">
-                Genetic Reports
-            </button>
-        </li>
-    </ul>
-    <div ng-switch on="patientInfo" class="activity-patient-content">
-        <div ng-switch-when="clinicalSummary">
-            <div ng-show="!activity.patient.clinical_summary.length">
-                No clinical summary.
+            </li>
+            <li>
+                <button ng-click="patientInfo = 'geneticReport'" ng-class="{'selected': patientInfo == 'geneticReport'}">
+                    Genetic Reports
+                </button>
+            </li>
+        </ul>
+        <div class="activity-patient-content">
+            <div ng-switch on="patientInfo">
+
+                <div ng-switch-when="clinicalSummary">
+                    <div ng-show="!activity.patient.clinical_summary.length">
+                        No clinical summary.
+                    </div>
+                    <div ng-show="activity.patient.clinical_summary.length">
+                        <mentions text="activity.patient.clinical_summary" mentions="activity.patient.mentions"></mentions>
+                    </div>
+                </div>
+                <div ng-switch-when="xRays">
+                    <div ng-show="activity.patient.xrays && !activity.patient.xrays.length">
+                        No xrays.
+                    </div>
+                    <div ng-repeat="xray in activity.patient.xrays">
+                        <img ng-src="{{ xray.thumb_url }}" alt=""/>
+                    </div>
+                </div>
+                <div ng-switch-when="geneticReport">
+                    <div ng-show="activity.patient.genetic_reports && !activity.patient.genetic_reports.length">
+                        No genetic report.
+                    </div>
+                    <table class="table" ng-show="activity.patient.genetic_reports.length">
+                        <tr>
+                            <th>Name</th>
+                            <th>Gene</th>
+                            <th>Mutation type</th>
+                        </tr>
+                        <tr ng-repeat="geneMutation in activity.patient.genetic_reports">
+                            <td>
+                                {{ geneMutation.name }}
+                            </td>
+                            <td>
+                                {{ geneMutation.gene.name }}
+                            </td>
+                            <td>
+                                {{ geneMutation.mutation_type.name }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-            <div ng-show="activity.patient.clinical_summary.length">
-                <mentions text="activity.patient.clinical_summary" mentions="activity.patient.mentions"></mentions>
+
+            <div class="activity-patient-more">
+                <a href="#/patient/{{ activity.patient.id }}/summary" class="btn btn-more">More information</a>
             </div>
-        </div>
-        <div ng-switch-when="xRays">
-            <div ng-show="activity.patient.xrays && !activity.patient.xrays.length">
-                No xrays.
-            </div>
-            <div ng-repeat="xray in activity.patient.xrays">
-                <img ng-src="{{ xray.thumb_url }}" alt=""/>
-            </div>
-        </div>
-        <div ng-switch-when="geneticReport">
-            <div ng-show="activity.patient.genetic_reports && !activity.patient.genetic_reports.length">
-                No genetic report.
-            </div>
-            <table class="table" ng-show="activity.patient.genetic_reports.length">
-                <tr>
-                    <th>Name</th>
-                    <th>Gene</th>
-                    <th>Mutation type</th>
-                </tr>
-                <tr ng-repeat="geneMutation in activity.patient.genetic_reports">
-                    <td>
-                        {{ geneMutation.name }}
-                    </td>
-                    <td>
-                        {{ geneMutation.gene.name }}
-                    </td>
-                    <td>
-                        {{ geneMutation.mutation_type.name }}
-                    </td>
-                </tr>
-            </table>
         </div>
     </div>
-    <div class="activity-patient-more">
-        <a href="#/patient/{{ activity.patient.id }}/summary" class="btn btn-more">More information</a>
-    </div>
+
+
+
 </div>

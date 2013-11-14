@@ -1,0 +1,35 @@
+@animateLength: 0.1s;
+.resource.ng-enter,
+.resource.ng-leave,
+.resource.ng-move {
+  -webkit-transition: @animateLength linear all;
+  -moz-transition: @animateLength linear all;
+  -o-transition: @animateLength linear all;
+  transition: @animateLength linear all;
+  position:relative;
+}
+
+.resource.ng-enter {
+  left:-50px;
+  opacity:0;
+}
+.resource.ng-enter.ng-enter-active {
+  left:0;
+  opacity:1;
+}
+
+.resource.ng-leave {
+  left:0;
+  opacity:1;
+}
+.resource.ng-leave.ng-leave-active {
+  left:-50px;
+  opacity:0;
+}
+
+.resource.ng-move {
+  opacity:0.5;
+}
+.resource.ng-move.ng-move-active {
+  opacity:1;
+}

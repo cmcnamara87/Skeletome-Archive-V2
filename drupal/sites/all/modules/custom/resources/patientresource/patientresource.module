@@ -56,23 +56,25 @@ class PatientController extends EntityAPIController {
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
 
-        $old_patient = patient_load($entity['id']);
+        $old_patient = patient_load($entity->id);
 
         parent::save($entity, $transaction);
 
-        // Check if the clinical summary has changed, so we can do some term processing
-        if($entity['clinical_summary'] != $old_patient->clinical_summary) {
+//         Check if the clinical summary has changed, so we can do some term processing
+        if($entity->clinical_summary != $old_patient->clinical_summary) {
             $clinical_summary_changed = true;
         } else {
             $clinical_summary_changed = false;
         };
 
         // Analyse the clinical summary for terms
-        $clinical_summary = str_replace("&nbsp;", " ", strip_tags($entity['clinical_summary']));
+        $clinical_summary = str_replace("&nbsp;", " ", strip_tags($entity->clinical_summary));
 
         if($clinical_summary_changed) {
-            mention_reindex($entity['id'], "patient", $clinical_summary);
+            mention_reindex($entity->id, "patient", $clinical_summary);
         }
+
+        self::addRelated($entity);
     }
 
     public function load($ids = array(), $conditions = array()) {
@@ -81,8 +83,10 @@ class PatientController extends EntityAPIController {
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
+            $entity->test = $user;
             // check if the are the owner of this patient
             if($entity->uid != $user->uid) {
+                $entity->not_owner = "true";
                 // not the owner, remove private details
                 unset(
                     $entity->first_name,

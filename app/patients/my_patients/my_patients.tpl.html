@@ -1,8 +1,11 @@
 <div>
-    <div class="block">
-        <div class="block-header">
+    <div class="page">
+        <div class="page-top">
+            <div class="page-top-buttons">
+                <button class="btn btn-action"><i class="icon icon-plus-sign"></i> New Patient</button>
+            </div>
+
             <h1>My Patients</h1>
-            <button class="btn btn-action"><i class="icon icon-plus-circle"></i> New Patient</button>
         </div>
         <table class="table">
             <tr>
@@ -59,7 +62,10 @@
                 </td>
                 <td>
                     <a href="#/patient/{{ patient.id }}/summary">
-                        {{ patient.fullName() }}
+                        <span ng-show="!patient.first_name.length && !patient.last_name.length && !patient.alias.length" class="nodata">
+                            No name recorded.
+                        </span>
+                        {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
                     </a>
                 </td>
 

@@ -1,7 +1,3 @@
-@bodyTextColor: #1E3346;
-@labelTextColor: #637C90;
-
-
 
 @bodyBackgroundColor: #E1E6E9;
 @commentBackgroundColor: #F3F6F7;
@@ -13,10 +9,19 @@
 @highlightColorLight: lighten(@highlightColor, 30%);
 @highlightColorDark: darken(@highlightColor, 30%);
 
+// button colors
+@buttonTextColor: lighten(desaturate(@highlightColor, 10%), 10%);
+@buttonBorderColor: lighten(desaturate(@highlightColor, 10%), 30%);
+
+//
+@labelTextColor: @bodyTextColor;
+
 // the body color
-@bodyTextColor: #949a9c;
+@bodyTextColor: #616769; //#858a8c;
 @placeholderTextColor: lighten(@bodyTextColor, 20%);
 @headingColor: darken(@bodyTextColor, 50%);
+@noDataTextColor: lighten(@bodyTextColor, 20%);
+@tableHeaderTextColor: darken(@bodyTextColor, 20%);
 
 // the usernames
 @usernameColor:darken(@bodyTextColor, 30%);
@@ -33,10 +38,21 @@
 @backgroundColorLight: #F4F6F7;
 @backgroundColorDark: #DCE2E4;
 
+
+// typeahead
+@typeaheadOptionTextColor: darken(@bodyTextColor, 10%);
+@typeaheadTokenColor: lighten(@highlightColorLight, 10%);
+@typeaheadTokenBorderColor:lighten(@highlightColor, 20%);
+
 // Menu
 @menubarColor: #5CABBA;
 @menubarSearchBackgroundColor: darken(@menubarColor, 10%);
 @menubarSearchTextColor: @menubarColor;
 
 // Border
-@borderColor: #DBE1E3;
+@borderColor: #dbe1e3;
+
+
+// pills
+@pillBackgroundColor: rgb(255, 250, 191);
+@pillColor: rgb(125, 120, 94);

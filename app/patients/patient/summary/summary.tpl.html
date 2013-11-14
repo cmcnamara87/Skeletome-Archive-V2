@@ -1,62 +1,67 @@
 <div>
+
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-action">Request Access</button>
+            <h2>HPO Terms</h2>
+
+            <div class="block-header-buttons">
+            </div>
+        </div>
+        <div class="block-content">
+            <div ng-repeat="patientHpo in patientHpos" class="pills">
+                {{ patientHpo.hpo.name }}
+            </div>
+            <div ng-show="!patientHpos.length" class="nodata">
+                No HPO terms.
+            </div>
         </div>
     </div>
 
-    <div class="block-list">
-        <div class="block">
-            <div class="block-header">
-                <h2>HPO Terms</h2>
-
-                <div class="block-header-buttons">
-                </div>
-            </div>
-            <div class="block-content">
-                <div ng-repeat="patientHpo in patientHpos">
-                    {{ patientHpo.hpo.name }}
-                </div>
-            </div>
+    <div class="block">
+        <div class="block-header">
+            <h2>Genetic Report</h2>
         </div>
-
-        <div class="block">
-            <div class="block-header">
-                <h2>Gene Mutations</h2>
+        <div class="block-content">
+            <div ng-show="!geneMutations.length" class="nodata">
+                No genetic report.
             </div>
-            <div class="block-content">
-                <table class="table-content">
+
+            <table class="table" ng-show="geneMutations.length">
+                <tr>
+                    <th>Name</th>
+                    <th>Gene</th>
+                    <th>Mutation Type</th>
+                    <th>Pathogenicity</th>
+                </tr>
+                <tbody ng-repeat="geneMutation in geneMutations">
                     <tr>
-                        <th>Name</th>
-                        <th>Gene</th>
-                        <th>Mutation Type</th>
-                        <th>Pathogenicity</th>
+                        <td>{{ geneMutation.name }}</td>
+                        <td>{{ geneMutation.gene.name }}</td>
+                        <td>{{ geneMutation.mutation_type.name }}</td>
+                        <td>{{ geneMutation.pathogenic }}</td>
                     </tr>
-                    <tbody ng-repeat="geneMutation in geneMutations">
-                        <tr>
-                            <td>{{ geneMutation.name }}</td>
-                            <td>{{ geneMutation.gene.name }}</td>
-                            <td>{{ geneMutation.mutation_type.name }}</td>
-                            <td>{{ geneMutation.pathogenic }}</td>
-                        </tr>
-                    </tbody>
+                </tbody>
 
-                </table>
-            </div>
+            </table>
         </div>
+    </div>
 
-        <div class="block">
-            <div class="block-header">
-                <h2>Diagnoses</h2>
-            </div>
-            <div class="block-content">
-                <div class="resource-block">
-                    <div ng-repeat="diagnosis in diagnoses">
-                        {{ diagnosis.disorder.name }}
-                    </div>
+    <div class="block">
+        <div class="block-header">
+            <h2>Diagnoses</h2>
+        </div>
+        <div class="block-content">
+            <div class="resource-block">
+
+                <div ng-show="!diagnoses.length" class="nodata">
+                    No diagnoses.
                 </div>
 
+                <div ng-repeat="diagnosis in diagnoses">
+                    {{ diagnosis.disorder.name }}
+                </div>
             </div>
+
         </div>
     </div>
 

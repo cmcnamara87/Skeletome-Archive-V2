@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   overflow: auto;
+  background-color: white;
   top: 60px;
 }
 .main-submenubar {
@@ -28,12 +29,19 @@
   right: auto;
   width: 230px;
 }
+.feed {
+  padding: 14px 0px;
+  background-color: #dce2e4;
+}
 /**
   * A Section of content on a page
   *
   * Has a header and a content block. Multiple sections of content
   * can be stacked on top of each other
   */
+.block {
+  margin: 14px;
+}
 .block-header {
   border-bottom: 1px solid #dbe1e3;
   padding: 14px 14px;
@@ -144,12 +152,12 @@ A button suitable for giving stars to someone.
 Styleguide 2.1.3.
 */
 .btn-action {
-  border: 1px solid #dbe1e3;
+  border: 1px solid #bddadf;
   border-radius: 3px;
   background-color: transparent;
   padding: 5px 10px;
   outline: none !important;
-  color: #637c90;
+  color: #78b3be;
 }
 .btn-action:hover {
   color: #849eb0;
@@ -227,7 +235,7 @@ Styleguide 2.1.3.
   margin: 0;
   margin-bottom: 7px;
   text-transform: uppercase;
-  color: #637c90;
+  color: #49a9ba;
 }
 .resource .resource-block label.label-top {
   display: block;
@@ -236,7 +244,7 @@ Styleguide 2.1.3.
 .resource .resource-block label.label-right {
   padding-right: 14px;
   margin-bottom: 0;
-  color: #637c90;
+  color: #49a9ba;
   font-weight: normal;
 }
 .resource .resource-block label.label-right input {
@@ -272,7 +280,7 @@ html[xmlns] .clearfix {
   padding: 10px;
 }
 .comment ::-webkit-input-placeholder {
-  color: #c9cccd;
+  color: #949a9c;
 }
 .comments-more {
   background-color: #f3f6f7;
@@ -282,12 +290,13 @@ html[xmlns] .clearfix {
   padding: 10px 14px;
 }
 .comments-more ::-webkit-input-placeholder {
-  color: #c9cccd;
+  color: #949a9c;
 }
 /**
   * An individual activity */
 .activity {
   margin-bottom: 14px;
+  border: 1px solid #dbe1e3;
 }
 .activity a {
   transition: color 0.2s;
@@ -331,11 +340,11 @@ html[xmlns] .clearfix {
   padding: 4px 8px;
   background-color: white;
   border-radius: 2px;
-  color: #c9cccd;
+  color: #949a9c;
   border: none;
 }
 .activity-patient .activity-patient-menu li button.selected {
-  color: #616769;
+  color: #303334;
   border: 1px solid #dbe1e3;
   border-bottom: none !important;
 }
@@ -384,7 +393,7 @@ html[xmlns] .clearfix {
   font-size: 21px;
   font-weight: 300px;
   margin: 0;
-  color: #637c90;
+  color: #49a9ba;
   margin-bottom: 21px;
 }
 .activities .activities-adder {
@@ -423,7 +432,7 @@ html[xmlns] .clearfix {
 .submenubar .submenubar-item {
   display: block;
   padding: 4px 12px;
-  color: #c9cccd;
+  color: #949a9c;
   border-radius: 100px;
 }
 .submenubar .submenubar-item.active {
@@ -678,7 +687,7 @@ button {
   margin: 0px;
 }
 .sidebar .sidebar-menu .sidebar-menu-item {
-  color: #616769;
+  color: #303334;
   display: block;
 }
 .sidebar .sidebar-menu .sidebar-menu-item.selected {
@@ -695,21 +704,66 @@ button {
   text-transform: capitalize;
 }
 .user .user-username a {
-  color: #494d4e;
+  color: #181919;
   font-weight: 600;
 }
 .user .user-username a:hover {
   text-decoration: underline;
 }
 .user .user-info {
-  color: #7a8183;
+  color: #494d4e;
 }
 .user .user-date {
-  color: #aeb3b5;
+  color: #798184;
 }
-/**
- * Variables
- */
+.table {
+  border-top: none;
+}
+.table tbody > tr > th {
+  background-color: #f4f6f7;
+  font-weight: 400;
+  border-top: none;
+}
+.table tbody > tr > td {
+  border: none !important;
+  padding: 6px !important;
+  margin: 0px !important;
+  vertical-align: middle;
+}
+.table tr:hover td {
+  background-color: #eff8f9;
+}
+.table tr:hover a {
+  color: #49a9ba;
+  text-decoration: underline;
+}
+.table tbody {
+  border: none !important;
+}
+.page {
+  padding: 14px;
+}
+.page .page-top h1 {
+  margin: 0;
+  padding: 0;
+  font-weight: 300;
+  color: #000000;
+  font-size: 28px;
+  margin-top: 7px;
+  margin-bottom: 28px;
+}
+.page .page-top .page-top-buttons {
+  float: right;
+  position: relative;
+  top: 0px;
+}
+body {
+  background-color: #e1e6e9;
+  color: #616769;
+  font-family: "Source Sans Pro";
+  font-size: 14px;
+  line-height: 21px;
+}
 /**
   * Creates a bordered box
 */
@@ -738,13 +792,6 @@ button {
   left: 0;
   right: 0;
   overflow: auto;
-}
-body {
-  background-color: #e1e6e9;
-  color: #949a9c;
-  font-family: "Source Sans Pro";
-  font-size: 14px;
-  line-height: 21px;
 }
 /*
     Headings
@@ -781,14 +828,11 @@ h4 {
     Anchors
 */
 a {
-  color: #949a9c;
+  color: #616769;
 }
 a:hover {
-  text-decoration: underline;
-  color: #7a8183;
-}
-a:visited {
-  color: #7a8183;
+  text-decoration: none;
+  color: #494d4e;
 }
 /*
 A button suitable for giving stars to someone.
@@ -831,10 +875,6 @@ button,
 textarea {
   border: 1px solid #dbe1e3;
   outline: 0;
-}
-::-webkit-input-placeholder,
-button {
-  color: #96A6B1;
 }
 /**
     Text inputs and text areas
@@ -1206,7 +1246,7 @@ header {
 .dropzone {
   border: 2px dashed #dbe1e3;
   min-height: 160px;
-  color: #637c90;
+  color: #49a9ba;
   font-weight: 600;
   text-align: center;
   line-height: 160px;

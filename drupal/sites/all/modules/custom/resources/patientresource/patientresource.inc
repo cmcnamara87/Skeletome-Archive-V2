@@ -32,14 +32,14 @@ function _patientresource_update($id, $data) {
 
     global $user;
 
+    if (isset($data) &&  is_array($data)) $data=(object) $data;
     unset($data->created);
     $data->id = $id;
     $data->uid = $user->uid;
     $data->modified = time();
 
     patient_save($data);
-
-    return patient_load($data);
+    return $data;
 }
 /**
  * Callback for retrieving patient resources.

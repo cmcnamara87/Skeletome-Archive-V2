@@ -10,22 +10,29 @@
 .block {
   margin: 14px;
 }
+.block + .block {
+  margin-top: @defaultSpace * 2;
+}
 .block-header {
   border-bottom: 1px solid @borderColor;
-  padding: 14px 14px;
+  padding: @defaultSpace;
   border-top: none;
+  margin-bottom: @defaultSpace / 2;
+  padding-top: 0;
   position: relative;
   background-color: white;
+  height: 40px;
 
   h2 {
     font-size: 21px;
     margin: 0;
     font-weight: 400;
+    color: @headingColor;
   }
   .block-header-buttons {
     position: absolute;
     right: 14px;
-    top: 8px;
+    top: -5px;
   }
 }
 
@@ -70,13 +77,8 @@
   &.block-content-clear {
     background-color: #E1E6E9 !important;
   }
-
-  .bordered;
   .spaced;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  padding-bottom: 14px;
+  padding-bottom: @defaultSpace;
 
 }
 

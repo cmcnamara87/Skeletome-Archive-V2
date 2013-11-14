@@ -38,6 +38,9 @@ angular.module('patient.clinical_summary', [])
         $scope.patient = patient;
         $scope.patientHPOs = patientHPOs;
 
+        $scope.newHpos = [];
+        $scope.showNewHpos = false;
+
         /**
          * Add a new address
          */
@@ -46,6 +49,11 @@ angular.module('patient.clinical_summary', [])
                 patient_id: $scope.patient.id
             });
             $scope.patientHPOs.unshift(newPatientHPO);
+        }
+
+        $scope.showNewHPO = function() {
+            "use strict";
+            $scope.showNewHpos = true;
         }
 
         $scope.findHPO = function(value) {
@@ -63,6 +71,16 @@ angular.module('patient.clinical_summary', [])
             // Find the gene mutations that match the gene
             patientHPO.hpo_id = hpo.id;
             patientHPO.hpo = hpo;
+        }
+
+        $scope.saveNewHpos = function(newHpos) {
+            "use strict";
+            angular.forEach(newHpos, function(newHpo, newHpoIndex) {
+                var newPatientHPO = new HPOPatientModel(newHpo);
+                newPatientHPO.patient_id = $scope.patient.id
+                newPatientHPO.$save();
+                $scope.patientHPOs.unshift(newPatientHPO);
+            });
         }
 
         $scope.removePatientHPO = function(patientHPO) {

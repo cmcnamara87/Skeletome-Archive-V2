@@ -16,6 +16,7 @@ angular.module('directives.mentions', [])
 //                    'line-height': '28px',
 //                    'display': 'block'
 //                });
+                element.addClass('mentions');
 
                 $scope.$watch('mentions', function(mentions) {
                     // mentions changed

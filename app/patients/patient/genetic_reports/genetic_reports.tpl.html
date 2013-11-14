@@ -1,11 +1,17 @@
 <div>
     <div class="block">
         <div class="block-header">
-            <button class="btn btn-action" ng-click="addGeneMutation()">Add Gene Mutation</button>
+            <div class="block-header-buttons">
+                <button class="btn btn-action" ng-click="addGeneMutation()"><i class="icon icon-plus-sign"></i> Add</button>
+            </div>
+            <h2>Genetic Report</h2>
         </div>
         <div class="block-content">
-            <table class="table-content">
-                <tr>
+            <div ng-show="!geneMutations.length" class="nodata">
+                No genetic reports recorded.
+            </div>
+            <table class="table" ng-show="geneMutations.length">
+                <tr ng-show="geneMutations[0].id">
                     <th>Name</th>
                     <th>Gene</th>
                     <th>Mutation Type</th>
@@ -13,7 +19,7 @@
                     <th></th>
                 </tr>
                 <tbody ng-repeat="geneMutation in geneMutations" cm-resource="geneMutation" remove-fn="removeGeneMutation(geneMutation)">
-                    <tr ng-show="$isEditing">
+                    <tr ng-show="$isEditing" class="is-editing">
                         <td colspan="5" class="is-editing">
                             <div class="resource-block">
                                 <div class="resource-block-element">

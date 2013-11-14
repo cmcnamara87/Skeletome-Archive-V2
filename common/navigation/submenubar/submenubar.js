@@ -12,7 +12,7 @@ angular.module('directives.navigation.submenubar', ['directives.navigation.subme
                     var parts = $location.path().split("/");
 
                     $scope.type = parts[1];
-                    if($scope.type == "patient" || $scope.type == "group" || $scope.type == "groups") {
+                    if($scope.type == "patient" || $scope.type == "group") {
                         $scope.id = parts[2];
                         console.log("Show sub menu bar");
                         $rootScope.showSubmenuBar = true;

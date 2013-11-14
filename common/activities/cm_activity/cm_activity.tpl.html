@@ -9,7 +9,7 @@
     -->
 
     <div class="activity-content">
-        <div class="activity-content-box activity-group">
+        <div class="activity-content-box activity-group" ng-if="activity.group.name">
             <a href="#/group/{{ activity.group.id }}">
                 <i class="icon icon-user-md"></i>
                 {{ activity.group.name }}
@@ -41,10 +41,10 @@
                 </div>
             </div>
         </div>
-        <div class="activity-content-box activity-content-box-message" ng-show="activity.post">
+        <div class="activity-content-box activity-content-box-message" ng-if="activity.post">
             <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
         </div>
-        <div class="activity-content-box">
+        <div class="activity-content-box" ng-if="activity.patient">
             <cm-activity-patient></cm-activity-patient>
         </div>
 

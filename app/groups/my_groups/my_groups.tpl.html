@@ -1,12 +1,13 @@
 <div>
-    <div class="block">
-        <div class="block-header">
-            <h2>My Groups</h2>
-            <div class="block-header-buttons">
-                <button class="btn btn-action" ng-click="showCreateGroup()">Create Group</button>
+    <div class="page">
+        <div class="page-top">
+            <div class="page-top-buttons">
+                <button class="btn btn-action" ng-click="showCreateGroup()"><i class="icon icon-plus-sign"></i> New Group</button>
             </div>
+            <h1>My Groups</h1>
         </div>
-            <table class="block-table">
+        <div class="page-content">
+            <table class="table">
                 <tr>
                     <th>Name <i class="icon icon-sort-down"></i></th>
                     <!--<th>Location</th>-->
@@ -48,6 +49,16 @@
                     </td>
                 </tr>
             </table>
+        </div>
+    </div>
+    <div class="block">
+        <div class="block-header">
+
+            <div class="block-header-buttons">
+
+            </div>
+        </div>
+
     </div>
 
     <smodal name="deleteGroup">

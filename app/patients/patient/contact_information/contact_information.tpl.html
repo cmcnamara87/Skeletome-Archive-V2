@@ -87,22 +87,41 @@
 
                         <div class="resource-block">
                             <h3 class="resource-block-heading">Patient Name</h3>
-                            {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
+                            <div>
+                                {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
+                            </div>
+
+                            <div ng-show="!patient.first_name.length && !patient.last_name.length && !patient.alias.length" class="nodata">
+                                No name recorded.
+                            </div>
                         </div>
 
                         <div class="resource-block">
                             <h3 class="resource-block-heading">Date of Birth</h3>
                             {{ patient.dob }}
+
+                            <div ng-show="!patient.dob.length" class="nodata">
+                                No Date of Birth recorded.
+                            </div>
+
                         </div>
 
                         <div class="resource-block">
                             <h3 class="resource-block-heading">Gender</h3>
                             {{ patient.gender }}
+
+                            <div ng-show="!patient.gender.length" class="nodata">
+                                No gender recorded.
+                            </div>
                         </div>
 
                         <div class="resource-block">
                             <h3 class="resource-block-heading">Relationships</h3>
-                            No relations to other patients.
+
+                            <div class="nodata">
+                                No relations to other patients.
+                            </div>
+
                         </div>
 
                     </cm-display>
@@ -113,14 +132,19 @@
 
         <div class="block">
             <div class="block-header">
-                <h2>Addresses</h2>
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href ng-click="addAddress()">Add</button>
+                    <button class="btn btn-action" href ng-click="addAddress()"><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
+                <h2>Addresses</h2>
             </div>
             <div class="block-content">
-                <div ng-repeat="address in addresses" >
-                    <div cm-resource="address" remove-fn="removeAddress(address)">
+
+                <div class="nodata" ng-show="!addresses.length">
+                    No address recorded.
+                </div>
+
+                <div ng-repeat="address in addresses" cm-resource="address" remove-fn="removeAddress(address)" class="my-repeat-animation">
+                    <div >
 
                         <cm-display>
                             <div class="resource-controls">
@@ -191,12 +215,17 @@
                 <h2>Identifiers</h2>
 
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href ng-click="addIdentifier()">Add</button>
+                    <button class="btn btn-action" href ng-click="addIdentifier()"><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
             </div>
             <div class="block-content">
-                <div ng-repeat="identifier in identifiers">
-                    <div cm-resource="identifier" remove-fn="removeIdentifier(identifier)">
+
+                <div class="nodata" ng-show="!identifiers.length">
+                    No identifiers recorded.
+                </div>
+
+                <div ng-repeat="identifier in identifiers" cm-resource="identifier" remove-fn="removeIdentifier(identifier)">
+                    <div >
 
                         <cm-edit>
                             <div class="resource-block">
@@ -237,14 +266,17 @@
             <div class="block-header">
                 <h2>Phone Number</h2>
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href>Add</button>
+                    <button class="btn btn-action" href><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
             </div>
             <div class="block-content">
-                <div ng-repeat="phoneNumber in phoneNumbers">
-                    <div cm-resource="phoneNumber">
 
-                    </div>
+                <div class="nodata" ng-show="!phoneNumbers.length">
+                    No phone numbers recorded.
+                </div>
+
+                <div ng-repeat="phoneNumber in phoneNumbers" cm-resource="phoneNumber">
+
                 </div>
             </div>
         </div>
@@ -254,12 +286,17 @@
                 <h2>Consent</h2>
 
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href ng-click="addConsentFile()">Add</button>
+                    <button class="btn btn-action" href ng-click="addConsentFile()"><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
             </div>
             <div class="block-content">
-                <div ng-repeat="consentFile in consentFiles">
-                    <div cm-resource="consentFile" remove-fn="removeConsentFile(consentFile)">
+
+                <div class="nodata" ng-show="!consentFiles.length">
+                    No consent files recorded.
+                </div>
+
+                <div ng-repeat="consentFile in consentFiles" cm-resource="consentFile" remove-fn="removeConsentFile(consentFile)">
+                    <div >
                         <cm-edit>
                             <div class="resource-block">
                                 <div class="resource-block-element" ng-show="!consentFile.id">
@@ -296,23 +333,26 @@
             <div class="block-header">
                 <h2>Sharing</h2>
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href>Add</button>
+                    <button class="btn btn-action" href><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
             </div>
             <div class="block-content">
-                <div ng-repeat="share in shares">
-                    <div cm-resource="share">
-                        <cm-display>
-                            <div class="resource-controls">
-                                <cm-edit-delete edit-enabled="false"></cm-edit-delete>
-                            </div>
-                            <div class="resource-block">
-                                <h3 class="resource-block-heading">Group</h3>
-                                <a ng-href="#/group/{{ share.group.id }}">{{ share.group.name }}</a>
-                            </div>
 
-                        </cm-display>
-                    </div>
+                <div class="nodata" ng-show="!shares.length">
+                    This patient is not shared with any groups.
+                </div>
+
+                <div ng-repeat="share in shares" cm-resource="share">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                        </div>
+                        <div class="resource-block">
+                            <h3 class="resource-block-heading">Group</h3>
+                            <a ng-href="#/group/{{ share.group.id }}">{{ share.group.name }}</a>
+                        </div>
+
+                    </cm-display>
                 </div>
             </div>
         </div>

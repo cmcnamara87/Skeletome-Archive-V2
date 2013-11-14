@@ -829,17 +829,6 @@ html[xmlns] .clearfix {
 .resource.ng-move.ng-move-active {
   opacity: 1;
 }
-.pills {
-  display: inline-block;
-  background-color: #fffabf;
-  color: #7d785e;
-  padding: 5px 14px;
-  border-radius: 100px;
-  border: 1px solid #E6E1CE;
-}
-.pills + .pills {
-  margin-left: 4px;
-}
 body {
   background-color: #e1e6e9;
   color: #616769;

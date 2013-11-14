@@ -2,6 +2,7 @@
 
 
 var myApp = angular.module('myApp', [
+        'ngRoute',
         'myApp.filters',
         'myApp.services',
         'myApp.directives',
@@ -16,7 +17,8 @@ var myApp = angular.module('myApp', [
         'directives.navigation',
         'directives.smodal',
         'directives.activities',
-        'directives.input']).
+        'directives.input',
+        'ngAnimate']).
     config(['$routeProvider', function ($routeProvider) {
 
         /**

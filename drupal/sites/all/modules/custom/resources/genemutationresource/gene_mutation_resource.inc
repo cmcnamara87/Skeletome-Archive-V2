@@ -66,18 +66,7 @@ function _gene_mutation_resource_delete($id) {
 
 
 function _gene_mutation_resource_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'gene_mutation');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['gene_mutation']);
-
-    return gene_mutation_load_multiple($ids);
+    return resource_helper_index('gene_mutation', $page, $fields, $parameters, $page_size);
 }
 
 /**

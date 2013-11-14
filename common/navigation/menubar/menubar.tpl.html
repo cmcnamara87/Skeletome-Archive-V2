@@ -52,22 +52,49 @@
 
         </div>
 
-        <div class="menubar menubar-dark" ng-show="content">
-            <!--<div class="menubar-item menubar-buttongroup pull-right">
-                <a class="btn btn-action" href="">Favourite</a>
-            </div>-->
+        <div class="menubar" ng-show="content">
+            <div class="menubar-left">
+                <!-- stuff on the left side of the menu bar -->
+                <!-- The logo -->
+                <div class="menubar-item menubar-logo">
+                    <a href ng-click="back()">
+                        <i class="icon icon-arrow-left"></i>
+                    </a>
+                    <a href ng-click="back()">
+                        {{ patient.fullName() }} {{ group.name }}
+                    </a>
+                </div>
+            </div>
 
-            <a class="menubar-item menubar-back pull-right" href ng-click="back()">
-                <i class="icon icon-remove"></i>
-            </a>
+            <div class="menubar-middle">
+                <!-- expands to fill the space between left and right -->
+            </div>
+            <div class="menubar-right">
+                <!-- stuff on the right side of the menu bar -->
+                <div class="menubar-item menubar-notifications">
+                    <i class="icon icon-bell"></i>
+                </div>
+                <div class="menubar-item menubar-search">
+                    <input type="text" class="menubar-search" placeholder="Search..."/>
+                    <i class="icon icon-search"></i>
+                </div>
+            </div>
 
-            <h1 class="menubar-item menubar-title" ng-show="!patient.first_name && !group.name">
-                Loading...
-            </h1>
+            <!--&lt;!&ndash;<div class="menubar-item menubar-buttongroup pull-right">-->
+                <!--<a class="btn btn-action" href="">Favourite</a>-->
+            <!--</div>&ndash;&gt;-->
 
-            <h1 class="menubar-item menubar-title" ng-show="patient.first_name || group.name">
-                {{ patient.fullName() }} {{ group.name }}
-            </h1>
+            <!--<a class="menubar-item menubar-back pull-right" href ng-click="back()">-->
+                <!--<i class="icon icon-remove"></i>-->
+            <!--</a>-->
+
+            <!--<h1 class="menubar-item menubar-title" ng-show="!patient.first_name && !group.name">-->
+                <!--Loading...-->
+            <!--</h1>-->
+
+            <!--<h1 class="menubar-item menubar-title" ng-show="patient.first_name || group.name">-->
+                <!--{{ patient.fullName() }} {{ group.name }}-->
+            <!--</h1>-->
 
         </div>
     </div>
