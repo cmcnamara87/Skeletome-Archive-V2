@@ -13,19 +13,12 @@ angular.module('directives.input.cmResource', [])
 
                     el.addClass('resource');
 
+                    var backup = {};
                     /**
                      * Stores if we are editing the resource
                      * @type {boolean}
                      */
                     scope.$isEditing = false;
-
-                    /**
-                     * Puts the resource in 'edit mode'
-                     */
-                    scope.$edit = function() {
-                        scope.$isEditing = true;
-                        el.addClass('is-editing');
-                    }
 
                     /**
                      * Saves the resource
@@ -37,19 +30,84 @@ angular.module('directives.input.cmResource', [])
                         scope.$isEditing = false;
                         el.removeClass('is-editing');
 
+                        cleanup();
+
                         var resource = scope[tAttrs.cmResource];
                         if(angular.isDefined(resource.id)) {
-                            resource.$update();
+                            resource.$update(function(resource) {
+                                "use strict";
+                                if(angular.isDefined(tAttrs.savedFn)) {
+                                    var savedFn = $parse(tAttrs.savedFn);
+                                    if (!angular.isFunction(savedFn)) {
+                                        var message = "The expression on the cmResource directive does not point to a valid saved function - saved-fn.";
+                                        throw message + "\n";
+                                    }
+                                    savedFn(scope);
+                                }
+                            });
                         } else {
-                            resource.$save();
+                            resource.$save(function(resource) {
+                                "use strict";
+                                if(angular.isDefined(tAttrs.savedFn)) {
+                                    var savedFn = $parse(tAttrs.savedFn);
+                                    if (!angular.isFunction(savedFn)) {
+                                        var message = "The expression on the cmResource directive does not point to a valid saved function - saved-fn.";
+                                        throw message + "\n";
+                                    }
+                                    savedFn(scope);
+                                }
+                            });
                         }
                     }
 
-                    scope.$watch(tAttrs.cmResource + ".id", function(id) {
+                    /**
+                     * Puts the resource in 'edit mode'
+                     */
+                    scope.$edit = function() {
+
+                        // backup the resource
+                        var resource = $parse(tAttrs.cmResource)(scope);
+                        angular.copy(resource, backup);
+
+                        scope.$isEditing = true;
+                        el.addClass('is-editing');
+
+                        // todo: work out how to make this better
+                        // the timeout is so we dont catch the propagation of the click
+                        // from when you click the 'add'  button
+
+//                        setTimeout(function() {
+//                            "use strict";
+//                            $('body').click(function() {
+//                                "use strict";
+//                                scope.$apply(function() {
+//                                    scope.$cancel();
+//                                })
+//                            });
+//                        }, 500);
+//
+//                        el.click(function(event) {
+//                            "use strict";
+//                            event.stopPropagation();
+//                        });
+                    }
+
+                    var cleanup = function() {
+//                        "use strict";
+//                        $('body').unbind('click');
+                    }
+
+
+
+                    scope.$watch(tAttrs.cmResource + ".id", function(id, oldId) {
                         if(!id) {
                             console.log("no id, editing is true");
                             scope.$edit();
                         }
+//                        if(!oldId && id) {
+//                            scope.$cancel();
+//                        }
+
                     })
 
                     scope.$remove = function() {
@@ -83,9 +141,14 @@ angular.module('directives.input.cmResource', [])
                         if(angular.isDefined(scope[tAttrs['cmResource']].id)) {
                             scope.$isEditing = false;
                             el.removeClass('is-editing');
+
+                            // remove backup
+                            var resource = $parse(tAttrs.cmResource)(scope);
+                            angular.copy(backup, resource);
                         } else {
                             scope.$remove();
                         }
+                        cleanup();
                     }
 
                     transcludeFn(scope, function cloneConnectFn(cElement) {

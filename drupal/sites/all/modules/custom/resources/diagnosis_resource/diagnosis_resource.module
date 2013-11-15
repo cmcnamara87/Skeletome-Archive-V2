@@ -115,7 +115,8 @@ class VoteController extends EntityAPIController {
 }
 
 function diagnosis_load($id, $reset = FALSE) {
-    return reset(diagnosis_load_multiple(array($id), $reset));
+    $diagnosis = diagnosis_load_multiple(array($id), $reset);
+    return reset($diagnosis);
 }
 function diagnosis_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('diagnosis', $ids, $conditions, $reset));
@@ -128,7 +129,8 @@ function diagnosis_delete($id) {
 }
 
 function disorder_load($id, $reset = FALSE) {
-    return reset(disorder_load_multiple(array($id), $reset));
+    $disorder = disorder_load_multiple(array($id), $reset);
+    return reset($disorder);
 }
 function disorder_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('disorder', $ids, $conditions, $reset));
@@ -142,7 +144,8 @@ function disorder_delete($id) {
 
 
 function vote_load($id, $reset = FALSE) {
-    return reset(vote_load_multiple(array($id), $reset));
+    $vote = vote_load_multiple(array($id), $reset);
+    return reset($vote);
 }
 function vote_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('vote', $ids, $conditions, $reset));

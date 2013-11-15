@@ -7,12 +7,15 @@
   a {
     transition: color 0.2s;
   }
+  a:hover {
+    text-decoration: underline;
+  }
   &:hover {
     a {
      color: @highlightColor !important;
     }
     .mentions a {
-//      text-decoration: underline;
+      text-decoration: underline;
     }
   }
 

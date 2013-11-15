@@ -244,6 +244,11 @@ Styleguide 2.1.3.
 .resource.is-editing .resource-block:last-of-type {
   border-bottom: 1px solid #dbe1e3;
 }
+.resource.is-editing .resource-block.no-edit {
+  background-color: white;
+  border: none;
+  padding: 0px;
+}
 .resource .resource-controls {
   float: right;
 }
@@ -668,6 +673,7 @@ html[xmlns] .clearfix {
 */
 .typeahead-tokens {
   padding: 10px;
+  background-color: white;
 }
 /*
     Multi Token: A small inline token
@@ -829,17 +835,6 @@ html[xmlns] .clearfix {
 }
 .resource.ng-move.ng-move-active {
   opacity: 1;
-}
-.pills {
-  display: inline-block;
-  background-color: #fffabf;
-  color: #7d785e;
-  padding: 5px 14px;
-  border-radius: 100px;
-  border: 1px solid #FFF2BE;
-}
-.pills + .pills {
-  margin-left: 4px;
 }
 body {
   background-color: #e1e6e9;

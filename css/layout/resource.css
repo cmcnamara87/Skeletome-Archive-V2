@@ -158,6 +158,7 @@ table.table-content {
   background-color: transparent;
   border: none;
   padding: 0;
+  color: #949a9c;
 }
 /*
 A button suitable for giving stars to someone.
@@ -223,13 +224,10 @@ Styleguide 2.1.3.
   color: #949a9c;
 }
 .resource {
+  /** Height allows for the button */
+  min-height: 35px;
   /** Controls like edit / delete buttons */
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
-}
-.resource input[type=text],
-.resource textarea {
-  width: 100%;
-  box-sizing: border-box;
 }
 .resource.is-editing .resource-block {
   margin-right: 0px;
@@ -242,6 +240,16 @@ Styleguide 2.1.3.
 }
 .resource.is-editing .resource-block:last-of-type {
   border-bottom: 1px solid #dbe1e3;
+}
+.resource.is-editing .resource-block.no-edit {
+  background-color: white;
+  border: none;
+  padding: 0px;
+}
+.resource.is-editing input[type=text],
+.resource.is-editing textarea {
+  width: 100%;
+  box-sizing: border-box;
 }
 .resource .resource-controls {
   float: right;
@@ -283,6 +291,9 @@ Styleguide 2.1.3.
 }
 .resource .resource-block .resource-block-element.resource-block-element:last-of-type {
   margin-bottom: 0px;
+}
+.resource .resource-block .resource-block-clinsum {
+  line-height: 28px;
 }
 .resource + .resource {
   margin-top: 28px;
@@ -599,12 +610,7 @@ html[xmlns] .clearfix {
 .typeahead input,
 .typeahead button,
 .typeahead textarea {
-  border: 1px solid #dbe1e3;
   outline: 0;
-}
-::-webkit-input-placeholder,
-button {
-  color: #96A6B1;
 }
 /**
     Text inputs and text areas
@@ -658,9 +664,9 @@ button {
   display: block;
   padding: 10px 14px;
   width: 100%;
-  background-color: #E1EDF8;
-  border: 1px solid #B7D1E9;
-  color: #6D8AA5;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
 }
 .typeahead-token-single .icon-remove {
   margin-left: 10px;
@@ -672,19 +678,20 @@ button {
 */
 .typeahead-tokens {
   padding: 10px;
+  background-color: white;
 }
 /*
     Multi Token: A small inline token
 */
 .typeahead-token-multi {
   display: inline-block;
-  background-color: #417BAE;
-  color: white;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba !important;
   padding: 5px 12px;
   border-radius: 3px;
   margin-right: 7px;
   margin-bottom: 7px;
-  border: none;
 }
 /*
     Options list: The auto-complet edropdown that displays suggestions for tokens
@@ -711,7 +718,9 @@ button {
   border-top: none;
 }
 .typeahead-option.selected {
-  background-color: #F1F5F9;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
 }
 .sidebar {
   background-color: #f4f6f7;
@@ -801,36 +810,42 @@ button {
   position: relative;
   top: 0px;
 }
-.my-repeat-animation.ng-enter,
-.my-repeat-animation.ng-leave,
-.my-repeat-animation.ng-move {
-  -webkit-transition: 0.2s linear all;
-  -moz-transition: 0.2s linear all;
-  -o-transition: 0.2s linear all;
-  transition: 0.2s linear all;
+.resource.ng-enter,
+.resource.ng-leave,
+.resource.ng-move {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
   position: relative;
 }
-.my-repeat-animation.ng-enter {
+.resource.ng-enter {
   left: -50px;
   opacity: 0;
 }
-.my-repeat-animation.ng-enter.ng-enter-active {
+.resource.ng-enter.ng-enter-active {
   left: 0;
   opacity: 1;
 }
-.my-repeat-animation.ng-leave {
+.resource.ng-leave {
   left: 0;
   opacity: 1;
 }
-.my-repeat-animation.ng-leave.ng-leave-active {
+.resource.ng-leave.ng-leave-active {
   left: -50px;
   opacity: 0;
 }
-.my-repeat-animation.ng-move {
+.resource.ng-move {
   opacity: 0.5;
 }
-.my-repeat-animation.ng-move.ng-move-active {
+.resource.ng-move.ng-move-active {
   opacity: 1;
+}
+.mentions a {
+  transition: color 0.2s;
+}
+.mentions:hover a {
+  color: #49a9ba;
 }
 body {
   background-color: #e1e6e9;

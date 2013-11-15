@@ -43,25 +43,27 @@ angular.module('patient.summary', [])
 
                     return defer.promise;
                 }],
-                patientHpos: ['HPOPatientModel', '$route', '$q', function (HPOPatientModel, $route, $q) {
-
-                    var defer = $q.defer();
-
-                    var patientHPOs = HPOPatientModel.index({
-                        'patient_id': $route.current.params.patient_id
-                    }, function(patientHPOs) {
-                        defer.resolve(patientHPOs);
-                    });
-
-                    return defer.promise;
+                patientHpos: ['HPOTagModel', '$route', function (HPOTagModel, $route) {
+                    return HPOTagModel.index({
+                        object_id: $route.current.params.patient_id,
+                        object_type: 'patient'
+                    }).$promise;
+                }],
+                mentions: ['MentionModel', '$route', '$q', function(MentionModel, $route) {
+                    "use strict";
+                    return MentionModel.index({
+                        content_id: $route.current.params.patient_id,
+                        content_type: 'patient'
+                    }).$promise;
                 }]
             }
         });
     }])
 
-    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', 'geneMutations', 'patientHpos', function ($scope, $location, patient, diagnoses, geneMutations, patientHpos) {
+    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', 'geneMutations', 'patientHpos', 'mentions', function ($scope, $location, patient, diagnoses, geneMutations, patientHpos, mentions) {
         $scope.patient = patient;
         $scope.diagnoses = diagnoses;
         $scope.geneMutations = geneMutations;
         $scope.patientHpos = patientHpos;
+        $scope.mentions = mentions;
     }]);

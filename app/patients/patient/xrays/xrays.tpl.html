@@ -11,15 +11,16 @@
                 No xrays.
             </div>
 
-            <div ng-repeat="xray in xrays" cm-resource="xray" remove-fn="removeXRay(xray)">
+            <div ng-repeat="xray in xrays" cm-resource="xray" remove-fn="removeXRay(xray)"  saved-fn="xraySaved(xray)">
                 <cm-display>
                     <div class="resource-controls">
                         <cm-edit-delete></cm-edit-delete>
                     </div>
                     <div class="resource-block">
-                        <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}"/>
+                        <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}" gallery="xrays" gallery-index="{{ $index }}">
                         {{ xray.name }}
                         {{ xray.description }}
+
                     </div>
                 </cm-display>
                 <cm-edit>
@@ -37,11 +38,15 @@
 
                         <div class="resource-block-element">
                             <label class="label-top resource-block-heading">Name</label>
-                            <input type="text" ng-model="xray.name"/>
+                            <input type="text" ng-model="xray.name" placeholder="What is the name of the xray?"/>
                         </div>
                         <div class="resource-block-element">
                             <label class="label-top resource-block-heading">Description</label>
-                            <textarea ng-model="xray.description"></textarea>
+                            <textarea ng-model="xray.description" placeholder="What is the description?"></textarea>
+                        </div>
+                        <div class="resource-block-element">
+                            <label class="label-top resource-block-heading">HPO Terms</label>
+                            <typeahead multi="true" model="xray.hpos" options-fn="findHPO(value)"></typeahead>
                         </div>
                     </div>
                     <div class="resource-block">

@@ -53,9 +53,11 @@ function mention_delete_for_content($content_id, $content_type) {
     $query->propertyCondition('content_id', $content_id);
     $query->propertyCondition('content_type', $content_type);
     $result = $query->execute();
-    $old_mentions = array_keys($result['mention']);
-    foreach($old_mentions as $old_mention_id) {
-        mention_delete($old_mention_id);
+    if(isset($result['mention'])) {
+        $old_mentions = array_keys($result['mention']);
+        foreach($old_mentions as $old_mention_id) {
+            mention_delete($old_mention_id);
+        }
     }
 }
 
@@ -65,9 +67,13 @@ function mention_load_from_content($content_id, $content_type) {
     $query->propertyCondition('content_id', $content_id);
     $query->propertyCondition('content_type', $content_type);
     $result = $query->execute();
-    $mention_ids = array_keys($result['mention']);
 
-    return mention_load_multiple($mention_ids);
+    if(isset($result['mention'])) {
+        $mention_ids = array_keys($result['mention']);
+        return mention_load_multiple($mention_ids);
+    } else {
+        return array();
+    }
 }
 
 /**
@@ -154,10 +160,8 @@ function mention_reindex($content_id, $content_type, $content)
             $query->entityCondition('entity_type', 'hpo');
             $query->propertyCondition('uri', $annotation->concept->fullId);
             $result = $query->execute();
-            $hpo_ids = array_keys($result['hpo']);
-
-            if(count($hpo_ids)) {
-                // the term is already there, cool
+            if(isset($result['hpo']) && count($hpo_ids)) {
+                $hpo_ids = array_keys($result['hpo']);
                 $hpo = hpo_load($hpo_ids[0]);
             } else {
                 // not there, lets just add it

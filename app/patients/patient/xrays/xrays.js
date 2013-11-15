@@ -6,35 +6,30 @@ angular.module('patient.xrays', [])
             templateUrl:'app/patients/patient/xrays/xrays.tpl.html',
             controller:'XRayCtrl',
             resolve:{
-                xrays: ['XRayModel', '$route', '$q', function (XRayModel, $route, $q) {
+                xrays: ['XRayModel', '$route', function (XRayModel, $route) {
 
-                    var defer = $q.defer();
-
-                    var xrays = XRayModel.index({
+                    return XRayModel.index({
                         'patient_id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(xrays);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }]
             }
         });
     }])
 
-    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', 'fileUploadUrl', function ($scope, $location, $routeParams, XRayModel, xrays, fileUploadUrl) {
+    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', 'fileUploadUrl', 'HPOModel', 'HPOTagModel', 'SessionService',
+        function ($scope, $location, $routeParams, XRayModel, xrays, fileUploadUrl, HPOModel, HPOTagModel, SessionService) {
         $scope.xrays = xrays;
 
+        SessionService.galleryImages = xrays;
         $scope.fileUploadUrl = fileUploadUrl;
-
 
         $scope.addXRay = function() {
             var newXRay = new XRayModel({
                  patient_id: $routeParams.patient_id
             });
             $scope.xrays.unshift(newXRay);
+
+            console.log("unshifted");
         }
         $scope.xrayUploaded = function(file, xray) {
             xray.file_url = file.full_url;
@@ -45,8 +40,28 @@ angular.module('patient.xrays', [])
             console.log("File uploaded, xray updated", xray);
         }
         $scope.removeXRay = function(xray) {
+            console.log("removing");
             var index = $scope.xrays.indexOf(xray);
             $scope.xrays.splice(xray, 1);
         }
 
+        $scope.findHPO = function(value) {
+            return HPOModel.index({
+                name: value
+            }).$promise;
+        }
+
+        $scope.xraySaved = function(xray) {
+            "use strict";
+
+            angular.forEach(xray.hpos, function(hpo, hpoIndex) {
+                // save this relationship
+                var newHPOTag = new HPOTagModel({
+                    hpo_id: hpo.id,
+                    object_id: xray.id,
+                    object_type: 'xray'
+                })
+                newHPOTag.$save();
+            })
+        }
     }]);

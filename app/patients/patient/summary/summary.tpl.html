@@ -11,7 +11,10 @@
             <div ng-repeat="patientHpo in patientHpos" class="pills">
                 {{ patientHpo.hpo.name }}
             </div>
-            <div ng-show="!patientHpos.length" class="nodata">
+            <div ng-repeat="mention in mentions" class="pills">
+                {{ mention.hpo.name }}
+            </div>
+            <div ng-show="!patientHpos.length && !mentions.length" class="nodata">
                 No HPO terms.
             </div>
         </div>

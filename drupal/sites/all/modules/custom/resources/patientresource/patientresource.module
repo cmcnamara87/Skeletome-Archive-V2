@@ -109,7 +109,8 @@ class PatientController extends EntityAPIController {
 
 
 function patient_load($id, $reset = FALSE) {
-    return reset(patient_load_multiple(array($id), $reset));
+    $patient =  patient_load_multiple(array($id), $reset);
+    return reset($patient);
 }
 function patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     $patients = array_values(entity_load('patient', $ids, $conditions, $reset));

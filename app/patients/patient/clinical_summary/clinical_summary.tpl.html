@@ -13,7 +13,7 @@
                         <div class="nodata" ng-show="!patient.clinical_summary.length">
                             No clinical summary recorded.
                         </div>
-                        <mentions text="patient.clinical_summary" mentions="patient.mentions"></mentions>
+                        <mentions text="patient.clinical_summary" mentions="patient.mentions" class="resource-block-clinsum"></mentions>
                     </div>
                 </cm-display>
                 <cm-edit>
@@ -34,34 +34,39 @@
 
         </div>
         <div class="block-content">
-            <div class="nodata" ng-show="!patientHPOs.length">
+            <div class="nodata" ng-show="!patientHPOs.length && !showNewHpos && !patient.mentions.length">
                 No HPO terms attached to this patient.
             </div>
-            <div style="margin-bottom: 14px;">
-                <div class="resource is-editing" ng-show="showNewHpos">
-                    <div class="resource-block">
-                        <div class="resource-block-element">
-                            <label class="label-top resource-block-heading">HPO Term</label>
-                            <typeahead model="newHpos" options-fn="findHPO(value)" multi="true" placeholder="What terms do you want to add?"></typeahead>
-                        </div>
+
+            <div class="resource is-editing" ng-if="showNewHpos" style="margin-bottom: 14px;">
+                <div class="resource-block">
+                    <div class="resource-block-element">
+                        <label class="label-top resource-block-heading">HPO Term</label>
+                        <typeahead model="newHpos" options-fn="findHPO(value)" multi="true" placeholder="What terms do you want to add?"></typeahead>
                     </div>
-                    <div class="resource-block" style="text-align: right">
-                        <button class="btn btn-action">Cancel</button>
-                        <button class="btn btn-action btn-action-selected" ng-click="saveNewHpos(newHpos)">Save</button>
-                    </div>
+                </div>
+                <div class="resource-block" style="text-align: right">
+                    <button class="btn btn-action" ng-click="cancelNewHpos()">Cancel</button>
+                    <button class="btn btn-action btn-action-selected" ng-click="saveNewHpos(newHpos)">Save</button>
                 </div>
             </div>
 
 
+            <div ng-repeat="mention in patient.mentions">
+                <div class="resource" ng-if="mention.mentioned_type == 'hpo'">
+                    <div class="resource-block" >
+                        {{ mention.hpo.name }}
+                    </div>
+                </div>
+            </div>
             <div ng-repeat="patientHPO in patientHPOs" cm-resource="patientHPO" remove-fn="removePatientHPO(patientHPO)">
-                    <cm-display>
-                        <div class="resource-controls">
-                            <cm-edit-delete edit-enabled="false"></cm-edit-delete>
-                        </div>
-                        <div class="resource-block">
-                            {{ patientHPO.hpo.name }}
-                        </div>
-                    </cm-display>
+                <div class="resource-controls no-edit">
+                    <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                </div>
+                <div class="resource-block no-edit">
+                    {{ patientHPO.hpo.name }}
+                </div>
+
             </div>
         </div>
     </div>

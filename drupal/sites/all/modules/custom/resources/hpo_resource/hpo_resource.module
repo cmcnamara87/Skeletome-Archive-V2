@@ -15,19 +15,19 @@ function hpo_resource_entity_info() {
             'entity class'           => 'Entity',
             'controller class'       => 'EntityAPIController',
         ),
-        'hpo_patient' => array(
+        'hpo_tag' => array(
             'label' => t('HPO Patient Link'),
-            'base table' => 'hpos_patients',
+            'base table' => 'hpos_tags',
             'entity keys' => array(
                 'id' => 'id',
             ),
             'entity class'           => 'Entity',
-            'controller class'       => 'HpoPatientController',
+            'controller class'       => 'HpoTagController',
         )
     );
 }
 
-class HpoPatientController extends EntityAPIController {
+class HpoTagController extends EntityAPIController {
 
     public function load($ids = array(), $conditions = array()) {
         $entities = parent::load($ids, $conditions);
@@ -45,7 +45,8 @@ class HpoPatientController extends EntityAPIController {
 }
 
 function hpo_load($id, $reset = FALSE) {
-    return reset(hpo_load_multiple(array($id), $reset));
+    $hpo = hpo_load_multiple(array($id), $reset);
+    return reset($hpo);
 }
 function hpo_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     $hpos = array_values(entity_load('hpo', $ids, $conditions, $reset));
@@ -58,18 +59,18 @@ function hpo_delete($id) {
     entity_delete('hpo', $id);
 }
 
-function hpo_patient_load($id, $reset = FALSE) {
-    return reset(hpo_patient_load_multiple(array($id), $reset));
+function hpo_tag_load($id, $reset = FALSE) {
+    return reset(hpo_tag_load_multiple(array($id), $reset));
 }
-function hpo_patient_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    $hpos = array_values(entity_load('hpo_patient', $ids, $conditions, $reset));
+function hpo_tag_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
+    $hpos = array_values(entity_load('hpo_tag', $ids, $conditions, $reset));
     return $hpos;
 }
-function hpo_patient_save($entity) {
-    entity_save('hpo_patient', $entity);
+function hpo_tag_save($entity) {
+    entity_save('hpo_tag', $entity);
 }
-function hpo_patient_delete($id) {
-    entity_delete('hpo_patient', $id);
+function hpo_tag_delete($id) {
+    entity_delete('hpo_tag', $id);
 }
 
 /**
@@ -199,19 +200,19 @@ function hpo_resource_services_resources() {
         ),
     );
 
-    $resource['hpo_patient'] = array(
+    $resource['hpo_tag'] = array(
         'retrieve' => array(
-            'help' => 'Retrieves a patient hpo_patient',
-            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
-            'callback' => '_hpo_resource_hpo_patient_retrieve',
-            'access callback' => '_hpo_resource_hpo_patient_access',
+            'help' => 'Retrieves a patient hpo_tag',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
+            'callback' => '_hpo_resource_hpo_tag_retrieve',
+            'access callback' => '_hpo_resource_hpo_tag_access',
             'access arguments' => array('view'),
             'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'id',
                     'type' => 'int',
-                    'description' => 'The id of the patient hpo_patient to get',
+                    'description' => 'The id of the patient hpo_tag to get',
                     'source' => array('path' => '0'),
                     'optional' => FALSE,
                 ),
@@ -219,15 +220,15 @@ function hpo_resource_services_resources() {
         ),
         'create' => array(
             'help' => 'Creates a patient',
-            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
-            'callback' => '_hpo_resource_hpo_patient_create',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
+            'callback' => '_hpo_resource_hpo_tag_create',
             'access arguments' => array('patient resource create'),
             'access arguments append' => FALSE,
             'args' => array(
                 array(
                     'name' => 'data',
                     'type' => 'struct',
-                    'description' => 'The patient hpo_patient object',
+                    'description' => 'The patient hpo_tag object',
                     'source' => 'data',
                     'optional' => FALSE,
                 ),
@@ -235,9 +236,9 @@ function hpo_resource_services_resources() {
         ),
         'update' => array(
             'help' => 'Updates a patient',
-            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
-            'callback' => '_hpo_resource_hpo_patient_update',
-            'access callback' => '_hpo_resource_hpo_patient_access',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
+            'callback' => '_hpo_resource_hpo_tag_update',
+            'access callback' => '_hpo_resource_hpo_tag_access',
             'access arguments' => array('update'),
             'access arguments append' => TRUE,
             'args' => array(
@@ -251,7 +252,7 @@ function hpo_resource_services_resources() {
                 array(
                     'name' => 'data',
                     'type' => 'struct',
-                    'description' => 'The patient hpo_patient data object',
+                    'description' => 'The patient hpo_tag data object',
                     'source' => 'data',
                     'optional' => FALSE,
                 ),
@@ -259,9 +260,9 @@ function hpo_resource_services_resources() {
         ),
         'delete' => array(
             'help' => 'Deletes a patient',
-            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
-            'callback' => '_hpo_resource_hpo_patient_delete',
-            'access callback' => '_hpo_resource_hpo_patient_access',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
+            'callback' => '_hpo_resource_hpo_tag_delete',
+            'access callback' => '_hpo_resource_hpo_tag_access',
             'access arguments' => array('delete'),
             'access arguments append' => TRUE,
             'args' => array(
@@ -276,8 +277,8 @@ function hpo_resource_services_resources() {
         ),
         'index' => array(
             'help' => 'List all nodes',
-            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_patient'),
-            'callback' => '_hpo_resource_hpo_patient_index',
+            'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
+            'callback' => '_hpo_resource_hpo_tag_index',
             'args' => array(
                 array(
                     'name' => 'page',

@@ -48,7 +48,6 @@ function _patientresource_identifier_update($id, $data) {
  * @return object
  */
 function _patientresource_identifier_retrieve($id) {
-
     return identifier_load($id);
 }
 
@@ -69,18 +68,7 @@ function _patientresource_identifier_delete($id) {
 
 
 function _patientresource_identifier_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'identifier');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['identifier']);
-
-    return identifier_load_multiple($ids);
+    return resource_helper_index('identifier', $page, $fields, $parameters, $page_size);
 }
 
 

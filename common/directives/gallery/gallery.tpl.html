@@ -1,0 +1,58 @@
+<div class="gallery" ng-if="GalleryService.isVisible">
+
+    <div class="gallery-content">
+        <div class="gallery-image">
+            <img ng-src="{{ image.file_url }}" alt=""/>
+        </div>
+        <div class="gallery-description">
+            <div class="gallery-stuff">
+                <div cm-resource="image">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete></cm-edit-delete>
+                        </div>
+                        <div class="resource-block resource-block-has-buttons">
+                            <!--<img ng-src="{{ image.thumb_url }}" alt="{{ image.name }}" gallery="images" gallery-index="{{ $index }}">-->
+                            <h2>{{ image.name }}</h2>
+                            {{ image.description }}
+                        </div>
+                    </cm-display>
+                    <cm-edit>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">File</label>
+                                <div ng-show="!image.id">
+                                    <upload-block url="{{ fileUploadUrl }}" message="Drop an X-Ray image here (or click here)" autoremove="false" uploaded-fn="imageUploaded(file, image)">
+                                    </upload-block>
+                                </div>
+                                <div ng-show="image.id">
+                                    <img ng-src="{{ image.thumb_url }}" alt="{{ image.name }}"/>
+                                </div>
+                            </div>
+
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">Name</label>
+                                <input type="text" ng-model="image.name" placeholder="What is the name of the image?"/>
+                            </div>
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">Description</label>
+                                <textarea ng-model="image.description" placeholder="What is the description?"></textarea>
+                            </div>
+                            <div class="resource-block-element">
+                                <label class="label-top resource-block-heading">HPO Terms</label>
+                                <typeahead multi="true" model="image.hpos" options-fn="findHPO(value)"></typeahead>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
+            </div>
+        </div>
+        <div class="gallery-thumbs">
+
+        </div>
+    </div>
+
+</div>

@@ -18,12 +18,13 @@ angular.module('patient.clinical_summary', [])
 
                     return defer.promise;
                 }],
-                patientHPOs: ['HPOPatientModel', '$route', '$q', function (HPOPatientModel, $route, $q) {
+                patientHPOs: ['HPOTagModel', '$route', '$q', function (HPOTagModel, $route, $q) {
 
                     var defer = $q.defer();
 
-                    var patientHPOs = HPOPatientModel.index({
-                        'patient_id': $route.current.params.patient_id
+                    var patientHPOs = HPOTagModel.index({
+                        object_id: $route.current.params.patient_id,
+                        object_type: 'patient'
                     }, function(patientHPOs) {
                         defer.resolve(patientHPOs);
                     });
@@ -34,7 +35,7 @@ angular.module('patient.clinical_summary', [])
         });
     }])
 
-    .controller('ClinicalSummaryCtrl', ['$scope', '$q', '$location','$http', 'patient', 'patientHPOs', 'HPOModel', 'HPOPatientModel', function ($scope, $q, $location, $http, patient, patientHPOs, HPOModel, HPOPatientModel) {
+    .controller('ClinicalSummaryCtrl', ['$scope', '$q', '$location','$http', 'patient', 'patientHPOs', 'HPOModel', 'HPOTagModel', function ($scope, $q, $location, $http, patient, patientHPOs, HPOModel, HPOTagModel) {
         $scope.patient = patient;
         $scope.patientHPOs = patientHPOs;
 
@@ -42,7 +43,7 @@ angular.module('patient.clinical_summary', [])
         $scope.showNewHpos = false;
 
         /**
-         * Add a new address
+         * Add a patient hpo relationship
          */
         $scope.addPatientHPO = function() {
             var newPatientHPO = new HPOPatientModel({
@@ -57,15 +58,9 @@ angular.module('patient.clinical_summary', [])
         }
 
         $scope.findHPO = function(value) {
-            var defer = $q.defer();
-            var hpos = HPOModel.index({
+            return HPOModel.index({
                 name: value
-            }, function(hpos) {
-                defer.resolve(hpos);
-            }, function(error){
-                console.log("HPO ERROR", error);
-            });
-            return defer.promise;
+            }).$promise;
         }
         $scope.hpoChosen = function(hpo, patientHPO) {
             // Find the gene mutations that match the gene
@@ -76,11 +71,22 @@ angular.module('patient.clinical_summary', [])
         $scope.saveNewHpos = function(newHpos) {
             "use strict";
             angular.forEach(newHpos, function(newHpo, newHpoIndex) {
-                var newPatientHPO = new HPOPatientModel(newHpo);
-                newPatientHPO.patient_id = $scope.patient.id
+                var newPatientHPO = new HPOTagModel({
+                    object_id: $scope.patient.id,
+                    object_type: 'patient',
+                    hpo_id: newHpo.id
+                });
                 newPatientHPO.$save();
+                newPatientHPO.hpo = newHpo;
                 $scope.patientHPOs.unshift(newPatientHPO);
             });
+            $scope.newHpos = [];
+            $scope.showNewHpos = false;
+        }
+        $scope.cancelNewHpos = function() {
+            "use strict";
+            $scope.showNewHpos = false;
+            $scope.newHpos = [];
         }
 
         $scope.removePatientHPO = function(patientHPO) {

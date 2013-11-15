@@ -29,26 +29,31 @@
 <div>
     <!--<oute-changer></route-changer>-->
 
-    <div class="media-body">
+
+
+
 
         <!-- Menu bar -->
         <menubar></menubar>
 
-        <div>
-            <submenubar></submenubar>
-            <sidemenu></sidemenu>
+    <div>
+        <submenubar></submenubar>
+        <sidemenu></sidemenu>
 
 
-            <div class="main" ng-class="{'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
-                <div ng-view></div>
-            </div>
-        </div>
-
-        <div class="activities" ng-show="showActivities">
-            <activities>
-            </activities>
+        <div class="main" ng-class="{'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
+            <div ng-view></div>
         </div>
     </div>
+
+    <div class="activities" ng-show="showActivities">
+        <activities>
+        </activities>
+    </div>
+    <div style="border: 1px solid red;">
+        <gallery-viewer></gallery-viewer>
+    </div>
+
 
 </div>
 
@@ -100,6 +105,7 @@
     <script src="common/directives/directives.js"></script>
     <script src="common/directives/ckeditor/ckeditor.js"></script>
     <script src="common/directives/mentions/mentions.js"></script>
+    <script src="common/directives/gallery/gallery.js"></script>
 
 
     <script src="common/filters/filters.js"></script>

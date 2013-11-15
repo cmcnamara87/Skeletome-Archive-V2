@@ -27,7 +27,55 @@ function hpo_resource_schema() {
         'primary key' => array('id'),
     );
 
-    $schema['hpos_patients'] = array(
+//    $schema['hpos_patients'] = array(
+//        'description' => t('Stores link between a patient and a hpo term.'),
+//        'fields' => array(
+//            'id' => array(
+//                'description' => t('The primary identifier for hpo patient link.'),
+//                'type' => 'serial',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//            ),
+//            'uid' => array(
+//                'description' => t('The user that created the link.'),
+//                'type' => 'int',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//                'default' => 0,
+//            ),
+//            'patient_id' => array(
+//                'description' => t('The id of the patient with the hpo term.'),
+//                'type' => 'int',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//                'default' => 0,
+//            ),
+//            'hpo_id' => array(
+//                'description' => t('The id of the hpo term.'),
+//                'type' => 'int',
+//                'unsigned' => TRUE,
+//                'not null' => TRUE,
+//                'default' => 0,
+//            ),
+//        ),
+//        'foreign keys' => array(
+//            'patient' => array(
+//                'table' => 'patients',
+//                'columns' => array('id' => 'patient_id'),
+//            ),
+//            'hpo' => array(
+//                'table' => 'hpos',
+//                'columns' => array('id' => 'hpo_id'),
+//            ),
+//            'user' => array(
+//                'table' => 'patients',
+//                'columns' => array('uid' => 'uid'),
+//            ),
+//        ),
+//        'primary key' => array('id'),
+//    );
+
+    $schema['hpos_tags'] = array(
         'description' => t('Stores link between a patient and a hpo term.'),
         'fields' => array(
             'id' => array(
@@ -43,8 +91,13 @@ function hpo_resource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
-            'patient_id' => array(
-                'description' => t('The id of the patient with the hpo term.'),
+            'object_type' => array(
+                'description' => t('The type of the post e.g. patient, xray'),
+                'type' => 'varchar',
+                'length' => 255,
+            ),
+            'object_id' => array(
+                'description' => t('The object the activity is about e.g. a share_id or a diagnosis_id'),
                 'type' => 'int',
                 'unsigned' => TRUE,
                 'not null' => TRUE,

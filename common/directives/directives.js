@@ -1,5 +1,6 @@
 angular.module('directives',
     [
         'directives.ckeditor',
-        'directives.mentions'
+        'directives.mentions',
+        'directives.gallery'
     ]);

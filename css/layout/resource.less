@@ -3,10 +3,6 @@
 }
 .resource {
 
-  input[type=text], textarea {
-    width: 100%;
-    box-sizing: border-box;
-  }
 
   &.is-editing {
     .resource-block {
@@ -22,7 +18,20 @@
       border-bottom: none;
       background-color: @backgroundColorLight;
     }
+    .resource-block.no-edit {
+      background-color: white;
+      border: none;
+      padding: 0px;
+    }
+
+    input[type=text], textarea {
+      width: 100%;
+      box-sizing: border-box;
+    }
   }
+
+  /** Height allows for the button */
+  min-height: 35px;
 
   /** Controls like edit / delete buttons */
   .resource-controls {
@@ -79,7 +88,9 @@
     }
 
 
-
+    .resource-block-clinsum {
+      line-height: 28px;
+    }
 
 
   }

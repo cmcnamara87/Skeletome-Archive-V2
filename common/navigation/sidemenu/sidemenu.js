@@ -14,11 +14,6 @@ angular.module('directives.navigation.sidemenu', [])
                     $scope.type = parts[1];
                     if($scope.type == "feed" || $scope.type == "patients" || $scope.type == "groups") {
                         $rootScope.showSidemenu = true;
-                        if($scope.type == "feed") {
-                            $rootScope.isFeed = true;
-                        } else {
-                            $rootScope.isFeed = false;
-                        }
                     } else {
                         $rootScope.showSidemenu = false;
                     }

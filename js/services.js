@@ -262,8 +262,21 @@ myApp.services.factory('HPOModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
-myApp.services.factory('HPOPatientModel', function ($resource, apiUrl, Param) {
-    var MyResource = $resource(apiUrl + 'hpo_patient/:id', {
+myApp.services.factory('HPOTagModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'hpo_tag/:id', {
+        id: '@id' //this binds the ID of the model to the URL param
+    },
+    {
+        update: {method:'PUT'}
+    });
+
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
+    return MyResource;
+});
+myApp.services.factory('MentionModel', function ($resource, apiUrl, Param) {
+    var MyResource = $resource(apiUrl + 'mention/:id', {
         id: '@id' //this binds the ID of the model to the URL param
     },
     {

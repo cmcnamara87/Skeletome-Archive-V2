@@ -1,0 +1,42 @@
+.gallery {
+  .panel;
+  background-color: darken(fadeout(@highlightColor, 20%), 50%);
+
+  .gallery-content {
+    .panel;
+    position: absolute;
+    background-color: white;
+    top: 50px;
+    left: 50px;
+    right: 50px;
+    bottom: 50px;
+
+    .gallery-stuff {
+      margin: 14px;
+    }
+
+    .gallery-description {
+      background-color: white;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 35%;
+
+    }
+    .gallery-image {
+      background-color: black;
+      position: absolute;
+      top: 0px;
+      bottom: 0px;
+      width: 65%;
+      img {
+        position:absolute;
+        top:0;
+        bottom:0;
+        margin:auto;
+        width: 100%;
+      }
+    }
+  }
+}

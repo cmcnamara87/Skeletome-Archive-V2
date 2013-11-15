@@ -103,8 +103,10 @@ class GeneMutationController extends EntityAPIController {
 //    entity_delete('genetic_report', $id);
 //}
 
+
 function gene_load($id, $reset = FALSE) {
-    return array_shift(gene_load_multiple(array($id), $reset));
+    $gene = gene_load_multiple(array($id), $reset);
+    return reset($gene);
 }
 function gene_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('gene', $ids, $conditions, $reset));
@@ -117,7 +119,8 @@ function gene_delete($id) {
 }
 
 function mutation_type_load($id, $reset = FALSE) {
-    return array_shift(mutation_type_load_multiple(array($id), $reset));
+    $mutation_type = mutation_type_load_multiple(array($id), $reset);
+    return reset($mutation_type);
 }
 function mutation_type_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('mutation_type', $ids, $conditions, $reset));
@@ -130,11 +133,12 @@ function mutation_type_delete($id) {
 }
 
 function gene_mutation_load($id, $reset = FALSE) {
-    return reset(gene_mutation_load_multiple(array($id), $reset));
+    $gene_mutation = gene_mutation_load_multiple(array($id), $reset);
+    return reset($gene_mutation);
 }
 function gene_mutation_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    $patients = array_values(entity_load('gene_mutation', $ids, $conditions, $reset));
-    return $patients;
+    $gene_mutations = array_values(entity_load('gene_mutation', $ids, $conditions, $reset));
+    return $gene_mutations;
 }
 function gene_mutation_save($entity) {
     entity_save('gene_mutation', $entity);

@@ -65,18 +65,7 @@ function _consent_resource_file_delete($id) {
 }
 
 function _consent_resource_file_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'consentfile');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['consentfile']);
-
-    return consentfile_load_multiple($ids);
+    return resource_helper_index('consentfile', $page, $fields, $parameters, $page_size);
 }
 
 /**

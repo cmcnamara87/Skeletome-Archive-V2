@@ -14,6 +14,8 @@ angular.module('directives.navigation.menubar', [])
                     // route changed
                     var parts = $location.path().split("/");
 
+
+
                     if(!oldParts || parts[0] != oldParts[0] || parts[1] != oldParts[1]) {
                         $scope.tab = parts[1];
 
@@ -37,6 +39,13 @@ angular.module('directives.navigation.menubar', [])
                             $scope.content = false;
                         }
                     }
+//
+//                    if(parts[0] == "feed") {
+//                        $rootScope.isFeed = true;
+//                    } else {
+//                        $rootScope.isFeed = false;
+//                    }
+
 
                     oldParts = parts;
                 });
