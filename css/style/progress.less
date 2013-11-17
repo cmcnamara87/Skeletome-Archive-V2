@@ -1,14 +1,12 @@
-@progressColor: #faed64;
+@progressColor: @highlightColor;
 
 .progress-bar {
   background-color: @progressColor;
 }
 .progress-bar-danger {
-  background-color: desaturate(darken(@progressColor, 35%), 50%);
+  background-color: darken(@progressColor, 15%);
 }
 
 .btn-vote {
-  border-color: desaturate(darken(@progressColor, 25%), 70%);
-  color: desaturate(darken(@progressColor, 25%), 70%);
-  box-shadow: 0px 1px 0px desaturate(darken(@progressColor, 25%), 70%);
+
 }
