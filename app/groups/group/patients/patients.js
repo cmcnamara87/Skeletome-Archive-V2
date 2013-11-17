@@ -5,33 +5,17 @@ angular.module('group.patients', [])
             templateUrl:'app/groups/group/patients/patients.tpl.html',
             controller:'GroupPatientsCtrl',
             resolve:{
-                shares: ['PatientModel', 'ShareModel', '$route', '$q', function (PatientModel, ShareModel, $route, $q) {
+                patients: ['PatientModel', 'ShareModel', '$route', '$q', function (PatientModel, ShareModel, $route, $q) {
 
-                    var defer = $q.defer();
-
-                    var shares = ShareModel.index({
-                        'group_id':  $route.current.params.group_id
-                    }, function() {
-                        // Get all the patients
-                        angular.forEach(shares, function(share, shareIndex) {
-                            share.patient = PatientModel.get({
-                                'id': share.patient_id
-                            });
-                        });
-                        defer.resolve(shares);
-
-                    }, function() {
-                        defer.reject();
-                    });
-
-
-                    return defer.promise;
+                    return PatientModel.query({
+                        group_id: $route.current.params.group_id
+                    }).$promise;
                 }]
             }
         });
     }])
 
-    .controller('GroupPatientsCtrl', ['$scope', '$location', 'shares', function ($scope, $location, shares) {
-        $scope.shares = shares;
+    .controller('GroupPatientsCtrl', ['$scope', '$location', 'patients', function ($scope, $location, patients) {
+        $scope.patients = patients;
     }]);
 

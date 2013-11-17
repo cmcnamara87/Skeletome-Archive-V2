@@ -4,6 +4,7 @@
 
 function _activity_resource_index($user_id, $embed, $page, $fields, $parameters, $page_size) {
 
+
     // Get out the user field
     if($user_id > 0) {
 
@@ -25,9 +26,10 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
         $parameters['share_id'] = $share_ids;
     }
 
+
     $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 
-    if($embed == 1) {
+//    if($embed == 1) {
         foreach($activities as &$activity) {
             // embed the patient
             $share = share_load($activity->share_id);
@@ -37,7 +39,8 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
             }
             $activity->group = group_load($share->group_id);
         }
-    }
+//    }
+
 
     return $activities;
 }

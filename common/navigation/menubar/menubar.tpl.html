@@ -19,10 +19,11 @@
                 <!-- expands to fill the space between left and right -->
             </div>
             <div class="menubar-right">
+                <lookup></lookup>
                 <!-- stuff on the right side of the menu bar -->
-                <div class="menubar-item menubar-notifications">
-                    <i class="icon icon-bell"></i>
-                </div>
+                <!--<div class="menubar-item menubar-notifications">-->
+                    <!--<i class="icon icon-bell"></i>-->
+                <!--</div>-->
                 <div class="menubar-item menubar-search">
                     <input type="text" class="menubar-search" placeholder="Search..."/>
                     <i class="icon icon-search"></i>
@@ -60,9 +61,13 @@
                     <a href ng-click="back()">
                         <i class="icon icon-arrow-left"></i>
                     </a>
-                    <a href ng-click="back()">
-                        {{ patient.fullName() }} {{ group.name }}
-                    </a>
+                    <span ng-show="tab == 'patient'">
+                    {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
+                    </span>
+                    <span ng-show="tab == 'group'">
+                        {{ group.name }}
+                    </span>
+
                 </div>
             </div>
 
@@ -71,9 +76,9 @@
             </div>
             <div class="menubar-right">
                 <!-- stuff on the right side of the menu bar -->
-                <div class="menubar-item menubar-notifications">
-                    <i class="icon icon-bell"></i>
-                </div>
+                <!--<div class="menubar-item menubar-notifications">-->
+                    <!--<i class="icon icon-bell"></i>-->
+                <!--</div>-->
                 <div class="menubar-item menubar-search">
                     <input type="text" class="menubar-search" placeholder="Search..."/>
                     <i class="icon icon-search"></i>

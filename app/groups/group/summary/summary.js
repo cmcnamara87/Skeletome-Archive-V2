@@ -7,21 +7,40 @@ angular.module('group.summary', [])
             controller:'GroupSummaryCtrl',
             resolve:{
                 group: ['GroupModel', '$route', '$q', function (GroupModel, $route, $q) {
-
-                    var defer = $q.defer();
-
-                    var group = GroupModel.get({
-                        'id': $route.current.params.group_id
-                    }, function() {
-                        defer.resolve(group);
-                    });
-
-                    return defer.promise;
+                    return GroupModel.get({
+                        id: $route.current.params.group_id
+                    }).$promise;
+                }],
+                members: ['MembershipModel', '$route', function(MembershipModel, $route) {
+                    return MembershipModel.index({
+                        group_id: $route.current.params.group_id
+                    })
                 }]
             }
         });
     }])
 
-    .controller('GroupSummaryCtrl', ['$scope', '$location', 'group', function ($scope, $location, group) {
+    .controller('GroupSummaryCtrl', ['$scope', '$location', 'group', 'members', 'MembershipModel', 'UserModel', function ($scope, $location, group, members, MembershipModel, UserModel) {
         $scope.group = group;
+        $scope.members = members;
+
+        $scope.addMember = function() {
+            var newMember = new MembershipModel({
+                group_id: $scope.group.id
+            });
+            $scope.members.unshift(newMember);
+        }
+        $scope.findUser = function(name) {
+            return UserModel.index({
+                name: name
+            }).$promise;
+        }
+        $scope.selectedUser = function(user, member) {
+            member.user_id = user.uid;
+        }
+        $scope.removeMember = function(member) {
+            var index = $scope.members.indexOf(member);
+            $scope.members.splice(index, 1);
+        }
+
     }]);

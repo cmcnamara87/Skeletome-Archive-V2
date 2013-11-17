@@ -1,8 +1,7 @@
 <span>
     <!-- The list of faces -->
-    <span class="scircle scircle-more">
-        {{ users.length }}
-    </span>
+
+    {{ users.length }}
 
     <span ng-repeat="user in users | limitTo:limit">
         <cm-user-icon user="user"></cm-user-icon>

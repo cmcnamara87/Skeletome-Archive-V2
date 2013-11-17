@@ -3,74 +3,58 @@
         <div ng-switch-when="patient">
             <ul>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/summary">
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/summary">
                         Summary
-                    </submenubar-item>
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/contact-information">
-                        <i class="icon icon-lock"></i> Patient Details
-                    </submenubar-item>
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/contact-information">
+                        Patient Details
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/xrays">
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/xrays">
                         X-Rays
-                    </submenubar-item>
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/genetic-reports">
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/genetic-reports">
                         Genetic Report
-                    </submenubar-item>
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/clinical-summary">
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/clinical-summary">
                         Clinical Summary
-                    </submenubar-item>
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/patient/{{ id }}/diagnoses">
+                    <a class="submenubar-item" menu-item
+                       href="#/patient/{{ id }}/diagnoses">
                         Diagnoses
-                    </submenubar-item>
+                    </a>
                 </li>
             </ul>
         </div>
 
-        <div ng-switch-when="groups">
+        <div ng-switch-when="group">
             <ul>
                 <li>
-                    <submenubar-item url="#/groups/my-groups{{}}">
-                        My Groups
-                    </submenubar-item>
+                    <a class="submenubar-item" menu-item
+                       ng-href="#/group/{{ group.id }}/summary">
+                        Summary
+                    </a>
                 </li>
                 <li>
-                    <submenubar-item url="#/groups/all-groups{{}}">
-                        All Groups
-                    </submenubar-item>
+                    <a class="submenubar-item" menu-item
+                       ng-href="#/group/{{ group.id }}/patients">
+                        Patients
+                    </a>
                 </li>
-            </ul>
-        </div>
-        <div ng-switch-when="patients">
-            <ul>
-                <li>
-                    <submenubar-item url="#/patients/my-patients{{}}">
-                        My Patients
-                    </submenubar-item>
-                </li>
-                <li>
-                    <submenubar-item url="#/patients/community{{}}">
-                        Community Patients
-                    </submenubar-item>
-                </li>
-                <!--<li>
-                    <submenubar-item url="#/patients/pinned">
-                        Pinned Patients
-                    </submenubar-item>
-                </li>
-                <li>
-                    <submenubar-item url="#/patients/my-patients">
-                        Group Patients
-                    </submenubar-item>
-                </li>-->
             </ul>
         </div>
     </div>

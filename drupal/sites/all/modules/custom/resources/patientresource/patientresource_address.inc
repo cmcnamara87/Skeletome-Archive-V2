@@ -69,18 +69,7 @@ function _patientresource_address_delete($id) {
 
 
 function _patientresource_address_index($page, $fields, $parameters, $page_size) {
-    $query = new EntityFieldQuery();
-
-    $query->entityCondition('entity_type', 'address');
-
-    foreach($parameters as $parameter => $value) {
-        $query->propertyCondition($parameter, $value);
-    }
-    $query->range($page * $page_size, $page_size);
-    $result = $query->execute();
-    $ids = array_keys($result['address']);
-
-    return address_load_multiple($ids);
+    return resource_helper_index('address', $page, $fields, $parameters, $page_size);
 }
 
 

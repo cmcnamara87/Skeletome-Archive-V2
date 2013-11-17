@@ -585,9 +585,11 @@ function _user_resource_logout_1_1()
  *
  * @see _node_resource_index() for more notes
  */
-function _user_resource_index($page, $fields, $parameters, $page_size)
-{
+function _user_resource_index($page, $fields, $parameters, $page_size) {
     return resource_helper_index('user', $page, $fields, $parameters, $page_size, "uid");
+}
+
+
 //  $user_select = db_select('users', 't')
 //    ->orderBy('created', 'DESC');
 //
@@ -596,7 +598,6 @@ function _user_resource_index($page, $fields, $parameters, $page_size)
 //  $results = services_resource_execute_index_query($user_select);
 //
 //  return services_resource_build_index_list($results, 'user', 'uid');
-}
 
 /**
  * Access check callback for user resource.

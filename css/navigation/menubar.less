@@ -24,7 +24,7 @@
     color: @placeholderTextColor;
     border-radius: 100px;
   }
-  .submenubar-item.active {
+  .submenubar-item.selected {
     background-color: @highlightColor;
     color: white;
   }
@@ -44,7 +44,7 @@
   color: #F3F3F3;
   vertical-align: middle;
   height: @menubarHeight;
-  overflow: hidden;
+//  overflow: hidden;
   position: relative;
 
 
@@ -168,7 +168,10 @@
 
 
 
-
+.lookup-results {
+  position: absolute;
+  z-index: 99;
+}
 
 .menubar-user {
   float: right;

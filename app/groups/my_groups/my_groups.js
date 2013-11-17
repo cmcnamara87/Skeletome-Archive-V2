@@ -31,7 +31,6 @@ angular.module('groups.my_groups', [])
             administrator_id: SessionService.currentUser.uid,
             administrator: SessionService.currentUser,
             members: [
-                SessionService.currentUser
             ]
         });
 
@@ -70,16 +69,26 @@ angular.module('groups.my_groups', [])
 
             newGroup.$save(function(group) {
                 // Do the sharing
+                var promiseArray = [];
                 angular.forEach(members, function(member) {
                     var newMembership = new MembershipModel({
                         user_id: member.uid,
                         group_id: group.id
                     })
-                    newMembership.$save();
+                    promiseArray.push(newMembership.$save());
                 });
 
-                $location.path('/group/' + group.id);
+                $q.all(promiseArray).then(function() {
+                    $location.path('/group/' + group.id + '/summary');
+                });
             })
+
+            $scope.newGroup = new GroupModel({
+                administrator_id: SessionService.currentUser.uid,
+                administrator: SessionService.currentUser,
+                members: [
+                ]
+            });
         }
 
         $scope.findUsers = function(value) {

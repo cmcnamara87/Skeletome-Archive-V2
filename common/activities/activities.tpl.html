@@ -12,14 +12,15 @@
         <div>
             <select ng-options="share.group.name for share in shares" ng-model="share"></select>
 
-            <select>
-                <option value="">Post</option>
-                <option value="">Diagnosis</option>
+            <select ng-model="type">
+                <option value="all">All</option>
+                <option value="post">Post</option>
+                <option value="diagnosis">Diagnosis</option>
             </select>
         </div>
         <div>
-            <div ng-repeat="activity in activities">
-                <cm-activity></cm-activity>
+            <div ng-repeat="activity in activities | filter:filterPostType">
+                <cm-activity embed-content="false"></cm-activity>
             </div>
         </div>
     </div>

@@ -23,6 +23,7 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
 
     $result = $query->execute();
 
+
     if(isset($result[$entity_type])) {
         $ids = array_keys($result[$entity_type]);
 

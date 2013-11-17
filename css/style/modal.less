@@ -1,0 +1,69 @@
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid @borderColor;
+  padding: @defaultSpace * 1.5;
+}
+
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+
+.smodal-block {
+//  margin: 14px 14px 14px 14px;
+}
+.smodal-block + .smodal-block {
+  margin-top: @defaultSpace;
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: @defaultSpace * 2;
+}
+
+.smodal-buttons {
+  overflow: hidden;
+  button {
+    margin-left: 7px;
+  }
+}
+
+.smodal-block-element {
+  margin-bottom: 14px;
+
+  input[type=text], textarea {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  &.smodal-block-element:last-of-type {
+    margin-bottom: 0px;
+  }
+}
+

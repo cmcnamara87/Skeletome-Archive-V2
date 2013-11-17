@@ -97,63 +97,6 @@ function diagnosis_resource_schema() {
         'primary key' => array('id'),
     );
 
-    $schema['votes'] = array(
-        'description' => t('Votes for a diagnosis for a patient'),
-        'fields' => array(
-            'id' => array(
-                'description' => t('The primary identifier for a vote.'),
-                'type' => 'serial',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'created' => array(
-                'description' => t('The timestamp for when the diagnosis was created.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'modified' => array(
-                'description' => t('The timestamp for when the diagnosis was modified.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'vote' => array(
-                'description' => t('1 or -1 for the vote'),
-                'type' => 'int',
-                'unsigned' => FALSE,
-                'not null' => TRUE,
-            ),
-            'uid' => array(
-                'description' => t('The user who voted.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'diagnosis_id' => array(
-                'description' => t('The diagnosis voted for.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-        ),
-        'foreign keys' => array(
-            'voter' => array(
-                'table' => 'users',
-                'columns' => array('id' => 'uid'),
-            ),
-            'diagnosis' => array(
-                'table' => 'diagnoses',
-                'columns' => array('id' => 'diagnosis_id'),
-            ),
-        ),
-        'primary key' => array('id'),
-    );
-
     return $schema;
 }
 

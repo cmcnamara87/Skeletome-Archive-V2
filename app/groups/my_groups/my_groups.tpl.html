@@ -3,13 +3,17 @@
         <div class="page-top">
             <div class="page-top-buttons">
                 <button class="btn btn-action" ng-click="showCreateGroup()"><i class="icon icon-plus-sign"></i> New Group</button>
+                <!--<button class="btn btn-action" ng-click="showFindGroup()"><i class="icon icon-search"></i> Find a Group</button>-->
             </div>
             <h1>My Groups</h1>
         </div>
         <div class="page-content">
-            <table class="table">
+            <div class="nodata" ng-show="!memberships.length">
+                No memberships recorded.
+            </div>
+            <table class="table" ng-show="memberships.length">
                 <tr>
-                    <th>Name <i class="icon icon-sort-down"></i></th>
+                    <th>Name</th>
                     <!--<th>Location</th>-->
                     <th>Members</th>
                     <th>Patients</th>
@@ -25,8 +29,9 @@
 
                     <!-- Members -->
                     <td>
-                        <a href="#/group/{{ membership.group.id }}/members">
-                            <cm-facepile users="membership.group.members" limit="5"></cm-facepile>
+                        <a href="#/group/{{ membership.group.id }}/summary">
+                            {{ membership.group.member_count }}
+                            <!--<cm-facepile users="membership.group.members" limit="5"></cm-facepile>-->
                         </a>
                     </td>
 
@@ -37,6 +42,7 @@
                     </td>
 
                     <td>
+
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon icon-angle-down"></i>
@@ -50,15 +56,6 @@
                 </tr>
             </table>
         </div>
-    </div>
-    <div class="block">
-        <div class="block-header">
-
-            <div class="block-header-buttons">
-
-            </div>
-        </div>
-
     </div>
 
     <smodal name="deleteGroup">
@@ -92,56 +89,26 @@
     </smodal>
 
     <smodal name="createGroup">
-        <div class="smodal-title">
+        <div class="smodal-title smodal-block">
             Create a Group
         </div>
-        <div class="smodal-description" >
-            Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
-        </div>
-        <div class="smodal-content">
 
-            <table class="sform">
-                <tr class="sform-row">
-                    <td class="sform-label"><label for="group_name">Group Name</label></td>
-                    <td>
-                        <input type="text" id="group_name" class="full-width" placeholder="Group Name" ng-model="newGroup.name" required/>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label">
-                        <label for="description">Description</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <textarea id="description" placeholder="Description" ng-model="newGroup.description" class="full-width"></textarea>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label"><label for="administrator">Administrator</label></td>
-                    <td>
-                        <typeahead multi="false" model="newGroup.administrator" options-fn="findUsers(value)" placeholder="Who is the administrator for the group?" id="administrator"></typeahead>
-                    </td>
-                </tr>
-                <!--<tr class="sform-row">-->
-                    <!--<td class="sform-label"><label for="location">Location</label></td>-->
-                    <!--<td>-->
-                        <!--<typeahead multi="false" model="newGroup.location" options-fn="findUsers(value)" placeholder="Where is this group based?" id="location"></typeahead>-->
-                    <!--</td>-->
-                <!--</tr>-->
-                <tr class="sform-row">
-                    <td>
-                        <label for="members">Members</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <typeahead multi="true" model="newGroup.members" options-fn="findUsers(value)" placeholder="Who do you want to invite to this group?" id="members"></typeahead>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+
+        <div class="smodal-block">
+            <div class="smodal-block-element">
+                <label class="label-top">Group Name</label>
+                <input type="text" id="group_name" class="full-width" placeholder="What is the groups name?" ng-model="newGroup.name" required/>
+            </div>
+            <div class="smodal-block-element">
+                <label class="label-top" for="">Description</label>
+                <textarea id="description" placeholder="What is a good description of your group?" ng-model="newGroup.description" class="full-width"></textarea>
+            </div>
+            <div class="smodal-block-element">
+                <label class="label-top" for="">Members</label>
+                <typeahead multi="true" model="newGroup.members" options-fn="findUsers(value)" placeholder="Who do you want to invite to this group?" id="members"></typeahead>
+            </div>
         </div>
-        <div class="smodal-buttons">
+        <div class="smodal-buttons smodal-block">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
                 <button class="btn btn-action btn-action-selected" ng-click="createGroup(newGroup)">Create</button>

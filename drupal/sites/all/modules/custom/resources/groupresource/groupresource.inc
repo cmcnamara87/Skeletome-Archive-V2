@@ -47,10 +47,7 @@ function _groupresource_update($id, $data) {
 
     group_save($data);
 
-    return (object)array(
-        'id' => $id,
-        'uri' => services_resource_uri(array('group', $id)),
-    );
+    return $data;
 }
 /**
  * Callback for retrieving group resources.

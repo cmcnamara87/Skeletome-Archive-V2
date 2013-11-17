@@ -2,14 +2,17 @@
     <div class="page">
         <div class="page-top">
             <div class="page-top-buttons">
-                <button class="btn btn-action"><i class="icon icon-plus-sign"></i> New Patient</button>
+                <button class="btn btn-action" ng-click="showCreatePatient()"><i class="icon icon-plus-sign"></i> New Patient</button>
             </div>
 
             <h1>My Patients</h1>
         </div>
-        <table class="table">
+        <div class="nodata" ng-show="!patients.length">
+            No patients recorded.
+        </div>
+        <table class="table" ng-show="patients.length">
             <tr>
-                <th>ID <i class="icon icon-sort-down"></i></th>
+                <th>ID</th>
                 <th>Patient</th>
                 <th>Diagnoses</th>
                 <th>Share</th>
@@ -92,12 +95,14 @@
                         <a class="label label-primary" href="#/patient/{{ patient.id }}/share/{{ patient.shares[0].id }}">{{ patient.shares[0].group.name }}</a>
                     </a>
                 <span ng-show="patient.shares.length > 1">
-                    <a href="">
+                    <a href="#/patient/{{ patient.id }}/contact-information">
                         <span class="label label-primary">+ {{ patient.shares.length - 1 }} more</span>
                     </a>
                 </span>
                 <span ng-show="!patient.shares.length" >
-                    No shares
+                    <a href="#/patient/{{ patient.id }}/contact-information">
+                        No shares
+                    </a>
                 </span>
                 </td>
 
@@ -150,42 +155,31 @@
     </smodal>
 
     <smodal name="deletePatient">
-        <div class="smodal-title">
+        <div class="smodal-title smodal-block">
             Delete Patient
         </div>
-        <div class="smodal-description" >
+        <div class="smodal-block" >
             Are you sure you want to delete this patient?
         </div>
-        <div class="smodal-buttons">
+        <div class="smodal-block">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
-                <button class="btn btn-action btn-action-selected" ng-click="$close(); deletePatient(patientToDelete)">Delete #{{ patientToDelete.id}} {{ patientToDelete.fullName() }}</button>
+                <button class="btn btn-action btn-action-selected" ng-click="$close(); deletePatient(patientToDelete)">Delete #{{ patientToDelete.id}} {{ patientToDelete.first_name }} {{ patientToDelete.last_name }} {{ patientToDelete.alias }}</button>
             </div>
         </div>
     </smodal>
 
     <smodal name="sharePatient">
-
-        <div class="smodal-title">
+        <div class="smodal-title smodal-block">
             Share Patient
         </div>
-        <div class="smodal-description" >
-
-            Who do you want to share <b>#{{ $parent.patientSharing.patient.id}} {{ $parent.patientSharing.patient.fullName() }}</b> with?
+        <div class="smodal-content smodal-block">
+            <div class="smodal-block-element">
+                <label class="label-top">Groups</label>
+                <typeahead multi="true" model="$parent.patientSharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share the patient with?"></typeahead>
+            </div>
         </div>
-        <div class="smodal-content">
-            <table class="sform">
-                <tr class="sform-row">
-                    <td class="sform-label">
-                        <label>Share</label>
-                    </td>
-                    <td>
-                        <typeahead multi="true" model="$parent.patientSharing.groups" options-fn="findGroup(value)" placeholder="What groups do you want to share the patient with?"></typeahead>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="smodal-buttons">
+        <div class="smodal-buttons smodal-block">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
                 <button class="btn btn-action btn-action-selected" ng-click="$close(); sharePatientWithGroups($parent.patientSharing.patient, $parent.patientSharing.groups)">Share</button>
@@ -195,59 +189,46 @@
 
 
     <smodal name="createPatient">
-        <div class="smodal-title">
+
+        <div class="smodal-title smodal-block">
             Create a Patient
         </div>
-        <div class="smodal-description" >
-            Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
-        </div>
-        <div class="smodal-content">
-            <div class="resource is-editing">
-                <div class="resource-block">
-                    <label class="label-top resource-block-heading">Name</label>
-                    <div class="resource-block-element clearfix">
-                        <label for="type_name" class="label-right">
-                            <input type="radio" name="type" value="name" ng-model="patient.name_type">
-                            Use Name
-                        </label>
 
-                        <label for="type_alias" class="label-right">
-                            <input type="radio" name="type" value="alias" ng-model="patient.name_type">
-                            Use Alias
-                        </label>
-                    </div>
+        <div class="smodal-block">
+            <label class="label-top">Type</label>
+            <div class="smodal-block-element clearfix">
+                <label for="type_name" class="label-right">
+                    <input type="radio" name="type" value="name" ng-model="newPatient.name_type">
+                    Use Name
+                </label>
 
-                    <div class="resource-block-element" ng-show="patient.name_type == 'name'">
-                        <label for="first_name" class="resource-block-heading label-top">First Name</label>
-                        <input type="text" id="first_name" placeholder="What's their first name?" ng-model="patient.first_name"/>
-                    </div>
-                    <div class="resource-block-element" ng-show="patient.name_type == 'name'">
-                        <label for="last_name" class="resource-block-heading label-top">Last Name</label>
-                        <input type="text" id="last_name" placeholder="What's their last name?" ng-model="patient.last_name"/>
-                    </div>
-                    <div class="resource-block-element" ng-show="patient.name_type == 'alias'">
-                        <label for="alias" class="resource-block-heading label-top" >Alias</label>
-                        <input type="text" id="alias" placeholder="What is the patient's alias?" ng-model="patient.alias"/>
-                    </div>
-                </div>
+                <label for="type_alias" class="label-right">
+                    <input type="radio" name="type" value="alias" ng-model="newPatient.name_type">
+                    Use Alias
+                </label>
+            </div>
 
-                <div class="resource-block">
-                    <div class="resource-block-element">
-                        <label class="resource-block-heading label-top">Share</label>
-                        <typeahead multi="true" model="newPatient.groups" options-fn="findGroup(value)" placeholder="Who do you want to share this patient with?"></typeahead>
-                    </div>
-                </div>
-                <div class="resource-block">
-                    <cm-save-cancel></cm-save-cancel>
-                </div>
+            <div class="smodal-block-element" ng-show="newPatient.name_type == 'name'">
+                <label for="first_name" class="smodal-block-heading label-top">First Name</label>
+                <input type="text" id="first_name" placeholder="What's their first name?" ng-model="newPatient.first_name"/>
+            </div>
+            <div class="smodal-block-element" ng-show="newPatient.name_type == 'name'">
+                <label for="last_name" class="smodal-block-heading label-top">Last Name</label>
+                <input type="text" id="last_name" placeholder="What's their last name?" ng-model="newPatient.last_name"/>
+            </div>
+            <div class="smodal-block-element" ng-show="newPatient.name_type == 'alias'">
+                <label for="alias" class="smodal-block-heading label-top" >Alias</label>
+                <input type="text" id="alias" placeholder="What is the patient's alias?" ng-model="newPatient.alias"/>
             </div>
         </div>
-        <div class="smodal-buttons">
+
+        <div class="smodal-buttons smodal-block">
             <div class="pull-right">
                 <button class="btn btn-action" ng-click="$close()">Cancel</button>
                 <button class="btn btn-action btn-action-selected" ng-click="createPatient(newPatient)">Create</button>
             </div>
         </div>
+
     </smodal>
 
 

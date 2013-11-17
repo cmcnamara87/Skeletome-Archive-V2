@@ -26,25 +26,41 @@ angular.module('patients.my_patients', [])
 
     .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients',
         function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
-        $scope.patients = patients;
+            $scope.patients = patients;
 
+            $scope.newPatient = new PatientModel({
+                name_type: "name"
+            });
 
-            $scope.addPatient = function() {
-                var newPatient = new PatientModel({
-                    name_type: "name"
-                });
-                $scope.patients.unshift(newPatient);
+            $scope.showCreatePatient = function() {
+                SmodalService.show('createPatient');
             }
+            $scope.createPatient = function(newPatient) {
+                // Create a patient and then, create the shares
+//                var groups = newPatient.groups;
+
+                newPatient.$save(function(patient) {
+                    // Do the sharing
+//                    console.log("groups are ", groups);
+//                    angular.forEach(groups, function(group) {
+//                        var newShare = new ShareModel({
+//                            patient_id: patient.id,
+//                            group_id: group.id
+//                        })
+//                        newShare.$save();
+//                    });
+
+                    $location.path('/patient/' + patient.id + '/contact-information');
+                })
+            }
+
+
+
 
         $scope.showAutosharing = function() {
             SmodalService.show('autosharing');
         }
 
-        $scope.newPatient = new PatientModel();
-
-        $scope.showCreatePatient = function() {
-            SmodalService.show('createPatient');
-        }
 
         $scope.showSharePatient = function(patient) {
             $scope.patientSharing = {};
@@ -86,23 +102,6 @@ angular.module('patients.my_patients', [])
             return defer.promise;
         }
 
-        $scope.createPatient = function(newPatient) {
-            // Create a patient and then, create the shares
-            var groups = newPatient.groups;
 
-            newPatient.$save(function(patient) {
-                // Do the sharing
-                console.log("groups are ", groups);
-                angular.forEach(groups, function(group) {
-                    var newShare = new ShareModel({
-                        patient_id: patient.id,
-                        group_id: group.id
-                    })
-                    newShare.$save();
-                });
-
-                $location.path('/patient/' + patient.id + '/contact-information');
-            })
-        }
     }]);
 

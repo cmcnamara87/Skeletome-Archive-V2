@@ -19,7 +19,8 @@ myApp.services.factory('baseUrl', function() {
     }
 
     if(baseUrl == "http://localhost:8888") {
-        baseUrl += "/skelarchv2"
+//        baseUrl += "/skelarchv2"
+
     }
 
     return baseUrl;
@@ -176,10 +177,13 @@ myApp.services.factory('ListModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
-myApp.services.factory('VoteModel', function ($resource, apiUrl) {
+myApp.services.factory('VoteModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'vote/:id', {
         id: '@id' //this binds the ID of the model to the URL param,
     });
+    MyResource.index = function(object, success, failure) {
+        return MyResource.query(Param.makeParams(object), success, failure);
+    }
     return MyResource;
 });
 
@@ -350,7 +354,11 @@ myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
 myApp.services.factory('GroupModel', function ($resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'group/:id', {
         id: '@id' //this binds the ID of the model to the URL param
-    });
+        },
+        {
+            update: {method:'PUT'}
+        }
+    );
     MyResource.index = function(object, success, failure) {
         return MyResource.query(Param.makeParams(object), success, failure);
     }

@@ -68,7 +68,42 @@ function _patientresource_delete($id) {
 
 
 
-function _patientresource_index($page, $fields, $parameters, $page_size) {
+function _patientresource_index($query, $group_id, $page, $fields, $parameters, $page_size) {
+
+    if(strlen($query)) {
+
+        // 3 types of mentions
+        $sql = "SELECT patients.id
+            FROM patients
+            WHERE concat(patients.first_name, ' ' , patients.last_name) LIKE :pattern
+            OR patients.id = :query";
+        $results = db_query($sql, array(
+            ':pattern'   => '%' . db_like($query) . '%',
+            ':query'    => $query
+        ));
+
+        $ids = array_keys($results->fetchAllAssoc('id'));
+
+        return patient_load_multiple($ids);
+    }
+    // Do some setup here if there is a group id
+    // Get out the user field
+    if($group_id > 0) {
+
+        // lets get all the groups first
+        $sql = "SELECT DISTINCT shares.patient_id
+                FROM shares
+                WHERE shares.group_id = :group_id";
+
+        $results = db_query($sql, array(
+            'group_id' => $group_id
+        ));
+
+        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+
+        $parameters['id'] = $patient_ids;
+    }
+
     return resource_helper_index('patient', $page, $fields, $parameters, $page_size);
 }
 

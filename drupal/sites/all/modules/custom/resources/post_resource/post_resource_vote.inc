@@ -6,7 +6,7 @@
  * @param object $data
  * @return object
  */
-function _diagnosis_resource_vote_create($data) {
+function _post_resource_vote_create($data) {
     global $user;
     if (isset($data) &&  is_array($data)) $data=(object) $data;
     unset($data->id);
@@ -27,7 +27,7 @@ function _diagnosis_resource_vote_create($data) {
  * @param object $data
  * @return object
  */
-function _diagnosis_resource_vote_update($id, $data) {
+function _post_resource_vote_update($id, $data) {
     $group = vote_load($id);
 
     unset($data->created);
@@ -43,7 +43,7 @@ function _diagnosis_resource_vote_update($id, $data) {
  * @param int $id
  * @return object
  */
-function _diagnosis_resource_vote_retrieve($id) {
+function _post_resource_vote_retrieve($id) {
     $membership = vote_load($id);
 
     return $membership;
@@ -55,27 +55,13 @@ function _diagnosis_resource_vote_retrieve($id) {
  * @param int $id
  * @return object
  */
-function _diagnosis_resource_vote_delete($id) {
+function _post_resource_vote_delete($id) {
     return vote_delete($id);
 }
 
 
-function _diagnosis_resource_vote_index($page, $fields, $parameters, $page_size) {
-    module_load_include('inc', 'services', 'services.module');
-    $node_select = db_select('votes', 't')
-        ->orderBy('created', 'DESC');
-
-    services_resource_build_index_query($node_select, $page, $fields, $parameters, $page_size, 'votes');
-
-    if (!user_access('administer nodes')) {
-//        $node_select->condition('', 1);
-    }
-
-    $results = services_resource_execute_index_query($node_select);
-
-    $list = services_resource_build_index_list($results, 'votes', 'id');
-
-    return $list;
+function _post_resource_vote_index($page, $fields, $parameters, $page_size) {
+    return resource_helper_index('vote', $page, $fields, $parameters, $page_size);
 }
 
 
@@ -90,7 +76,7 @@ function _diagnosis_resource_vote_index($page, $fields, $parameters, $page_size)
  *  Whether access is given or not.
  */
 
-function _diagnosis_resource_vote_access($op, $args) {
+function _post_resource_vote_access($op, $args) {
     global $user;
     $access = FALSE;
 

@@ -53,31 +53,8 @@
 
 
     /** A heading for a block (can have multiple per block) */
-    .resource-block-heading {
-      font-weight: 600;
-      font-size: 14px;
-      margin: 0;
-      margin-bottom: 7px;
-      text-transform: uppercase;
-      color: @highlightColor;
-    }
 
-    label {
-      &.label-top {
-        display: block;
-        width: 100%;
-      }
-      &.label-right {
-        padding-right: 14px;
-        margin-bottom: 0;
-        color: @labelTextColor;
-        font-weight: normal;
 
-        input {
-          margin-right: 5px;
-        }
-      }
-    }
 
     .resource-block-element {
       margin-bottom: 14px;
@@ -95,6 +72,33 @@
 
   }
 }
+
+
+  .label-top, .resource-block-heading {
+    display: block;
+    width: 100%;
+
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+    margin-bottom: 7px;
+    text-transform: uppercase;
+    color: @highlightColor;
+
+  }
+
+  // Label for a radio button
+  .label-right {
+    padding-right: 14px;
+    margin-bottom: 0;
+    color: @labelTextColor;
+    font-weight: normal;
+
+    input {
+      margin-right: 5px;
+    }
+  }
+
 .resource + .resource {
   margin-top: @defaultSpace * 2;
 }

@@ -41,10 +41,6 @@ class PatientController extends EntityAPIController {
 
     protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
         $query = parent::buildQuery($ids, $conditions, $revision_id);
-
-        // Specify additional fields from the user and node tables.
-        $query->innerJoin('users', 'u', 'base.uid = u.uid');
-        $query->addField('u', 'name', 'ownerName');
         return $query;
     }
 
@@ -83,7 +79,6 @@ class PatientController extends EntityAPIController {
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
-            $entity->test = $user;
             // check if the are the owner of this patient
             if($entity->uid != $user->uid) {
                 $entity->not_owner = "true";
@@ -551,6 +546,22 @@ function patientresource_services_resources() {
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource'),
             'callback' => '_patientresource_index',
             'args' => array(
+                array(
+                    'name' => 'query',
+                    'optional' => TRUE,
+                    'type' => 'string',
+                    'description' => 'Looking for a patient',
+                    'default value' => "",
+                    'source' => array('param' => 'query'),
+                ),
+                array(
+                    'name' => 'group_id',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => 'The group to get the patients for',
+                    'default value' => 0,
+                    'source' => array('param' => 'group_id'),
+                ),
                 array(
                     'name' => 'page',
                     'optional' => TRUE,

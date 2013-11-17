@@ -18,7 +18,8 @@ var myApp = angular.module('myApp', [
         'directives.smodal',
         'directives.activities',
         'directives.input',
-        'ngAnimate']).
+        'ngAnimate',
+        'ngSanitize']).
     config(['$routeProvider', function ($routeProvider) {
 
         /**

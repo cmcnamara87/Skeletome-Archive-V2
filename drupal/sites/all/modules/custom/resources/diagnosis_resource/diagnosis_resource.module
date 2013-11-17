@@ -23,16 +23,7 @@ function diagnosis_resource_entity_info() {
             ),
             'entity class'           => 'Entity',
             'controller class'       => 'EntityAPIController',
-        ),
-        'vote' => array(
-            'label' => t('Vote'),
-            'base table' => 'votes',
-            'entity keys' => array(
-                'id' => 'id',
-            ),
-            'entity class'           => 'Entity',
-            'controller class'       => 'VoteController',
-        ),
+        )
     );
 }
 
@@ -49,15 +40,15 @@ class DiagnosisController extends EntityAPIController {
 
         $entity->user = user_load_small($entity->uid);
 
-        $entity->share = share_load($entity->share_id);
+//        $entity->share = share_load($entity->share_id);
 
         // Add in the votes
-        $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'vote');
-        $query->propertyCondition('diagnosis_id', $entity->id);
-        $result = $query->execute();
-        $ids = array_keys($result['vote']);
-        $entity->votes = vote_load_multiple($ids);
+//        $query = new EntityFieldQuery();
+//        $query->entityCondition('entity_type', 'vote');
+//        $query->propertyCondition('diagnosis_id', $entity->id);
+//        $result = $query->execute();
+//        $ids = array_keys($result['vote']);
+//        $entity->votes = vote_load_multiple($ids);
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
@@ -65,24 +56,24 @@ class DiagnosisController extends EntityAPIController {
         parent::save($entity, $transaction);
 
         // Create an activity for this new post
-        $vote = new stdClass();
-        $vote->uid = $entity->uid;
-        $vote->created = time();
-        $vote->modified = time();
-        $vote->vote = 1;
-        $vote->diagnosis_id = $entity->id;
-        vote_save($vote);
-
-
-        // Create an activity for this new post
-        $activity = new stdClass();
-        $activity->uid = $entity->uid;
-        $activity->created = time();
-        $activity->modified = time();
-        $activity->type = "diagnosis";
-        $activity->object_id = $entity->id;
-        $activity->share_id = $entity->share_id;
-        activity_save($activity);
+//        $vote = new stdClass();
+//        $vote->uid = $entity->uid;
+//        $vote->created = time();
+//        $vote->modified = time();
+//        $vote->vote = 1;
+//        $vote->diagnosis_id = $entity->id;
+//        vote_save($vote);
+//
+//
+//        // Create an activity for this new post
+//        $activity = new stdClass();
+//        $activity->uid = $entity->uid;
+//        $activity->created = time();
+//        $activity->modified = time();
+//        $activity->type = "diagnosis";
+//        $activity->object_id = $entity->id;
+//        $activity->share_id = $entity->share_id;
+//        activity_save($activity);
 
         self::addRelated($entity);
     }
@@ -97,22 +88,7 @@ class DiagnosisController extends EntityAPIController {
     }
 }
 
-class VoteController extends EntityAPIController {
 
-    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
-        $query = parent::buildQuery($ids, $conditions, $revision_id);
-        return $query;
-    }
-
-    public function load($ids = array(), $conditions = array()) {
-        $entities = parent::load($ids, $conditions);
-
-        foreach($entities as &$entity) {
-            $entity->user = user_load_small($entity->uid);
-        }
-        return $entities;
-    }
-}
 
 function diagnosis_load($id, $reset = FALSE) {
     $diagnosis = diagnosis_load_multiple(array($id), $reset);
@@ -143,19 +119,7 @@ function disorder_delete($id) {
 }
 
 
-function vote_load($id, $reset = FALSE) {
-    $vote = vote_load_multiple(array($id), $reset);
-    return reset($vote);
-}
-function vote_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return array_values(entity_load('vote', $ids, $conditions, $reset));
-}
-function vote_save($entity) {
-    entity_save('vote', $entity);
-}
-function vote_delete($id) {
-    entity_delete('vote', $id);
-}
+
 
 
 
@@ -298,134 +262,7 @@ function diagnosis_resource_services_resources() {
         )
     );
 
-    $resources['vote'] = array(
-        'retrieve' => array(
-            'help' => 'Retrieves a vote',
-            'file' => array('type' => 'inc',
-                'module' => 'diagnosis_resource',
-                'name' => 'diagnosis_resource_vote'
-            ),
-            'callback' => '_diagnosis_resource_vote_retrieve',
-            'access callback' => '_diagnosis_resource_vote_access',
-            'access arguments' => array('view'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the vote to get',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'create' => array(
-            'help' => 'Creates a vote',
-            'file' => array('type' => 'inc',
-                'module' => 'diagnosis_resource',
-                'name' => 'diagnosis_resource_vote'
-            ),
-            'callback' => '_diagnosis_resource_vote_create',
-            'access arguments' => array('diagnosis resource vote create'),
-            'access arguments append' => FALSE,
-            'args' => array(
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The vote object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a diagnosis',
-            'file' => array('type' => 'inc',
-                'module' => 'diagnosis_resource',
-                'name' => 'diagnosis_resource_vote'
-            ),
-            'callback' => '_diagnosis_resource_vote_update',
-            'access callback' => '_diagnosis_resource_vote_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the vote to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The vote data object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'delete' => array(
-            'help' => 'Deletes a diagnosis',
-            'file' => array('type' => 'inc',
-                'module' => 'diagnosis_resource',
-                'name' => 'diagnosis_resource_vote'
-            ),
-            'callback' => '_diagnosis_resource_vote_delete',
-            'access callback' => '_diagnosis_resource_vote_access',
-            'access arguments' => array('delete'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the vote to delete',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'index' => array(
-            'help' => 'List all nodes',
-            'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource_vote'),
-            'callback' => '_diagnosis_resource_vote_index',
-            'args' => array(
-                array(
-                    'name' => 'page',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'The zero-based index of the page to get, defaults to 0.',
-                    'default value' => 0,
-                    'source' => array('param' => 'page'),
-                ),
-                array(
-                    'name' => 'fields',
-                    'optional' => TRUE,
-                    'type' => 'string',
-                    'description' => 'The fields to get.',
-                    'default value' => '*',
-                    'source' => array('param' => 'fields'),
-                ),
-                array(
-                    'name' => 'parameters',
-                    'optional' => TRUE,
-                    'type' => 'array',
-                    'description' => 'Parameters array',
-                    'default value' => array(),
-                    'source' => array('param' => 'parameters'),
-                ),
-                array(
-                    'name' => 'pagesize',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'Number of records to get per page.',
-                    'default value' => variable_get('services_node_index_page_size', 20),
-                    'source' => array('param' => 'pagesize'),
-                ),
-            ),
-            'access arguments' => array('access content'),
-        )
-    );
+
 
     $resources['disorder'] = array(
         'retrieve' => array(

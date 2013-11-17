@@ -5,9 +5,11 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
         return {
             restrict: 'E',
+            scope: true,
             templateUrl: 'common/activities/activities.tpl.html',
             link: function ($scope, element, attrs) {
 
+                $scope.shares = null;
                 $scope.share = null;
                 $scope.activities = null;
                 $scope.location = $location;
@@ -27,7 +29,7 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                         $scope.type = parts[1];
 
-                        if($scope.type == "patient" || $scope.type == "group") {
+                        if($scope.type == "patient") {
                             $rootScope.showActivities = true;
                             $scope.id = parts[2];
                             // we need to laod in activity
@@ -38,6 +40,7 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                                 }, function(shares) {
                                     $scope.shares = shares;
                                     $scope.share = $scope.shares[0];
+                                    $scope.type = "all";
                                 });
                             } else if($scope.type == "group") {
                                 // load in the shares for a particular group
@@ -63,7 +66,18 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                             $scope.activities = activities;
                         })
                     }
-                })
+                });
+
+                $scope.filterPostType = function(item) {
+                    if($scope.type == "all") {
+                        return true;
+                    } else if($scope.type == "diagnosis") {
+                        return item.post.disorder_id > 0;
+                    } else {
+                        return item.post.disorder_id == 0;
+                    }
+
+                };
 
             }
         };
@@ -73,22 +87,8 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
         return {
             restrict: 'E',
             templateUrl: 'common/activities/adder.tpl.html',
-            controller: ['$scope', '$q', '$routeParams', 'SessionService', 'GroupModel', 'ActivityModel', 'PostModel', 'ShareModel', function($scope, $q, $routeParams, SessionService, GroupModel, ActivityModel, PostModel, ShareModel) {
+            controller: ['$scope', '$q', '$routeParams', 'SessionService', 'DisorderModel', 'GroupModel', 'ActivityModel', 'PostModel', 'ShareModel', function($scope, $q, $routeParams, SessionService, DisorderModel, GroupModel, ActivityModel, PostModel, ShareModel) {
                 $scope.newPost = new PostModel({});
-
-
-                console.log("ropute params", $routeParams);
-                $scope.$watch(function() {
-                    return $routeParams.patient_id
-                }, function(patient_id) {
-                    console.log("patient id changed");
-                    if(patient_id) {
-                        $scope.allShares = ShareModel.index({
-                            patient_id: $routeParams.patient_id
-                        });
-                    }
-                })
-
 
                 $scope.findPubMed = function(value) {
 
@@ -96,9 +96,14 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                 $scope.addPost = function(newPost) {
 
-                    var shares = angular.copy(newPost.shares);
+                    angular.forEach($scope.shares, function(share, shareIndex) {
 
-                    angular.forEach(shares, function(share, shareIndex) {
+                        if(!share.selected) {
+                            return;
+                        } else {
+                            share.selected = false;
+                        }
+
                         var newSharePost = angular.copy(newPost);
                         newSharePost.share_id = share.id;
 
@@ -145,6 +150,15 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                     });
                 }
 
+
+                $scope.findDisorder = function(disorderName) {
+                    return DisorderModel.index({
+                        name: disorderName
+                    }).$promise;
+                }
+                $scope.disorderChosen = function(disorder, post) {
+                    post.disorder_id = disorder.id;
+                }
 
                 $scope.findGroups = function(name) {
                     var defer = $q.defer();

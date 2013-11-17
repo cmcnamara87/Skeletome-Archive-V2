@@ -265,27 +265,6 @@ Styleguide 2.1.3.
 .resource .resource-block.resource-block-has-buttons {
   margin-right: 80px;
 }
-.resource .resource-block .resource-block-heading {
-  font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 7px;
-  text-transform: uppercase;
-  color: #49a9ba;
-}
-.resource .resource-block label.label-top {
-  display: block;
-  width: 100%;
-}
-.resource .resource-block label.label-right {
-  padding-right: 14px;
-  margin-bottom: 0;
-  color: #616769;
-  font-weight: normal;
-}
-.resource .resource-block label.label-right input {
-  margin-right: 5px;
-}
 .resource .resource-block .resource-block-element {
   margin-bottom: 14px;
 }
@@ -294,6 +273,26 @@ Styleguide 2.1.3.
 }
 .resource .resource-block .resource-block-clinsum {
   line-height: 28px;
+}
+.label-top,
+.resource-block-heading {
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  color: #49a9ba;
+}
+.label-right {
+  padding-right: 14px;
+  margin-bottom: 0;
+  color: #616769;
+  font-weight: normal;
+}
+.label-right input {
+  margin-right: 5px;
 }
 .resource + .resource {
   margin-top: 28px;
@@ -343,8 +342,14 @@ html[xmlns] .clearfix {
 .activity a {
   transition: color 0.2s;
 }
+.activity a:hover {
+  text-decoration: underline;
+}
 .activity:hover a {
   color: #49a9ba !important;
+}
+.activity:hover .mentions a {
+  text-decoration: underline;
 }
 .activity .activity-content {
   padding: 14px;
@@ -704,7 +709,7 @@ html[xmlns] .clearfix {
   left: 5px;
   cursor: pointer;
   background-color: white;
-  border-top: 1px solid #dbe1e3;
+  border-top: none;
   list-style-type: none;
   padding: 0;
   min-width: 200px;
@@ -715,7 +720,9 @@ html[xmlns] .clearfix {
 .typeahead-option {
   padding: 10px;
   border: 1px solid #dbe1e3;
-  border-top: none;
+}
+.typeahead-option + .typeahead-option {
+  border-top: 1px solid white;
 }
 .typeahead-option.selected {
   background-color: #ddeff2;
@@ -843,9 +850,128 @@ html[xmlns] .clearfix {
 }
 .mentions a {
   transition: color 0.2s;
+  font-weight: 600;
+  color: #494d4e;
 }
 .mentions:hover a {
   color: #49a9ba;
+}
+.mentions a:hover {
+  text-decoration: underline;
+}
+.gallery {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  background-color: rgba(1, 3, 3, 0.8);
+}
+.gallery .gallery-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  position: absolute;
+  background-color: white;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+}
+.gallery .gallery-content .gallery-stuff {
+  margin: 14px;
+}
+.gallery .gallery-content .gallery-description {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+}
+.gallery .gallery-content .gallery-image {
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 65%;
+}
+.gallery .gallery-content .gallery-image img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+}
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid #dbe1e3;
+  padding: 21px;
+}
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+.smodal-block + .smodal-block {
+  margin-top: 14px;
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+.smodal-description {
+  padding: 0px 21px;
+}
+.smodal-content {
+  padding: 21px 21px 0 21px;
+}
+.smodal-buttons {
+  overflow: hidden;
+}
+.smodal-buttons button {
+  margin-left: 7px;
+}
+.smodal-block-element {
+  margin-bottom: 14px;
+}
+.smodal-block-element input[type=text],
+.smodal-block-element textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.smodal-block-element.smodal-block-element:last-of-type {
+  margin-bottom: 0px;
 }
 body {
   background-color: #e1e6e9;
@@ -1005,58 +1131,6 @@ textarea.full-width {
   float: right;
   position: relative;
   top: -7px;
-}
-/*
-    A modal box
-*/
-.smodal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  max-width: 630px;
-  min-width: 320px;
-  height: auto;
-  background-color: white;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  z-index: 2000;
-  border-radius: 3px;
-  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
-  border: 1px solid #dbe1e3;
-}
-/*
-    The overlay that sits behind the modal box
-*/
-.smodal-overlay {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: rgba(242, 246, 247, 0.72);
-}
-/*
-    The title of the modal overlay
-*/
-.smodal-title {
-  padding: 28px 21px;
-  font-weight: 300;
-  font-size: 28px;
-}
-.smodal-description {
-  padding: 0px 21px;
-}
-.smodal-content {
-  padding: 21px 21px 0 21px;
-}
-.smodal-buttons {
-  padding: 1px 21px 21px 21px;
-  overflow: hidden;
-}
-.smodal-buttons button {
-  margin-left: 7px;
 }
 .votebox {
   margin-bottom: 7px;

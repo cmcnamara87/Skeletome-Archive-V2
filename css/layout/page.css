@@ -7,9 +7,10 @@
   overflow: auto;
   background-color: white;
   top: 60px;
+  border-right: 1px solid #dbe1e3;
 }
 .main-submenubar {
-  top: 114px;
+  top: 120px;
 }
 .main-sidebar {
   left: 230px;
@@ -17,6 +18,9 @@
 .main-activities {
   right: 45%;
   background-color: white;
+}
+.main-feed {
+  background-color: #dce2e4;
 }
 .sidebar {
   position: fixed;
@@ -32,6 +36,25 @@
 .feed {
   padding: 14px 0px;
   background-color: #dce2e4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+}
+.submenubar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  top: 60px;
+  left: 0px;
+  right: 0px;
+  bottom: auto;
+  height: 60px;
 }
 /**
   * A Section of content on a page
@@ -42,22 +65,29 @@
 .block {
   margin: 14px;
 }
+.block + .block {
+  margin-top: 28px;
+}
 .block-header {
   border-bottom: 1px solid #dbe1e3;
-  padding: 14px 14px;
+  padding: 14px;
   border-top: none;
+  padding-top: 0;
+  padding-bottom: 0px;
   position: relative;
   background-color: white;
+  height: 40px;
 }
 .block-header h2 {
   font-size: 21px;
   margin: 0;
   font-weight: 400;
+  color: #000000;
 }
 .block-header .block-header-buttons {
   position: absolute;
   right: 14px;
-  top: 8px;
+  top: -5px;
 }
 .block-table {
   border-top: none;
@@ -86,12 +116,7 @@
   padding: 0;
 }
 .block-content {
-  border: 1px solid #dbe1e3;
-  background-color: white;
   padding: 14px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
   padding-bottom: 14px;
 }
 .block-content.block-content-clear {
@@ -140,6 +165,7 @@ table.table-content {
   background-color: transparent;
   border: none;
   padding: 0;
+  color: #949a9c;
 }
 /*
 A button suitable for giving stars to someone.
@@ -158,6 +184,8 @@ Styleguide 2.1.3.
   padding: 5px 10px;
   outline: none !important;
   color: #78b3be;
+  -webkit-box-shadow: 0 1px 0px #9ac7cf;
+  background-color: white;
 }
 .btn-action:hover {
   color: #849eb0;
@@ -166,19 +194,27 @@ Styleguide 2.1.3.
   background-color: #ebf2f7;
   -webkit-box-shadow: none;
 }
+.btn-action:focus {
+  color: #49a9ba;
+  box-shadow: 0px 0px 5px #49a9ba;
+}
 .btn-action.btn-action-selected {
-  background-color: #417BAE;
-  border: 1px solid #417BAE;
+  background-color: #49a9ba;
+  border: 1px solid #49a9ba;
+  border-bottom: 1px solid #4099a9;
+  -webkit-box-shadow: 0 1px 0px #398997;
   color: white;
 }
-.btn-action.btn-action-selected:hover {
-  background-color: #498ac3;
-  border: 1px solid #498ac3;
+.btn-action.btn-action-selected:hover,
+.btn-action.btn-action-selected:focus {
+  background-color: #6ebac8;
+  border: 1px solid #6ebac8;
+  color: white;
 }
 .btn-action.btn-action-selected:active {
-  background-color: #336997;
-  border: 1px solid #336997;
-  -webkit-box-shadow: inset 0 2px 0px #1d4971;
+  background-color: #398997;
+  border: 1px solid #398997;
+  -webkit-box-shadow: inset 0 1px 0px #2b6772;
 }
 .btn-action-small {
   padding: 3px 9px;
@@ -196,15 +232,14 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
+.nodata {
+  color: #949a9c;
+}
 .resource {
-  margin-bottom: 28px;
+  /** Height allows for the button */
+  min-height: 35px;
   /** Controls like edit / delete buttons */
   /** A block of content for the resource e.g. (first name + last name, or date of birth) */
-}
-.resource input[type=text],
-.resource textarea {
-  width: 100%;
-  box-sizing: border-box;
 }
 .resource.is-editing .resource-block {
   margin-right: 0px;
@@ -213,23 +248,48 @@ Styleguide 2.1.3.
   padding: 14px;
   margin-bottom: 0px;
   border-bottom: none;
-  background-color: #EEF3F7;
+  background-color: #f4f6f7;
 }
 .resource.is-editing .resource-block:last-of-type {
   border-bottom: 1px solid #dbe1e3;
+}
+.resource.is-editing .resource-block.no-edit {
+  background-color: white;
+  border: none;
+  padding: 0px;
+}
+.resource.is-editing input[type=text],
+.resource.is-editing textarea {
+  width: 100%;
+  box-sizing: border-box;
 }
 .resource .resource-controls {
   float: right;
 }
 .resource .resource-block {
-  margin-bottom: 14px;
   /** No margin on the last one */
+  margin-bottom: 14px;
   /** A heading for a block (can have multiple per block) */
 }
 .resource .resource-block:last-of-type {
   margin-bottom: 0px;
 }
-.resource .resource-block .resource-block-heading {
+.resource .resource-block.resource-block-has-buttons {
+  margin-right: 80px;
+}
+.resource .resource-block .resource-block-element {
+  margin-bottom: 14px;
+}
+.resource .resource-block .resource-block-element.resource-block-element:last-of-type {
+  margin-bottom: 0px;
+}
+.resource .resource-block .resource-block-clinsum {
+  line-height: 28px;
+}
+.label-top,
+.resource-block-heading {
+  display: block;
+  width: 100%;
   font-weight: 600;
   font-size: 14px;
   margin: 0;
@@ -237,24 +297,17 @@ Styleguide 2.1.3.
   text-transform: uppercase;
   color: #49a9ba;
 }
-.resource .resource-block label.label-top {
-  display: block;
-  width: 100%;
-}
-.resource .resource-block label.label-right {
+.label-right {
   padding-right: 14px;
   margin-bottom: 0;
-  color: #49a9ba;
+  color: #616769;
   font-weight: normal;
 }
-.resource .resource-block label.label-right input {
+.label-right input {
   margin-right: 5px;
 }
-.resource .resource-block .resource-block-element {
-  margin-bottom: 14px;
-}
-.resource .resource-block .resource-block-element.resource-block-element:last-of-type {
-  margin-bottom: 0px;
+.resource + .resource {
+  margin-top: 28px;
 }
 .clearfix:after {
   content: ".";
@@ -301,8 +354,14 @@ html[xmlns] .clearfix {
 .activity a {
   transition: color 0.2s;
 }
+.activity a:hover {
+  text-decoration: underline;
+}
 .activity:hover a {
   color: #49a9ba !important;
+}
+.activity:hover .mentions a {
+  text-decoration: underline;
 }
 .activity .activity-content {
   padding: 14px;
@@ -323,6 +382,13 @@ html[xmlns] .clearfix {
 .activity .activity-group .icon {
   margin-right: 7px;
 }
+.activity-patient h4 {
+  color: #303334;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 14px;
+}
 .activity-patient .activity-patient-more {
   margin-top: 14px;
 }
@@ -330,7 +396,6 @@ html[xmlns] .clearfix {
   list-style: none;
   padding: 0;
   margin: 0;
-  margin-bottom: 14px;
 }
 .activity-patient .activity-patient-menu li {
   display: inline-block;
@@ -347,6 +412,13 @@ html[xmlns] .clearfix {
   color: #303334;
   border: 1px solid #dbe1e3;
   border-bottom: none !important;
+  position: relative;
+  top: 1px;
+  z-index: 1;
+}
+.activity-patient .activity-patient-content {
+  border: 1px solid #dbe1e3;
+  padding: 14px;
 }
 /**
   * Activity Adder
@@ -384,7 +456,6 @@ html[xmlns] .clearfix {
   top: 60px;
   left: auto;
   width: 45%;
-  border-left: 1px solid #dbe1e3;
   /**
   Group activity title
   */
@@ -393,7 +464,7 @@ html[xmlns] .clearfix {
   font-size: 21px;
   font-weight: 300px;
   margin: 0;
-  color: #49a9ba;
+  color: #616769;
   margin-bottom: 21px;
 }
 .activities .activities-adder {
@@ -408,15 +479,8 @@ html[xmlns] .clearfix {
   letter-spacing: 0.5px;
 }
 .submenubar {
-  border: 1px solid #dbe1e3;
   background-color: white;
-  border-right: none;
-  position: fixed;
-  top: 60px;
-  left: 0px;
-  right: 0px;
-  height: 54px;
-  padding: 11px;
+  height: 60px;
 }
 .submenubar.submenubar-activities {
   margin-right: 45%;
@@ -424,6 +488,9 @@ html[xmlns] .clearfix {
 .submenubar ul {
   padding-left: 0px;
   margin-bottom: 0px;
+  margin: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #dbe1e3;
 }
 .submenubar ul li {
   list-style: none;
@@ -559,12 +626,7 @@ html[xmlns] .clearfix {
 .typeahead input,
 .typeahead button,
 .typeahead textarea {
-  border: 1px solid #dbe1e3;
   outline: 0;
-}
-::-webkit-input-placeholder,
-button {
-  color: #96A6B1;
 }
 /**
     Text inputs and text areas
@@ -618,9 +680,9 @@ button {
   display: block;
   padding: 10px 14px;
   width: 100%;
-  background-color: #E1EDF8;
-  border: 1px solid #B7D1E9;
-  color: #6D8AA5;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
 }
 .typeahead-token-single .icon-remove {
   margin-left: 10px;
@@ -632,19 +694,20 @@ button {
 */
 .typeahead-tokens {
   padding: 10px;
+  background-color: white;
 }
 /*
     Multi Token: A small inline token
 */
 .typeahead-token-multi {
   display: inline-block;
-  background-color: #417BAE;
-  color: white;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba !important;
   padding: 5px 12px;
   border-radius: 3px;
   margin-right: 7px;
   margin-bottom: 7px;
-  border: none;
 }
 /*
     Options list: The auto-complet edropdown that displays suggestions for tokens
@@ -657,7 +720,7 @@ button {
   left: 5px;
   cursor: pointer;
   background-color: white;
-  border-top: 1px solid #dbe1e3;
+  border-top: none;
   list-style-type: none;
   padding: 0;
   min-width: 200px;
@@ -668,10 +731,14 @@ button {
 .typeahead-option {
   padding: 10px;
   border: 1px solid #dbe1e3;
-  border-top: none;
+}
+.typeahead-option + .typeahead-option {
+  border-top: 1px solid white;
 }
 .typeahead-option.selected {
-  background-color: #F1F5F9;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
 }
 .sidebar {
   background-color: #f4f6f7;
@@ -723,6 +790,7 @@ button {
   background-color: #f4f6f7;
   font-weight: 400;
   border-top: none;
+  color: #303334;
 }
 .table tbody > tr > td {
   border: none !important;
@@ -730,12 +798,22 @@ button {
   margin: 0px !important;
   vertical-align: middle;
 }
+.table tr:hover.is-editing td {
+  background-color: white;
+}
 .table tr:hover td {
   background-color: #eff8f9;
 }
 .table tr:hover a {
   color: #49a9ba;
   text-decoration: underline;
+}
+.table tr:hover .dropdown-menu a {
+  text-decoration: none;
+}
+.table tr:hover .dropdown-menu a:hover {
+  color: white;
+  background-color: #49a9ba;
 }
 .table tbody {
   border: none !important;
@@ -756,6 +834,159 @@ button {
   float: right;
   position: relative;
   top: 0px;
+}
+.page .page-top .page-top-buttons button + button {
+  margin-left: 7px;
+}
+.resource.ng-enter,
+.resource.ng-leave,
+.resource.ng-move {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  position: relative;
+}
+.resource.ng-enter {
+  left: -50px;
+  opacity: 0;
+}
+.resource.ng-enter.ng-enter-active {
+  left: 0;
+  opacity: 1;
+}
+.resource.ng-leave {
+  left: 0;
+  opacity: 1;
+}
+.resource.ng-leave.ng-leave-active {
+  left: -50px;
+  opacity: 0;
+}
+.resource.ng-move {
+  opacity: 0.5;
+}
+.resource.ng-move.ng-move-active {
+  opacity: 1;
+}
+.mentions a {
+  transition: color 0.2s;
+  font-weight: 600;
+  color: #494d4e;
+}
+.mentions:hover a {
+  color: #49a9ba;
+}
+.mentions a:hover {
+  text-decoration: underline;
+}
+.gallery {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  background-color: rgba(1, 3, 3, 0.8);
+}
+.gallery .gallery-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  position: absolute;
+  background-color: white;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+}
+.gallery .gallery-content .gallery-stuff {
+  margin: 14px;
+}
+.gallery .gallery-content .gallery-description {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+}
+.gallery .gallery-content .gallery-image {
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 65%;
+}
+.gallery .gallery-content .gallery-image img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+}
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid #dbe1e3;
+  padding: 21px;
+}
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+.smodal-block + .smodal-block {
+  margin-top: 14px;
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+.smodal-buttons {
+  overflow: hidden;
+}
+.smodal-buttons button {
+  margin-left: 7px;
+}
+.smodal-block-element {
+  margin-bottom: 14px;
+}
+.smodal-block-element input[type=text],
+.smodal-block-element textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.smodal-block-element.smodal-block-element:last-of-type {
+  margin-bottom: 0px;
 }
 body {
   background-color: #e1e6e9;
@@ -915,58 +1146,6 @@ textarea.full-width {
   float: right;
   position: relative;
   top: -7px;
-}
-/*
-    A modal box
-*/
-.smodal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  max-width: 630px;
-  min-width: 320px;
-  height: auto;
-  background-color: white;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  z-index: 2000;
-  border-radius: 3px;
-  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
-  border: 1px solid #dbe1e3;
-}
-/*
-    The overlay that sits behind the modal box
-*/
-.smodal-overlay {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: rgba(242, 246, 247, 0.72);
-}
-/*
-    The title of the modal overlay
-*/
-.smodal-title {
-  padding: 28px 21px;
-  font-weight: 300;
-  font-size: 28px;
-}
-.smodal-description {
-  padding: 0px 21px;
-}
-.smodal-content {
-  padding: 21px 21px 0 21px;
-}
-.smodal-buttons {
-  padding: 1px 21px 21px 21px;
-  overflow: hidden;
-}
-.smodal-buttons button {
-  margin-left: 7px;
 }
 .votebox {
   margin-bottom: 7px;
@@ -1246,7 +1425,7 @@ header {
 .dropzone {
   border: 2px dashed #dbe1e3;
   min-height: 160px;
-  color: #49a9ba;
+  color: #616769;
   font-weight: 600;
   text-align: center;
   line-height: 160px;
@@ -1324,6 +1503,9 @@ Styleguide 2.1.3.
   position: relative;
   top: 10px;
   margin-left: 7px;
+}
+.savecancel {
+  text-align: right;
 }
 .btn.btn-save {
   background-color: #47a0d6;

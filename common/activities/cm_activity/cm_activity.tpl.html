@@ -9,7 +9,7 @@
     -->
 
     <div class="activity-content">
-        <div class="activity-content-box activity-group" ng-if="activity.group.name">
+        <div class="activity-content-box activity-group" ng-if="embedContent">
             <a href="#/group/{{ activity.group.id }}">
                 <i class="icon icon-user-md"></i>
                 {{ activity.group.name }}
@@ -25,26 +25,37 @@
                         <a href="#/user/{{ activity.user.uid }}">Dr {{ activity.user.name }}</a>
                     </div>
                     <div class="user-info">
-                        <div ng-switch on="activity.type">
-                            <div ng-switch-when="post">
-                                sent a message about <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> to
-                                <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
-                            </div>
-                            <div ng-switch-when="share">
+
+                        <span ng-switch on="activity.type">
+                            <span ng-switch-when="post">
+                                <span ng-show="activity.post.disorder_id == 0">
+                                    sent a message about <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> to
+                                    <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
+                                </span>
+
+                                <span ng-show="activity.post.disorder_id">
+                                    added a diagnosis for <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> in
+                                    <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
+                                </span>
+                            </span>
+                            <span ng-switch-when="share">
                                 shared <a href="#/patient/{{ activity.patient.id }}/summary">Patient #{{ activity.patient.id }}</a> with
                                 <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
-                                <span class="user-date"> - {{ activity.created | relativedate }}</span>
-                            </div>
-                        </div>
 
+                            </span>
+                        </span>
+                        <span class="user-date" ng-show="activity.created"> - {{ activity.created | relativedate }}</span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="activity-content-box activity-content-box-message" ng-if="activity.post">
+        <div class="activity-content-box activity-content-box-message" ng-if="activity.post.text.length">
             <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
         </div>
-        <div class="activity-content-box" ng-if="activity.patient">
+        <div class="activity-content-box" ng-if="activity.post.disorder_id > 0">
+            <cm-activity-diagnosis diagnosis-post="activity.post"></cm-activity-diagnosis>
+        </div>
+        <div class="activity-content-box" ng-if="embedContent">
             <cm-activity-patient></cm-activity-patient>
         </div>
 

@@ -22,7 +22,7 @@ function groupresource_entity_info() {
                 'id' => 'id',
             ),
             'entity class'           => 'Entity',
-            'controller class'       => 'EntityAPIController',
+            'controller class'       => 'MembershipController',
         ),
         'share' => array(
             'label' => t('Share'),
@@ -40,9 +40,37 @@ class GroupController extends EntityAPIController {
 
     public function load($ids = array(), $conditions = array()) {
         $entities = parent::load($ids, $conditions);
-        return $entities;
 
+        foreach($entities as &$entity) {
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'share');
+            $query->propertyCondition('group_id', $entity->id);
+            $entity->patient_count = $query->count()->execute();
+
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'membership');
+            $query->propertyCondition('group_id', $entity->id);
+            $entity->member_count = $query->count()->execute();
+
+            $entity->administrator = user_load_small($entity->administrator_id);
+        }
+
+        return $entities;
     }
+
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+
+        global $user;
+        // Add the creator as a member
+        $newMembership = new stdClass();
+        $newMembership->user_id = $user->uid;
+        $newMembership->group_id = $entity->id;
+        $newMembership->created = time();
+        $newMembership->modified = time();
+        membership_save($newMembership);
+    }
+
 }
 
 class ShareController extends EntityAPIController {
@@ -75,25 +103,27 @@ class ShareController extends EntityAPIController {
     }
 }
 
-//class MembershipController extends EntityAPIController {
-//
-//    protected function buildQuery($ids, $conditions = array(), $revision_id = FALSE) {
-//        $query = parent::buildQuery($ids, $conditions, $revision_id);
-//
-//        // Specify additional fields from the user and node tables.
-//        $query->innerJoin('users', 'u', 'base.user_id = u.uid');
-//        $query->fields('u');
-//
-//        return $query;
-//    }
-//
-//    public function load($ids = array(), $conditions = array()) {
-//        $entities = parent::load($ids, $conditions);
-//
-//
-//    return $entities;
-//
-//} // Nothing to see here,
+class MembershipController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->user = user_load_small($entity->user_id);
+
+            $entity->group = new stdClass();
+            $group = group_load($entity->group_id);
+            $entity->group->id = $group->id;
+            $entity->group->name = $group->name;
+            $entity->group->patient_count = $group->patient_count;
+            $entity->group->member_count = $group->member_count;
+            $entity->group->administrator_id = $group->administrator_id;
+        }
+
+        return $entities;
+    }
+
+} // Nothing to see here,
 
 
 function group_load($id, $reset = FALSE) {
@@ -113,7 +143,8 @@ function group_delete($id) {
 }
 
 function membership_load($id, $reset = FALSE) {
-    return reset(membership_load_multiple(array($id), $reset));
+    $memberships = membership_load_multiple(array($id), $reset);
+    return reset($memberships);
 }
 function membership_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     return array_values(entity_load('membership', $ids, $conditions, $reset));

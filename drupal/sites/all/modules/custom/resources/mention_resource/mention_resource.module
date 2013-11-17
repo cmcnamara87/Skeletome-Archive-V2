@@ -129,9 +129,6 @@ function mention_reindex($content_id, $content_type, $content)
         $mentions[] = $new_mention;
     }
 
-
-
-
     // HPO
     $annotator = new NCBOAnnotator(array(
         "format" => "json"
@@ -160,7 +157,7 @@ function mention_reindex($content_id, $content_type, $content)
             $query->entityCondition('entity_type', 'hpo');
             $query->propertyCondition('uri', $annotation->concept->fullId);
             $result = $query->execute();
-            if(isset($result['hpo']) && count($hpo_ids)) {
+            if(isset($result['hpo'])) {
                 $hpo_ids = array_keys($result['hpo']);
                 $hpo = hpo_load($hpo_ids[0]);
             } else {
