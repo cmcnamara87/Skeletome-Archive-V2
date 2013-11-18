@@ -248,14 +248,8 @@ Styleguide 2.1.3.
 .padded {
   padding: 14px;
 }
-.white {
-  background-color: white;
-}
 .separated + .separated {
   margin-top: 14px;
-}
-.separated.separated-small + .separated.separated-small {
-  margin-top: 7px;
 }
 .divided + .divided {
   margin-top: 14px;
@@ -284,16 +278,6 @@ Styleguide 2.1.3.
 }*/
 .nodata {
   color: #949a9c;
-}
-.gallery-item {
-  float: left;
-  width: 100px;
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-  border: 1px solid red;
-  margin: 0px 14px 14px 0 !important;
-  cursor: pointer;
 }
 .resource {
   /** Height allows for the button */
@@ -480,6 +464,9 @@ html[xmlns] .clearfix {
   border: 1px solid #dbe1e3;
   padding: 14px;
 }
+.activity-diagnosis .activity-diagnosis-name {
+  font-weight: 600;
+}
 /**
   * Activity Adder
   */
@@ -582,7 +569,6 @@ html[xmlns] .clearfix {
   letter-spacing: 0.5px;
 }
 .submenubar {
-  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: 60px;
 }
@@ -651,11 +637,31 @@ html[xmlns] .clearfix {
 .menubar .menubar-notifications {
   font-size: 18px;
 }
-.menubar .typeahead {
-  border-radius: 100px;
+.menubar .menubar-search {
+  position: relative;
 }
-.menubar .typeahead input[type=text] {
+.menubar .menubar-search .icon {
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  color: #5cabba;
+}
+.menubar .menubar-search ::-webkit-input-placeholder {
+  color: #5cabba;
+}
+.menubar .menubar-search input[type=text] {
+  padding: 8px 14px;
+  padding-left: 35px;
+  line-height: 14px;
+  border: none;
   border-radius: 100px;
+  width: 150px;
+  background-color: #44919f;
+  transition: 0.1s ease-in;
+}
+.menubar .menubar-search input[type=text]:focus {
+  width: 300px;
+  background-color: white;
 }
 .menubar .menubar-item {
   display: inline-block;
@@ -1069,43 +1075,15 @@ html[xmlns] .clearfix {
 .smodal-block-element.smodal-block-element:last-of-type {
   margin-bottom: 0px;
 }
-.progress {
+.activity-diagnosis .progress {
   height: 15px;
   margin: 0;
-}
-.progress .progress-bar {
-  background-color: #49a9ba;
-}
-.progress .progress-bar-danger {
-  background-color: #24565f;
-}
-.activity-diagnosis .activity-diagnosis-name {
-  font-weight: 600;
-}
-.activity-diagnosis .progress {
-  height: 5px;
-  margin: 0;
-  width: 182px;
 }
 .activity-diagnosis .progress .progress-bar {
   background-color: #49a9ba;
 }
 .activity-diagnosis .progress .progress-bar-danger {
   background-color: #24565f;
-}
-.lookup {
-  background-color: blue;
-}
-.lookup input {
-  background-color: red;
-}
-.lookup .lookup-results {
-  background-color: yellow;
-}
-.lookup .lookup-results a {
-  display: block;
-  padding: 14px;
-  background-color: orange;
 }
 body {
   background-color: #e1e6e9;

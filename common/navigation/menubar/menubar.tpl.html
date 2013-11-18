@@ -19,15 +19,15 @@
                 <!-- expands to fill the space between left and right -->
             </div>
             <div class="menubar-right">
-                <lookup></lookup>
                 <!-- stuff on the right side of the menu bar -->
                 <!--<div class="menubar-item menubar-notifications">-->
                     <!--<i class="icon icon-bell"></i>-->
                 <!--</div>-->
-                <div class="menubar-item menubar-search">
+                <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
+                <!--<div class="menubar-item menubar-search">
                     <input type="text" class="menubar-search" placeholder="Search..."/>
                     <i class="icon icon-search"></i>
-                </div>
+                </div>-->
             </div>
 
 

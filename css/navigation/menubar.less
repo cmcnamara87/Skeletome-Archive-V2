@@ -2,6 +2,7 @@
   &.submenubar-activities {
     margin-right: @activitiesWidth;
   }
+  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: @submenubarHeight;
 
@@ -25,7 +26,7 @@
     border-radius: 100px;
   }
   .submenubar-item.selected {
-    background-color: @highlightColor;
+    background-color: #D17F7F;//@highlightColor;
     color: white;
   }
 }
@@ -44,7 +45,6 @@
   color: #F3F3F3;
   vertical-align: middle;
   height: @menubarHeight;
-//  overflow: hidden;
   position: relative;
 
 
@@ -81,37 +81,41 @@
   .menubar-notifications {
     font-size: 18px;
   }
-  .menubar-search {
+  .typeahead {
 
-    position: relative;
-
-    .icon {
-      position: absolute;
-      top: 22px;
-      left: 35px;
-      color: @menubarColor;
-    }
-
-    ::-webkit-input-placeholder {
-      color: @menubarSearchTextColor;
-    }
-
+    border-radius: 100px;
     input[type=text] {
-      &:focus {
-        width: 300px;
-        background-color: white;
-      }
-
-
-      padding: 8px 14px;
-      padding-left: 35px;
-      line-height: 14px;
-      border: none;
       border-radius: 100px;
-      width: 150px;
-      background-color: @menubarSearchBackgroundColor;
-      transition: 0.1s ease-in;
     }
+//    position: relative;
+//
+//    .icon {
+//      position: absolute;
+//      top: 22px;
+//      left: 35px;
+//      color: @menubarColor;
+//    }
+//
+//    ::-webkit-input-placeholder {
+//      color: @menubarSearchTextColor;
+//    }
+//
+//    input[type=text] {
+//      &:focus {
+//        width: 300px;
+//        background-color: white;
+//      }
+//
+//
+//      padding: 8px 14px;
+//      padding-left: 35px;
+//      line-height: 14px;
+//      border: none;
+//      border-radius: 100px;
+//      width: 150px;
+//      background-color: @menubarSearchBackgroundColor;
+//      transition: 0.1s ease-in;
+//    }
   }
 
 

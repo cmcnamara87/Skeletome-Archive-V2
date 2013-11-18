@@ -1,109 +1,62 @@
-<div>
-    <div class="activity activity-adder">
-        <!-- Options -->
-        <ul class="activity-adder-tabs">
-            <li>
-                <button
-                    class="activity-adder-tab"
-                    ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'"
-                        >New Group Message
-                </button>
-            <li><a href="" class="activity-adder-tab" ng-class="{'active': adding == 'diagnosis'}" ng-click="adding = 'diagnosis'">New Group Diagnosis</a></li>
-        </ul>
+<div class="adder">
+    <!-- Options -->
+    <ul class="adder-tabs">
+        <li>
+            <button
+                class="adder-tab"
+                ng-class="{'active': adding == 'post'}" ng-click="adding = 'post'"
+                    ><i class="icon icon-envelope"></i> New Message
+            </button>
+        <li>
+            <button class="adder-tab"
+                    ng-class="{'active': adding == 'diagnosis'}"
+                    ng-click="adding = 'diagnosis'">
+                <i class="icon icon-stethoscope"></i> New Diagnosis
+            </button>
+        </li>
+    </ul>
 
-        <div ng-switch on="adding">
+    <div class="padded white adder-content">
+
+        <!-- To field -->
+        <div class="separated">
+            <typeahead multi="true" options-fn="findGroups(value)" model="newPost.to" placeholder="TO: Which groups do you want to send the message to?"></typeahead>
+        </div>
+
+        <!-- The content -->
+        <div ng-switch on="adding" class="separated">
+
+            <!-- Text message -->
             <div ng-switch-when="post">
-                <div class="activity-content">
-
-                    <!-- To field -->
-                    <div>
-                        <div class="label-top">
-                            To
-                        </div>
-                        <div>
-                            <div ng-repeat="share in shares | filter:{selected:true}">
-                                <button ng-click="share.selected = false"><i class="icon icon-remove"></i> {{ share.group.name }}</button>
-                            </div>
-                            <input type="text" ng-model="toGroupSearch"/>
-                            <div ng-repeat="share in shares | filter:toGroupSearch">
-                                <label class="label-right">
-                                    <input type="checkbox"
-                                           ng-true-value="true"
-                                           ng-false-value="false"
-                                           ng-change="toChanged(share)"
-                                           ng-model="share.selected">
-                                    {{ share.group.name }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Text message -->
-                    <div class="activity-box-element">
-                        <textarea ng-model="newPost.text" style="height: 300px;" ck-editor ck-editor-usefocus placeholder="MESSAGE: Write something about patient #{{ patient.id }}" class="full-width" />
-                    </div>
-
-                    <!-- Diagnosis -->
-                    <div>
-                        <div class="label-top">
-                            Diagnosis
-                        </div>
-                        <typeahead
-                                multi="false"
-                                model="newPost.disorder"
-                                options-fn="findDisorder(value)"
-                                token-chosen-fn="disorderChosen(token, newPost)"
-                                placeholder="What disorder does the patient have?">
-                        </typeahead>
-                    </div>
+                <div class="box-element">
+                    <textarea ng-model="newPost.text"
+                              ck-editor
+                              ck-editor-usefocus
+                              style="height: 43px"
+                              placeholder="MESSAGE: Write something about patient #{{ patient.id }}" class="full-width" row="1">
+                    </textarea>
                 </div>
-
-                <div class="activity-content media-body">
-                    <!--<button class="btn btn-action"><i class="icon icon-plus-sign"></i> Pubmed</button>-->
-                    <button ng-click="addPost(newPost)" class="btn btn-action btn-action-selected pull-right">Post</button>
-                </div>
-
-                <!--<div class="activity-box">-->
-                <!--<typeahead multi="false" model="newPost.publication" placeholder="PUBMED: What publication do you want to add?"></typeahead>-->
-                <!--</div>-->
-
             </div>
 
+            <!-- Diagnosis -->
             <div ng-switch-when="diagnosis">
-                <div class="activity-box">
-                    <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="Add a possible diagnosis"></typeahead>
-                </div>
-                <div class="activity-box">
-                    <typeahead multi="false" model="newDiagnosis.disorders" options-fn="findDisorder(value)" placeholder="What publications do you want to add?"></typeahead>
-                </div>
-                <div class="activity-box activity-reference">
-                    <a href="" class="activity-reference-title">Decomposing phenotype descriptions for the human skeletal phenome.</a>
-                    <ul class="activity-reference-authors">
-                        <li><a href="" class="activity-reference-author">Groza T</a>,</li>
-                        <li><a href="" class="activity-reference-author">Hunter J</a>,</li>
-                        <li><a href="" class="activity-reference-author">Zankl A</a></li>
-                    </ul>
-                    <div class="activity-reference-abstract">
-                        Over the course of the last few years there has been a significant amount of research
-                        performed on ontology-based formalization of phenotype descriptions. The intrinsic
-                        value and knowledge captured within such
-                    </div>
-                    <div class="activity-more">
-                        <button class="btn-more">
-                            <i class="icon icon-angle-down"></i> Show More
-                        </button>
-                    </div>
-                </div>
-                <div class="activity-box activity-box-bottom">
-                    <!--<button class="btn btn-action"><i class="icon icon-plus-sign"></i> PubMed</button>-->
-                    <button class="btn btn-action"><i class="icon icon-plus-sign"></i> Text</button>
-                    <button ng-click="addDiagnosis(newDiagnosis.disorders[0])" class="btn btn-action btn-action-selected pull-right">Post</button>
+                <div class="box-element">
+                    <typeahead
+                            multi="false"
+                            model="newPost.disorder"
+                            options-fn="findDisorder(value)"
+                            token-chosen-fn="disorderChosen(token, newPost)"
+                            placeholder="DIAGNOSIS: What disorder does the patient have?">
+                    </typeahead>
                 </div>
             </div>
         </div>
 
-
-
+        <div class="separated media-body">
+            <button ng-click="addPost(newPost)" class="btn btn-action btn-action-selected pull-right">
+                <i class="icon icon-envelope-alt"></i>
+                Post
+            </button>
+        </div>
     </div>
 </div>

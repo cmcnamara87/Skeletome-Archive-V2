@@ -1,8 +1,18 @@
 .nodata {
   color: @noDataTextColor;
 }
-.resource {
+.gallery-item {
+  float: left;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 1px solid red;
+  margin: 0px 14px 14px 0 !important;
+  cursor: pointer;
+}
 
+.resource {
 
   &.is-editing {
     .resource-block {
@@ -68,6 +78,7 @@
     .resource-block-clinsum {
       line-height: 28px;
     }
+
 
 
   }

@@ -76,15 +76,18 @@ class GroupController extends EntityAPIController {
 class ShareController extends EntityAPIController {
 
     public function load($ids = array(), $conditions = array()) {
+
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
+
             if(isset($entity->uid)) {
                 $entity->user = user_load_small($entity->uid);
             }
+            $group = group_load($entity->group_id);
+            $entity->name = $group->name;
         }
         return $entities;
-
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {

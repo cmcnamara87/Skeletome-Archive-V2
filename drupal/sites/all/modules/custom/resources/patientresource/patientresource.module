@@ -92,6 +92,7 @@ class PatientController extends EntityAPIController {
                     $entity->ethnicity
                 );
             }
+            $entity->name = $entity->first_name . ' ' . $entity->last_name;
             self::addRelated($entity);
         }
 

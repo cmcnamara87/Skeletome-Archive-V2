@@ -100,3 +100,42 @@ Styleguide 2.1.3.
   color: @highlightColor;
   padding: 0;
 }
+
+.padded {
+  padding: @defaultSpace;
+}
+.white {
+  background-color: white;
+}
+.separated + .separated {
+  margin-top: @defaultSpace;
+}
+.separated.separated-small + .separated.separated-small {
+  margin-top: 7px;
+}
+.divided + .divided {
+  margin-top: @defaultSpace;
+  border-top: 1px solid darken(@borderColor, 5%);
+  padding-top: @defaultSpace;
+}
+
+/*
+.box {
+  padding: @defaultSpace;
+}
+  .box-element+.box-element {
+    margin-top: @defaultSpace;
+  }
+.border {
+  border: 1px solid @borderColor;
+  margin: @defaultSpace;
+  background-color: white;
+}
+.border+.border {
+  border-top: none;
+  margin-top: none;
+}
+
+.box .border {
+  margin: 0px;
+}*/

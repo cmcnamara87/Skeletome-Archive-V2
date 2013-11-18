@@ -2,8 +2,8 @@
     <input type="text" ng-model="term" class="lookup-input" ng-change="inputChanged(term)"/>
     <div class="lookup-results">
         <ul>
-            <li ng-repeat="result in results">
-                <a href="#/patient/{{ result.id }}/summary">Patient #{{ result.id }}</a>
+            <li ng-repeat="patient in results">
+                <a href="#/patient/{{ patient.id }}/summary">{{ patient.first_name }} {{ patient.last_name }}</a>
             </li>
         </ul>
     </div>

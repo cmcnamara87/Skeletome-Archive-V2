@@ -7,6 +7,7 @@
   overflow: auto;
   background-color: white;
   top: 60px;
+  border-right: 1px solid #dbe1e3;
 }
 .main-submenubar {
   top: 120px;
@@ -35,6 +36,12 @@
 .feed {
   padding: 14px 0px;
   background-color: #dce2e4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
 }
 .submenubar {
   position: fixed;
@@ -65,8 +72,8 @@
   border-bottom: 1px solid #dbe1e3;
   padding: 14px;
   border-top: none;
-  margin-bottom: 7px;
   padding-top: 0;
+  padding-bottom: 0px;
   position: relative;
   background-color: white;
   height: 40px;
@@ -187,6 +194,10 @@ Styleguide 2.1.3.
   background-color: #ebf2f7;
   -webkit-box-shadow: none;
 }
+.btn-action:focus {
+  color: #49a9ba;
+  box-shadow: 0px 0px 5px #49a9ba;
+}
 .btn-action.btn-action-selected {
   background-color: #49a9ba;
   border: 1px solid #49a9ba;
@@ -198,6 +209,7 @@ Styleguide 2.1.3.
 .btn-action.btn-action-selected:focus {
   background-color: #6ebac8;
   border: 1px solid #6ebac8;
+  color: white;
 }
 .btn-action.btn-action-selected:active {
   background-color: #398997;
@@ -220,6 +232,53 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
+.dropdown-menu > li > a {
+  text-decoration: none !important;
+  color: #49a9ba;
+}
+.dropdown-menu > li > a:hover {
+  color: white !important;
+  text-decoration: none;
+  background-color: #49a9ba !important;
+}
+.btn-link {
+  color: #49a9ba;
+  padding: 0;
+}
+.padded {
+  padding: 14px;
+}
+.white {
+  background-color: white;
+}
+.separated + .separated {
+  margin-top: 14px;
+}
+.divided + .divided {
+  margin-top: 14px;
+  border-top: 1px solid #cdd5d8;
+  padding-top: 14px;
+}
+/*
+.box {
+  padding: @defaultSpace;
+}
+  .box-element+.box-element {
+    margin-top: @defaultSpace;
+  }
+.border {
+  border: 1px solid @borderColor;
+  margin: @defaultSpace;
+  background-color: white;
+}
+.border+.border {
+  border-top: none;
+  margin-top: none;
+}
+
+.box .border {
+  margin: 0px;
+}*/
 .nodata {
   color: #949a9c;
 }
@@ -265,27 +324,6 @@ Styleguide 2.1.3.
 .resource .resource-block.resource-block-has-buttons {
   margin-right: 80px;
 }
-.resource .resource-block .resource-block-heading {
-  font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 7px;
-  text-transform: uppercase;
-  color: #49a9ba;
-}
-.resource .resource-block label.label-top {
-  display: block;
-  width: 100%;
-}
-.resource .resource-block label.label-right {
-  padding-right: 14px;
-  margin-bottom: 0;
-  color: #616769;
-  font-weight: normal;
-}
-.resource .resource-block label.label-right input {
-  margin-right: 5px;
-}
 .resource .resource-block .resource-block-element {
   margin-bottom: 14px;
 }
@@ -294,6 +332,26 @@ Styleguide 2.1.3.
 }
 .resource .resource-block .resource-block-clinsum {
   line-height: 28px;
+}
+.label-top,
+.resource-block-heading {
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  color: #49a9ba;
+}
+.label-right {
+  padding-right: 14px;
+  margin-bottom: 0;
+  color: #616769;
+  font-weight: normal;
+}
+.label-right input {
+  margin-right: 5px;
 }
 .resource + .resource {
   margin-top: 28px;
@@ -412,15 +470,15 @@ html[xmlns] .clearfix {
 /**
   * Activity Adder
   */
-.activity-adder .activity-adder-tabs {
-  padding: 0;
+.adder-tabs {
   margin: 0;
+  padding: 0;
 }
-.activity-adder .activity-adder-tabs li {
+.adder-tabs li {
   display: inline-block;
   list-style: none;
 }
-.activity-adder .activity-adder-tabs .activity-adder-tab {
+.adder-tabs .adder-tab {
   position: relative;
   top: 1px;
   padding: 10px 14px;
@@ -429,11 +487,51 @@ html[xmlns] .clearfix {
   border: 1px solid #f2f5f6;
   border: none;
 }
-.activity-adder .activity-adder-tabs .activity-adder-tab.active {
+.adder-tabs .adder-tab.active {
   background-color: white;
   z-index: 1;
   border: 1px solid #dbe1e3;
   border-bottom: 0;
+}
+.adder-content {
+  margin-top: 0px;
+}
+.adder-to {
+  border: 1px solid #dbe1e3;
+}
+.adder-to input[type=text] {
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+}
+.adder-to-selected {
+  padding: 14px 14px 0 14px;
+}
+.adder-to-options {
+  border-top: 1px solid #dbe1e3;
+  max-height: 300px;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.adder-to-option {
+  display: block;
+  padding: 10px;
+}
+.adder-to-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
+}
+.adder-to-option label {
+  font-weight: normal;
+}
+.adder-to-option input {
+  margin-right: 7px;
+}
+.adder-to-option + .adder-to-option {
+  border-top: 1px solid #dbe1e3;
 }
 .activities {
   position: fixed;
@@ -445,17 +543,19 @@ html[xmlns] .clearfix {
   top: 60px;
   left: auto;
   width: 45%;
-  border-left: 1px solid #dbe1e3;
   /**
   Group activity title
   */
 }
 .activities .activities-title {
+  border-bottom: 1px solid #dbe1e3;
+}
+.activities .activities-title h2 {
   font-size: 21px;
-  font-weight: 300px;
+  font-weight: 400;
   margin: 0;
   color: #616769;
-  margin-bottom: 21px;
+  margin-bottom: 0;
 }
 .activities .activities-adder {
   padding: 14px;
@@ -469,6 +569,7 @@ html[xmlns] .clearfix {
   letter-spacing: 0.5px;
 }
 .submenubar {
+  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: 60px;
 }
@@ -492,8 +593,8 @@ html[xmlns] .clearfix {
   color: #949a9c;
   border-radius: 100px;
 }
-.submenubar .submenubar-item.active {
-  background-color: #49a9ba;
+.submenubar .submenubar-item.selected {
+  background-color: #D17F7F;
   color: white;
 }
 /**
@@ -508,7 +609,6 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  overflow: hidden;
   position: relative;
 }
 .menubar.menubar-dark {
@@ -601,6 +701,10 @@ html[xmlns] .clearfix {
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
+}
+.lookup-results {
+  position: absolute;
+  z-index: 99;
 }
 .menubar-user {
   float: right;
@@ -704,6 +808,7 @@ html[xmlns] .clearfix {
 */
 .typeahead-options-wrapper {
   position: relative;
+  z-index: 99999;
 }
 .typeahead-options {
   position: absolute;
@@ -818,6 +923,9 @@ html[xmlns] .clearfix {
   position: relative;
   top: 0px;
 }
+.page .page-top .page-top-buttons button + button {
+  margin-left: 7px;
+}
 .resource.ng-enter,
 .resource.ng-leave,
 .resource.ng-move {
@@ -852,12 +960,141 @@ html[xmlns] .clearfix {
 .mentions a {
   transition: color 0.2s;
   font-weight: 600;
+  color: #494d4e;
 }
 .mentions:hover a {
   color: #49a9ba;
 }
 .mentions a:hover {
   text-decoration: underline;
+}
+.gallery {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  background-color: rgba(1, 3, 3, 0.8);
+}
+.gallery .gallery-content {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: auto;
+  position: absolute;
+  background-color: white;
+  top: 50px;
+  left: 50px;
+  right: 50px;
+  bottom: 50px;
+}
+.gallery .gallery-content .gallery-stuff {
+  margin: 14px;
+}
+.gallery .gallery-content .gallery-description {
+  background-color: white;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 35%;
+}
+.gallery .gallery-content .gallery-image {
+  background-color: black;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  width: 65%;
+}
+.gallery .gallery-content .gallery-image img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+}
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid #dbe1e3;
+  padding: 21px;
+}
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+.smodal-block + .smodal-block {
+  margin-top: 14px;
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+.smodal-buttons {
+  overflow: hidden;
+}
+.smodal-buttons button {
+  margin-left: 7px;
+}
+.smodal-block-element {
+  margin-bottom: 14px;
+}
+.smodal-block-element input[type=text],
+.smodal-block-element textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.smodal-block-element.smodal-block-element:last-of-type {
+  margin-bottom: 0px;
+}
+.progress {
+  height: 15px;
+  margin: 0;
+}
+.progress .progress-bar {
+  background-color: #49a9ba;
+}
+.progress .progress-bar-danger {
+  background-color: #24565f;
+}
+.progress {
+  height: 15px;
+  margin: 0;
+}
+.progress .progress-bar {
+  background-color: #49a9ba;
+}
+.progress .progress-bar-danger {
+  background-color: #24565f;
 }
 body {
   background-color: #e1e6e9;
@@ -1018,58 +1255,6 @@ textarea.full-width {
   position: relative;
   top: -7px;
 }
-/*
-    A modal box
-*/
-.smodal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  max-width: 630px;
-  min-width: 320px;
-  height: auto;
-  background-color: white;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  z-index: 2000;
-  border-radius: 3px;
-  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
-  border: 1px solid #dbe1e3;
-}
-/*
-    The overlay that sits behind the modal box
-*/
-.smodal-overlay {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: rgba(242, 246, 247, 0.72);
-}
-/*
-    The title of the modal overlay
-*/
-.smodal-title {
-  padding: 28px 21px;
-  font-weight: 300;
-  font-size: 28px;
-}
-.smodal-description {
-  padding: 0px 21px;
-}
-.smodal-content {
-  padding: 21px 21px 0 21px;
-}
-.smodal-buttons {
-  padding: 1px 21px 21px 21px;
-  overflow: hidden;
-}
-.smodal-buttons button {
-  margin-left: 7px;
-}
 .votebox {
   margin-bottom: 7px;
 }
@@ -1202,12 +1387,12 @@ Styleguide 2.1.3.
   display: inline-block;
   margin-right: 1px;
   margin-bottom: 2px;
-  height: 28px;
-  width: 28px;
+  height: 14px;
+  width: 14px;
   text-align: center;
   box-sizing: border-box;
   color: white;
-  border-radius: 28px;
+  border-radius: 3px;
   font-size: 14px;
   line-height: 28px;
 }
@@ -1440,4 +1625,7 @@ Styleguide 2.1.3.
   color: #3e4a55;
   padding: 2px 10px;
   padding-left: 7px;
+}
+.cke_top {
+  transition: 10s all;
 }

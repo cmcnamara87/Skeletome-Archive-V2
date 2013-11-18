@@ -33,7 +33,7 @@ angular.module('directives.ckeditor', [])
 
                     ck.on( 'instanceReady', function(){
                         console.log("CK instane ready");
-                        ck.resize('100%', elm.height(), true);
+                        ck.resize('100%', attr.height || '200px', true);
                         ck.focus();
                     })
                 }

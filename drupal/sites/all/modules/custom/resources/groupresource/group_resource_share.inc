@@ -14,17 +14,7 @@ function _groupresource_share_create($data) {
     $data->created = time();
     $data->modified = time();
 
-//    if (!isset($data->subject)) {
-//        return services_error('Missing group attribute subject', 406);
-//    }
-//
-//    if (!isset($data->group)) {
-//        return services_error('Missing group attribute group', 406);
-//    }
-
     share_save($data);
-    $data->group = group_load($data->group_id);
-
     return (object)$data;
 }
 
@@ -44,8 +34,7 @@ function _groupresource_share_update($id, $data) {
     $data->uid = $group->uid;
     $data->modified = time();
 
-    group_save($data);
-    $data->group = group_load($data->group_id);
+    share_save($data);
 }
 /**
  * Callback for retrieving group resources.
@@ -55,7 +44,6 @@ function _groupresource_share_update($id, $data) {
  */
 function _groupresource_share_retrieve($id) {
     $data = share_load($id);
-    $data->group = group_load($data->group_id);
     return $data;
 }
 
@@ -76,24 +64,7 @@ function _groupresource_share_delete($id) {
 
 
 function _groupresource_share_index($page, $fields, $parameters, $page_size) {
-    module_load_include('inc', 'services', 'services.module');
-    $node_select = db_select('shares', 't')
-        ->orderBy('created', 'DESC');
-
-    services_resource_build_index_query($node_select, $page, $fields, $parameters, $page_size, 'shares');
-
-    if (!user_access('administer nodes')) {
-//        $node_select->condition('status', 1);
-    }
-
-    $results = services_resource_execute_index_query($node_select);
-
-    $list = services_resource_build_index_list($results, 'shares', 'id');
-
-    foreach($list as &$data) {
-        $data->group = group_load($data->group_id);
-    }
-    return $list;
+    return resource_helper_index('share', $page, $fields, $parameters, $page_size);
 }
 
 

@@ -4,7 +4,6 @@
 
 function _activity_resource_index($user_id, $embed, $page, $fields, $parameters, $page_size) {
 
-
     // Get out the user field
     if($user_id > 0) {
 
@@ -23,24 +22,25 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
             $share_ids[] = $result->id;
         }
 
-        $parameters['share_id'] = $share_ids;
+        if(count($share_ids)) {
+            $parameters['share_id'] = $share_ids;
+        }
     }
-
 
     $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 
-//    if($embed == 1) {
-        foreach($activities as &$activity) {
-            // embed the patient
-            $share = share_load($activity->share_id);
-            $activity->patient = patient_load($share->patient_id);
-            if(strlen($activity->patient->clinical_summary) > 250) {
-                $activity->patient->clinical_summary = substr(strip_tags($activity->patient->clinical_summary), 0, 250) . "...";
-            }
-            $activity->group = group_load($share->group_id);
-        }
-//    }
 
+    foreach($activities as &$activity) {
+        // embed the patient
+
+        $share = share_load($activity->share_id);
+        $activity->patient = patient_load($share->patient_id);
+
+        if(strlen($activity->patient->clinical_summary) > 250) {
+            $activity->patient->clinical_summary = substr(strip_tags($activity->patient->clinical_summary), 0, 250) . "...";
+        }
+        $activity->group = group_load($share->group_id);
+    }
 
     return $activities;
 }

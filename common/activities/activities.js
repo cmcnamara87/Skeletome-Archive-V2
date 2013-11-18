@@ -71,12 +71,20 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                 $scope.filterPostType = function(item) {
                     if($scope.type == "all") {
                         return true;
-                    } else if($scope.type == "diagnosis") {
-                        return item.post.disorder_id > 0;
-                    } else {
-                        return item.post.disorder_id == 0;
-                    }
+                    } else if($scope.type == "post") {
+                        if(angular.isDefined(item.post)) {
+                            return item.post.disorder_id == 0;
+                        } else {
+                            return false;
+                        }
 
+                    } else if($scope.type == "diagnosis") {
+                        if(angular.isDefined(item.post)) {
+                            return item.post.disorder_id > 0;
+                        } else {
+                            return false;
+                        }
+                    }
                 };
 
             }
@@ -94,18 +102,18 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                 }
 
+                $scope.allShares = ShareModel.index({
+                    patient_id: $routeParams.patient_id
+                });
+
                 $scope.addPost = function(newPost) {
 
-                    angular.forEach($scope.shares, function(share, shareIndex) {
-
-                        if(!share.selected) {
-                            return;
-                        } else {
-                            share.selected = false;
-                        }
+                    angular.forEach(newPost.to, function(share, shareIndex) {
 
                         var newSharePost = angular.copy(newPost);
                         newSharePost.share_id = share.id;
+                        newSharePost.votes_up = 1;
+                        newSharePost.votes_down = 0;
 
                         // Create a temp activity
                         // and add it to the ui straight away
@@ -161,18 +169,23 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                 }
 
                 $scope.findGroups = function(name) {
+                    console.log("find groups", name);
                     var defer = $q.defer();
 
+                    if(name == "") {
+                        alert("bank");
+                    }
 
                     // We have cached this data when the page loaded,
                     // so lets go through and find shares that match (no ajax needed)
                     var shareData = [];
                     angular.forEach($scope.allShares, function(share, shareIndex) {
-                        if(share.group.name.toLowerCase().indexOf(name.toLowerCase()) != -1) {
-                            shareData.push({id: share.id, name: share.group.name});
+                        if(share.name.toLowerCase().indexOf(name.toLowerCase()) != -1) {
+                            shareData.push({id: share.id, name: share.name});
                         }
                     });
 
+                    console.log(shareData);
                     defer.resolve(shareData);
 
                     return defer.promise;
@@ -180,7 +193,19 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
             }],
             link: function ($scope, element, attrs) {
                 $scope.adding = 'post';
-
+                $scope.hasFocus = false;
+                $('.adder-content', element).focusin(function() {
+                    "use strict";
+                    $scope.$apply(function() {
+                        $scope.hasFocus = true;
+                    })
+                })
+//        .focusout(function() {
+//                    "use strict";
+//                    $scope.$apply(function() {
+//                        $scope.hasFocus = false;
+//                    })
+//                })
             }
         };
     }])

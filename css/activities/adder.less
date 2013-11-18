@@ -1,34 +1,83 @@
 /**
   * Activity Adder
   */
-.activity-adder {
+.adder {
+}
 
-  .activity-adder-tabs {
-    padding: 0;
-    margin: 0;
+.adder-tabs {
+//  padding: 14px 14px 0 14px;
+  margin: 0;
+  padding: 0;
 
-    li {
-      display: inline-block;
-      list-style: none;
-    }
-
-    .activity-adder-tab {
-      &.active {
-        background-color: white;
-        z-index: 1;
-        border: 1px solid @borderColor;
-        border-bottom: 0;
-      }
-
-      position: relative;
-      top: 1px;
-      padding: 10px 14px;
-      display: block;
-      @inactiveAdderTabBackgroundColor: #F2F5F6;
-      background-color: @inactiveAdderTabBackgroundColor;
-      border: 1px solid @inactiveAdderTabBackgroundColor;
-      border: none;
-    }
+  li {
+    display: inline-block;
+    list-style: none;
   }
 
+  .adder-tab {
+    &.active {
+      background-color: white;
+      z-index: 1;
+      border: 1px solid @borderColor;
+      border-bottom: 0;
+    }
+
+    position: relative;
+    top: 1px;
+    padding: 10px 14px;
+    display: block;
+    @inactiveAdderTabBackgroundColor: #F2F5F6;
+    background-color: @inactiveAdderTabBackgroundColor;
+    border: 1px solid @inactiveAdderTabBackgroundColor;
+    border: none;
+  }
+}
+
+.adder-content {
+  margin-top: 0px;
+}
+
+
+.adder-to {
+  border: 1px solid @borderColor;
+  input[type=text] {
+    box-sizing: border-box;
+    width: 100%;
+    border: none;
+  }
+}
+// The selected tokens container
+.adder-to-selected {
+  padding: 14px 14px 0 14px;
+}
+
+// The list of options to choose from
+.adder-to-options {
+  border-top: 1px solid @borderColor;
+  max-height: 300px;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.adder-to-option {
+  &.selected {
+    background-color: lighten(@highlightColorLight, 10%);
+    border: 1px solid @typeaheadTokenBorderColor;
+    color: @highlightColor;
+  }
+
+  display: block;
+  padding: 10px;
+
+  label {
+    font-weight: normal;
+  }
+  input {
+    margin-right: 7px;
+  }
+}
+.adder-to-option + .adder-to-option {
+  border-top: 1px solid @borderColor;
 }

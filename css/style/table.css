@@ -232,6 +232,19 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
+.dropdown-menu > li > a {
+  text-decoration: none !important;
+  color: #49a9ba;
+}
+.dropdown-menu > li > a:hover {
+  color: white !important;
+  text-decoration: none;
+  background-color: #49a9ba !important;
+}
+.btn-link {
+  color: #49a9ba;
+  padding: 0;
+}
 .nodata {
   color: #949a9c;
 }
@@ -502,7 +515,7 @@ html[xmlns] .clearfix {
   color: #949a9c;
   border-radius: 100px;
 }
-.submenubar .submenubar-item.active {
+.submenubar .submenubar-item.selected {
   background-color: #49a9ba;
   color: white;
 }
@@ -518,7 +531,6 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  overflow: hidden;
   position: relative;
 }
 .menubar.menubar-dark {
@@ -611,6 +623,10 @@ html[xmlns] .clearfix {
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
+}
+.lookup-results {
+  position: absolute;
+  z-index: 99;
 }
 .menubar-user {
   float: right;
@@ -980,6 +996,12 @@ html[xmlns] .clearfix {
 }
 .smodal-block-element.smodal-block-element:last-of-type {
   margin-bottom: 0px;
+}
+.progress-bar {
+  background-color: #49a9ba;
+}
+.progress-bar-danger {
+  background-color: #327884;
 }
 body {
   background-color: #e1e6e9;

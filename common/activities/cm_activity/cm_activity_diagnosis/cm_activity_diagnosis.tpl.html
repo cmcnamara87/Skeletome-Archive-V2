@@ -1,7 +1,10 @@
 <div>
-    {{ diagnosisPost.votes_up - diagnosisPost.votes_down }}
-    {{ diagnosisPost.disorder.name }}
-    <div>
+    <!--<button class="btn btn-action pull-right"><i class="icon icon-plus-sign"></i> Add to Patient</button>-->
+    <div class="separated separated-small activity-diagnosis-name">
+        {{ diagnosisPost.disorder.name }}
+    </div>
+
+    <div class="separated separated-small">
         <div class="progress">
             <div class="progress-bar progress-bar-success" style="width: {{ percentUp }}%;">
                 <span class="sr-only">{{ percentUp }}% Agree</span>
@@ -11,11 +14,11 @@
             </div>
         </div>
     </div>
-    <div>
-        <button class="btn btn-action btn-vote" ng-click="vote(1)">Agree</button>
-        <button class="btn btn-action btn-vote" ng-click="vote(-1)">Disagree</button>
+    <div class="separated separated-small">
+        <button class="btn btn-action btn-vote" ng-click="vote(1)">Agree ({{ diagnosisPost.votes_up }})</button>
+        <button class="btn btn-action btn-vote" ng-click="vote(-1)">Disagree ({{ diagnosisPost.votes_down }})</button>
     </div>
-    <div>
+    <div class="separated separated-small button-list">
         <button class="btn btn-link" ng-click="showVotes()" ng-show="!isShowingVotes">
             Show Votes ({{ diagnosisPost.votes_up + diagnosisPost.votes_down }})
         </button>

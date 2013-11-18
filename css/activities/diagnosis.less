@@ -1,0 +1,23 @@
+@progressColor: @highlightColor;
+
+.activity-diagnosis {
+  .activity-diagnosis-name {
+    font-weight: 600;
+  }
+
+  .progress {
+    height: 5px;
+    margin: 0;
+    width: 182px;
+
+    .progress-bar {
+      background-color: @progressColor;
+    }
+    .progress-bar-danger {
+      background-color: darken(@progressColor, 25%);
+    }
+  }
+
+}
+
+

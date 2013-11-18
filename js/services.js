@@ -19,7 +19,7 @@ myApp.services.factory('baseUrl', function() {
     }
 
     if(baseUrl == "http://localhost:8888") {
-//        baseUrl += "/skelarchv2"
+        baseUrl += "/skelarchv2"
 
     }
 

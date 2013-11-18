@@ -159,10 +159,10 @@ angular.module('directives.input.typeahead', [])
                         $timeout(function() {
                             if(value == $scope.input) {
                                 $scope.selectedIndex = 0;
-
-                                if(value == "") {
-                                    $scope.options = "";
-                                } else {
+//
+//                                if(value == "") {
+//                                    $scope.options = "";
+//                                } else {
 
                                     if(!angular.isDefined(iAttrs.optionsFn)) {
                                         var message = "No options function (options-fn) for typeahead specificed";
@@ -181,7 +181,7 @@ angular.module('directives.input.typeahead', [])
                                             $scope.options = options;
                                         }
                                     });
-                                }
+//                                }
                             }
                         }, delay);
                     }

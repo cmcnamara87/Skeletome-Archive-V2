@@ -651,11 +651,31 @@ html[xmlns] .clearfix {
 .menubar .menubar-notifications {
   font-size: 18px;
 }
-.menubar .typeahead {
-  border-radius: 100px;
+.menubar .menubar-search {
+  position: relative;
 }
-.menubar .typeahead input[type=text] {
+.menubar .menubar-search .icon {
+  position: absolute;
+  top: 22px;
+  left: 35px;
+  color: #5cabba;
+}
+.menubar .menubar-search ::-webkit-input-placeholder {
+  color: #5cabba;
+}
+.menubar .menubar-search input[type=text] {
+  padding: 8px 14px;
+  padding-left: 35px;
+  line-height: 14px;
+  border: none;
   border-radius: 100px;
+  width: 150px;
+  background-color: #44919f;
+  transition: 0.1s ease-in;
+}
+.menubar .menubar-search input[type=text]:focus {
+  width: 300px;
+  background-color: white;
 }
 .menubar .menubar-item {
   display: inline-block;

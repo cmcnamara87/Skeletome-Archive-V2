@@ -1,16 +1,20 @@
-<div>
-    <div class="activities-adder">
-        <h2 class="activities-title">
+<div class="padded activity-diagnosis">
+    <div class="activities-title divided">
+        <h2 class="separated activity-diagnosis-name">
             Group Activity
         </h2>
-        <div>
-            <activity-adder></activity-adder>
+        <!--<div class="separated" ng-show="shares.length">
+            Share your thoughts with a group about this patient or add a new possible diagnosis.
+        </div>-->
+        <div class="separated nodata" ng-show="!shares.length">
+            This patient has not been shared. Share the patient with a group to allow group diagnosis and messaging.
         </div>
     </div>
 
-    <div class="activities-content">
-        <div>
-            <select ng-options="share.group.name for share in shares" ng-model="share"></select>
+    <div ng-show="shares.length" class="divided">
+        <activity-adder class="divided"></activity-adder>
+        <div class="divided separated">
+            <select ng-options="share.name for share in shares" ng-model="share"></select>
 
             <select ng-model="type">
                 <option value="all">All</option>
@@ -18,10 +22,11 @@
                 <option value="diagnosis">Diagnosis</option>
             </select>
         </div>
-        <div>
-            <div ng-repeat="activity in activities | filter:filterPostType">
+        <div class="separated">
+            <div ng-repeat="activity in activities | filter:filterPostType" class="separated">
                 <cm-activity embed-content="false"></cm-activity>
             </div>
         </div>
     </div>
+
 </div>

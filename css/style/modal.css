@@ -232,6 +232,19 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
+.dropdown-menu > li > a {
+  text-decoration: none !important;
+  color: #49a9ba;
+}
+.dropdown-menu > li > a:hover {
+  color: white !important;
+  text-decoration: none;
+  background-color: #49a9ba !important;
+}
+.btn-link {
+  color: #49a9ba;
+  padding: 0;
+}
 .nodata {
   color: #949a9c;
 }
@@ -502,7 +515,7 @@ html[xmlns] .clearfix {
   color: #949a9c;
   border-radius: 100px;
 }
-.submenubar .submenubar-item.active {
+.submenubar .submenubar-item.selected {
   background-color: #49a9ba;
   color: white;
 }
@@ -518,7 +531,6 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  overflow: hidden;
   position: relative;
 }
 .menubar.menubar-dark {
@@ -611,6 +623,10 @@ html[xmlns] .clearfix {
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
+}
+.lookup-results {
+  position: absolute;
+  z-index: 99;
 }
 .menubar-user {
   float: right;
@@ -808,13 +824,6 @@ html[xmlns] .clearfix {
   color: #49a9ba;
   text-decoration: underline;
 }
-.table tr:hover .dropdown-menu a {
-  text-decoration: none;
-}
-.table tr:hover .dropdown-menu a:hover {
-  color: white;
-  background-color: #49a9ba;
-}
 .table tbody {
   border: none !important;
 }
@@ -834,6 +843,9 @@ html[xmlns] .clearfix {
   float: right;
   position: relative;
   top: 0px;
+}
+.page .page-top .page-top-buttons button + button {
+  margin-left: 7px;
 }
 .resource.ng-enter,
 .resource.ng-leave,
@@ -984,6 +996,12 @@ html[xmlns] .clearfix {
 }
 .smodal-block-element.smodal-block-element:last-of-type {
   margin-bottom: 0px;
+}
+.progress-bar {
+  background-color: #49a9ba;
+}
+.progress-bar-danger {
+  background-color: #327884;
 }
 body {
   background-color: #e1e6e9;
@@ -1276,12 +1294,12 @@ Styleguide 2.1.3.
   display: inline-block;
   margin-right: 1px;
   margin-bottom: 2px;
-  height: 28px;
-  width: 28px;
+  height: 14px;
+  width: 14px;
   text-align: center;
   box-sizing: border-box;
   color: white;
-  border-radius: 28px;
+  border-radius: 3px;
   font-size: 14px;
   line-height: 28px;
 }

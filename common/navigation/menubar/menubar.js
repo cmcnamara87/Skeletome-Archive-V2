@@ -10,6 +10,20 @@ angular.module('directives.navigation.menubar', [])
 
                 var oldParts = null;
 
+                $scope.findPatient = function(query) {
+                    "use strict";
+                    return PatientModel.query({
+                        query: query
+                    }).$promise;
+                }
+                $scope.patientFound = function(patient) {
+                    "use strict";
+                    var myPatient = patient;
+                    $scope.search = null;
+                    $location.path("/patient/" + myPatient.id + "/summary");
+
+                }
+
                 $scope.$on('$routeChangeSuccess', function(event, current, previous) {
                     // route changed
                     var parts = $location.path().split("/");

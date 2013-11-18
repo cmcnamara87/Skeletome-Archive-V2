@@ -342,14 +342,14 @@
                     This patient is not shared with any groups.
                 </div>
 
-                <div ng-repeat="share in shares" cm-resource="share">
+                <div ng-repeat="share in shares" cm-resource="share" remove-fn="removeShare(share)">
                     <cm-display>
                         <div class="resource-controls">
                             <cm-edit-delete edit-enabled="false"></cm-edit-delete>
                         </div>
                         <div class="resource-block">
                             <h3 class="resource-block-heading">Group</h3>
-                            <a ng-href="#/group/{{ share.group.id }}">{{ share.group.name }}</a>
+                            <a ng-href="#/group/{{ share.group.id }}">{{ share.name }}</a>
                         </div>
 
                     </cm-display>
