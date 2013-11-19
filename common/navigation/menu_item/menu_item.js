@@ -12,7 +12,6 @@ angular.module('directives.navigation.menu_item', [])
                     }, function(path) {
                         $timeout(function() {
                             $timeout(function() {
-                                console.log("value is", attrs.href);
                                 if("#" + path == attrs.href) {
                                     element.addClass("selected");
                                 } else {

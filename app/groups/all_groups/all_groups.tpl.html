@@ -1,40 +1,37 @@
 <div>
-    <div class="block">
-        <div class="block-header">
-            <h2>All Groups</h2>
+    <div class="page">
+        <div class="page-top">
+            <div class="page-top-buttons">
+                <!--<button class="btn btn-action" ng-click="showCreatePatient()"><i class="icon icon-plus-sign"></i>  Patient</button>-->
+            </div>
+            <h1>All Groups</h1>
         </div>
-        <table class="block-table">
+        <table class="table">
             <tr>
-                <th>Name <i class="icon icon-sort-down"></i></th>
-                <!--<th>Location</th>-->
+                <th>Name</th>
+                <th>Description</th>
                 <th>Members</th>
                 <th>Patients</th>
-                <th></th>
+                <th>Membership</th>
             </tr>
             <tr ng-repeat="group in groups | filter:search">
                 <!-- Groups -->
-                <td class="col-md-7">
-                    <div style="margin-bottom: 7px">
-                        <a href="#/group/{{ group.id }}">
-                            <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
-                        </a>
-                    </div>
-                    <div>
-                        {{ group.description }}
+                <td>
+                    <a href="#/group/{{ group.id }}" class="highlight">
+                        <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
+                    </a>
+                </td>
+
+                <td>
+                    <div ng-bind-html="group.description | limitTo:50">
                     </div>
                 </td>
 
-                <!-- Locations -->
-                <!--<td>-->
-                <!--<a href="#/group/{{ membership.group.id }}">-->
-                <!--{{ membership.group.location }}-->
-                <!--</a>-->
-                <!--</td>-->
 
                 <!-- Members -->
                 <td>
                     <a href="#/group/{{ group.id }}/members">
-                        <cm-facepile users="group.members" limit="5"></cm-facepile>
+                        {{ group.member_count || "0" }}
                     </a>
                 </td>
 
@@ -45,16 +42,8 @@
                 </td>
 
                 <td>
-                    <div class="btn-group pull-right">
-                        <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
-                            <i class="icon icon-angle-down"></i>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li ng-show="!group.membership"><a href="" ng-click="joinGroup(group)"><i class="icon icon-arrow-right"></i> Join</a></li>
-
-                            <li ng-show="group.membership"><a href="" ng-click="showLeaveGroup(group)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                        </ul>
-                    </div>
+                    <button ng-show="!group.membership_id" class="btn btn-action btn-action-selected" ng-click="joinGroup(group)">Join</button>
+                    <span ng-show="group.membership_id" class="nodata">Joined</span>
                 </td>
             </tr>
         </table>
@@ -75,63 +64,5 @@
         </div>
     </smodal>
 
-    <smodal name="createGroup">
-        <div class="smodal-title">
-            Create a Group
-        </div>
-        <div class="smodal-description" >
-            Proin mattis ipsum sed euismod tempor. Sed pretium turpis ac malesuada suscipit. Sed mollis facilisis tortor, vel mattis elit blandit ac.
-        </div>
-        <div class="smodal-content">
-
-            <table class="sform">
-                <tr class="sform-row">
-                    <td class="sform-label"><label for="group_name">Group Name</label></td>
-                    <td>
-                        <input type="text" id="group_name" class="full-width" placeholder="Group Name" ng-model="newGroup.name" required/>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label">
-                        <label for="description">Description</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <textarea id="description" placeholder="Description" ng-model="newGroup.description" class="full-width"></textarea>
-                        </div>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label"><label for="administrator">Administrator</label></td>
-                    <td>
-                        <typeahead multi="false" model="newGroup.administrator" options-fn="findUsers(value)" placeholder="Who is the administrator for the group?" id="administrator"></typeahead>
-                    </td>
-                </tr>
-                <!--<tr class="sform-row">-->
-                <!--<td class="sform-label"><label for="location">Location</label></td>-->
-                <!--<td>-->
-                <!--<typeahead multi="false" model="newGroup.location" options-fn="findUsers(value)" placeholder="Where is this group based?" id="location"></typeahead>-->
-                <!--</td>-->
-                <!--</tr>-->
-                <tr class="sform-row">
-                    <td>
-                        <label for="members">Members</label>
-                    </td>
-                    <td>
-                        <div class="sform-inputs">
-                            <typeahead multi="true" model="newGroup.members" options-fn="findUsers(value)" placeholder="Who do you want to invite to this group?" id="members"></typeahead>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="smodal-buttons">
-            <div class="pull-right">
-                <button class="btn btn-action" ng-click="$close()">Cancel</button>
-                <button class="btn btn-action btn-action-selected" ng-click="createGroup(newGroup)">Create</button>
-            </div>
-        </div>
-
-    </smodal>
 
 </div>

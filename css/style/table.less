@@ -4,7 +4,7 @@
 
   tbody>tr>th {
     background-color: @backgroundColorLight;
-    font-weight: 400;
+    font-weight: 600;
     border-top: none;
     color: @tableHeaderTextColor;
   }
@@ -13,6 +13,9 @@
     padding: 6px !important;
     margin: 0px !important;
     vertical-align: middle;
+    a.highlight {
+      color: @highlightColor;
+    }
   }
   tr:hover {
     &.is-editing td {
@@ -26,7 +29,6 @@
       color: @highlightColor;
       text-decoration: underline;
     }
-
   }
   tbody {
     border: none !important;

@@ -8,7 +8,7 @@ angular.module('directives.activities.cmActivity', ['directives.activities.cmAct
             templateUrl: 'common/activities/cm_activity/cm_activity.tpl.html',
             link: function ($scope, el, tAttrs) {
 
-                $scope.patientInfo = "clinicalSummary";
+                $scope.patientInfo = null;//"clinicalSummary";
 
                 console.log("embed patient", tAttrs.embedContent);
                 if(tAttrs.embedContent == "true") {

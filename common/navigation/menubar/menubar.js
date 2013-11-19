@@ -1,7 +1,7 @@
 angular.module('directives.navigation.menubar', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('menubar', ['$location', '$window', 'PatientModel', 'GroupModel', function ($location, $window, PatientModel, GroupModel) {
+    .directive('menubar', ['$timeout', '$location', '$window', 'PatientModel', 'GroupModel', function ($timeout, $location, $window, PatientModel, GroupModel) {
 
         return {
             restrict: 'E',
@@ -19,18 +19,22 @@ angular.module('directives.navigation.menubar', [])
                 $scope.patientFound = function(patient) {
                     "use strict";
                     var myPatient = patient;
-                    $scope.search = null;
                     $location.path("/patient/" + myPatient.id + "/summary");
 
+                    $timeout(function() {
+                        $scope.search = null;
+                    }, 0)
                 }
 
                 $scope.$on('$routeChangeSuccess', function(event, current, previous) {
                     // route changed
+
                     var parts = $location.path().split("/");
 
+                    console.log("MENUBAR: ROUTE CHANGE SUCCESS", parts);
 
 
-                    if(!oldParts || parts[0] != oldParts[0] || parts[1] != oldParts[1]) {
+                    if(!oldParts || parts[1] != oldParts[1] || parts[2] != oldParts[2]) {
                         $scope.tab = parts[1];
 
                         if($scope.tab == "patient" || $scope.tab == "group") {

@@ -245,6 +245,17 @@ Styleguide 2.1.3.
   color: #49a9ba;
   padding: 0;
 }
+.label {
+  background-color: white;
+  border: 1px solid #d1907b;
+  color: #d1907b;
+}
+.label:hover {
+  background-color: white;
+}
+.label + .label {
+  margin-left: 2px;
+}
 .padded {
   padding: 14px;
 }
@@ -422,6 +433,7 @@ html[xmlns] .clearfix {
 }
 .activity:hover .mentions a {
   text-decoration: underline;
+  color: #49a9ba !important;
 }
 .activity .activity-content {
   padding: 14px;
@@ -438,16 +450,22 @@ html[xmlns] .clearfix {
 .activity .activity-group {
   font-size: 12px;
   text-transform: uppercase;
+  color: #798184;
 }
 .activity .activity-group .icon {
   margin-right: 7px;
 }
-.activity-patient h4 {
+.activity-patient .activity-patient-name {
   color: #303334;
   font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 14px;
+}
+.activity-patient .activity-patient-color {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+  top: 2px;
+  border-radius: 100px;
 }
 .activity-patient .activity-patient-more {
   margin-top: 14px;
@@ -607,8 +625,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  background-color: #D17F7F;
-  color: white;
+  border: 1px solid #d1907b;
+  color: #d1907b;
 }
 /**
  *
@@ -652,10 +670,39 @@ html[xmlns] .clearfix {
   font-size: 18px;
 }
 .menubar .typeahead {
+  transition: 0.2s all;
+  width: 150px;
   border-radius: 100px;
+  position: relative;
+  top: 11px;
+  right: 11px;
+  padding: 0;
+  border: none;
+}
+.menubar .typeahead.focus {
+  width: 300px;
+}
+.menubar .typeahead.focus input[type=text] {
+  background-color: white;
+}
+.menubar .typeahead .icon {
+  top: 0px;
+}
+.menubar .typeahead .typeahead-option {
+  padding: 10px;
+  border: 1px solid #dbe1e3;
+  color: #616769;
+}
+.menubar .typeahead .typeahead-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
 }
 .menubar .typeahead input[type=text] {
+  background-color: #398997;
+  color: #49a9ba;
   border-radius: 100px;
+  padding: 7px 14px;
 }
 .menubar .menubar-item {
   display: inline-block;
@@ -876,7 +923,7 @@ html[xmlns] .clearfix {
 }
 .table tbody > tr > th {
   background-color: #f4f6f7;
-  font-weight: 400;
+  font-weight: 600;
   border-top: none;
   color: #303334;
 }
@@ -885,6 +932,9 @@ html[xmlns] .clearfix {
   padding: 6px !important;
   margin: 0px !important;
   vertical-align: middle;
+}
+.table tbody > tr > td a.highlight {
+  color: #49a9ba;
 }
 .table tr:hover.is-editing td {
   background-color: white;

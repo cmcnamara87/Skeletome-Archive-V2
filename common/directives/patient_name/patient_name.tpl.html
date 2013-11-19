@@ -1,0 +1,8 @@
+<span>
+    <span ng-show="patient.not_owner || !(patient.alias.length || patient.first_name.length || patient.last_name.length)">Patient #{{ patient.id }}</span>
+    <span ng-show="!patient.not_owner">
+        {{ patient.first_name }} {{ patient.last_name }}
+        <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span>
+        {{ patient.alias }}
+    </span>
+</span>

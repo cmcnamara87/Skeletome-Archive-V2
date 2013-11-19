@@ -242,6 +242,11 @@ myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
         console.log("making params");
         return MyResource.query(Param.makeParams(object), success, failure);
     }
+    MyResource.queryParams = function(query, params) {
+        var params = Param.makeParams(params);
+        angular.extend(params, query);
+        return MyResource.query(params);
+    }
 
     MyResource.prototype.fullName = function() {
         return this.first_name + " " + this.last_name;
@@ -351,18 +356,65 @@ myApp.services.factory('ShareModel', function ($resource, apiUrl, Param) {
     return MyResource;
 });
 
-myApp.services.factory('GroupModel', function ($resource, apiUrl, Param) {
+
+myApp.services.factory('SuperResource', function($resource, $cacheFactory, apiUrl) {
+
+    var superResource = function(objectName) {
+        var resource = $resource(apiUrl + url + '/:id', {
+            id: '@id' //this binds the ID of the model to the URL param
+        }, {
+            update: {method:'PUT'}
+        });
+
+        return {
+
+        }
+
+    }
+    return superResource;
+})
+
+myApp.services.factory('GroupModel', function (CacheTest, $resource, apiUrl, Param) {
     var MyResource = $resource(apiUrl + 'group/:id', {
-        id: '@id' //this binds the ID of the model to the URL param
+            id: '@id' //this binds the ID of the model to the URL param
         },
         {
-            update: {method:'PUT'}
+            update: {method:'PUT', cache: CacheTest},
+            'save':   {method:'POST', cache: CacheTest},
+            'get':    {method:'GET', cache: CacheTest}
         }
     );
+
     MyResource.index = function(object, success, failure) {
         return MyResource.query(Param.makeParams(object), success, failure);
     }
     return MyResource;
+});
+
+
+myApp.services.factory('CacheTest', function ($cacheFactory, $rootScope) {
+    var cache = $cacheFactory('group');
+
+    cache.bloop = cache.put;
+
+    cache.put = function(key, value) {
+        console.log("key, value", key, value);
+        return cache.bloop(key, value);
+    }
+//    setTimeout(function() {
+//        console.log("cahce info", cache.info());
+//
+//        var groupstored = cache.get("http://localhost:8888/skelarchv2/drupal/api/group/3");
+//        console.log("cahce info", groupstored);
+//        var object =  angular.fromJson(groupstored[1]);
+//        groupstored[1] = angular.toJson({yo: 'test'});
+//
+//        console.log("new", groupstored);
+//
+//        console.log("stored", cache.get("http://localhost:8888/skelarchv2/drupal/api/group/3"));
+//
+//    }, 2000);
+    return cache;
 });
 
 myApp.services.factory('PostModel', function ($resource, apiUrl, Param) {

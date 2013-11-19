@@ -15,7 +15,7 @@
 
     <div ng-show="multi == 'true' || (multi == 'false' && !tokens)">
         <img src="img/ajax-loader.gif" class="typeahead-loader" ng-show="loadCount"/>
-        <i class="icon icon-list typeahead-icon" ng-show="!loadCount"></i>
+        <i class="icon icon-search typeahead-icon" ng-show="!loadCount"></i>
 
         <input type="text"
                id="{{ id }}"
@@ -31,7 +31,7 @@
                     ng-class="{'selected': $parent.selectedIndex == $index}"
                     ng-click="addToken(option)"
                     ng-mouseenter="$parent.selectedIndex = $index">
-                    <i class="icon icon-group"></i> {{ option.name }}
+                    {{ option.name }}
                 </li>
             </ul>
         </div>

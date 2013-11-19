@@ -20,9 +20,11 @@ angular.module('group.summary', [])
         });
     }])
 
-    .controller('GroupSummaryCtrl', ['$scope', '$location', 'group', 'members', 'MembershipModel', 'UserModel', function ($scope, $location, group, members, MembershipModel, UserModel) {
+    .controller('GroupSummaryCtrl', ['$scope', '$location', 'members', 'group', 'MembershipModel', 'UserModel', 'GroupModel', function ($scope, $location, members, group, MembershipModel, UserModel, GroupModel) {
         $scope.group = group;
         $scope.members = members;
+
+//        $scope.group2 = GroupModel.get({id: 3});
 
         $scope.addMember = function() {
             var newMember = new MembershipModel({
@@ -42,5 +44,7 @@ angular.module('group.summary', [])
             var index = $scope.members.indexOf(member);
             $scope.members.splice(index, 1);
         }
+
+
 
     }]);

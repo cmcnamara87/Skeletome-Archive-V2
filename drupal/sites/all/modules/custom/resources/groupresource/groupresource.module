@@ -42,33 +42,55 @@ class GroupController extends EntityAPIController {
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
+            // Used on group list pages
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'share');
             $query->propertyCondition('group_id', $entity->id);
             $entity->patient_count = $query->count()->execute();
 
+            // Used on group list pages
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'membership');
             $query->propertyCondition('group_id', $entity->id);
             $entity->member_count = $query->count()->execute();
 
+            // Used...somewhere
             $entity->administrator = user_load_small($entity->administrator_id);
+
+            // Used on group list pages
+            global $user;
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'membership');
+            $query->propertyCondition('group_id', $entity->id);
+            $query->propertyCondition('user_id', $user->uid);
+            $results = $query->execute();
+            if(isset($results['membership'])) {
+                // used on group list page
+                $id = array_keys($results['membership'])[0];
+                $entity->membership_id = $id;
+            }
         }
 
         return $entities;
     }
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
+        $new = false;
+        if(!isset($entity->id)) {
+            $new = true;
+        }
         parent::save($entity, $transaction);
 
-        global $user;
-        // Add the creator as a member
-        $newMembership = new stdClass();
-        $newMembership->user_id = $user->uid;
-        $newMembership->group_id = $entity->id;
-        $newMembership->created = time();
-        $newMembership->modified = time();
-        membership_save($newMembership);
+        if($new) {
+            global $user;
+            // Add the creator as a member
+            $newMembership = new stdClass();
+            $newMembership->user_id = $user->uid;
+            $newMembership->group_id = $entity->id;
+            $newMembership->created = time();
+            $newMembership->modified = time();
+            membership_save($newMembership);
+        }
     }
 
 }

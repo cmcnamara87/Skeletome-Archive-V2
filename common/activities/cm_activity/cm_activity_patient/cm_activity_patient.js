@@ -9,6 +9,8 @@ angular.module('directives.activities.cmActivity.cmActivityPatient', [])
             link: function ($scope, el, tAttrs) {
 
 
+                $scope.color = '#' + Math.floor((Math.abs(Math.sin($scope.activity.patient.id) * 16777215)) % 16777215).toString(16);
+
                 $scope.$watch('patientInfo', function(patientInfo) {
                     "use strict";
                     console.log("patient info changed", patientInfo);

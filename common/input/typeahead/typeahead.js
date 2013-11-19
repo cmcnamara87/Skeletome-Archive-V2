@@ -36,6 +36,13 @@ angular.module('directives.input.typeahead', [])
                     throw message + "\n";
                 }
 
+                $('input[type=text]', iElement).focus(function() {
+                    "use strict";
+                    iElement.find('.typeahead').addClass('focus');
+                }).blur(function() {
+                    "use strict";
+                    iElement.find('.typeahead').removeClass('focus');
+                });
                 /**
                  * Remove a token
                  * @param token     The token to remove

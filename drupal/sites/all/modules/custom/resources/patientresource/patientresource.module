@@ -91,8 +91,27 @@ class PatientController extends EntityAPIController {
                     $entity->gender,
                     $entity->ethnicity
                 );
+                $entity->name = "Patient #" . $entity->id;
+            } else {
+
+                $entity->name = "";
+
+                if(strlen($entity->first_name) || strlen($entity->last_name)) {
+                    $entity->name = $entity->first_name . ' ' . $entity->last_name;
+                }
+
+                if(strlen($entity->alias)) {
+                    if(strlen($entity->name)) {
+                        $entity->name .= " / ";
+                    }
+                    $entity->name .= $entity->alias;
+                }
+
+                if(!(strlen($entity->first_name) || strlen($entity->last_name) || strlen($entity->alias))) {
+                    $entity->name = "Patient #" . $entity->id;
+                }
             }
-            $entity->name = $entity->first_name . ' ' . $entity->last_name;
+
             self::addRelated($entity);
         }
 
@@ -562,6 +581,14 @@ function patientresource_services_resources() {
                     'description' => 'The group to get the patients for',
                     'default value' => 0,
                     'source' => array('param' => 'group_id'),
+                ),
+                array(
+                    'name' => 'embed',
+                    'optional' => TRUE,
+                    'type' => 'int',
+                    'description' => '1 if we should embed diagnoses and shares',
+                    'default value' => 0,
+                    'source' => array('param' => 'embed'),
                 ),
                 array(
                     'name' => 'page',

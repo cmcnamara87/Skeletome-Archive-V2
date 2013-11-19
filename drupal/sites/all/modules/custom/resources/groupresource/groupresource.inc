@@ -38,11 +38,10 @@ function _groupresource_create($data) {
  */
 function _groupresource_update($id, $data) {
     global $user;
-    $group = group_load($id);
-
+    if (isset($data) &&  is_array($data)) $data=(object) $data;
     unset($data->created);
     $data->id = $id;
-    $data->uid = $group->uid;
+    $data->uid = $user->uid;
     $data->modified = time();
 
     group_save($data);

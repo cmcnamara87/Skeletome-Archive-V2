@@ -194,18 +194,6 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
             link: function ($scope, element, attrs) {
                 $scope.adding = 'post';
                 $scope.hasFocus = false;
-                $('.adder-content', element).focusin(function() {
-                    "use strict";
-                    $scope.$apply(function() {
-                        $scope.hasFocus = true;
-                    })
-                })
-//        .focusout(function() {
-//                    "use strict";
-//                    $scope.$apply(function() {
-//                        $scope.hasFocus = false;
-//                    })
-//                })
             }
         };
     }])

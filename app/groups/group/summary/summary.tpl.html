@@ -13,6 +13,10 @@
                         <cm-edit-delete></cm-edit-delete>
                     </div>
                     <div class="resource-block">
+                        <h3 class="resource-block-heading">Group Name</h3>
+                        {{ group.name }}
+                    </div>
+                    <div class="resource-block">
                         <h3 class="resource-block-heading">Description</h3>
                         <div ng-bind-html="group.description"></div>
                     </div>
@@ -24,6 +28,10 @@
                     </div>
                 </cm-display>
                 <cm-edit>
+                    <div class="resource-block">
+                        <label class="label-top">Group Name</label>
+                        <input type="text" ng-model="group.name"/>
+                    </div>
                     <div class="resource-block">
                         <label class="label-top" for="test">Description</label>
                         <textarea ng-model="group.description" name="test" id="test" cols="30" rows="10" ck-editor style="height: 300px;"></textarea>

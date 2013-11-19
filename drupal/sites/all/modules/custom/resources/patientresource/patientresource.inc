@@ -68,7 +68,7 @@ function _patientresource_delete($id) {
 
 
 
-function _patientresource_index($query, $group_id, $page, $fields, $parameters, $page_size) {
+function _patientresource_index($query, $group_id, $embed, $page, $fields, $parameters, $page_size) {
 
     if(strlen($query)) {
 
@@ -104,7 +104,41 @@ function _patientresource_index($query, $group_id, $page, $fields, $parameters, 
         $parameters['id'] = $patient_ids;
     }
 
-    return resource_helper_index('patient', $page, $fields, $parameters, $page_size);
+    $patients = resource_helper_index('patient', $page, $fields, $parameters, $page_size);
+
+    if($embed) {
+
+
+        foreach($patients as &$patient) {
+
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'diagnosis');
+            $query->propertyCondition('patient_id', $patient->id);
+            $result = $query->execute();
+            if(isset($result['diagnosis'])) {
+                $ids = array_keys($result['diagnosis']);
+                $patient->diagnoses = diagnosis_load_multiple($ids);
+            } else {
+                $patient->diagnoses = [];
+            }
+
+            unset($patient->clinical_summary);
+            unset($patient->mentions);
+
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'share');
+            $query->propertyCondition('patient_id', $patient->id);
+            $result = $query->execute();
+            if(isset($result['share'])) {
+                $ids = array_keys($result['share']);
+                $patient->shares = share_load_multiple($ids);
+            } else {
+                $patient->shares = [];
+            }
+        }
+    }
+
+    return $patients;
 }
 
 

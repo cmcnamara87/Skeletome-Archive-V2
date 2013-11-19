@@ -6,18 +6,7 @@ angular.module('patients.my_patients', [])
             controller:'MyPatientsCtrl',
             resolve:{
                 patients: ['PatientModel', 'SessionService', '$q', function (PatientModel, SessionService, $q) {
-
-                    var defer = $q.defer();
-
-                    var patients = PatientModel.index({
-                        'uid': SessionService.currentUser.uid
-                    }, function() {
-                        defer.resolve(patients);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
+                    return PatientModel.queryParams({embed: 1}, {'uid': SessionService.currentUser.uid}).$promise;
                 }]
             }
         });

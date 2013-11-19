@@ -26,8 +26,10 @@
     border-radius: 100px;
   }
   .submenubar-item.selected {
-    background-color: #D17F7F;//@highlightColor;
-    color: white;
+    border: 1px solid @submenuSelectedBackgroundColor;
+    color: @submenuSelectedBackgroundColor;
+//    background-color: ;//@highlightColor;
+//    color: white;
   }
 }
 
@@ -82,11 +84,45 @@
     font-size: 18px;
   }
   .typeahead {
-
-    border-radius: 100px;
-    input[type=text] {
-      border-radius: 100px;
+    transition: 0.2s all;
+    width: 150px;
+    &.focus {
+      width: 300px;
+      input[type=text] {
+        background-color: white;
+      }
     }
+    border-radius: 100px;
+
+    position: relative;
+    top: 11px;
+    right: 11px;
+    .icon {
+      top: 0px;
+    }
+
+    .typeahead-option {
+      padding: 10px;
+      border: 1px solid @borderColor;
+      color: @bodyTextColor;
+    }
+
+    .typeahead-option.selected {
+      background-color: lighten(@highlightColorLight, 10%);
+      border: 1px solid @typeaheadTokenBorderColor;
+      color: @highlightColor;
+    }
+
+
+    input[type=text] {
+      background-color: darken(@highlightColor, 10%);
+      color: @highlightColor;
+      border-radius: 100px;
+      padding: 7px 14px;
+    }
+    padding: 0;
+    border: none;
+
 //    position: relative;
 //
 //    .icon {

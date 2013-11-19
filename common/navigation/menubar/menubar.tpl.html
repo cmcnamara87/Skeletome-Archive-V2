@@ -30,27 +30,6 @@
                 </div>-->
             </div>
 
-
-
-
-
-
-            <!--<a class="menubar-item menubar-tab"
-               ng-class="{'selected': tab=='feed'}"
-               href="#/feed">
-                <i class="icon icon-th-list"></i> Home
-            </a>
-            <a class="menubar-item menubar-tab"
-               ng-class="{'selected': tab=='patient' || tab=='patients'}"
-               href="#/patients/my-patients">
-                <i class="icon icon-stethoscope"></i> Patients
-            </a>
-            <a class="menubar-item menubar-tab"
-               ng-class="{'selected': tab=='group' || tab=='groups'}"
-               href="#/groups/my-groups">
-                <i class="icon icon-group"></i> Groups
-            </a>-->
-
         </div>
 
         <div class="menubar" ng-show="content">
@@ -62,7 +41,7 @@
                         <i class="icon icon-arrow-left"></i>
                     </a>
                     <span ng-show="tab == 'patient'">
-                    {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
+                        <patient-name patient="patient"></patient-name>
                     </span>
                     <span ng-show="tab == 'group'">
                         {{ group.name }}
@@ -79,10 +58,7 @@
                 <!--<div class="menubar-item menubar-notifications">-->
                     <!--<i class="icon icon-bell"></i>-->
                 <!--</div>-->
-                <div class="menubar-item menubar-search">
-                    <input type="text" class="menubar-search" placeholder="Search..."/>
-                    <i class="icon icon-search"></i>
-                </div>
+                <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
             </div>
 
             <!--&lt;!&ndash;<div class="menubar-item menubar-buttongroup pull-right">-->

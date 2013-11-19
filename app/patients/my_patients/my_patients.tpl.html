@@ -18,7 +18,7 @@
                 <th>Share</th>
                 <th></th>
             </tr>
-            <tbody ng-repeat="patient in patients | orderBy:predicate:reverse | filter:search" cm-resource="patient">
+            <tbody ng-repeat="patient in patients | orderBy:predicate:reverse" cm-resource="patient">
             <tr ng-show="$isEditing">
                 <td colspan="5">
                     <div class="resource-block">
@@ -60,50 +60,41 @@
             <tr ng-show="!$isEditing">
                 <td>
                     <a href="#/patient/{{ patient.id }}/summary">
-                        #00{{ patient.id }}
+                        #{{ patient.id }}
                     </a>
                 </td>
                 <td>
-                    <a href="#/patient/{{ patient.id }}/summary">
-                        <span ng-show="!patient.first_name.length && !patient.last_name.length && !patient.alias.length" class="nodata">
-                            No name recorded.
-                        </span>
-                        {{ patient.first_name }} {{ patient.last_name }} <span ng-show="patient.alias && (patient.first_name || patient.last_name)">/</span> {{ patient.alias }}
+                    <a href="#/patient/{{ patient.id }}/summary" class="highlight">
+                        {{ patient.name }}
                     </a>
                 </td>
 
                 <td>
-                    <a href="#/patient/{{ patient.id }}/diagnoses">
-                        <span class="label label-primary">{{ patient.diagnoses[0].disorder.name }}</span>
+                    <a href="#/patient/{{ patient.id }}/diagnoses"
+                       class="" ng-show="patient.diagnoses.length > 0">
+                        {{ patient.diagnoses[0].disorder.name }}
                     </a>
-                <span ng-show="patient.diagnoses.length > 1">
-                    <a href="">
-                        <span class="label label-primary">+ {{ patient.diagnoses.length - 1 }} more</span>
+                    <a href="#/patient/{{ patient.id }}/diagnoses" ng-show="patient.diagnoses.length > 1"
+                       class="">
+                            + {{ patient.diagnoses.length - 1 }} more
                     </a>
-                </span>
 
-                <span ng-show="!patient.diagnoses.length">
-                    <a href="#/patient/{{ patient.id }}/diagnoses">
+                    <a ng-show="!patient.diagnoses.length" href="#/patient/{{ patient.id }}/diagnoses" class="nodata">
                         No diagnosis
                     </a>
-
-                </span>
                 </td>
 
                 <td>
-                    <a href="">
-                        <a class="label label-primary" href="#/patient/{{ patient.id }}/share/{{ patient.shares[0].id }}">{{ patient.shares[0].group.name }}</a>
+                    <a href="#/patient/{{ patient.id }}/contact-information?sub=share" class="" ng-show="patient.shares.length > 0">
+                        {{ patient.shares[0].name }}
                     </a>
-                <span ng-show="patient.shares.length > 1">
-                    <a href="#/patient/{{ patient.id }}/contact-information">
-                        <span class="label label-primary">+ {{ patient.shares.length - 1 }} more</span>
+
+                    <a href="#/patient/{{ patient.id }}/contact-information?sub=share" ng-show="patient.shares.length > 1" class="">
+                        + {{ patient.shares.length - 1 }} more
                     </a>
-                </span>
-                <span ng-show="!patient.shares.length" >
-                    <a href="#/patient/{{ patient.id }}/contact-information">
+                    <a href="#/patient/{{ patient.id }}/contact-information?sub=share" ng-show="!patient.shares.length" class="nodata">
                         No shares
                     </a>
-                </span>
                 </td>
 
                 <td>
