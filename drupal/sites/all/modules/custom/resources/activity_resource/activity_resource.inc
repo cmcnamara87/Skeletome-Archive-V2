@@ -24,10 +24,13 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
 
         if(count($share_ids)) {
             $parameters['share_id'] = $share_ids;
+            $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
+        } else {
+            $activities = [];
         }
+    } else {
+        $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
     }
-
-    $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 
 
     foreach($activities as &$activity) {
