@@ -33,11 +33,12 @@ angular.module('feed', [])
         $scope.isLoading = true;
 
         // Load all patients
-        $scope.activities = ActivityModel.query({
+        ActivityModel.query({
             user_id: SessionService.currentUser.uid,
             embed: 1
         }).$promise.then(function(activities) {
                 "use strict";
+                $scope.activities = activities;
                 $scope.isLoading = false;
 
                 angular.forEach(activities, function(activity, activityIndex) {
