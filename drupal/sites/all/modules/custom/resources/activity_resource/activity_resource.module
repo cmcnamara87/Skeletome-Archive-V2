@@ -246,6 +246,7 @@ function activity_resource_services_resources() {
             'help' => 'Creates a reply',
             'file' => array('type' => 'inc', 'module' => 'activity_resource', 'name' => 'activity_resource_reply'),
             'callback' => '_activity_resource_reply_create',
+            'access callback' => '_activity_resource_reply_access',
             'access arguments' => array('patient resource create'),
             'access arguments append' => FALSE,
             'args' => array(
