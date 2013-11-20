@@ -133,7 +133,7 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
                 $ids = array_keys($result['share']);
                 $patient->shares = share_load_multiple($ids);
             } else {
-                $patient->shares = [];
+                $patient->shares = array();
             }
         }
     }
