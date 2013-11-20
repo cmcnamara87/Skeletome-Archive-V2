@@ -67,7 +67,7 @@ class GroupController extends EntityAPIController {
             if(isset($results['membership'])) {
                 // used on group list page
                 $ids = array_keys($results['membership']);
-                $entity->membership_id = $id[0];
+                $entity->membership_id = $ids[0];
             }
         }
 
