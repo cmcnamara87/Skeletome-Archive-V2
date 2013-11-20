@@ -61,7 +61,8 @@ angular.module('patients.my_patients', [])
             angular.forEach(groups, function(group, groupIndex) {
                 var share = new ShareModel({
                     patient_id: patient.id,
-                    group_id: group.id
+                    group_id: group.id,
+                    name: group.name
                 });
                 share.$save(function(share) {
                     if(!angular.isDefined(patient.shares)) {
