@@ -26,7 +26,7 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
             $parameters['share_id'] = $share_ids;
             $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
         } else {
-            $activities = [];
+            $activities = array();
         }
     } else {
         $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
