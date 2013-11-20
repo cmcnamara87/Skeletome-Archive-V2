@@ -32,7 +32,7 @@ angular.module('security.authorization')
                 }).error(error);
             },
             login: function(user, success, error) {
-                $http.post('/login', user).success(function(user){
+                $http.post(apiUrl + 'user/login', user).success(function(user){
                     changeUser(user);
                     success(user);
                 }).error(error);

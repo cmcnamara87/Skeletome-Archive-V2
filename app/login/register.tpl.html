@@ -14,28 +14,28 @@
                             <div class="resource-block-heading">
                                 Name
                             </div>
-                            <input type="text" ng-model="user.name" placeholder="What's your full name?"/>
+                            <input type="text" ng-model="newUser.name" placeholder="What's your full name?"/>
                         </div>
                         <div class="resource-block">
                             <div class="resource-block-heading">
                                 Email
                             </div>
-                            <input type="text" ng-model="user.mail" placeholder="What's your email address?"/>
+                            <input type="text" ng-model="newUser.mail" placeholder="What's your email address?"/>
                         </div>
                         <div class="resource-block">
                             <div class="resource-block-heading">
                                 Password
                             </div>
-                            <input type="text" ng-model="user.pass" placeholder="Think of an awesome secure password"/>
+                            <input type="password" ng-model="newUser.pass" placeholder="Think of an awesome secure password"/>
                         </div>
                         <div class="resource-block">
                             <div class="resource-block-heading">
                                 Confirm password
                             </div>
-                            <input type="text" ng-model="user.pass1" placeholder="Type that awesome password again"/>
+                            <input type="password" ng-model="newUser.pass1" placeholder="Type that awesome password again"/>
                         </div>
                         <div class="resource-block media-body">
-                            <button class="btn btn-action btn-action-selected pull-right" ng-click="register(user)">Register</button>
+                            <button class="btn btn-action btn-action-selected pull-right" ng-click="register(newUser)">Register</button>
                         </div>
                     </div>
 

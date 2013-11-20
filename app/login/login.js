@@ -53,6 +53,8 @@ angular.module('login', ['security'])
 
     .controller('RegisterCtrl', ['$scope', 'AuthService', 'UserModel', '$location', function ($scope, AuthService, UserModel, $location) {
 
+        $scope.newUser = new UserModel({});
+
         $scope.register = function(user) {
             var newUser = new UserModel(user);
             AuthService.register(newUser, function(user) {
