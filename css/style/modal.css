@@ -1165,6 +1165,8 @@ html[xmlns] .clearfix {
   height: auto;
   background-color: white;
   -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
   z-index: 2000;
   border-radius: 3px;
   box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
