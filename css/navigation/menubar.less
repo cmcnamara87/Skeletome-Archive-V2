@@ -1,3 +1,6 @@
+@menubarTransitionTime: 0.3s;
+@menubarTransitionTime: 0.3s;
+
 .submenubar {
   &.submenubar-activities {
     margin-right: @activitiesWidth;
@@ -47,11 +50,14 @@
   color: #F3F3F3;
   vertical-align: middle;
   height: @menubarHeight;
-  position: relative;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  transition: background-color @menubarTransitionTime;
 
 
   &.menubar-dark {
-    background-color: #0E2435;
+    background-color: @menubarColorDark;
   }
 
 
@@ -61,23 +67,40 @@
     height: @menubarHeight
   }
 
+  .menubar-left.ng-hide-add {
+    -webkit-transition:@menubarTransitionTime linear all;
+    -moz-transition:@menubarTransitionTime linear all;
+    -o-transition:@menubarTransitionTime linear all;
+    transition:@menubarTransitionTime linear all;
+
+    opacity:1;
+  }
+  .menubar-left.ng-hide-add.ng-hide-add-active {
+    opacity:0;
+  }
+
+  /* When showing an element */
+  .menubar-left.ng-hide-remove {
+    -webkit-transition:@menubarTransitionTime linear all;
+    -moz-transition:@menubarTransitionTime linear all;
+    -o-transition:@menubarTransitionTime linear all;
+    transition:@menubarTransitionTime linear all;
+
+    /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+    display:block!important;
+    opacity:0;
+  }
+  .menubar-left,
+  .menubar-left.ng-hide-remove.ng-hide-remove-active {
+    opacity:1;
+  }
+
+
   .menubar-right {
     float: right;
     height: @menubarHeight;
-  }
-
-  .menubar-logo {
-    font-size: 21px;
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    text-transform: uppercase;
-    a {
-      color: white;
-    }
-    .icon {
-      margin-right: 7px;
-    }
   }
 
   .menubar-notifications {

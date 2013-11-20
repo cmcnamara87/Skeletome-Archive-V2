@@ -49,6 +49,7 @@ angular.module('directives.gallery', [])
                 galleryIndex: '@'
             },
             link: function ($scope, element, attrs) {
+                element.css('cursor', 'pointer');
                 element.click(function(event) {
                     $scope.$apply(function() {
                         // the element was clicked

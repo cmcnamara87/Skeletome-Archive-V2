@@ -6,8 +6,10 @@
   right: 0;
   overflow: auto;
   background-color: white;
-  top: 60px;
   border-right: 1px solid #dbe1e3;
+}
+.main-loggedin {
+  top: 60px;
 }
 .main-submenubar {
   top: 120px;
@@ -329,8 +331,9 @@ Styleguide 2.1.3.
   border: none;
   padding: 0px;
 }
-.resource.is-editing input[type=text],
-.resource.is-editing textarea {
+.resource input[type=text],
+.resource input[type=password],
+.resource textarea {
   width: 100%;
   box-sizing: border-box;
 }
@@ -570,10 +573,10 @@ html[xmlns] .clearfix {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
   top: 60px;
   left: auto;
   width: 45%;
+  overflow: auto;
   /**
   Group activity title
   */
@@ -594,6 +597,28 @@ html[xmlns] .clearfix {
 }
 .activities .activities-content {
   padding: 14px;
+}
+.activities-listitem.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 0;
+  position: relative;
+  top: 10px;
+}
+.activities-listitem.ng-enter-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.activities-listitem.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
 }
 .label {
   font-weight: 400;
@@ -640,31 +665,47 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  position: relative;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  transition: background-color 0.3s;
+  /* When showing an element */
 }
 .menubar.menubar-dark {
-  background-color: #0E2435;
+  background-color: #34707c;
 }
 .menubar .menubar-left {
   float: left;
   height: 60px;
 }
+.menubar .menubar-left.ng-hide-add {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  opacity: 1;
+}
+.menubar .menubar-left.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.menubar .menubar-left.ng-hide-remove {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+  display: block!important;
+  opacity: 0;
+}
+.menubar .menubar-left,
+.menubar .menubar-left.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
 .menubar .menubar-right {
   float: right;
   height: 60px;
-}
-.menubar .menubar-logo {
-  font-size: 21px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.menubar .menubar-logo a {
-  color: white;
-}
-.menubar .menubar-logo .icon {
-  margin-right: 7px;
 }
 .menubar .menubar-notifications {
   font-size: 18px;
@@ -1157,6 +1198,14 @@ html[xmlns] .clearfix {
   padding: 14px;
   background-color: orange;
 }
+.login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #dce2e4;
+}
 body {
   background-color: #e1e6e9;
   color: #616769;
@@ -1280,6 +1329,7 @@ textarea {
     Text inputs and text areas
 */
 input[type=text],
+input[type=password],
 textarea {
   padding: 10px 14px;
 }

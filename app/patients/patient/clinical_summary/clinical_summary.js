@@ -7,29 +7,15 @@ angular.module('patient.clinical_summary', [])
             controller:'ClinicalSummaryCtrl',
             resolve:{
                 patient: ['PatientModel', '$route', '$q', function (PatientModel, $route, $q) {
-
-                    var defer = $q.defer();
-
-                    var patient = PatientModel.get({
+                    return PatientModel.get({
                         'id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(patient);
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }],
                 patientHPOs: ['HPOTagModel', '$route', '$q', function (HPOTagModel, $route, $q) {
-
-                    var defer = $q.defer();
-
-                    var patientHPOs = HPOTagModel.index({
+                    return HPOTagModel.index({
                         object_id: $route.current.params.patient_id,
                         object_type: 'patient'
-                    }, function(patientHPOs) {
-                        defer.resolve(patientHPOs);
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }]
             }
         });

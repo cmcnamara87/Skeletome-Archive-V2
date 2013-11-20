@@ -333,7 +333,7 @@
             <div class="block-header">
                 <h2>Sharing</h2>
                 <div class="block-header-buttons">
-                    <button class="btn btn-action" href><i class="icon icon-plus-sign"></i> Add</button>
+                    <button class="btn btn-action" ng-click="addShare()"><i class="icon icon-plus-sign"></i> Add</button>
                 </div>
             </div>
             <div class="block-content">
@@ -351,8 +351,16 @@
                             <h3 class="resource-block-heading">Group</h3>
                             <a ng-href="#/group/{{ share.group.id }}">{{ share.name }}</a>
                         </div>
-
                     </cm-display>
+                    <cm-edit>
+                        <div class="resource-block">
+                            <label class="label-top">Group</label>
+                            <typeahead placeholder="What group do you want to share this patient with?" multi="false" model="share.group" options-fn="findGroup(value)" token-chosen-fn="groupChosen(token, share)"></typeahead>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
                 </div>
             </div>
         </div>

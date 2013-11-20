@@ -14,16 +14,16 @@
     <div ng-show="shares.length" class="divided">
         <activity-adder class="divided"></activity-adder>
         <div class="divided separated">
-            <select ng-options="share.name for share in shares" ng-model="share"></select>
+            <select ng-options="share.name for share in shares" ng-model="share" ng-change="isAdding = false; newPost.to[0] = share"></select>
 
-            <select ng-model="type">
+            <select ng-model="type" >
                 <option value="all">All</option>
                 <option value="post">Post</option>
                 <option value="diagnosis">Diagnosis</option>
             </select>
         </div>
         <div class="separated">
-            <div ng-repeat="activity in activities | filter:filterPostType" class="separated">
+            <div ng-repeat="activity in activities | filter:filterPostType" class="separated activities-listitem" ng-class="{'is-adding': isAdding}">
                 <cm-activity embed-content="false"></cm-activity>
             </div>
         </div>

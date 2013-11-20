@@ -1,43 +1,49 @@
-<div>
-    <h1>Register</h1>
-    <div>
-        Already got an account? <a href="#/login">Login</a>
-        <table class="sform">
-            <tr class="sform-row">
-                <td class="sform-label"><label>Name</label></td>
-                <td>
-                    <input type="text" ng-model="user.name"/>
-                </td>
-            </tr>
+<div class="login">
+    <div class="smodal">
+        <div class="block">
+            <div class="block-header">
+                <div class="block-header-buttons">
+                    <a href="#/login" class="btn btn-action">Back to Login</a>
+                </div>
+                <h2>Register</h2>
+            </div>
+            <div class="block-content">
+                <form action="">
+                    <div class="resource">
+                        <div class="resource-block">
+                            <div class="resource-block-heading">
+                                Name
+                            </div>
+                            <input type="text" ng-model="user.name" placeholder="What's your full name?"/>
+                        </div>
+                        <div class="resource-block">
+                            <div class="resource-block-heading">
+                                Email
+                            </div>
+                            <input type="text" ng-model="user.mail" placeholder="What's your email address?"/>
+                        </div>
+                        <div class="resource-block">
+                            <div class="resource-block-heading">
+                                Password
+                            </div>
+                            <input type="text" ng-model="user.pass" placeholder="Think of an awesome secure password"/>
+                        </div>
+                        <div class="resource-block">
+                            <div class="resource-block-heading">
+                                Confirm password
+                            </div>
+                            <input type="text" ng-model="user.pass1" placeholder="Type that awesome password again"/>
+                        </div>
+                        <div class="resource-block media-body">
+                            <button class="btn btn-action btn-action-selected pull-right" ng-click="register(user)">Register</button>
+                        </div>
+                    </div>
 
-            <tr class="sform-row">
-                <td class="sform-label"><label>Email</label></td>
-                <td>
-                    <input type="text" ng-model="user.mail"/>
-                </td>
-            </tr>
 
-            <tr class="sform-row">
-                <td class="sform-label"><label >Password</label></td>
-                <td>
-                    <input type="text" ng-model="user.pass"/>
-                </td>
-            </tr>
-            <tr class="sform-row">
-                <td class="sform-label"><label >Password</label></td>
-                <td>
-                    <input type="text" ng-model="user.pass1"/>
-                </td>
-            </tr>
+                </form>
+            </div>
 
-            <tr>
-                <td>
-
-                </td>
-                <td>
-                    <button class="btn btn-action btn-action-selected" ng-click="register(user)">Register</button>
-                </td>
-            </tr>
-        </table>
+        </div>
     </div>
+
 </div>

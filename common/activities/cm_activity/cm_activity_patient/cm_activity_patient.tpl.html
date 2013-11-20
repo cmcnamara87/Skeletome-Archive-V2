@@ -1,15 +1,9 @@
 <div class="activity-patient" ng-show="activity.patient">
     <!--<h4><a href="#/patient/{{ activity.patient.id }}"><span class="activity-patient-color" style="background-color: {{color}}"></span> Patient #{{ activity.patient.id }}</a></h4>-->
     <div >
-        <div>
-            <span style="font-weight: 600">{{ activity.group.name }} <i class="icon icon-angle-right"></i></span>
-            <a href="#/patient/{{ activity.patient.id }}/summary"
-               class="activity-patient-name"><span class="activity-patient-color" style="background-color: {{color}}"></span> {{ activity.patient.name }}</a>
-        </div>
-
 
         <ul class="activity-patient-menu">
-            <!--<li>
+            <li>
                 <button ng-class="{'selected': patientInfo == 'clinicalSummary'}" ng-click="patientInfo = 'clinicalSummary'">Clinical Summary</button>
             </li>
             <li>
@@ -22,7 +16,7 @@
                 <button ng-click="patientInfo = 'geneticReport'" ng-class="{'selected': patientInfo == 'geneticReport'}">
                     Genetic Reports
                 </button>
-            </li>-->
+            </li>
         </ul>
         <div class="activity-patient-content" ng-show="patientInfo">
             <div ng-switch on="patientInfo">

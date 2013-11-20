@@ -1,4 +1,5 @@
 @import "comment.less";
+
 @activityPadding: 14px;
 
 /**
@@ -12,7 +13,7 @@
   }
   &:hover {
     a {
-     color: @highlightColor !important;
+      color: @highlightColor !important;
     }
     .mentions a {
       text-decoration: underline;
@@ -20,10 +21,12 @@
     }
   }
 
+  .activity-diagnosis-name {
+    font-weight: 600;
+  }
 
   margin-bottom: 14px;
   border: 1px solid @borderColor;
-
 
   .activity-content {
     .spaced;
@@ -51,53 +54,66 @@
   }
 }
 
-
-
-.activity-patient {
 .activity-patient-name {
   color: darken(@bodyTextColor, 20%);
   font-weight: 600;
 }
+
 .activity-patient-color {
   display: inline-block;
   height: 14px;
   width: 14px;
   position: relative;
   top: 2px;
-//  border: 1px solid @backgroundColorDark;
+  //  border: 1px solid @backgroundColorDark;
   border-radius: 100px;
 }
-.activity-patient-more {
-  margin-top: 14px;
-}
-.activity-patient-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  li {
-    display: inline-block;
-    margin: 0;
-    button {
-      &.selected {
-        color: @submenuSelectedTextColor;
-        border: 1px solid @borderColor;
-        border-bottom: none !important;
-        position: relative;
-        top: 1px;
-        z-index: 1;
 
+.activity-patient {
+
+  .activity-patient-more {
+    margin-top: 14px;
+  }
+  .activity-patient-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      margin: 0;
+      button {
+        &.selected {
+          color: @submenuSelectedTextColor;
+          border: 1px solid @borderColor;
+          border-bottom: none !important;
+          position: relative;
+          top: 1px;
+          z-index: 1;
+
+        }
+        padding: 4px 8px;
+        //        border-bottom: 1px solid @borderColor !important;
+        background-color: white;
+        border-radius: 2px;
+        color: @submenuTextColor;
+        border: none;
       }
-      padding: 4px 8px;
-//        border-bottom: 1px solid @borderColor !important;
-      background-color: white;
-      border-radius: 2px;
-      color: @submenuTextColor;
-      border: none;
     }
   }
+  .activity-patient-content {
+    border: 1px solid @borderColor;
+    .spaced;
+  }
 }
-.activity-patient-content {
-  border: 1px solid @borderColor;
-  .spaced;
+
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 32px;
+  background-color: #BA6049;
+  text-align: center;
+  color: white;
+  font-size: 21px;
 }
-}
+

@@ -6,8 +6,10 @@
   right: 0;
   overflow: auto;
   background-color: white;
-  top: 60px;
   border-right: 1px solid #dbe1e3;
+}
+.main-loggedin {
+  top: 60px;
 }
 .main-submenubar {
   top: 120px;
@@ -245,6 +247,17 @@ Styleguide 2.1.3.
   color: #49a9ba;
   padding: 0;
 }
+.label {
+  background-color: white;
+  border: 1px solid #d1907b;
+  color: #d1907b;
+}
+.label:hover {
+  background-color: white;
+}
+.label + .label {
+  margin-left: 2px;
+}
 .padded {
   padding: 14px;
 }
@@ -253,6 +266,9 @@ Styleguide 2.1.3.
 }
 .separated + .separated {
   margin-top: 14px;
+}
+.separated.separated-small + .separated.separated-small {
+  margin-top: 7px;
 }
 .divided + .divided {
   margin-top: 14px;
@@ -282,6 +298,16 @@ Styleguide 2.1.3.
 .nodata {
   color: #949a9c;
 }
+.gallery-item {
+  float: left;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 1px solid red;
+  margin: 0px 14px 14px 0 !important;
+  cursor: pointer;
+}
 .resource {
   /** Height allows for the button */
   min-height: 35px;
@@ -305,8 +331,9 @@ Styleguide 2.1.3.
   border: none;
   padding: 0px;
 }
-.resource.is-editing input[type=text],
-.resource.is-editing textarea {
+.resource input[type=text],
+.resource input[type=password],
+.resource textarea {
   width: 100%;
   box-sizing: border-box;
 }
@@ -373,6 +400,9 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
+.comments {
+  background-color: #f3f6f7;
+}
 .comment {
   background-color: #f3f6f7;
   border-top: 1px solid #dbe1e3;
@@ -392,6 +422,36 @@ html[xmlns] .clearfix {
 .comments-more ::-webkit-input-placeholder {
   color: #949a9c;
 }
+.comment.ng-leave {
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  top: 0px;
+}
+.comment.ng-leave.ng-leave-active {
+  height: 0px;
+  top: -20px;
+  opacity: 0;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.comment.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all 0.1s;
+  transition: 0.1s linear all 0.1s;
+  opacity: 0;
+  position: relative;
+  top: 25px;
+  z-index: 99;
+}
+.comment.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
+  z-index: 99;
+}
 /**
   * An individual activity */
 .activity {
@@ -409,6 +469,10 @@ html[xmlns] .clearfix {
 }
 .activity:hover .mentions a {
   text-decoration: underline;
+  color: #49a9ba !important;
+}
+.activity .activity-diagnosis-name {
+  font-weight: 600;
 }
 .activity .activity-content {
   padding: 14px;
@@ -425,16 +489,22 @@ html[xmlns] .clearfix {
 .activity .activity-group {
   font-size: 12px;
   text-transform: uppercase;
+  color: #798184;
 }
 .activity .activity-group .icon {
   margin-right: 7px;
 }
-.activity-patient h4 {
+.activity-patient-name {
   color: #303334;
   font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 14px;
+}
+.activity-patient-color {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+  top: 2px;
+  border-radius: 100px;
 }
 .activity-patient .activity-patient-more {
   margin-top: 14px;
@@ -467,8 +537,25 @@ html[xmlns] .clearfix {
   border: 1px solid #dbe1e3;
   padding: 14px;
 }
-.activity-diagnosis .activity-diagnosis-name {
-  font-weight: 600;
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 32px;
+  background-color: #BA6049;
+  text-align: center;
+  color: white;
+  font-size: 21px;
+}
+.progress {
+  height: 7px;
+  margin: 0;
+}
+.progress .progress-bar {
+  background-color: #49a9ba;
+}
+.progress .progress-bar-danger {
+  background-color: #24565f;
 }
 /**
   * Activity Adder
@@ -542,10 +629,10 @@ html[xmlns] .clearfix {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
   top: 60px;
   left: auto;
   width: 45%;
+  overflow: auto;
   /**
   Group activity title
   */
@@ -567,11 +654,38 @@ html[xmlns] .clearfix {
 .activities .activities-content {
   padding: 14px;
 }
+.activities-listitem.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 0;
+  position: relative;
+  top: 10px;
+}
+.activities-listitem.ng-enter.is-adding {
+  top: -100px;
+}
+.activities-listitem.ng-enter-stagger,
+.activities-listitem.ng-leave-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.activities-listitem.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
+}
 .label {
   font-weight: 400;
   letter-spacing: 0.5px;
 }
 .submenubar {
+  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: 60px;
 }
@@ -596,8 +710,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  background-color: #D17F7F;
-  color: white;
+  border: 1px solid #d1907b;
+  color: #d1907b;
 }
 /**
  *
@@ -611,60 +725,85 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  position: relative;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  transition: background-color 0.3s;
+  /* When showing an element */
 }
 .menubar.menubar-dark {
-  background-color: #0E2435;
+  background-color: #34707c;
 }
 .menubar .menubar-left {
   float: left;
   height: 60px;
 }
+.menubar .menubar-left.ng-hide-add {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  opacity: 1;
+}
+.menubar .menubar-left.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.menubar .menubar-left.ng-hide-remove {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+  display: block!important;
+  opacity: 0;
+}
+.menubar .menubar-left,
+.menubar .menubar-left.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
 .menubar .menubar-right {
   float: right;
   height: 60px;
 }
-.menubar .menubar-logo {
-  font-size: 21px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.menubar .menubar-logo a {
-  color: white;
-}
-.menubar .menubar-logo .icon {
-  margin-right: 7px;
-}
 .menubar .menubar-notifications {
   font-size: 18px;
 }
-.menubar .menubar-search {
-  position: relative;
-}
-.menubar .menubar-search .icon {
-  position: absolute;
-  top: 22px;
-  left: 35px;
-  color: #5cabba;
-}
-.menubar .menubar-search ::-webkit-input-placeholder {
-  color: #5cabba;
-}
-.menubar .menubar-search input[type=text] {
-  padding: 8px 14px;
-  padding-left: 35px;
-  line-height: 14px;
-  border: none;
-  border-radius: 100px;
+.menubar .typeahead {
+  transition: 0.2s all;
   width: 150px;
-  background-color: #44919f;
-  transition: 0.1s ease-in;
+  border-radius: 100px;
+  position: relative;
+  top: 11px;
+  right: 11px;
+  padding: 0;
+  border: none;
 }
-.menubar .menubar-search input[type=text]:focus {
+.menubar .typeahead.focus {
   width: 300px;
+}
+.menubar .typeahead.focus input[type=text] {
   background-color: white;
+}
+.menubar .typeahead .icon {
+  top: 0px;
+}
+.menubar .typeahead .typeahead-option {
+  padding: 10px;
+  border: 1px solid #dbe1e3;
+  color: #616769;
+}
+.menubar .typeahead .typeahead-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
+}
+.menubar .typeahead input[type=text] {
+  background-color: #398997;
+  color: #49a9ba;
+  border-radius: 100px;
+  padding: 7px 14px;
 }
 .menubar .menubar-item {
   display: inline-block;
@@ -866,6 +1005,7 @@ html[xmlns] .clearfix {
 }
 .user .user-username {
   text-transform: capitalize;
+  font-weight: 600;
 }
 .user .user-username a {
   color: #181919;
@@ -878,14 +1018,14 @@ html[xmlns] .clearfix {
   color: #494d4e;
 }
 .user .user-date {
-  color: #798184;
+  color: #aeb3b5;
 }
 .table {
   border-top: none;
 }
 .table tbody > tr > th {
   background-color: #f4f6f7;
-  font-weight: 400;
+  font-weight: 600;
   border-top: none;
   color: #303334;
 }
@@ -894,6 +1034,9 @@ html[xmlns] .clearfix {
   padding: 6px !important;
   margin: 0px !important;
   vertical-align: middle;
+}
+.table tbody > tr > td a.highlight {
+  color: #49a9ba;
 }
 .table tr:hover.is-editing td {
   background-color: white;
@@ -977,7 +1120,7 @@ html[xmlns] .clearfix {
   left: 0;
   right: 0;
   overflow: auto;
-  background-color: rgba(1, 3, 3, 0.8);
+  background-color: rgba(123, 134, 136, 0.95);
 }
 .gallery .gallery-content {
   position: fixed;
@@ -1087,6 +1230,64 @@ html[xmlns] .clearfix {
 }
 .progress .progress-bar-danger {
   background-color: #24565f;
+}
+.activity-diagnosis .activity-diagnosis-name {
+  font-weight: 600;
+}
+.activity-diagnosis .progress {
+  height: 5px;
+  margin: 0;
+  width: 182px;
+}
+.activity-diagnosis .progress .progress-bar {
+  background-color: #49a9ba;
+}
+.activity-diagnosis .progress .progress-bar-danger {
+  background-color: #24565f;
+}
+.lookup {
+  background-color: blue;
+}
+.lookup input {
+  background-color: red;
+}
+.lookup .lookup-results {
+  background-color: yellow;
+}
+.lookup .lookup-results a {
+  display: block;
+  padding: 14px;
+  background-color: orange;
+}
+.login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #dce2e4;
+}
+.logo {
+  font-size: 21px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.logo.logo-dark {
+  color: #000000;
+}
+.logo.logo-dark a {
+  color: #000000;
+}
+.logo a {
+  color: white;
+}
+.logo a:hover {
+  color: white;
+}
+.logo .icon {
+  margin-right: 7px;
 }
 body {
   background-color: #e1e6e9;
@@ -1211,6 +1412,7 @@ textarea {
     Text inputs and text areas
 */
 input[type=text],
+input[type=password],
 textarea {
   padding: 10px 14px;
 }

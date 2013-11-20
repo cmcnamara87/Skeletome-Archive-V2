@@ -1,12 +1,15 @@
 @import "activity.less";
 @import "adder.less";
 
+@activitiesTransitionTime: 5s;
+
 .activities {
   .panel;
   top: @menubarHeight;
   left: auto;
   width: @activitiesWidth;
 //  border-left: 1px solid @borderColor;
+  overflow: auto;
 
   /**
   Group activity title
@@ -37,3 +40,29 @@
 
 }
 
+.activities-listitem.ng-enter {
+  &.is-adding {
+    top: -100px;
+  }
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity:0;
+  position: relative;
+  top: 10px;
+}
+.activities-listitem.ng-enter-stagger, .activities-listitem.ng-leave-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.activities-listitem.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity:1;
+  top: 0px;
+}

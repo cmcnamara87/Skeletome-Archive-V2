@@ -8,8 +8,9 @@ angular.module('directives.activities.cmActivity.cmActivityPatient', [])
             templateUrl: 'common/activities/cm_activity/cm_activity_patient/cm_activity_patient.tpl.html',
             link: function ($scope, el, tAttrs) {
 
+                $scope.patientInfo = "clinicalSummary";
 
-                $scope.color = '#' + Math.floor((Math.abs(Math.sin($scope.activity.patient.id) * 16777215)) % 16777215).toString(16);
+
 
                 $scope.$watch('patientInfo', function(patientInfo) {
                     "use strict";

@@ -1,11 +1,11 @@
 <div>
     <div ng-show="currentUser">
-        <div class="menubar" ng-show="!content">
+        <div class="menubar" ng-class="{'menubar-dark': content}">
 
-            <div class="menubar-left">
+            <div class="menubar-left" ng-show="!content">
                 <!-- stuff on the left side of the menu bar -->
                 <!-- The logo -->
-                <div class="menubar-item menubar-logo">
+                <div class="menubar-item logo">
                     <a href="#">
                         <i class="icon icon-reorder"></i>
                     </a>
@@ -15,36 +15,22 @@
                 </div>
             </div>
 
-            <div class="menubar-middle">
-                <!-- expands to fill the space between left and right -->
-            </div>
-            <div class="menubar-right">
-                <!-- stuff on the right side of the menu bar -->
-                <!--<div class="menubar-item menubar-notifications">-->
-                    <!--<i class="icon icon-bell"></i>-->
-                <!--</div>-->
-                <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
-                <!--<div class="menubar-item menubar-search">
-                    <input type="text" class="menubar-search" placeholder="Search..."/>
-                    <i class="icon icon-search"></i>
-                </div>-->
-            </div>
-
-        </div>
-
-        <div class="menubar" ng-show="content">
-            <div class="menubar-left">
+            <div class="menubar-left" ng-show="content">
                 <!-- stuff on the left side of the menu bar -->
                 <!-- The logo -->
-                <div class="menubar-item menubar-logo">
+                <div class="menubar-item logo">
                     <a href ng-click="back()">
                         <i class="icon icon-arrow-left"></i>
                     </a>
                     <span ng-show="tab == 'patient'">
+                        <span ng-show="!patient">Loading...</span>
                         <patient-name patient="patient"></patient-name>
                     </span>
                     <span ng-show="tab == 'group'">
                         {{ group.name }}
+                    </span>
+                    <span ng-show="tab == 'user'">
+                        {{ user.name }}
                     </span>
 
                 </div>
@@ -53,33 +39,12 @@
             <div class="menubar-middle">
                 <!-- expands to fill the space between left and right -->
             </div>
+
             <div class="menubar-right">
-                <!-- stuff on the right side of the menu bar -->
-                <!--<div class="menubar-item menubar-notifications">-->
-                    <!--<i class="icon icon-bell"></i>-->
-                <!--</div>-->
                 <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
             </div>
 
-            <!--&lt;!&ndash;<div class="menubar-item menubar-buttongroup pull-right">-->
-                <!--<a class="btn btn-action" href="">Favourite</a>-->
-            <!--</div>&ndash;&gt;-->
-
-            <!--<a class="menubar-item menubar-back pull-right" href ng-click="back()">-->
-                <!--<i class="icon icon-remove"></i>-->
-            <!--</a>-->
-
-            <!--<h1 class="menubar-item menubar-title" ng-show="!patient.first_name && !group.name">-->
-                <!--Loading...-->
-            <!--</h1>-->
-
-            <!--<h1 class="menubar-item menubar-title" ng-show="patient.first_name || group.name">-->
-                <!--{{ patient.fullName() }} {{ group.name }}-->
-            <!--</h1>-->
-
-        </div>
     </div>
-
 </div>
 
 <!--<div class="menubar">-->

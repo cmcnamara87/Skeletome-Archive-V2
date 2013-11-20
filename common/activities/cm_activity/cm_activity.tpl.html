@@ -7,65 +7,63 @@
         - Comment block
     -->
 
-    <div class="white padded" style="background-color: {{  color }}">
-        <div class="divided" ng-if="embedContent">
-            <cm-activity-patient></cm-activity-patient>
-        </div>
+    <div class="white padded">
 
-        <!--<div class="divided" ng-if="embedContent">
-            <a href="#/group/{{ activity.group.id }}" class="activity-group">
-                <i class="icon icon-user-md"></i>
-                 <i class="icon icon-chevron-right"></i> {{ activity.patient.name }} <i class="icon icon-angle-down"></i>
-            </a>
-        </div>-->
+
         <div class="divided">
-            <div class="media">
+            <div class="media user">
                 <div class="pull-left">
-                    <img src="img/shatner.png" alt=""/>
+                    <img src="img/shatner.png" alt="" style="width: 32px;" />
                 </div>
-                <div class="media-body user">
-                    <div class="user-username">
-                        <a href="#/user/{{ activity.user.uid }}">Dr {{ activity.user.name }} </a> <span class="user-date" ng-show="activity.created"> - {{ activity.created | relativedate }}</span>
+                <div class="media-body">
+                    <div class="user-date pull-right" ng-show="activity.created">{{ activity.created | relativedate }}</div>
+                    <div>
+                        <span class="user-username"> {{ activity.user.name }}</span>
+
+                        <span ng-show="activity.post.disorder_id > 0">added a diagnosis to</span>
+                        <span ng-show="activity.post.text.length > 0 && activity.post.disorder_id == 0">wrote on </span>
+                        <span ng-show="activity.type == 'share'">shared </span>
                     </div>
+                    <div class="separated">
+                        <a href="" ng-click="activity.$isShowingPatientInfo = !activity.$isShowingPatientInfo" class="activity-patient-name">{{ activity.patient.name }}</a> in
 
-                    <div class="divided" ng-if="activity.post.text.length">
-                        <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
+                        <a href="#/group/{{ activity.group.id }}/summary">{{ activity.group.name }}</a>
                     </div>
-
-                    <div class="divided" ng-if="activity.post.disorder_id > 0">
-                        <cm-activity-diagnosis diagnosis-post="activity.post"></cm-activity-diagnosis>
-                    </div>
-
-                    <div class="user-info">
-
-                    <!--<span ng-switch on="activity.type">
-                        <span ng-switch-when="post">
-                            <span ng-show="activity.post.disorder_id == 0">
-                                sent a message about <a href="#/patient/{{ activity.patient.id }}">{{ activity.patient.name }}</a> to
-                                <a href="#/group/{{ activity.group.id }}/summary">{{ activity.group.name }}</a>
-                            </span>
-
-                            <span ng-show="activity.post.disorder_id">
-                                added a diagnosis for <a href="#/patient/{{ activity.patient.id }}">{{ activity.patient.name }}</a> in
-                                <a href="#/group/{{ activity.group.id }}/summary">{{ activity.group.name }}</a>
-                            </span>
-                        </span>
-                        <span ng-switch-when="share">
-                            shared <a href="#/patient/{{ activity.patient.id }}/summary">{{ activity.patient.name }}</a> with
-                            <a href="#/group/{{ activity.group.id }}">{{ activity.group.name }}</a>
-
-                        </span>
-                    </span>-->
+                    <div ng-show="activity.$isShowingPatientInfo" class="separated">
+                        <cm-activity-patient></cm-activity-patient>
                     </div>
                 </div>
             </div>
         </div>
 
 
+        <div class="divided" ng-if="activity.post.text.length">
+            <div class="media">
+                <div class="pull-left">
+                    <div class="activity-icon">
+                        <i class="icon icon-comment-alt"></i>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
+                </div>
+            </div>
 
 
+        </div>
+        <div class="divided separated" ng-if="activity.post.disorder_id > 0">
+            <div class="media">
+                <div class="pull-left">
+                    <div class="activity-icon">
+                        <i class="icon icon-stethoscope"></i>
+                    </div>
+                </div>
+                <div class="media-body">
+                    <cm-activity-diagnosis diagnosis-post="activity.post"></cm-activity-diagnosis>
+                </div>
+            </div>
+        </div>
     </div>
-
 
     <cm-comments></cm-comments>
 

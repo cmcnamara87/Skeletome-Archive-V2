@@ -1,39 +1,42 @@
-<div>
-    <div class="login" ng-show="!currentUser">
-        <div >
-            <h1>
-                Login
-                <a class="btn btn-action" href="#/register">Register</a>
-            </h1>
-            <div ng-bind-html-unsafe="error">
+<div class="login">
+    <div ng-show="!currentUser">
+        <div class="smodal">
+            <div class="block">
+                <div class="block-header">
+                    <div class="block-header-buttons">
+                        <a class="btn btn-action" href="#/register">Register</a>
+                    </div>
+                    <div class="logo logo-dark">
+                        <i class="icon icon-reorder"></i>
+                        Archive
+                    </div>
+                </div>
+                <div class="block-content">
+                    <div ng-bind-html="error">
+                    </div>
 
+                    <div class="resource">
+                        <div class="resource-block">
+                            <h3 class="resource-block-heading">
+                                Email
+                            </h3>
+                            <input type="text" ng-model="credentials.mail" class="full-width" placeholder="Enter your email address"/>
+                        </div>
+                        <div class="resource-block">
+                            <h3 class="resource-block-heading">
+                                Password
+                            </h3>
+                            <input type="password" ng-model="credentials.password" class="full-width" placeholder="Enter your password" />
+                        </div>
+                        <div class="resource-block media-body">
+                            <button class="btn btn-action btn-action-selected pull-right" ng-click="login(credentials)">Login</button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <table class="sform">
-                <tr class="sform-row">
-                    <td class="sform-label"><label>Email Address</label></td>
-                    <td>
-                        <input type="text" ng-model="credentials.mail" class="full-width"/>
-                    </td>
-                </tr>
-                <tr class="sform-row">
-                    <td class="sform-label"><label >Password</label></td>
-                    <td>
-                        <input type="password" ng-model="credentials.password" class="full-width" />
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-
-                    </td>
-                    <td>
-                        <button class="btn btn-action btn-action-selected" ng-click="login(credentials)">Login</button>
-                    </td>
-                </tr>
-            </table>
-
-
         </div>
+
     </div>
 
 

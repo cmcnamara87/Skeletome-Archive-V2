@@ -1,6 +1,6 @@
 angular.module('directives.input.cmResource', [])
 
-    .directive('cmResource', ['$parse', function ($parse) {
+    .directive('cmResource', ['$parse', '$timeout', function ($parse, $timeout) {
         return {
             restrict: 'A',
             transclude: true,
@@ -99,16 +99,18 @@ angular.module('directives.input.cmResource', [])
 
 
 
+                    "use strict";
                     scope.$watch(tAttrs.cmResource + ".id", function(id, oldId) {
                         if(!id) {
-                            console.log("no id, editing is true");
                             scope.$edit();
-                        }
-//                        if(!oldId && id) {
+                        } else {
+                            console.log("has an iD");
 //                            scope.$cancel();
-//                        }
+                        }
+                    });
 
-                    })
+
+
 
                     scope.$remove = function() {
                         // no id, remove the element

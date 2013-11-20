@@ -1,7 +1,7 @@
 angular.module('directives.navigation.menubar', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('menubar', ['$timeout', '$location', '$window', 'PatientModel', 'GroupModel', function ($timeout, $location, $window, PatientModel, GroupModel) {
+    .directive('menubar', ['$timeout', '$location', '$window', 'PatientModel', 'GroupModel', 'UserModel', function ($timeout, $location, $window, PatientModel, GroupModel, UserModel) {
 
         return {
             restrict: 'E',
@@ -37,7 +37,7 @@ angular.module('directives.navigation.menubar', [])
                     if(!oldParts || parts[1] != oldParts[1] || parts[2] != oldParts[2]) {
                         $scope.tab = parts[1];
 
-                        if($scope.tab == "patient" || $scope.tab == "group") {
+                        if($scope.tab == "patient" || $scope.tab == "group" || $scope.tab == "user") {
                             // its a patient, show the dark menu
 
                             $scope.id = parts[2];
@@ -45,13 +45,13 @@ angular.module('directives.navigation.menubar', [])
                             if($scope.tab == "patient") {
                                 // load the patient
                                 $scope.content = true;
-                                $scope.patient = PatientModel.get({id: $scope.id}, function() {
-
-                                });
+                                $scope.patient = PatientModel.get({id: $scope.id});
+                            } else if($scope.tab == "group") {
+                                $scope.content = true;
+                                $scope.group = GroupModel.get({id: $scope.id});
                             } else {
                                 $scope.content = true;
-                                $scope.group = GroupModel.get({id: $scope.id}, function() {
-                                });
+                                $scope.user = UserModel.get({uid: $scope.id});
                             }
                         } else {
                             $scope.content = false;

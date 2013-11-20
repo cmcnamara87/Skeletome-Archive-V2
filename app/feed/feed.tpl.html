@@ -8,22 +8,25 @@
 <div class="feed">
     <div class="container">
         <div class="row">
+            <div class="col-md-12" ng-show="isLoading" style="text-align: center">
+                <i class="icon-spin icon-refresh"></i>
+            </div>
             <div class="col-md-12" ng-show="activites.length == 0">
                 No activities found.
             </div>
 
-            <div class="col-md-8">
-                <div ng-repeat="activity in activities">
-                    <cm-activity embed-content="true"></cm-activity>
-                </div>
-                <!--<div ng-repeat="activity in activitiesEven">-->
+            <div class="col-md-6">
+                <!--<div ng-repeat="activity in activities">-->
                     <!--<cm-activity embed-content="true"></cm-activity>-->
                 <!--</div>-->
-            </div>
-            <div class="col-md-4">
-                <!--<div ng-repeat="activity in activitiesOdd">
+                <div ng-repeat="activity in activitiesEven" class="activities-listitem">
                     <cm-activity embed-content="true"></cm-activity>
-                </div>-->
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div ng-repeat="activity in activitiesOdd" class="activities-listitem">
+                    <cm-activity embed-content="true"></cm-activity>
+                </div>
             </div>
         </div>
     </div>

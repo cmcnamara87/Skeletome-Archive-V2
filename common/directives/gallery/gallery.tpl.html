@@ -6,6 +6,8 @@
         </div>
         <div class="gallery-description">
             <div class="gallery-stuff">
+                <h2>{{ image.name }}</h2>
+
                 <div cm-resource="image">
                     <cm-display>
                         <div class="resource-controls">
@@ -13,7 +15,6 @@
                         </div>
                         <div class="resource-block resource-block-has-buttons">
                             <!--<img ng-src="{{ image.thumb_url }}" alt="{{ image.name }}" gallery="images" gallery-index="{{ $index }}">-->
-                            <h2>{{ image.name }}</h2>
                             {{ image.description }}
                         </div>
                     </cm-display>

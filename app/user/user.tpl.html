@@ -1,3 +1,42 @@
+<div class="page">
+    <div class="page-top">
+        <div class="page-top-buttons">
+            <button class="btn btn-action" ng-click="logout()">Logout</button>
+        </div>
+        <h1>{{ user.name }}</h1>
+    </div>
+</div>
 <div>
-    <a class="btn btn-action" href ng-click="logout()">Logout</a>
+    <div class="block">
+        <div class="block-header">
+            <h2>Information</h2>
+        </div>
+        <div class="block-content resource">
+            <div class="resource-block">
+                <h3 class="resource-block-heading">
+                    Email
+                </h3>
+                {{ user.mail }}
+            </div>
+            <div class="resource-block">
+                <h3 class="resource-block-heading">
+                    Roles
+                </h3>
+                <div ng-repeat="role in user.roles">
+                    {{ role }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="block">
+        <div class="block-header">
+            <h2>Memberships</h2>
+        </div>
+        <div class="block-content">
+            <div ng-repeat="membership in memberships">
+                <a href="#/group/{{ membership.group.id }}/summary"></a>{{ membership.group.name }}
+            </div>
+        </div>
+    </div>
 </div>

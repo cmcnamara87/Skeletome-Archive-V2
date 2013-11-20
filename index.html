@@ -41,8 +41,8 @@
         <sidemenu></sidemenu>
 
 
-        <div class="main" ng-class="{'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
-            <div ng-view></div>
+        <div class="main" ng-class="{'main-loggedin': currentUser, 'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
+            <div ng-view class="main-view"></div>
         </div>
     </div>
 

@@ -15,8 +15,6 @@ angular.module('login', ['security'])
             templateUrl:'app/login/logout.tpl.html',
             controller:'LogoutCtrl'
         });
-
-
     }])
 
     .controller('LoginCtrl', ['$scope', 'AuthService', 'SessionService', function ($scope, AuthService, SessionService) {

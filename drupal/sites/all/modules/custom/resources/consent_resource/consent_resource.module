@@ -29,11 +29,11 @@ class ConsentFileController extends EntityAPIController {
 
 
 function consentfile_load($id, $reset = FALSE) {
-    $consent = consentfile_load_multiple(array($id), array(), $reset);
-    return $consent ? $consent[$id] : FALSE;
+    return reset(consentfile_load_multiple(array($id), $reset));
 }
 function consentfile_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
-    return entity_load('consentfile', $ids, $conditions, $reset);
+    $consent_files = array_values(entity_load('consentfile', $ids, $conditions, $reset));
+    return $consent_files;
 }
 function consentfile_save($entity) {
     entity_save('consentfile', $entity);

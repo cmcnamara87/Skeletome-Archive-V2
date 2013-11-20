@@ -6,6 +6,9 @@
   right: 0;
   overflow: auto;
   background-color: white;
+  border-right: 1px solid #dbe1e3;
+}
+.main-loggedin {
   top: 60px;
 }
 .main-submenubar {
@@ -35,6 +38,12 @@
 .feed {
   padding: 14px 0px;
   background-color: #dce2e4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
 }
 .submenubar {
   position: fixed;
@@ -65,8 +74,8 @@
   border-bottom: 1px solid #dbe1e3;
   padding: 14px;
   border-top: none;
-  margin-bottom: 7px;
   padding-top: 0;
+  padding-bottom: 0px;
   position: relative;
   background-color: white;
   height: 40px;
@@ -187,6 +196,10 @@ Styleguide 2.1.3.
   background-color: #ebf2f7;
   -webkit-box-shadow: none;
 }
+.btn-action:focus {
+  color: #49a9ba;
+  box-shadow: 0px 0px 5px #49a9ba;
+}
 .btn-action.btn-action-selected {
   background-color: #49a9ba;
   border: 1px solid #49a9ba;
@@ -198,6 +211,7 @@ Styleguide 2.1.3.
 .btn-action.btn-action-selected:focus {
   background-color: #6ebac8;
   border: 1px solid #6ebac8;
+  color: white;
 }
 .btn-action.btn-action-selected:active {
   background-color: #398997;
@@ -220,8 +234,79 @@ Styleguide 2.1.3.
   top: 10px;
   left: 5px;
 }
+.dropdown-menu > li > a {
+  text-decoration: none !important;
+  color: #49a9ba;
+}
+.dropdown-menu > li > a:hover {
+  color: white !important;
+  text-decoration: none;
+  background-color: #49a9ba !important;
+}
+.btn-link {
+  color: #49a9ba;
+  padding: 0;
+}
+.label {
+  background-color: white;
+  border: 1px solid #d1907b;
+  color: #d1907b;
+}
+.label:hover {
+  background-color: white;
+}
+.label + .label {
+  margin-left: 2px;
+}
+.padded {
+  padding: 14px;
+}
+.white {
+  background-color: white;
+}
+.separated + .separated {
+  margin-top: 14px;
+}
+.separated.separated-small + .separated.separated-small {
+  margin-top: 7px;
+}
+.divided + .divided {
+  margin-top: 14px;
+  border-top: 1px solid #cdd5d8;
+  padding-top: 14px;
+}
+/*
+.box {
+  padding: @defaultSpace;
+}
+  .box-element+.box-element {
+    margin-top: @defaultSpace;
+  }
+.border {
+  border: 1px solid @borderColor;
+  margin: @defaultSpace;
+  background-color: white;
+}
+.border+.border {
+  border-top: none;
+  margin-top: none;
+}
+
+.box .border {
+  margin: 0px;
+}*/
 .nodata {
   color: #949a9c;
+}
+.gallery-item {
+  float: left;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 1px solid red;
+  margin: 0px 14px 14px 0 !important;
+  cursor: pointer;
 }
 .resource {
   /** Height allows for the button */
@@ -246,8 +331,9 @@ Styleguide 2.1.3.
   border: none;
   padding: 0px;
 }
-.resource.is-editing input[type=text],
-.resource.is-editing textarea {
+.resource input[type=text],
+.resource input[type=password],
+.resource textarea {
   width: 100%;
   box-sizing: border-box;
 }
@@ -265,27 +351,6 @@ Styleguide 2.1.3.
 .resource .resource-block.resource-block-has-buttons {
   margin-right: 80px;
 }
-.resource .resource-block .resource-block-heading {
-  font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 7px;
-  text-transform: uppercase;
-  color: #49a9ba;
-}
-.resource .resource-block label.label-top {
-  display: block;
-  width: 100%;
-}
-.resource .resource-block label.label-right {
-  padding-right: 14px;
-  margin-bottom: 0;
-  color: #616769;
-  font-weight: normal;
-}
-.resource .resource-block label.label-right input {
-  margin-right: 5px;
-}
 .resource .resource-block .resource-block-element {
   margin-bottom: 14px;
 }
@@ -294,6 +359,26 @@ Styleguide 2.1.3.
 }
 .resource .resource-block .resource-block-clinsum {
   line-height: 28px;
+}
+.label-top,
+.resource-block-heading {
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  color: #49a9ba;
+}
+.label-right {
+  padding-right: 14px;
+  margin-bottom: 0;
+  color: #616769;
+  font-weight: normal;
+}
+.label-right input {
+  margin-right: 5px;
 }
 .resource + .resource {
   margin-top: 28px;
@@ -351,6 +436,7 @@ html[xmlns] .clearfix {
 }
 .activity:hover .mentions a {
   text-decoration: underline;
+  color: #49a9ba !important;
 }
 .activity .activity-content {
   padding: 14px;
@@ -367,16 +453,22 @@ html[xmlns] .clearfix {
 .activity .activity-group {
   font-size: 12px;
   text-transform: uppercase;
+  color: #798184;
 }
 .activity .activity-group .icon {
   margin-right: 7px;
 }
-.activity-patient h4 {
+.activity-patient .activity-patient-name {
   color: #303334;
   font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 14px;
+}
+.activity-patient .activity-patient-color {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+  top: 2px;
+  border-radius: 100px;
 }
 .activity-patient .activity-patient-more {
   margin-top: 14px;
@@ -412,15 +504,15 @@ html[xmlns] .clearfix {
 /**
   * Activity Adder
   */
-.activity-adder .activity-adder-tabs {
-  padding: 0;
+.adder-tabs {
   margin: 0;
+  padding: 0;
 }
-.activity-adder .activity-adder-tabs li {
+.adder-tabs li {
   display: inline-block;
   list-style: none;
 }
-.activity-adder .activity-adder-tabs .activity-adder-tab {
+.adder-tabs .adder-tab {
   position: relative;
   top: 1px;
   padding: 10px 14px;
@@ -429,11 +521,51 @@ html[xmlns] .clearfix {
   border: 1px solid #f2f5f6;
   border: none;
 }
-.activity-adder .activity-adder-tabs .activity-adder-tab.active {
+.adder-tabs .adder-tab.active {
   background-color: white;
   z-index: 1;
   border: 1px solid #dbe1e3;
   border-bottom: 0;
+}
+.adder-content {
+  margin-top: 0px;
+}
+.adder-to {
+  border: 1px solid #dbe1e3;
+}
+.adder-to input[type=text] {
+  box-sizing: border-box;
+  width: 100%;
+  border: none;
+}
+.adder-to-selected {
+  padding: 14px 14px 0 14px;
+}
+.adder-to-options {
+  border-top: 1px solid #dbe1e3;
+  max-height: 300px;
+  overflow: auto;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.adder-to-option {
+  display: block;
+  padding: 10px;
+}
+.adder-to-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
+}
+.adder-to-option label {
+  font-weight: normal;
+}
+.adder-to-option input {
+  margin-right: 7px;
+}
+.adder-to-option + .adder-to-option {
+  border-top: 1px solid #dbe1e3;
 }
 .activities {
   position: fixed;
@@ -441,21 +573,24 @@ html[xmlns] .clearfix {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
   top: 60px;
   left: auto;
   width: 45%;
-  border-left: 1px solid #dbe1e3;
+  overflow: auto;
+  overflow-y: hidden;
   /**
   Group activity title
   */
 }
 .activities .activities-title {
+  border-bottom: 1px solid #dbe1e3;
+}
+.activities .activities-title h2 {
   font-size: 21px;
-  font-weight: 300px;
+  font-weight: 400;
   margin: 0;
   color: #616769;
-  margin-bottom: 21px;
+  margin-bottom: 0;
 }
 .activities .activities-adder {
   padding: 14px;
@@ -464,11 +599,38 @@ html[xmlns] .clearfix {
 .activities .activities-content {
   padding: 14px;
 }
+.activities-listitem.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 0;
+  position: relative;
+  top: 10px;
+}
+.activities-listitem.ng-enter.is-adding {
+  top: -100px;
+}
+.activities-listitem.ng-enter-stagger,
+.activities-listitem.ng-leave-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.activities-listitem.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
+}
 .label {
   font-weight: 400;
   letter-spacing: 0.5px;
 }
 .submenubar {
+  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: 60px;
 }
@@ -492,9 +654,9 @@ html[xmlns] .clearfix {
   color: #949a9c;
   border-radius: 100px;
 }
-.submenubar .submenubar-item.active {
-  background-color: #49a9ba;
-  color: white;
+.submenubar .submenubar-item.selected {
+  border: 1px solid #d1907b;
+  color: #d1907b;
 }
 /**
  *
@@ -508,61 +670,85 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  overflow: hidden;
-  position: relative;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  transition: background-color 0.3s;
+  /* When showing an element */
 }
 .menubar.menubar-dark {
-  background-color: #0E2435;
+  background-color: #34707c;
 }
 .menubar .menubar-left {
   float: left;
   height: 60px;
 }
+.menubar .menubar-left.ng-hide-add {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  opacity: 1;
+}
+.menubar .menubar-left.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.menubar .menubar-left.ng-hide-remove {
+  -webkit-transition: 0.3s linear all;
+  -moz-transition: 0.3s linear all;
+  -o-transition: 0.3s linear all;
+  transition: 0.3s linear all;
+  /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+  display: block!important;
+  opacity: 0;
+}
+.menubar .menubar-left,
+.menubar .menubar-left.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
 .menubar .menubar-right {
   float: right;
   height: 60px;
 }
-.menubar .menubar-logo {
-  font-size: 21px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.menubar .menubar-logo a {
-  color: white;
-}
-.menubar .menubar-logo .icon {
-  margin-right: 7px;
-}
 .menubar .menubar-notifications {
   font-size: 18px;
 }
-.menubar .menubar-search {
-  position: relative;
-}
-.menubar .menubar-search .icon {
-  position: absolute;
-  top: 22px;
-  left: 35px;
-  color: #5cabba;
-}
-.menubar .menubar-search ::-webkit-input-placeholder {
-  color: #5cabba;
-}
-.menubar .menubar-search input[type=text] {
-  padding: 8px 14px;
-  padding-left: 35px;
-  line-height: 14px;
-  border: none;
-  border-radius: 100px;
+.menubar .typeahead {
+  transition: 0.2s all;
   width: 150px;
-  background-color: #44919f;
-  transition: 0.1s ease-in;
+  border-radius: 100px;
+  position: relative;
+  top: 11px;
+  right: 11px;
+  padding: 0;
+  border: none;
 }
-.menubar .menubar-search input[type=text]:focus {
+.menubar .typeahead.focus {
   width: 300px;
+}
+.menubar .typeahead.focus input[type=text] {
   background-color: white;
+}
+.menubar .typeahead .icon {
+  top: 0px;
+}
+.menubar .typeahead .typeahead-option {
+  padding: 10px;
+  border: 1px solid #dbe1e3;
+  color: #616769;
+}
+.menubar .typeahead .typeahead-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
+}
+.menubar .typeahead input[type=text] {
+  background-color: #398997;
+  color: #49a9ba;
+  border-radius: 100px;
+  padding: 7px 14px;
 }
 .menubar .menubar-item {
   display: inline-block;
@@ -601,6 +787,10 @@ html[xmlns] .clearfix {
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
+}
+.lookup-results {
+  position: absolute;
+  z-index: 99;
 }
 .menubar-user {
   float: right;
@@ -704,6 +894,7 @@ html[xmlns] .clearfix {
 */
 .typeahead-options-wrapper {
   position: relative;
+  z-index: 99999;
 }
 .typeahead-options {
   position: absolute;
@@ -778,7 +969,7 @@ html[xmlns] .clearfix {
 }
 .table tbody > tr > th {
   background-color: #f4f6f7;
-  font-weight: 400;
+  font-weight: 600;
   border-top: none;
   color: #303334;
 }
@@ -787,6 +978,9 @@ html[xmlns] .clearfix {
   padding: 6px !important;
   margin: 0px !important;
   vertical-align: middle;
+}
+.table tbody > tr > td a.highlight {
+  color: #49a9ba;
 }
 .table tr:hover.is-editing td {
   background-color: white;
@@ -817,6 +1011,9 @@ html[xmlns] .clearfix {
   float: right;
   position: relative;
   top: 0px;
+}
+.page .page-top .page-top-buttons button + button {
+  margin-left: 7px;
 }
 .resource.ng-enter,
 .resource.ng-leave,
@@ -867,7 +1064,7 @@ html[xmlns] .clearfix {
   left: 0;
   right: 0;
   overflow: auto;
-  background-color: rgba(1, 3, 3, 0.8);
+  background-color: rgba(123, 134, 136, 0.95);
 }
 .gallery .gallery-content {
   position: fixed;
@@ -907,6 +1104,134 @@ html[xmlns] .clearfix {
   bottom: 0;
   margin: auto;
   width: 100%;
+}
+/*
+    A modal box
+*/
+.smodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  background-color: white;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  z-index: 2000;
+  border-radius: 3px;
+  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
+  border: 1px solid #dbe1e3;
+  padding: 21px;
+}
+/*
+    The overlay that sits behind the modal box
+*/
+.smodal-overlay {
+  position: fixed;
+  background-color: black;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+.smodal-block + .smodal-block {
+  margin-top: 14px;
+}
+/*
+    The title of the modal overlay
+*/
+.smodal-title {
+  font-weight: 300;
+  font-size: 28px;
+  margin-bottom: 28px;
+}
+.smodal-buttons {
+  overflow: hidden;
+}
+.smodal-buttons button {
+  margin-left: 7px;
+}
+.smodal-block-element {
+  margin-bottom: 14px;
+}
+.smodal-block-element input[type=text],
+.smodal-block-element textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+.smodal-block-element.smodal-block-element:last-of-type {
+  margin-bottom: 0px;
+}
+.progress {
+  height: 15px;
+  margin: 0;
+}
+.progress .progress-bar {
+  background-color: #49a9ba;
+}
+.progress .progress-bar-danger {
+  background-color: #24565f;
+}
+.activity-diagnosis .activity-diagnosis-name {
+  font-weight: 600;
+}
+.activity-diagnosis .progress {
+  height: 5px;
+  margin: 0;
+  width: 182px;
+}
+.activity-diagnosis .progress .progress-bar {
+  background-color: #49a9ba;
+}
+.activity-diagnosis .progress .progress-bar-danger {
+  background-color: #24565f;
+}
+.lookup {
+  background-color: blue;
+}
+.lookup input {
+  background-color: red;
+}
+.lookup .lookup-results {
+  background-color: yellow;
+}
+.lookup .lookup-results a {
+  display: block;
+  padding: 14px;
+  background-color: orange;
+}
+.login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #dce2e4;
+}
+.logo {
+  font-size: 21px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.logo.logo-dark {
+  color: #000000;
+}
+.logo.logo-dark a {
+  color: #000000;
+}
+.logo a {
+  color: white;
+}
+.logo a:hover {
+  color: white;
+}
+.logo .icon {
+  margin-right: 7px;
 }
 body {
   background-color: #e1e6e9;
@@ -1031,6 +1356,7 @@ textarea {
     Text inputs and text areas
 */
 input[type=text],
+input[type=password],
 textarea {
   padding: 10px 14px;
 }
@@ -1066,58 +1392,6 @@ textarea.full-width {
   float: right;
   position: relative;
   top: -7px;
-}
-/*
-    A modal box
-*/
-.smodal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 50%;
-  max-width: 630px;
-  min-width: 320px;
-  height: auto;
-  background-color: white;
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  z-index: 2000;
-  border-radius: 3px;
-  box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
-  border: 1px solid #dbe1e3;
-}
-/*
-    The overlay that sits behind the modal box
-*/
-.smodal-overlay {
-  position: fixed;
-  background-color: black;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background-color: rgba(242, 246, 247, 0.72);
-}
-/*
-    The title of the modal overlay
-*/
-.smodal-title {
-  padding: 28px 21px;
-  font-weight: 300;
-  font-size: 28px;
-}
-.smodal-description {
-  padding: 0px 21px;
-}
-.smodal-content {
-  padding: 21px 21px 0 21px;
-}
-.smodal-buttons {
-  padding: 1px 21px 21px 21px;
-  overflow: hidden;
-}
-.smodal-buttons button {
-  margin-left: 7px;
 }
 .votebox {
   margin-bottom: 7px;
@@ -1251,12 +1525,12 @@ Styleguide 2.1.3.
   display: inline-block;
   margin-right: 1px;
   margin-bottom: 2px;
-  height: 28px;
-  width: 28px;
+  height: 14px;
+  width: 14px;
   text-align: center;
   box-sizing: border-box;
   color: white;
-  border-radius: 28px;
+  border-radius: 3px;
   font-size: 14px;
   line-height: 28px;
 }
@@ -1489,4 +1763,7 @@ Styleguide 2.1.3.
   color: #3e4a55;
   padding: 2px 10px;
   padding-left: 7px;
+}
+.cke_top {
+  transition: 10s all;
 }

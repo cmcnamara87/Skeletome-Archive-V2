@@ -108,6 +108,8 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                 $scope.addPost = function(newPost) {
 
+                    $scope.isAdding = true;
+
                     angular.forEach(newPost.to, function(share, shareIndex) {
 
                         var newSharePost = angular.copy(newPost);

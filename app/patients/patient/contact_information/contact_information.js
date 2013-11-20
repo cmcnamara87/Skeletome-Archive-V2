@@ -30,62 +30,33 @@ angular.module('patient.contact_information', [])
                     return defer.promise;
                 }],
                 addresses: ['AddressModel', '$route', '$q', function(AddressModel, $route, $q) {
-                    var defer = $q.defer();
-
-                    var addresses = AddressModel.index({
+                    return AddressModel.index({
                         patient_id: $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(addresses);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }],
                 identifiers: ['IdentifierModel', '$route', '$q', function(IdentifierModel, $route, $q) {
-                    var defer = $q.defer();
-
-                    var identifiers = IdentifierModel.index({
+                    return IdentifierModel.index({
                         patient_id: $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(identifiers);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }],
                 consentFiles: ['ConsentFileModel', '$route', '$q', function(ConsentFileModel, $route, $q) {
-                    var defer = $q.defer();
-
-                    var consentFiles = ConsentFileModel.index({
+                    return ConsentFileModel.index({
                         'patient_id': $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(consentFiles);
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }],
                 shares: ['ShareModel', '$route', '$q', function(ShareModel, $route, $q) {
-                    var defer = $q.defer();
-
-                    var shares = ShareModel.index({
+                    return ShareModel.index({
                         patient_id: $route.current.params.patient_id
-                    }, function() {
-                        defer.resolve(shares);
-                    }, function() {
-                        defer.reject();
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }]
             }
         });
     }])
 
     .controller('ContactInformationCtrl',
-        ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'fileUploadUrl', 'AddressModel', 'IdentifierModel', 'ConsentFileModel',
-            function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, fileUploadUrl, AddressModel, IdentifierModel, ConsentFileModel) {
+        ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'fileUploadUrl', 'AddressModel', 'IdentifierModel', 'ConsentFileModel', 'ShareModel', 'GroupModel',
+            function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, fileUploadUrl, AddressModel, IdentifierModel, ConsentFileModel, ShareModel, GroupModel) {
+
 
         $scope.patient = patient;
         $scope.addresses = addresses;
@@ -141,6 +112,31 @@ angular.module('patient.contact_information', [])
         }
         $scope.removeConsentFile = function(consentFile) {
             var index = $scope.consentFiles.indexOf(consentFile);
-            $scope.consentFiles.splice(consentFile, 1);
+            $scope.consentFiles.splice(index, 1);
+        }
+
+
+        $scope.addShare = function() {
+            "use strict";
+            var newShare = new ShareModel({
+                patient_id: $scope.patient.id
+            });
+            $scope.shares.unshift(newShare);
+        }
+        $scope.findGroup = function(groupName) {
+            "use strict";
+            return GroupModel.index({
+                name: groupName
+            }).$promise;
+        }
+        $scope.groupChosen = function(group, share) {
+            "use strict";
+            share.group_id = group.id;
+            share.name = group.name;
+        }
+        $scope.removeShare = function(share) {
+            "use strict";
+            var index = $scope.shares.indexOf(share);
+            $scope.shares.splice(index, 1);
         }
     }]);
