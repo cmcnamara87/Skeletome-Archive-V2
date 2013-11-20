@@ -119,7 +119,7 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
                 $ids = array_keys($result['diagnosis']);
                 $patient->diagnoses = diagnosis_load_multiple($ids);
             } else {
-                $patient->diagnoses = [];
+                $patient->diagnoses = array();;
             }
 
             unset($patient->clinical_summary);
