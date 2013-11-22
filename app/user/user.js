@@ -5,10 +5,6 @@ angular.module('user', [])
             templateUrl: 'app/user/user.tpl.html',
             controller: 'UserCtrl',
             resolve: {
-                user: function(UserModel, $route) {
-                    "use strict";
-                    return UserModel.get({'uid': $route.current.params.uid});
-                },
                 memberships: function(MembershipModel, $route) {
                     "use strict";
                     return MembershipModel.index({'user_id': $route.current.params.uid}).$promise;
@@ -17,12 +13,21 @@ angular.module('user', [])
         });
     }])
 
-    .controller('UserCtrl', ['$scope', 'AuthService', 'user', 'memberships', function ($scope, AuthService, user, memberships) {
-        $scope.user = user;
+    .controller('UserCtrl', ['$scope', 'AuthService', 'SessionService', 'memberships', 'fileUploadUrl',
+        function ($scope, AuthService, SessionService, memberships, fileUploadUrl) {
+        $scope.user = SessionService.currentUser;
         $scope.memberships = memberships;
+        console.log("fileUploadUrl", fileUploadUrl);
+        $scope.fileUploadUrl = fileUploadUrl;
 
         $scope.logout = function() {
             AuthService.logout();
+        }
+
+        $scope.profilePictureUploaded = function(file, user) {
+            "use strict";
+            // we have the file, add it to the user
+            user.$setPicture(file);
         }
 
     }]);

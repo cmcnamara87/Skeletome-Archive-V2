@@ -3,40 +3,21 @@ angular.module('feed', [])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/feed', {
             templateUrl: 'app/feed/feed.tpl.html',
-            controller: 'FeedCtrl',
-            resolve: {
-//                activities: ['ActivityModel', 'SessionService', '$q', function (ActivityModel, SessionService, $q) {
-//                    var defer = $q.defer();
-//
-//                    if(angular.isDefined(SessionService.currentUser)) {
-//                        ActivityModel.query({
-//                            user_id: SessionService.currentUser.uid,
-//                            embed: 1
-//                        }).$promise.then(function(activities) {
-//                                "use strict";
-//                                defer.resolve(activities);
-//                            });
-//                    } else {
-//                        defer.reject();
-//                    }
-//
-//
-//                    return defer.promise;
-//                }]
-            }
+            controller: 'FeedCtrl'
         });
     }])
 
-    .controller('FeedCtrl', ['$scope', '$location', '$rootScope', 'ActivityModel', 'SessionService', function ($scope, $location, $rootScope, ActivityModel, SessionService) {
-//        $scope.patients = patients;
+    .controller('FeedCtrl', ['$scope', '$location', '$rootScope', 'ActivityModel', 'SessionService',
+        function ($scope, $location, $rootScope, ActivityModel, SessionService) {
 
         $scope.isLoading = true;
 
         // Load all patients
-        ActivityModel.query({
-            user_id: SessionService.currentUser.uid,
-            embed: 1
-        }).$promise.then(function(activities) {
+        if(SessionService.currentUser) {
+            ActivityModel.query({
+                user_id: SessionService.currentUser.uid,
+                embed: 1
+            }).$promise.then(function(activities) {
                 "use strict";
                 $scope.activities = activities;
                 $scope.isLoading = false;
@@ -48,7 +29,9 @@ angular.module('feed', [])
                         $scope.activitiesEven.push(activity);
                     }
                 });
-            }); //[activities[0]];
+            });
+        }
+
 
         // We need to split the activities into even and odd
         // just to fill in the 2 columns easily
@@ -56,6 +39,8 @@ angular.module('feed', [])
 
         $scope.activitiesOdd = [];
         $scope.activitiesEven = [];
+
+
 
 
 //        console.log("activities are ", activities);

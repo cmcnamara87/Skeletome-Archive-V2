@@ -1,28 +1,25 @@
 <div class="sidebar" ng-show="showSidemenu">
     <div class="sidebar-box">
+
         <div class="media">
             <div class="pull-left">
-                <img src="img/shatner.png" alt="">
+                <img class="user-picture user-picture-large" ng-src="{{ currentUser.picture.url }}" alt="">
             </div>
             <div class="media-body user">
-                <div class="user-username">
-                    <a href="#/user/{{ currentUser.uid }}">Dr {{ currentUser.name }}</a>
-                </div>
+                <a href="#/user/{{ currentUser.uid }}" class="user-username sidebar-menu-item" menu-item>
+                    Dr {{ currentUser.name }}
+                </a>
                 <div class="user-userinfo">
-                    {{ currentUser.created }}
+                    {{ currentUser.created | relativedate }}
                 </div>
             </div>
         </div>
+
+
     </div>
 
     <div class="sidebar-box ">
         <ul class="sidebar-menu">
-            <li>
-                <a href="#/feed" class="sidebar-menu-item" menu-item>
-                    <i class="icon icon-list icon-fixed-width"></i>
-                    Newsfeed
-                </a>
-            </li>
             <li>
                 <a href="#/patients/my-patients" class="sidebar-menu-item" menu-item>
                     <i class="icon icon-user icon-fixed-width"></i>
@@ -46,6 +43,12 @@
 
     <div class="sidebar-box">
         <ul class="sidebar-menu">
+            <li>
+                <a href="#/feed" class="sidebar-menu-item" menu-item>
+                    <i class="icon icon-list icon-fixed-width"></i>
+                    Newsfeed
+                </a>
+            </li>
             <li>
                 <a href="#/groups/my-groups" class="sidebar-menu-item" menu-item>
                     <i class="icon icon-user-md icon-fixed-width"></i>

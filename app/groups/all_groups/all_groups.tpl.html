@@ -6,7 +6,10 @@
             </div>
             <h1>All Groups</h1>
         </div>
-        <table class="table">
+        <div class="nodata">
+            No groups found.
+        </div>
+        <table class="table" ng-show="groups.length">
             <tr>
                 <th>Name</th>
                 <th>Description</th>

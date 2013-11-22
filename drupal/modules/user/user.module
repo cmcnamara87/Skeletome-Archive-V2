@@ -288,8 +288,10 @@ function user_external_load($authname) {
  * @todo Remove $conditions in Drupal 8.
  */
 function user_load_multiple($uids = array(), $conditions = array(), $reset = FALSE) {
-    // todo: wtf is going on here! FIND OUT
     $results = array_values(entity_load('user', $uids, $conditions, $reset));
+    foreach($results as &$user) {
+        $user->id = $user->uid;
+    }
   return $results;
 }
 

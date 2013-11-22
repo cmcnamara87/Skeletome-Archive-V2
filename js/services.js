@@ -27,6 +27,7 @@ myApp.services.factory('baseUrl', function() {
 });
 
 myApp.services.factory('fileUploadUrl', function(baseUrl) {
+    console.log("test");
     return baseUrl + '/drupal/upload';
 });
 myApp.services.factory('recommendTagsUrl', function(baseUrl) {
@@ -55,7 +56,7 @@ myApp.services.factory('apiUrl2', function(baseUrl) {
     return baseUrl + '/drupal/api/';
 });
 
-myApp.services.factory('UserModel', function ($resource, apiUrl, Param) {
+myApp.services.factory('UserModel', function ($resource, apiUrl, Param, $http, apiUrl2) {
 
     var MyResource = $resource(apiUrl + 'user/:uid/:action', {
         uid: '@uid', //this binds the ID of the model to the URL param,
@@ -69,6 +70,15 @@ myApp.services.factory('UserModel', function ($resource, apiUrl, Param) {
     MyResource.prototype.$register = function(success, error) {
         this.action = "register";
         this.$save(success, error);
+    }
+
+    MyResource.prototype.$setPicture = function(file) {
+        var that = this;
+        return $http.post(apiUrl2 + "user/" + this.uid + "/picture", file).then(function() {
+            that.picture = file;
+            SessionService.setCurrentUser
+            return that;
+        });
     }
 
     return MyResource;
@@ -487,26 +497,5 @@ myApp.services.factory('GeneModel', ['$resource', 'apiUrl', 'Param', function ($
     }
     return MyResource;
 }]);
-
-
-
-
-// todo: remove this code
-myApp.services.factory('currentUser', function($http, $q, tokenUrl, connectUrl) {
-        var defer = $q.defer();
-
-        $http.post(tokenUrl).success(function (data) {
-            console.log("CSRF Token:", data);
-            $http.defaults.headers.common['X-CSRF-Token'] = data;
-
-            console.log("Getting current user...");
-            $http.post(connectUrl, {
-            }).success(function (data) {
-                    console.log("got current user", data);
-                defer.resolve(data);
-            });
-        });
-        return defer.promise;
-    });
 
 

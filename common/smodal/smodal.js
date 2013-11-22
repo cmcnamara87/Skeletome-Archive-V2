@@ -76,7 +76,7 @@ angular.module('directives.smodal', [])
                     })
 
                     scope.$on("$locationChangeStart", function(event){
-                        console.log("Location path chagned", event);
+//                        console.log("Location path chagned", event);
                         scope.$close();
                     });
 

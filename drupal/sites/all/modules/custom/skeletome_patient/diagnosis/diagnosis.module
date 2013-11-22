@@ -1,31 +1,33 @@
 <?php
 // $Id: diagnosis.module $
 
-function diagnosis_node_view($node, $view_mode) {
-  if ($node->type == 'diagnosis' && $view_mode == 'full' && node_is_page($node)) {
-    drupal_goto('node/' . $node->field_diagnosis_patient['und'][0]['nid'] . '/diagnosis');
-  }  
+function diagnosis_node_view($node, $view_mode)
+{
+    if ($node->type == 'diagnosis' && $view_mode == 'full' && node_is_page($node)) {
+        drupal_goto('node/' . $node->field_diagnosis_patient['und'][0]['nid'] . '/diagnosis');
+    }
 
-  return $node;
+    return $node;
 }
 
-function diagnosis_node_delete($node) {
-  if ($node->type == 'diagnosis') {
-    if (!empty($node->field_diagnosis_patient['und'])) {
-      $patient_node = node_load($node->field_diagnosis_patient['und'][0]['nid']);
-      $diags = $patient_node->field_patient_diagnosis['und'];
+function diagnosis_node_delete($node)
+{
+    if ($node->type == 'diagnosis') {
+        if (!empty($node->field_diagnosis_patient['und'])) {
+            $patient_node = node_load($node->field_diagnosis_patient['und'][0]['nid']);
+            $diags = $patient_node->field_patient_diagnosis['und'];
 
-      $idx = -1;
-      foreach ($diags as $pos => $val) {
-	if ($val['nid'] == $node->nid) {
-	  $idx = $pos;
-	  break;
-	}
-      }
-      if ($idx != -1) {
-	array_splice($patient_node->field_patient_diagnosis['und'], $idx, 1);
-	node_save($patient_node);
-      }
+            $idx = -1;
+            foreach ($diags as $pos => $val) {
+                if ($val['nid'] == $node->nid) {
+                    $idx = $pos;
+                    break;
+                }
+            }
+            if ($idx != -1) {
+                array_splice($patient_node->field_patient_diagnosis['und'], $idx, 1);
+                node_save($patient_node);
+            }
+        }
     }
-  }
 }

@@ -153,28 +153,51 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
  *  Whether access is given or not.
  */
 
-function _patientresource_access($op, $args) {
+function _patientresource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
     switch ($op) {
         case 'view':
-            $patient = patient_load($args[0]);
-            $access = user_access('patient resource view any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
+        case 'index':
+            $access = user_access('view patients');
             break;
         case 'update':
-            $patient = patient_load($args[0]->id);
-            $access = user_access('patient resource edit any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
+            $access = user_access('update patients');
             break;
         case 'delete':
-            $patient = patient_load($args[0]);
-            $access = user_access('patient resource delete any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
+            $access = user_access('delete patients');
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }
+//
+//function _patientresource_access($op, $args) {
+//    global $user;
+//    $access = FALSE;
+//
+//    switch ($op) {
+//        case 'view':
+////            $patient = patient_load($args[0]);
+//            $access = user_access('patient resource view any patient');
+////            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
+//            break;
+//        case 'update':
+//            $patient = patient_load($args[0]->id);
+//            $access = user_access('patient resource edit any patient');
+//            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
+//            break;
+//        case 'delete':
+//            $patient = patient_load($args[0]);
+//            $access = user_access('patient resource delete any patient');
+//            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
+//            break;
+//    }
+//    $access = TRUE;
+//
+//    return $access;
+//}

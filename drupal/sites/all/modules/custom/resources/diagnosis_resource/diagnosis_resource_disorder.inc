@@ -1,5 +1,15 @@
 <?php
 // groupresource.inc
+
+function _diagnosis_resource_disorder_info($id) {
+    // todo: go to knowledge here
+    $disorder = disorder_load($id);
+
+    file_get_contents("http://knowledge.skeletome.org/api/bd?uri=");
+//    http://localhost:8888/drupalv2/api/bd?uri=http%3A%2F%2Fpurl.org%2Fskeletome%2Fbonedysplasia%23Calcium_pyrophosphate_deposition_disease_type_2
+
+}
+
 /**
  * Callback for creating group resources.
  *
@@ -28,7 +38,7 @@ function _diagnosis_resource_disorder_create($data) {
  * @return object
  */
 function _diagnosis_resource_disorder_update($id, $data) {
-    $group = diagnosis_load($id);
+    $group = disorder_load($id);
 
     unset($data->created);
     $data->id = $id;
@@ -44,9 +54,8 @@ function _diagnosis_resource_disorder_update($id, $data) {
  * @return object
  */
 function _diagnosis_resource_disorder_retrieve($id) {
-    $membership = diagnosis_load($id);
-
-    return $membership;
+    $disorder = disorder_load($id);
+    return $disorder;
 }
 
 /**
@@ -56,7 +65,7 @@ function _diagnosis_resource_disorder_retrieve($id) {
  * @return object
  */
 function _diagnosis_resource_disorder_delete($id) {
-    return diagnosis_delete($id);
+    return disorder_delete($id);
 }
 
 
@@ -64,6 +73,17 @@ function _diagnosis_resource_disorder_index($page, $fields, $parameters, $page_s
     return resource_helper_index('disorder', $page, $fields, $parameters, $page_size);
 }
 
+
+// http://localhost:8888/drupalv2/api/bd?uri=http%3A%2F%2Fpurl.org%2Fskeletome%2Fbonedysplasia%23Calcium_pyrophosphate_deposition_disease_type_2
+// http://localhost:8888/drupalv2/api/bd?uri=http%3A%2F%2Fpurl.org%2Fskeletome%2Fbonedysplasia%23Calcium_pyrophosphate_deposition_disease_type_2
+
+function _diagnosis_resource_disorder_description($id) {
+    $disorder = disorder_load($id);
+    $url = "http://localhost:8888/drupalv2/api/bd?uri=" . urlencode($disorder->uri);
+    $description = json_decode(file_get_contents($url));
+
+    return $description;
+}
 
 /**
  * Access callback for the group resource.

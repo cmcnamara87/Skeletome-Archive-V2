@@ -6,6 +6,8 @@ core = 7.x
 
 dependencies[] = entity
 dependencies[] = rest_server
+dependencies[] = ncboannotator_api
+dependencies[] = skeletome_file_upload
 
 files[] = patientresource.inc
 files[] = patientresource.module

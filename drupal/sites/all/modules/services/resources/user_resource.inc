@@ -126,6 +126,30 @@ function _user_resource_definition()
                 ),
             ),
 
+            'targeted_actions' => array(
+                'picture' => array(
+                    'access callback' => '_user_resource_access',
+                    'access arguments' => array('picture'),
+                    'access arguments append' => TRUE,
+                    'callback' => '_user_resource_picture',
+                    'args' => array(
+                        array(
+                            'name' => 'uid',
+                            'type' => 'int',
+                            'description' => 'Unique identifier for this user',
+                            'source' => array('path' => 0),
+                            'optional' => FALSE,
+                        ),
+                        array(
+                            'name' => 'file',
+                            'type' => 'struct',
+                            'description' => 'The picture file object (has fid)',
+                            'source' => 'data',
+                            'optional' => FALSE,
+                        ),
+                    ),
+                ),
+            ),
 
             'actions' => array(
                 'login' => array(
@@ -272,6 +296,7 @@ function _user_resource_create($account)
     // find and store the new user into the form_state
     if (isset($form_state['values']['uid'])) {
         $form_state['user'] = user_load($form_state['values']['uid']);
+
     }
 
     // Error if needed.
@@ -588,7 +613,23 @@ function _user_resource_logout_1_1()
 function _user_resource_index($page, $fields, $parameters, $page_size) {
     return resource_helper_index('user', $page, $fields, $parameters, $page_size, "uid");
 }
+function _user_resource_picture($uid, $file) {
+    if (isset($file) &&  is_array($file)) $file=(object) $file;
 
+    $picture = file_load($file->fid);
+    $user = user_load($uid);
+    echo "picture is";
+    print_r($picture);
+    $user->picture = $picture;
+
+    user_save($user);
+
+    $new_user = user_load($user->uid);
+    echo "user is";
+    print_r($user);
+
+    return $user;
+}
 
 //  $user_select = db_select('users', 't')
 //    ->orderBy('created', 'DESC');
@@ -604,6 +645,11 @@ function _user_resource_index($page, $fields, $parameters, $page_size) {
  */
 function _user_resource_access($op = 'view', $args = array())
 {
+    // todo: fix access so everyone cant change everyones profile picture lol
+    if($op == "picture") {
+        return true;
+    }
+
     // Adds backwards compatability with regression fixed in #1083242
     if (isset($args[0])) {
         $args[0] = _services_access_value($args[0], array('account', 'data'));

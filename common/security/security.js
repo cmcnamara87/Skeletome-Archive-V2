@@ -2,9 +2,40 @@
 
 
 angular.module('security', [])
+    .config([
+    '$routeProvider',
+    '$locationProvider',
+    '$httpProvider',
+    function ($routeProvider, $locationProvider, $httpProvider, $cookieStoreProvider) {
+
+        var interceptor = ['$location', '$q', function($location, $q) {
+            function success(response) {
+                return response;
+            }
+
+            function error(response) {
+
+                if(response.status === 401) {
+                    console.log("Security Provider: 401 Status");
+                    if($location.path() != "/login") {
+                        $location.url('/login?type=401');
+                    }
+                    return $q.reject(response);
+                }
+                else {
+                    return $q.reject(response);
+                }
+            }
+
+            return function(promise) {
+                return promise.then(success, error);
+            }
+        }];
+
+        $httpProvider.responseInterceptors.push(interceptor);
+    }])
     .run(['$rootScope', '$location', 'AuthService', 'SessionService', '$http',
         function ($rootScope, $location, AuthService, SessionService, $http) {
-
 
             /**
              * Handle Auth for when the route changes
@@ -12,32 +43,31 @@ angular.module('security', [])
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $rootScope.error = null;
 
-                console.log("location path", $location.path());
-
-                // only allow registered path if not logged in
-                if(AuthService.isLoggedIn()) {
+                AuthService.isLoggedIn().then(function(path) {
+                    console.log("is logged in");
+                    // Success
                     if($location.path() == "/register" || $location.path() == "/login") {
-                        $location.path('/logout');
+                        // Redirect them to the logout path, if they are logged in
+                        $location.path('/feed');
                     }
-                } else {
-                    // not logged in
-                    if($location.path() != "/login" && $location.path() != "/register") {
-                        // Save the current path
-                        if($location.path() != "/login" && $location.path() != "/register") {
-                            SessionService.pathAfterLogin = $location.path();
-                        }
 
+                }, function(reason){
+                    // Not logged in
+                    if($location.path() == "/register" || $location.path() == "/login")  {
+                        // Going to login or register page, go to feed after logging in
+                        SessionService.pathAfterLogin = "/feed";
+                    } else {
+                        // Save the current path and shove them to login page
+                        SessionService.pathAfterLogin = $location.path();
                         $location.path('/login');
-
-                        console.log("Security: Not logged in.", AuthService.isLoggedIn());
-
                     }
-                }
+
+                });
             });
 
     }])
 
-    .factory('SessionService', function(currentUser, $rootScope) {
+    .factory('SessionService', function($rootScope) {
         var session = {
             currentUser: null,
             pathAfterLogin: null
@@ -52,7 +82,10 @@ angular.module('security', [])
         return session;
     })
 
-    .factory('AuthService', function($http, $cookies, $cookieStore, $location, SessionService, UserModel, tokenUrl, connectUrl, apiUrl2){
+    .factory('AuthService', function($http, $q, $cookies, $cookieStore, $location, SessionService, UserModel, tokenUrl, connectUrl, apiUrl2){
+
+        var sessionName = "";
+        var sessionId = "";
 
         /**
          * Stores the CSRF token in the headers
@@ -62,81 +95,68 @@ angular.module('security', [])
             $http.defaults.headers.common['X-CSRF-Token'] = token;
         }
 
-        /**
-         * Stores the logged in session info in the cookies
-         * @param sessionResponse
-         */
-        function storeSession(sessionResponse) {
-            var sessionName = sessionResponse.session_name;
-            var sessionId = sessionResponse.sessid;
-            $cookies[sessionName] = sessionId;
-        }
 
         /**
          * Gets the CSRF token from the drupal server and stores it
          * @param success
          * @param error
          */
-        function getCSRFToken(success, error) {
-            $http.post(tokenUrl).success(function (data) {
-                storeToken(data);
-                success();
-            }, error);
-        }
-
-        function storeSessionLogin(data, success, error) {
-            // Store the session in the cookie for future authentication
-            storeSession(data);
-
-            var currentUser = new UserModel(data.user);
-            SessionService.currentUser = currentUser;
-            $cookieStore.put('currentUser', currentUser);
-
-            getCSRFToken(function() {
-                success(currentUser);
+        function getCSRFToken() {
+            return $http.post(tokenUrl).then(function(response) {
+                storeToken(response.data);
+                return response.data;
             });
         }
 
-        function getCurrent(success, error) {
-            $http.post(connectUrl, {}).success(function (data) {
-                if(data.user.uid == 0) {
-                    // anonymous user, no one logged in
-                    success(null);
-                } else {
-                    storeSessionLogin(data, function() {
-                        success()
-                    }, function() {});
-                    SessionService.currentUser = new UserModel(data.user);
-                    success(SessionService.currentUser);
-                }
-            }, error);
+        function storeSessionLogin(data) {
+            // Store the session in the cookie for future authentication
+            sessionName = data.session_name;
+            sessionId = data.sessid;
+            $cookies[sessionName] = sessionId;
+
+            console.log("Cookise are now", $cookies);
+            setCurrentUser(data.user);
+
+        }
+
+        /**
+         * Logs a user out
+         * @returns {*}
+         */
+        function logout() {
+            setCurrentUser(null);
+
+            delete $cookies['sessionName'];
+
+            return getCSRFToken().then(function() {
+                return $http.post(apiUrl2 + "user/logout").then(function(response) {
+                    delete $http.defaults.headers.common['X-CSRF-Token'];
+                    $location.path('/login');
+                    return true;
+                }, function(reason) {
+                    console.log("failed to log out", reason);
+                });
+            });
+        }
+
+        function setCurrentUser(user) {
+            if(!SessionService.currentUser) {
+                SessionService.currentUser = {};
+            }
+            if(!user) {
+                SessionService.currentUser = null;
+            } else {
+                angular.copy(user, SessionService.currentUser);
+            }
+
+            if(user == null) {
+                $cookieStore.remove('currentUser');
+            } else {
+                $cookieStore.put('currentUser', SessionService.currentUser);
+            }
         }
 
         return {
-
-                /**
-                 * Is the user logged in currently
-                 * @returns {boolean}   True if logged in
-                 */
-
-            isLoggedIn: function() {
-                if(!SessionService.currentUser) {
-                    var currentUser = $cookieStore.get('currentUser');
-                    SessionService.currentUser = currentUser;
-
-                    console.log("current iser is", currentUser);
-                    // Get the token if we dont have it
-                    // its okay if this takes a while to return, should all work out
-                    // before we have to make any authenticated calls
-                    if(!$http.defaults.headers.common['X-CSRF-Token']) {
-                        getCSRFToken(function() {}, function() {});
-                    }
-
-                    return currentUser;
-                } else {
-                    return SessionService.currentUser;
-                }
-            },
 
             /**
              * Registers a user
@@ -154,63 +174,101 @@ angular.module('security', [])
                 getCurrent(success, error);
             },
 
+            setCurrentUser: setCurrentUser,
+
+            /**
+             * Is the user logged in currently
+             * @returns {boolean}   True if logged in
+             */
+
+            isLoggedIn: function() {
+
+                // Promise is either resolved instantly, if we have it in the cookies
+                // Or delayed cause we go to the server
+                console.log("search data", $location.search(), $location.search().type);
+                if($location.search().type == "401") {
+                    // we've headed to the login page, with a 401
+                    // dump everything
+                    console.log("401: Dumping all stuff stored");
+                    setCurrentUser(null);
+                    delete $http.defaults.headers.common['X-CSRF-Token'];
+
+                    return logout().finally(function() {
+                        $location.search('type', "");
+                        return $q.reject("You do not have permission to access this content");
+                    })
+
+                }
+
+                if(!SessionService.currentUser) {
+                    var currentUser = $cookieStore.get('currentUser');
+//
+                    if(currentUser) {
+                        console.log("got current user", currentUser);
+                        // We have it stored
+                        setCurrentUser(new UserModel(currentUser));
+
+                        // Get the CSRF token, so we can actually use the account
+                        return getCSRFToken().then(function(token) {
+                           return SessionService.pathAfterLogin;
+                        });
+                    } else {
+                        // No current user
+                        // Go to server
+                        return getCSRFToken().then(function() {
+                            return $http.post(connectUrl).then(function(response) {
+                                if(response.data.user.uid == 0) {
+                                    console.log("isLoggedIn: Got back no one logged in", response.data.user.uid);
+                                    // no one logged in on server (well, actually 'anon' user is, but whatever
+                                    return $q.reject("No one logged in");
+                                } else {
+                                    console.log("isLoggedIn: Got back already logged in", response.data.user.uid);
+                                    // Someone is logged in on the server
+                                    storeSessionLogin(response.data);
+
+                                    return getCSRFToken().then(function(token) {
+                                        return SessionService.pathAfterLogin;
+                                    });
+                                }
+                            });
+                        });
+                    }
+                } else {
+                    console.log("already logged in");
+                    // Already logged in
+                    return $q.when(SessionService.pathAfterLogin);
+                }
+            },
+
+
             /**
              * Login to drupal backend
              * @param credentials   {username: USERNAME, password: PASSWORD}
              * @param success
              * @param error
              */
-            login: function(credentials, error) {
-                getCSRFToken(function() {
-                    // login with credentials (username, password)
-                    $http.post(apiUrl2 + "user/loginmail", credentials).success(function(data) {
+            login: function(credentials) {
+                return getCSRFToken().then(function(token) {
+                    console.log("token is", token);
+                    return $http.post(apiUrl2 + "user/loginmail", credentials).then(function(response) {
+                        console.log("Got back", response);
+                        storeSessionLogin(response.data);
 
-                        storeSessionLogin(data, function() {}, function() {});
-
-                        if(SessionService.pathAfterLogin) {
-                            $location.path(SessionService.pathAfterLogin);
-                            SessionService.pathAfterLogin = null;
-                        } else {
-                            $location.path('/feed');
-                        }
-                    }).error(function(error2) {
-                       console.log("error is", error2);
-                            if(error2[0].indexOf("Already logged in" != -1)) {
-                                getCurrent(function(data) {
-
-                                    console.log("already logged in")
-
-                                    if(SessionService.pathAfterLogin) {
-                                        $location.path(SessionService.pathAfterLogin);
-                                        SessionService.pathAfterLogin = null;
-                                    } else {
-                                        $location.path('/feed');
-                                    }
-
-                                }, function(error) {
-                                    console.log("no current user", error);
-                                })
-                            } else {
-                                error(error2);
-                            }
-
+                        // Work out where to redirect the user to
+                        return SessionService.pathAfterLogin;
                     });
-                })
+                });
             },
+
 
             /**
              * Logs the user out
              * @param success
              * @param error
              */
-            logout: function(success, error) {
-                SessionService.currentUser = null;
-                $cookieStore.remove('currentUser');
-
-                $http.post(apiUrl2 + "user/logout", {}).success(function (data) {
-                    $location.path('/login');
-                    success();
-                }).error(error);
+            logout: function() {
+                console.log("logging out");
+                return logout();
             }
 
 

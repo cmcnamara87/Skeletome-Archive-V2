@@ -17,20 +17,26 @@ angular.module('login', ['security'])
         });
     }])
 
-    .controller('LoginCtrl', ['$scope', 'AuthService', 'SessionService', function ($scope, AuthService, SessionService) {
+    .controller('LoginCtrl', ['$location', '$scope', 'AuthService', 'SessionService', function ($location, $scope, AuthService, SessionService) {
 
         console.log("session service", SessionService);
         $scope.currentUser = SessionService.currentUser;
 
         $scope.credentials = {
-            mail: "skelarch@skeletome.org"
+//            mail: "skelarch@skeletome.org"
+            mail: "cmcnamara87@gmail.com",
+            pass: "admin"
         };
 
         $scope.login = function(credentials) {
-            $scope.error = null;
-            AuthService.login(credentials, function(error) {
-                console.log("Error logging in");
-                $scope.error = error;
+            AuthService.login(credentials).then(function(path) {
+                "use strict";
+                console.log("Login: Successful, redirecting", path);
+                $location.path(path);
+            }, function(reason) {
+                "use strict";
+                console.log("error reason", reason);
+                $scope.error = reason.data[0];
             });
         }
 
@@ -41,12 +47,14 @@ angular.module('login', ['security'])
         }
     }])
 
-    .controller('LogoutCtrl', ['$scope', 'AuthService', function ($scope, AuthService) {
+    .controller('LogoutCtrl', ['$scope', 'AuthService', function ($scope, $location, AuthService) {
 
         $scope.logout = function() {
-            AuthService.logout(function() {
-                console.log("Success logging out");
-            });
+            AuthService.logout().then(function() {
+                "use strict";
+                console.log("Logout: Logged out");
+                $location.path('/login');
+            })
         }
     }])
 

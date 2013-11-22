@@ -169,11 +169,17 @@ function address_delete($id) {
 
 function patientresource_permission() {
     return array(
-        'patient resource view any patient' => array(
-            'title' => t('View Any Patient'),
+        'view patients' => array(
+            'title' => t('Access Patients'),
         ),
-        'patient resource create' => array(
+        'create patients' => array(
             'title' => t('Create Patients'),
+        ),
+        'update patients' => array(
+            'title' => t('Edit Patients'),
+        ),
+        'delete patients' => array(
+            'title' => t('Delete Patients')
         )
     );
 }
@@ -505,7 +511,7 @@ function patientresource_services_resources() {
             'file' => array('file' => 'inc', 'module' => 'patientresource'),
             'callback' => '_patientresource_create',
             'access callback' => '_patientresource_access',
-            'access arguments' => array(),
+            'access arguments' => array('create'),
             'access arguments append' => FALSE,
 
 //            'access arguments' => array('patient resource create'),
@@ -565,6 +571,9 @@ function patientresource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource'),
             'callback' => '_patientresource_index',
+            'access callback' => '_patientresource_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'query',
@@ -623,7 +632,6 @@ function patientresource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 

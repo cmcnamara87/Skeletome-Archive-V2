@@ -1655,11 +1655,11 @@ mZkGaXNvLWE0hoaG
         <snapToGrid><![CDATA[0]]></snapToGrid>
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <uid><![CDATA[3963F3A8-0EC7-47CE-B9FF-CF062B5B2BD0]]></uid>
-        <windowHeight><![CDATA[1309.000000]]></windowHeight>
-        <windowLocationX><![CDATA[424.000000]]></windowLocationX>
-        <windowLocationY><![CDATA[109.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{218, 0}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1977.000000]]></windowWidth>
+        <windowHeight><![CDATA[1208.000000]]></windowHeight>
+        <windowLocationX><![CDATA[-423.000000]]></windowLocationX>
+        <windowLocationY><![CDATA[210.000000]]></windowLocationY>
+        <windowScrollOrigin><![CDATA[{555, 0}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[1553.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>
