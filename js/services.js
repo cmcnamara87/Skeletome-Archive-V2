@@ -76,7 +76,6 @@ myApp.services.factory('UserModel', function ($resource, apiUrl, Param, $http, a
         var that = this;
         return $http.post(apiUrl2 + "user/" + this.uid + "/picture", file).then(function() {
             that.picture = file;
-            SessionService.setCurrentUser
             return that;
         });
     }
