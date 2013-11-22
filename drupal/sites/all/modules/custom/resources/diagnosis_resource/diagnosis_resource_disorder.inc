@@ -79,7 +79,7 @@ function _diagnosis_resource_disorder_index($page, $fields, $parameters, $page_s
 
 function _diagnosis_resource_disorder_description($id) {
     $disorder = disorder_load($id);
-    $url = "http://localhost:8888/drupalv2/api/bd?uri=" . urlencode($disorder->uri);
+    $url = "http://knowledge.skeletome.org/api/bd?uri=" . urlencode($disorder->uri);
     $description = json_decode(file_get_contents($url));
 
     return $description;

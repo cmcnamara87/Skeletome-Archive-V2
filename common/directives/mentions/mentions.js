@@ -1,7 +1,7 @@
 angular.module('directives.mentions', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('mentions', [function () {
+    .directive('mentions', ['apiUrl2', function (apiUrl2) {
 
         return {
             restrict: 'E',
@@ -45,7 +45,7 @@ angular.module('directives.mentions', [])
 
                     angular.forEach(mentions, function(mention, mentionIndex) {
                         var re = new RegExp('\\b(' + mention.name + ')\\b', "gi");
-                        formattedText = formattedText.replace(re, "<a href='#' title='" + mention[mention.mentioned_type].name + "'>$1</a>");
+                        formattedText = formattedText.replace(re, "<a href='" + apiUrl2 + "disorder/" + mention[mention.mentioned_type].id + "/description' title='" + mention[mention.mentioned_type].name + "'>$1</a>");
                     });
                     element.html(formattedText);
                 }
