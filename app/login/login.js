@@ -24,8 +24,7 @@ angular.module('login', ['security'])
 
         $scope.credentials = {
 //            mail: "skelarch@skeletome.org"
-            mail: "cmcnamara87@gmail.com",
-            pass: "admin"
+            mail: "skelarch@skeletome.org"
         };
 
         $scope.login = function(credentials) {

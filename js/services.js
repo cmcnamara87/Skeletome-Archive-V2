@@ -74,6 +74,7 @@ myApp.services.factory('UserModel', function ($resource, apiUrl, Param, $http, a
 
     MyResource.prototype.$setPicture = function(file) {
         var that = this;
+        console.log("setting picture");
         return $http.post(apiUrl2 + "user/" + this.uid + "/picture", file).then(function() {
             that.picture = file;
             return that;
