@@ -100,7 +100,7 @@ var myApp = angular.module('myApp', [
         });
 
         $routeProvider.otherwise({
-            redirectTo: '/patients/my-patients'
+            redirectTo: '/feed'
         });
     }]);
 
