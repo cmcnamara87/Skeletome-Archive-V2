@@ -61,6 +61,8 @@ myApp.services.factory('UserModel', function ($resource, apiUrl, Param, $http, a
     var MyResource = $resource(apiUrl + 'user/:uid/:action', {
         uid: '@uid', //this binds the ID of the model to the URL param,
         action: '@action'
+    }, {
+        update: {method:'PUT'}
     });
 
     MyResource.index = function(object, success, failure) {

@@ -92,7 +92,9 @@ angular.module('security', [])
          * @param token
          */
         function storeToken(token) {
+            console.log("CSRF TOKEN IS", token);
             $http.defaults.headers.common['X-CSRF-Token'] = token;
+            $http.withCredentials = true;
         }
 
 
@@ -174,12 +176,15 @@ angular.module('security', [])
                 getCurrent(success, error);
             },
 
-            setCurrentUser: setCurrentUser,
+            setCurrentUser: function(user) {
+                 return setCurrentUser(user);
+            },
 
-            /**
-             * Is the user logged in currently
-             * @returns {boolean}   True if logged in
-             */
+                /**
+                 * Is the user logged in currently
+                 * @returns {boolean}   True if logged in
+                 */
+
 
             isLoggedIn: function() {
 
@@ -248,13 +253,13 @@ angular.module('security', [])
              * @param error
              */
             login: function(credentials) {
-                return getCSRFToken().then(function(token) {
-                    console.log("token is", token);
-                    return $http.post(apiUrl2 + "user/loginmail", credentials).then(function(response) {
-                        console.log("Got back", response);
-                        storeSessionLogin(response.data);
+                return $http.post(apiUrl2 + "user/loginmail", credentials).then(function(response) {
+                    console.log("Got back", response);
+                    storeSessionLogin(response.data);
 
-                        // Work out where to redirect the user to
+                    // Work out where to redirect the user to
+                    return getCSRFToken().then(function(token) {
+                        console.log("token is", token);
                         return SessionService.pathAfterLogin;
                     });
                 });

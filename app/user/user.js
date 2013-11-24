@@ -27,7 +27,8 @@ angular.module('user', [])
         $scope.profilePictureUploaded = function(file, user) {
             "use strict";
             // we have the file, add it to the user
-            user.$setPicture(file);
+            user.picture = file;
+            SessionService.setCurrentUser(user);
         }
 
     }]);
