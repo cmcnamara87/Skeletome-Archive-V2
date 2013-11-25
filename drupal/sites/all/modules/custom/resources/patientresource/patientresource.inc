@@ -42,38 +42,6 @@ function _patientresource_update($id, $data) {
     return $data;
 }
 
-/**
- * Get all patient ids the current user can access
- * @return array    An array of patient IDs
- */
-function patients_accessible() {
-    global $user;
-
-    $sql = "SELECT patients.id
-            FROM patients, members, shares
-            WHERE patients.uid = :uid
-            OR (members.user_id = :uid
-            AND shares.group_id = members.group_id
-            AND patients.id = shares.patient_id)";
-
-    $results = db_query($sql, array(
-        "uid"   => $user->uid
-    ));
-
-    $ids = array_keys($results->fetchAllAssoc('id'));
-
-    return $ids;
-}
-
-/**
- * Checks if a patient is accessible by the current user
- * @param $patient_id
- * @return bool - true if accessible
- */
-function patients_is_accessible($patient_id) {
-    $ids = patients_accessible();
-    return in_array($patient_id, $ids);
-}
 
 /**
  * Callback for retrieving patient resources.
@@ -82,7 +50,6 @@ function patients_is_accessible($patient_id) {
  * @return object
  */
 function _patientresource_retrieve($id) {
-
     return patient_load($id);
 }
 
@@ -105,9 +72,10 @@ function _patientresource_search_for_patient($query) {
 
 
     $accessible_patient_ids = patients_accessible();
-    $ids = implode(",", $accessible_patient_ids);
+    if(count($accessible_patient_ids)) {
+        $ids = implode(",", $accessible_patient_ids);
 
-    $sql = "SELECT patients.id
+        $sql = "SELECT patients.id
             FROM patients
             WHERE patients.id IN ($ids)
             AND (
@@ -115,14 +83,18 @@ function _patientresource_search_for_patient($query) {
                 OR patients.id = :query
             )";
 
-    $results = db_query($sql, array(
-        ':pattern'  => '%' . db_like($query) . '%',
-        ':query'    => $query
-    ));
+        $results = db_query($sql, array(
+            ':pattern'  => '%' . db_like($query) . '%',
+            ':query'    => $query
+        ));
 
-    $ids = array_keys($results->fetchAllAssoc('id'));
+        $ids = array_keys($results->fetchAllAssoc('id'));
 
-    return patient_load_multiple($ids);
+        return patient_load_multiple($ids);
+    } else {
+        return array();
+    }
+
 }
 
 function _patientresource_index($query, $group_id, $embed, $page, $fields, $parameters, $page_size) {
@@ -206,6 +178,7 @@ function _patientresource_access($op, $args=array()) {
     switch ($op) {
         case 'view':
             $access = user_access('view patients') && patients_is_accessible($args[0]);
+            break;
         case 'index':
             $access = user_access('view patients');
             break;
@@ -222,29 +195,3 @@ function _patientresource_access($op, $args=array()) {
 
     return $access;
 }
-//
-//function _patientresource_access($op, $args) {
-//    global $user;
-//    $access = FALSE;
-//
-//    switch ($op) {
-//        case 'view':
-////            $patient = patient_load($args[0]);
-//            $access = user_access('patient resource view any patient');
-////            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
-//            break;
-//        case 'update':
-//            $patient = patient_load($args[0]->id);
-//            $access = user_access('patient resource edit any patient');
-//            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
-//            break;
-//        case 'delete':
-//            $patient = patient_load($args[0]);
-//            $access = user_access('patient resource delete any patient');
-//            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
-//            break;
-//    }
-//    $access = TRUE;
-//
-//    return $access;
-//}

@@ -69,6 +69,8 @@ function _patientresource_address_delete($id) {
 
 
 function _patientresource_address_index($page, $fields, $parameters, $page_size) {
+    $patient_ids = patients_accessible();
+    $parameters["patient_id"] = $patient_ids;
     return resource_helper_index('address', $page, $fields, $parameters, $page_size);
 }
 
@@ -84,28 +86,30 @@ function _patientresource_address_index($page, $fields, $parameters, $page_size)
  *  Whether access is given or not.
  */
 
-function _patientresource_address_access($op, $args) {
+function _patientresource_address_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $address = address_load($args[0]);
+    }
+
     switch ($op) {
         case 'view':
-            $patient = address_load($args[0]);
-            $access = user_access('patient resource view any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
+            $access = user_access('view patients') && patients_is_accessible($address->patient_id);
+            break;
+        case 'index':
+            $access = user_access('view patients');
             break;
         case 'update':
-            $patient = address_load($args[0]->id);
-            $access = user_access('patient resource edit any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
+            $access = user_access('update patients') && patients_is_accessible($address->patient_id);
             break;
         case 'delete':
-            $patient = address_load($args[0]);
-            $access = user_access('patient resource delete any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
+            $access = user_access('delete patients') && patients_is_accessible($address->patient_id);
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
-
     return $access;
 }

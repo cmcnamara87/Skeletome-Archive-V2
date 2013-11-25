@@ -1,5 +1,39 @@
 <?php
 
+/**
+ * Get all patient ids the current user can access
+ * @return array    An array of patient IDs
+ */
+function patients_accessible() {
+    global $user;
+
+    $sql = "SELECT patients.id
+            FROM patients, members, shares
+            WHERE patients.uid = :uid
+            OR (members.user_id = :uid
+            AND shares.group_id = members.group_id
+            AND patients.id = shares.patient_id)";
+
+    $results = db_query($sql, array(
+        "uid"   => $user->uid
+    ));
+
+    $ids = array_keys($results->fetchAllAssoc('id'));
+
+    return $ids;
+}
+
+/**
+ * Checks if a patient is accessible by the current user
+ * @param $patient_id
+ * @return bool - true if accessible
+ */
+function patients_is_accessible($patient_id) {
+    $ids = patients_accessible();
+    return in_array($patient_id, $ids);
+}
+
+
 function resource_helper_index($entity_type, $page, $fields, $parameters, $page_size, $orderByColumn="id", $orderByDirection="ASC") {
 
     $query = new EntityFieldQuery();

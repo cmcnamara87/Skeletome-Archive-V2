@@ -336,6 +336,9 @@ function patientresource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
             'callback' => '_patientresource_address_index',
+            'access callback' => '_patientresource_address_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -370,7 +373,6 @@ function patientresource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 
