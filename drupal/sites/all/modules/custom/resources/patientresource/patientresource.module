@@ -89,11 +89,18 @@ class PatientController extends EntityAPIController {
                     $entity->alias,
                     $entity->dob,
                     $entity->gender,
-                    $entity->ethnicity,
-                    $entity->clinical_summary
+                    $entity->ethnicity
                 );
+
+                if(!patients_is_accessible($entity->id)) {
+                    $entity->access = "none";
+                    unset($entity->clinical_summary);
+                } else {
+                    $entity->access = "group";
+                }
                 $entity->name = "Patient #" . $entity->id;
             } else {
+                $entity->access = "owner";
 
                 $entity->name = "";
 

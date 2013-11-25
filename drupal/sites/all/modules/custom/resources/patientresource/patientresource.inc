@@ -41,6 +41,40 @@ function _patientresource_update($id, $data) {
     patient_save($data);
     return $data;
 }
+
+/**
+ * Get all patient ids the current user can access
+ * @return array    An array of patient IDs
+ */
+function patients_accessible() {
+    global $user;
+
+    $sql = "SELECT patients.id
+            FROM patients, members, shares
+            WHERE patients.uid = :uid
+            OR (members.user_id = :uid
+            AND shares.group_id = members.group_id
+            AND patients.id = shares.patient_id)";
+
+    $results = db_query($sql, array(
+        "uid"   => $user->uid
+    ));
+
+    $ids = array_keys($results->fetchAllAssoc('id'));
+
+    return $ids;
+}
+
+/**
+ * Checks if a patient is accessible by the current user
+ * @param $patient_id
+ * @return bool - true if accessible
+ */
+function patients_is_accessible($patient_id) {
+    $ids = patients_accessible();
+    return in_array($patient_id, $ids);
+}
+
 /**
  * Callback for retrieving patient resources.
  *
@@ -67,73 +101,85 @@ function _patientresource_delete($id) {
 }
 
 
+function _patientresource_search_for_patient($query) {
+
+
+    $accessible_patient_ids = patients_accessible();
+    $ids = implode(",", $accessible_patient_ids);
+
+    $sql = "SELECT patients.id
+            FROM patients
+            WHERE patients.id IN ($ids)
+            AND (
+                concat(patients.first_name, ' ' , patients.last_name) LIKE :pattern
+                OR patients.id = :query
+            )";
+
+    $results = db_query($sql, array(
+        ':pattern'  => '%' . db_like($query) . '%',
+        ':query'    => $query
+    ));
+
+    $ids = array_keys($results->fetchAllAssoc('id'));
+
+    return patient_load_multiple($ids);
+}
 
 function _patientresource_index($query, $group_id, $embed, $page, $fields, $parameters, $page_size) {
 
+
+
     if(strlen($query)) {
 
-        // 3 types of mentions
-        $sql = "SELECT patients.id
-            FROM patients
-            WHERE concat(patients.first_name, ' ' , patients.last_name) LIKE :pattern
-            OR patients.id = :query";
-        $results = db_query($sql, array(
-            ':pattern'   => '%' . db_like($query) . '%',
-            ':query'    => $query
-        ));
+        return _patientresource_search_for_patient($query);
+    } else {
+        if ($group_id > 0) {
 
-        $ids = array_keys($results->fetchAllAssoc('id'));
-
-        return patient_load_multiple($ids);
-    }
-    // Do some setup here if there is a group id
-    // Get out the user field
-    if($group_id > 0) {
-
-        // lets get all the groups first
-        $sql = "SELECT DISTINCT shares.patient_id
+            // lets get all the groups first
+            $sql = "SELECT DISTINCT shares.patient_id
                 FROM shares
                 WHERE shares.group_id = :group_id";
 
-        $results = db_query($sql, array(
-            'group_id' => $group_id
-        ));
+            $results = db_query($sql, array(
+                'group_id' => $group_id
+            ));
 
-        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+            $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
 
-        $parameters['id'] = $patient_ids;
+            $parameters['id'] = $patient_ids;
+        }
+        $patients = resource_helper_index('patient', $page, $fields, $parameters, $page_size);
     }
-
-    $patients = resource_helper_index('patient', $page, $fields, $parameters, $page_size);
 
     if($embed) {
 
-
         foreach($patients as &$patient) {
 
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'diagnosis');
-            $query->propertyCondition('patient_id', $patient->id);
-            $result = $query->execute();
-            if(isset($result['diagnosis'])) {
-                $ids = array_keys($result['diagnosis']);
-                $patient->diagnoses = diagnosis_load_multiple($ids);
-            } else {
-                $patient->diagnoses = array();;
-            }
+            if(patients_is_accessible($patient->id)) {
+                $query = new EntityFieldQuery();
+                $query->entityCondition('entity_type', 'diagnosis');
+                $query->propertyCondition('patient_id', $patient->id);
+                $result = $query->execute();
+                if(isset($result['diagnosis'])) {
+                    $ids = array_keys($result['diagnosis']);
+                    $patient->diagnoses = diagnosis_load_multiple($ids);
+                } else {
+                    $patient->diagnoses = array();;
+                }
 
-            unset($patient->clinical_summary);
-            unset($patient->mentions);
+                unset($patient->clinical_summary);
+                unset($patient->mentions);
 
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'share');
-            $query->propertyCondition('patient_id', $patient->id);
-            $result = $query->execute();
-            if(isset($result['share'])) {
-                $ids = array_keys($result['share']);
-                $patient->shares = share_load_multiple($ids);
-            } else {
-                $patient->shares = array();
+                $query = new EntityFieldQuery();
+                $query->entityCondition('entity_type', 'share');
+                $query->propertyCondition('patient_id', $patient->id);
+                $result = $query->execute();
+                if(isset($result['share'])) {
+                    $ids = array_keys($result['share']);
+                    $patient->shares = share_load_multiple($ids);
+                } else {
+                    $patient->shares = array();
+                }
             }
         }
     }
@@ -159,14 +205,15 @@ function _patientresource_access($op, $args=array()) {
 
     switch ($op) {
         case 'view':
+            $access = user_access('view patients') && patients_is_accessible($args[0]);
         case 'index':
             $access = user_access('view patients');
             break;
         case 'update':
-            $access = user_access('update patients');
+            $access = user_access('update patients') && patients_is_accessible($args[0]);
             break;
         case 'delete':
-            $access = user_access('delete patients');
+            $access = user_access('delete patients') && patients_is_accessible($args[0]);
             break;
         case 'create':
             $access = user_access('create patients');
