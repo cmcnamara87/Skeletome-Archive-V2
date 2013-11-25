@@ -64,12 +64,20 @@ angular.module('login', ['security'])
 
         $scope.register = function(user) {
             var newUser = new UserModel(user);
-            AuthService.register(newUser, function(user) {
-                console.log("registered", user);
-                $location.path('/login');
-            }, function(error) {
-                console.log("error", error);
-            })
+            AuthService.register(newUser).then(function() {
+                "use strict";
+                AuthService.login({
+                    mail: user.mail,
+                    password: user.pass
+                }).then(function() {
+                   $location.path('/feed');
+                });
+
+            }, function(reason) {
+                "use strict";
+                $scope.error = reason;
+            });
+
 
         }
     }]);

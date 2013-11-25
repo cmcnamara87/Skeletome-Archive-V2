@@ -43,11 +43,12 @@ angular.module('security', [])
             $rootScope.$on("$routeChangeStart", function (event, next, current) {
                 $rootScope.error = null;
 
-                AuthService.isLoggedIn().then(function(path) {
+                AuthService.isAuthenticated().then(function(path) {
                     console.log("is logged in");
+
                     // Success
                     if($location.path() == "/register" || $location.path() == "/login") {
-                        // Redirect them to the logout path, if they are logged in
+                        // Redirect them to the main page
                         $location.path('/feed');
                     }
 
@@ -166,10 +167,8 @@ angular.module('security', [])
              * @param success
              * @param error
              */
-            register: function(user, success, error) {
-                getCSRFToken(function() {
-                    user.$register(success, error);
-                });
+            register: function(user) {
+                return $http.post(apiUrl2 + "user/register", user).then();
             },
 
             current: function(success, error) {
@@ -180,17 +179,14 @@ angular.module('security', [])
                  return setCurrentUser(user);
             },
 
-                /**
-                 * Is the user logged in currently
-                 * @returns {boolean}   True if logged in
-                 */
-
-
-            isLoggedIn: function() {
+            /**
+             * Is the user logged in currently
+             * @returns {boolean}   True if logged in
+             */
+            isAuthenticated: function() {
 
                 // Promise is either resolved instantly, if we have it in the cookies
                 // Or delayed cause we go to the server
-                console.log("search data", $location.search(), $location.search().type);
                 if($location.search().type == "401") {
                     // we've headed to the login page, with a 401
                     // dump everything
@@ -202,7 +198,6 @@ angular.module('security', [])
                         $location.search('type', "");
                         return $q.reject("You do not have permission to access this content");
                     })
-
                 }
 
                 if(!SessionService.currentUser) {
@@ -223,11 +218,11 @@ angular.module('security', [])
                         return getCSRFToken().then(function() {
                             return $http.post(connectUrl).then(function(response) {
                                 if(response.data.user.uid == 0) {
-                                    console.log("isLoggedIn: Got back no one logged in", response.data.user.uid);
+                                    console.log("isAuthenticated: Got back no one logged in", response.data.user.uid);
                                     // no one logged in on server (well, actually 'anon' user is, but whatever
                                     return $q.reject("No one logged in");
                                 } else {
-                                    console.log("isLoggedIn: Got back already logged in", response.data.user.uid);
+                                    console.log("isAuthenticated: Got back already logged in", response.data.user.uid);
                                     // Someone is logged in on the server
                                     storeSessionLogin(response.data);
 
@@ -248,9 +243,7 @@ angular.module('security', [])
 
             /**
              * Login to drupal backend
-             * @param credentials   {username: USERNAME, password: PASSWORD}
-             * @param success
-             * @param error
+             * @param credentials   {mail: Email Address, password: PASSWORD}
              */
             login: function(credentials) {
                 return $http.post(apiUrl2 + "user/loginmail", credentials).then(function(response) {

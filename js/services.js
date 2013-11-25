@@ -69,14 +69,18 @@ myApp.services.factory('UserModel', function ($resource, apiUrl, Param, $http, a
         return MyResource.query(Param.makeParams(object), success, failure);
     }
 
-    MyResource.prototype.$register = function(success, error) {
+    /**
+     * Registers the user
+     * @returns {promise} A promise that the user will be registered
+     */
+    MyResource.prototype.$register = function() {
         this.action = "register";
-        this.$save(success, error);
+        return this.$save();
     }
 
     MyResource.prototype.$setPicture = function(file) {
         var that = this;
-        console.log("setting picture");
+        console.log("UserModel: Setting picture");
         return $http.post(apiUrl2 + "user/" + this.uid + "/picture", file).then(function() {
             that.picture = file;
             return that;

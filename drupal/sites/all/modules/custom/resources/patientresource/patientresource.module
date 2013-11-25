@@ -89,7 +89,8 @@ class PatientController extends EntityAPIController {
                     $entity->alias,
                     $entity->dob,
                     $entity->gender,
-                    $entity->ethnicity
+                    $entity->ethnicity,
+                    $entity->clinical_summary
                 );
                 $entity->name = "Patient #" . $entity->id;
             } else {
@@ -111,11 +112,8 @@ class PatientController extends EntityAPIController {
                     $entity->name = "Patient #" . $entity->id;
                 }
             }
-
             self::addRelated($entity);
         }
-
-
 
         return $entities;
     }
@@ -510,12 +508,8 @@ function patientresource_services_resources() {
             'help' => 'Creates a patient',
             'file' => array('file' => 'inc', 'module' => 'patientresource'),
             'callback' => '_patientresource_create',
-            'access callback' => '_patientresource_access',
-            'access arguments' => array('create'),
+            'access arguments' => array('create patients'),
             'access arguments append' => FALSE,
-
-//            'access arguments' => array('patient resource create'),
-//            'access arguments append' => FALSE,
             'args' => array(
                 array(
                     'name' => 'data',

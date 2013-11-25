@@ -31,9 +31,6 @@ angular.module('directives.navigation.menubar', [])
 
                     var parts = $location.path().split("/");
 
-                    console.log("MENUBAR: ROUTE CHANGE SUCCESS", parts);
-
-
                     if(!oldParts || parts[1] != oldParts[1] || parts[2] != oldParts[2]) {
                         $scope.tab = parts[1];
 
