@@ -136,7 +136,6 @@ function activity_resource_install() {
     user_role_grant_permissions($clinician_role->rid, array(
         'view activities',
         'create activities',
-        'update activities',
         'delete activities',
         'view replies',
         'create replies',
