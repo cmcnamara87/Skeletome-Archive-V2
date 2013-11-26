@@ -5,7 +5,11 @@
 function _activity_resource_index($user_id, $embed, $page, $fields, $parameters, $page_size) {
 
     // Get all the activities that are accessible
-    $parameters["share_id"] = shares_filter_accessible($parameters["share_id"]);
+    if(isset($parameters["share_id"])) {
+        $parameters["share_id"] = shares_filter_accessible($parameters["share_id"]);
+    } else {
+        $parameters["share_id"] = shares_accessible();
+    }
     $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 
     foreach($activities as &$activity) {
