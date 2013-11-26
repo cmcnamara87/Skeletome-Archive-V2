@@ -1,5 +1,5 @@
 <div>
-    <div ng-show="currentUser">
+    <div ng-show="SessionService.isAuthenticated">
         <div class="menubar" ng-class="{'menubar-dark': content}">
 
             <div class="menubar-left" ng-show="!content">

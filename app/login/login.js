@@ -17,10 +17,8 @@ angular.module('login', ['security'])
         });
     }])
 
-    .controller('LoginCtrl', ['$location', '$scope', 'AuthService', 'SessionService', function ($location, $scope, AuthService, SessionService) {
-
-        console.log("session service", SessionService);
-        $scope.currentUser = SessionService.currentUser;
+    .controller('LoginCtrl', ['$location', '$scope', 'AuthService', 'SessionService',
+        function ($location, $scope, AuthService, SessionService) {
 
         $scope.credentials = {
         };
@@ -28,33 +26,15 @@ angular.module('login', ['security'])
         $scope.login = function(credentials) {
             AuthService.login(credentials).then(function(path) {
                 "use strict";
-                console.log("Login: Successful, redirecting", path);
-                $location.path(path);
+                console.log("Login: Successful, redirecting");
+                $location.path(SessionService.pathAfterLogin);
             }, function(reason) {
                 "use strict";
                 console.log("error reason", reason);
                 $scope.error = reason.data[0];
             });
         }
-
-        $scope.logout = function() {
-            AuthService.logout(function() {
-                console.log("Success logging out");
-            });
-        }
     }])
-
-    .controller('LogoutCtrl', ['$scope', 'AuthService', function ($scope, $location, AuthService) {
-
-        $scope.logout = function() {
-            AuthService.logout().then(function() {
-                "use strict";
-                console.log("Logout: Logged out");
-                $location.path('/login');
-            })
-        }
-    }])
-
 
     .controller('RegisterCtrl', ['$scope', 'AuthService', 'UserModel', '$location', function ($scope, AuthService, UserModel, $location) {
 

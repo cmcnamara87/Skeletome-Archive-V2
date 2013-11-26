@@ -618,17 +618,11 @@ function _user_resource_picture($uid, $file) {
 
     $picture = file_load($file->fid);
     $user = user_load($uid);
-    echo "picture is";
-    print_r($picture);
     $user->picture = $picture;
 
     user_save($user);
 
-    $new_user = user_load($user->uid);
-    echo "user is";
-    print_r($user);
-
-    return $user;
+    return user_load($user->uid);
 }
 
 //  $user_select = db_select('users', 't')

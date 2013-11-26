@@ -29,10 +29,6 @@
 <div>
     <!--<oute-changer></route-changer>-->
 
-
-
-
-
         <!-- Menu bar -->
         <menubar></menubar>
 
@@ -40,8 +36,7 @@
         <submenubar></submenubar>
         <sidemenu></sidemenu>
 
-
-        <div class="main" ng-class="{'main-loggedin': currentUser, 'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
+        <div class="main" ng-class="{'main-loggedin': SessionService.isAuthenticated, 'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
             <div ng-view class="main-view"></div>
         </div>
     </div>

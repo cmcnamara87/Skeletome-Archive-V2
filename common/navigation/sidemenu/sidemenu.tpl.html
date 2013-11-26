@@ -6,8 +6,8 @@
                 <img class="user-picture user-picture-large" ng-src="{{ currentUser.picture.url }}" alt="">
             </div>
             <div class="media-body user">
-                <a href="#/user/{{ currentUser.uid }}" class="user-username sidebar-menu-item" menu-item>
-                    Dr {{ currentUser.name }}
+                <a href="#/user/{{ SessionService.currentUser.uid }}" class="user-username sidebar-menu-item" menu-item>
+                    Dr {{ SessionService.currentUser.name }}
                 </a>
                 <div class="user-userinfo">
                     More info

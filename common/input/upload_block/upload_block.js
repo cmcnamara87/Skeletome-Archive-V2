@@ -37,6 +37,7 @@ angular.module('directives.input.upload_block', [])
                         myDropzone.on('success', function(file, response) {
 
                             $scope.$apply(function() {
+                                console.log("success, calling upload function");
                                 $scope.uploadedFn({
                                     'file': angular.fromJson(response)
                                 });

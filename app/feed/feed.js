@@ -13,7 +13,7 @@ angular.module('feed', [])
         $scope.isLoading = true;
 
         // Load all patients
-        if(SessionService.currentUser) {
+        if(SessionService.isAuthenticated) {
             ActivityModel.query({
                 user_id: SessionService.currentUser.uid,
                 embed: 1
