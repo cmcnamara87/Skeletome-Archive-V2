@@ -9,7 +9,7 @@ angular.module('user', [])
                     "use strict";
                     return MembershipModel.index({'user_id': $route.current.params.uid}).$promise;
                 },
-                user: function(UserModel, $route, SessionService) {
+                user: function(UserModel, $route, SessionService, $q) {
                     "use strict";
                     if($route.current.params.uid != SessionService.currentUser.uid) {
                         return UserModel.get({uid: $route.current.params.uid});
