@@ -23,8 +23,6 @@ angular.module('login', ['security'])
         $scope.currentUser = SessionService.currentUser;
 
         $scope.credentials = {
-//            mail: "skelarch@skeletome.org"
-            mail: "skelarch@skeletome.org"
         };
 
         $scope.login = function(credentials) {
