@@ -71,8 +71,9 @@ function consent_resource_services_resources() {
             'help' => 'Creates a consent file',
             'file' => array('type' => 'inc', 'module' => 'consent_resource', 'name' => 'consent_resource_file'),
             'callback' => '_consent_resource_file_create',
-            'access arguments' => array('consent file resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_consent_resource_file_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -128,6 +129,9 @@ function consent_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'consent_resource', 'name' => 'consent_resource_file'),
             'callback' => '_consent_resource_file_index',
+            'access callback' => '_consent_resource_file_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -162,7 +166,6 @@ function consent_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 

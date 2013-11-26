@@ -129,3 +129,17 @@ function activity_resource_schema() {
 
     return $schema;
 }
+
+
+function activity_resource_install() {
+    $clinician_role = user_role_load_by_name('clinician');
+    user_role_grant_permissions($clinician_role->rid, array(
+        'view activities',
+        'create activities',
+        'update activities',
+        'delete activities',
+        'view replies',
+        'create replies',
+        'delete replies'
+    ));
+}

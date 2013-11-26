@@ -181,3 +181,21 @@ function groupresource_schema() {
 
     return $schema;
 }
+
+function groupresource_install() {
+    $clinician_role = user_role_load_by_name('clinician');
+    user_role_grant_permissions($clinician_role->rid, array(
+        'view groups',
+        'create groups',
+        'update groups',
+        'delete groups',
+        'view shares',
+        'create shares',
+        'update shares',
+        'delete shares',
+        'view memberships',
+        'create memberships',
+        'update memberships',
+        'delete memberships',
+    ));
+}

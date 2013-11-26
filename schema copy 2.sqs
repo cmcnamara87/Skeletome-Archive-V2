@@ -25,7 +25,7 @@
             <type><![CDATA[VARCHAR(255)]]></type>
             <uid><![CDATA[F651EA59-D3B6-4925-A5B2-C15449D3EF27]]></uid>
         </SQLField>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[016D5ACE-BDBE-45A4-BEBB-F9D953AAC0F0]]></uid>
     </SQLTable>
@@ -33,8 +33,8 @@
         <name><![CDATA[diagnoses]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>307.00</x>
-            <y>147.00</y>
+            <x>276.00</x>
+            <y>120.00</y>
         </location>
         <size>
             <width>176.00</width>
@@ -46,7 +46,7 @@
             <type><![CDATA[INTEGER]]></type>
             <primaryKey>1</primaryKey>
             <autoIncrement><![CDATA[1]]></autoIncrement>
-            <forcedUnique><![CDATA[1]]></forcedUnique>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
             <uid><![CDATA[892894A6-88EC-482A-BD0D-F39E20247304]]></uid>
         </SQLField>
         <SQLField>
@@ -100,10 +100,10 @@
             <referencesTableUID><![CDATA[5BF4A19F-B0D3-4F5C-BFFE-2B6EE061248E]]></referencesTableUID>
             <uid><![CDATA[FDC2947F-E550-4BC8-8B47-FF7D78C983DD]]></uid>
         </SQLField>
-        <labelColor><![CDATA[{0.96,0.8,1,0.8}]]></labelColor>
-        <labelName><![CDATA[Tags]]></labelName>
-        <labelUid><![CDATA[63574819-3736-4CA0-A775-2E8EBCC625EB]]></labelUid>
-        <labelWindowIndex><![CDATA[4]]></labelWindowIndex>
+        <labelColor><![CDATA[{1,0.914836,0,0.8}]]></labelColor>
+        <labelName><![CDATA[Patient]]></labelName>
+        <labelUid><![CDATA[E3875E7C-E8A6-4888-AD79-38B3FF30E3A4]]></labelUid>
+        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[Table17]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[0334706D-F8C6-4A50-9A5C-E60FF6A00BF6]]></uid>
@@ -123,6 +123,7 @@
         <SQLField>
             <name><![CDATA[id]]></name>
             <type><![CDATA[INTEGER]]></type>
+            <forcedUnique><![CDATA[0]]></forcedUnique>
             <temporaryOriginalName><![CDATA[id]]></temporaryOriginalName>
             <uid><![CDATA[CE3AA872-6EA7-4D0F-A893-F9BFCEAD6CC0]]></uid>
         </SQLField>
@@ -252,7 +253,7 @@
         <labelColor><![CDATA[{0.96,0.8,1,0.8}]]></labelColor>
         <labelName><![CDATA[Tags]]></labelName>
         <labelUid><![CDATA[63574819-3736-4CA0-A775-2E8EBCC625EB]]></labelUid>
-        <labelWindowIndex><![CDATA[3]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[HPOs]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[22EB00DC-93F9-45E1-87AD-2A775CDBDF81]]></uid>
@@ -498,8 +499,8 @@
         <name><![CDATA[votes]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>532.00</x>
-            <y>41.00</y>
+            <x>1269.00</x>
+            <y>656.00</y>
         </location>
         <size>
             <width>200.00</width>
@@ -537,16 +538,17 @@
             <uid><![CDATA[391C172C-BEE5-4334-ACCA-C5BED019E5E7]]></uid>
         </SQLField>
         <SQLField>
-            <name><![CDATA[diagnosis_id]]></name>
+            <name><![CDATA[post_id]]></name>
             <type><![CDATA[INTEGER]]></type>
             <referencesField>id</referencesField>
-            <referencesTable>diagnoses</referencesTable>
+            <referencesTable>posts</referencesTable>
             <referencesField><![CDATA[id]]></referencesField>
-            <referencesTable><![CDATA[diagnoses]]></referencesTable>
+            <referencesTable><![CDATA[posts]]></referencesTable>
             <sourceCardinality>0</sourceCardinality>
             <destinationCardinality>0</destinationCardinality>
-            <referencesFieldUID><![CDATA[892894A6-88EC-482A-BD0D-F39E20247304]]></referencesFieldUID>
-            <referencesTableUID><![CDATA[0334706D-F8C6-4A50-9A5C-E60FF6A00BF6]]></referencesTableUID>
+            <referencesFieldUID><![CDATA[734D51C2-D4A0-4898-BCFF-5AB756000887]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[EE45F900-B221-4AF7-A4B9-B0A4293AFE19]]></referencesTableUID>
+            <temporaryOriginalName><![CDATA[diagnosis_id]]></temporaryOriginalName>
             <uid><![CDATA[7E5C9CBF-8263-4246-B6E3-0270E5E934EE]]></uid>
         </SQLField>
         <SQLField>
@@ -554,10 +556,10 @@
             <type><![CDATA[INTEGER]]></type>
             <uid><![CDATA[23B76935-E59D-4224-8677-3D9C42FC701E]]></uid>
         </SQLField>
-        <labelColor><![CDATA[{0.96,0.8,1,0.8}]]></labelColor>
-        <labelName><![CDATA[Tags]]></labelName>
-        <labelUid><![CDATA[63574819-3736-4CA0-A775-2E8EBCC625EB]]></labelUid>
-        <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
+        <labelColor><![CDATA[{0.230851,0.586996,0.996583,0.8}]]></labelColor>
+        <labelName><![CDATA[Posts]]></labelName>
+        <labelUid><![CDATA[B88FA36A-DCD3-45BB-A7E7-7C4C09770AC2]]></labelUid>
+        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[Table19]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[73D1943B-70D4-4AB0-8BE0-D8FC219F4C47]]></uid>
@@ -838,7 +840,7 @@
             <type><![CDATA[VARCHAR(255)]]></type>
             <uid><![CDATA[045A363F-1E91-4E7B-BEF7-74CA6597137A]]></uid>
         </SQLField>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[A44934DD-91EF-4E51-B9A3-B4B41870E63A]]></uid>
     </SQLTable>
@@ -960,6 +962,9 @@
             <referencesTableUID><![CDATA[5BF4A19F-B0D3-4F5C-BFFE-2B6EE061248E]]></referencesTableUID>
             <uid><![CDATA[3F0118F0-409A-415B-A4E0-30B36170D0E1]]></uid>
         </SQLField>
+        <labelColor><![CDATA[{1,0.914836,0,0.8}]]></labelColor>
+        <labelName><![CDATA[Patient]]></labelName>
+        <labelUid><![CDATA[E3875E7C-E8A6-4888-AD79-38B3FF30E3A4]]></labelUid>
         <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[Table13]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1206,8 +1211,8 @@
         <name><![CDATA[hpo_tags]]></name>
         <schema><![CDATA[]]></schema>
         <location>
-            <x>292.00</x>
-            <y>19.00</y>
+            <x>505.00</x>
+            <y>132.00</y>
         </location>
         <size>
             <width>200.00</width>
@@ -1244,12 +1249,13 @@
         <SQLField>
             <name><![CDATA[object_type]]></name>
             <type><![CDATA[VARCHAR(255)]]></type>
+            <objectComment><![CDATA[Either patient_id or xray_id]]></objectComment>
             <temporaryOriginalName><![CDATA[type]]></temporaryOriginalName>
             <uid><![CDATA[EA495A05-EEDF-47F4-B98A-47799EF81C59]]></uid>
         </SQLField>
-        <labelColor><![CDATA[{0.96,0.8,1,0.8}]]></labelColor>
-        <labelName><![CDATA[Tags]]></labelName>
-        <labelUid><![CDATA[63574819-3736-4CA0-A775-2E8EBCC625EB]]></labelUid>
+        <labelColor><![CDATA[{1,0.914836,0,0.8}]]></labelColor>
+        <labelName><![CDATA[Patient]]></labelName>
+        <labelUid><![CDATA[E3875E7C-E8A6-4888-AD79-38B3FF30E3A4]]></labelUid>
         <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[hpos_patients]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
@@ -1368,6 +1374,14 @@
         <SQLField>
             <name><![CDATA[disorder_id]]></name>
             <type><![CDATA[INTEGER]]></type>
+            <referencesField>id</referencesField>
+            <referencesTable>disorders</referencesTable>
+            <referencesField><![CDATA[id]]></referencesField>
+            <referencesTable><![CDATA[disorders]]></referencesTable>
+            <sourceCardinality>0</sourceCardinality>
+            <destinationCardinality>0</destinationCardinality>
+            <referencesFieldUID><![CDATA[090CC531-3B75-4427-9A0D-FA40DE5CB93E]]></referencesFieldUID>
+            <referencesTableUID><![CDATA[F36566F3-4975-4F0C-AB30-7E3FEF39E3B7]]></referencesTableUID>
             <temporaryOriginalName><![CDATA[id_1]]></temporaryOriginalName>
             <uid><![CDATA[B79F915D-AAE9-4B3E-879A-5B27C389B34E]]></uid>
         </SQLField>
@@ -1451,7 +1465,7 @@
         <labelColor><![CDATA[{0.96,0.8,1,0.8}]]></labelColor>
         <labelName><![CDATA[Tags]]></labelName>
         <labelUid><![CDATA[63574819-3736-4CA0-A775-2E8EBCC625EB]]></labelUid>
-        <labelWindowIndex><![CDATA[1]]></labelWindowIndex>
+        <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
         <temporaryOriginalName><![CDATA[disorder]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[F36566F3-4975-4F0C-AB30-7E3FEF39E3B7]]></uid>
@@ -1656,10 +1670,10 @@ mZkGaXNvLWE0hoaG
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <uid><![CDATA[3963F3A8-0EC7-47CE-B9FF-CF062B5B2BD0]]></uid>
         <windowHeight><![CDATA[1264.000000]]></windowHeight>
-        <windowLocationX><![CDATA[728.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[1152.000000]]></windowLocationX>
         <windowLocationY><![CDATA[154.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{131, 0}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[1553.000000]]></windowWidth>
+        <windowScrollOrigin><![CDATA[{111, 0}]]></windowScrollOrigin>
+        <windowWidth><![CDATA[2331.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>

@@ -78,25 +78,6 @@ function _gene_mutation_resource_mutation_type_index($page, $fields, $parameters
 
 function _gene_mutation_resource_mutation_type_access($op, $args) {
     global $user;
-    $access = FALSE;
-
-    switch ($op) {
-        case 'view':
-            $group = mutation_type_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
-            break;
-        case 'update':
-            $group = mutation_type_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
-            break;
-        case 'delete':
-            $group = mutation_type_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
-            break;
-    }
     $access = TRUE;
     return $access;
 }

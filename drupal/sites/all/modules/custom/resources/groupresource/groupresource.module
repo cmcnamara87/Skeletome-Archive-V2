@@ -199,15 +199,45 @@ function share_delete($id) {
 
 function groupresource_permission() {
     return array(
-        'group resource share create' => array(
-            'title' => t('Create Share'),
+        'view groups' => array(
+            'title' => t('Access Groups'),
         ),
-        'group resource membership create' => array(
-            'title' => t('Create Membership'),
+        'create groups' => array(
+            'title' => t('Create Groups'),
         ),
-        'group resource create' => array(
-            'title' => t('Create Group'),
+        'update groups' => array(
+            'title' => t('Edit Groups'),
+        ),
+        'delete groups' => array(
+            'title' => t('Delete Groups')
+        ),
+
+        'view shares' => array(
+            'title' => t('Access Shares'),
+        ),
+        'create shares' => array(
+            'title' => t('Share a Patient'),
+        ),
+        'update shares' => array(
+            'title' => t('Edit Shares'),
+        ),
+        'delete shares' => array(
+            'title' => t('Delete Share')
+        ),
+
+        'view memberships' => array(
+            'title' => t('Access Memberships'),
+        ),
+        'create memberships' => array(
+            'title' => t('Join a Group'),
+        ),
+        'update memberships' => array(
+            'title' => t('Edit Memberships'),
+        ),
+        'delete memberships' => array(
+            'title' => t('Delete Memberships')
         )
+
     );
 }
 
@@ -246,13 +276,9 @@ function groupresource_services_resources() {
                     'name' => 'group_resource_share'
                 ),
                 'callback' => '_groupresource_share_create',
-
                 'access callback' => '_groupresource_share_access',
                 'access arguments' => array('create'),
-                'access arguments append' => FALSE,
-
-//                'access arguments' => array('group resource share create'),
-//                'access arguments append' => FALSE,
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'data',
@@ -314,6 +340,9 @@ function groupresource_services_resources() {
                 'help' => 'List all nodes',
                 'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'group_resource_share'),
                 'callback' => '_groupresource_share_index',
+                'access callback' => '_groupresource_share_access',
+                'access arguments' => array('index'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'page',
@@ -348,7 +377,6 @@ function groupresource_services_resources() {
                         'source' => array('param' => 'pagesize'),
                     ),
                 ),
-                'access arguments' => array('access content'),
             ),
         ),
 
@@ -382,11 +410,8 @@ function groupresource_services_resources() {
                 ),
                 'callback' => '_groupresource_membership_create',
                 'access callback' => '_groupresource_membership_access',
-                'access arguments' => array(),
-                'access arguments append' => FALSE,
-
-//                'access arguments' => array('group resource membership create'),
-//                'access arguments append' => FALSE,
+                'access arguments' => array('create'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'data',
@@ -448,6 +473,9 @@ function groupresource_services_resources() {
                 'help' => 'List all nodes',
                 'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'group_resource_membership'),
                 'callback' => '_groupresource_membership_index',
+                'access callback' => '_groupresource_membership_access',
+                'access arguments' => array('index'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'page',
@@ -482,7 +510,6 @@ function groupresource_services_resources() {
                         'source' => array('param' => 'pagesize'),
                     ),
                 ),
-                'access arguments' => array('access content'),
             ),
         ),
 
@@ -509,8 +536,9 @@ function groupresource_services_resources() {
                 'help' => 'Creates a group',
                 'file' => array('file' => 'inc', 'module' => 'groupresource'),
                 'callback' => '_groupresource_create',
-                'access arguments' => array('group resource create'),
-                'access arguments append' => FALSE,
+                'access callback' => '_groupresource_access',
+                'access arguments' => array('create'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'data',
@@ -566,6 +594,9 @@ function groupresource_services_resources() {
                 'help' => 'List all nodes',
                 'file' => array('type' => 'inc', 'module' => 'groupresource', 'name' => 'groupresource'),
                 'callback' => '_groupresource_index',
+                'access callback' => '_groupresource_access',
+                'access arguments' => array('index'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'page',
@@ -600,7 +631,6 @@ function groupresource_services_resources() {
                         'source' => array('param' => 'pagesize'),
                     ),
                 ),
-                'access arguments' => array('access content'),
             ),
         ),
     );

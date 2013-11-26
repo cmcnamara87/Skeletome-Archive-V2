@@ -225,3 +225,20 @@ function patientresource_schema() {
 
     return $schema;
 }
+
+function patientresource_install() {
+    // Create the 'Clinician' role
+    $role = new stdClass();
+    $role->name = 'clinician';
+    user_role_save($role);
+
+    user_role_grant_permissions($role->rid, array(
+        'view patients',
+        'create patients',
+        'update patients',
+        'delete patients',
+    ));
+}
+function patientresource_uninstall() {
+    user_role_delete('clinician');
+}

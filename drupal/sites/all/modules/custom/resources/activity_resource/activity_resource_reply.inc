@@ -69,12 +69,29 @@ function _activity_resource_reply_delete($id) {
 
 
 function _activity_resource_reply_index($page, $fields, $parameters, $page_size) {
-    return resource_helper_index('reply', $page, $fields, $parameters, $page_size);
+
+    $accessible_share_ids = shares_accessible();
+    if(count($accessible_share_ids)) {
+        $accessible_share_ids_string = implode(",", shares_accessible());
+
+        $sql = "SELECT replies.id
+            FROM replies, activities
+            WHERE replies.activity_id = activities.id
+            AND activities.share_id IN ($accessible_share_ids_string)";
+        $result = db_query($sql);
+        $reply_ids = array_keys($result->fetchAllAssoc('id'));
+        $parameters['id'] = $reply_ids;
+
+        return resource_helper_index('reply', $page, $fields, $parameters, $page_size);
+    } else {
+        return array();
+    }
 }
 
 
+
 /**
- * Access callback for the patient resource.
+ * Access callback for the activity resource.
  *
  * @param string $op
  *  The operation that's going to be performed.
@@ -83,29 +100,32 @@ function _activity_resource_reply_index($page, $fields, $parameters, $page_size)
  * @return bool
  *  Whether access is given or not.
  */
-
-function _activity_resource_reply_access($op, $args) {
+function _activity_resource_reply_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $reply = reply_load($args[0]);
+        $activity = activity_load($reply->activity_id);
+    }
+
     switch ($op) {
         case 'view':
-            $patient = reply_load($args[0]);
-            $access = user_access('patient resource view any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
+            $access = user_access('view replies') && shares_is_accessible($activity->share_id);
+            break;
+        case 'index':
+            $access = user_access('view replies');
             break;
         case 'update':
-            $patient = reply_load($args[0]->id);
-            $access = user_access('patient resource edit any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
+            $access = user_access('update replies') && shares_is_accessible($activity->share_id);
             break;
         case 'delete':
-            $patient = reply_load($args[0]);
-            $access = user_access('patient resource delete any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
+            $access = user_access('delete replies') && shares_is_accessible($activity->share_id);
+            break;
+        case 'create':
+            $access = user_access('create replies');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

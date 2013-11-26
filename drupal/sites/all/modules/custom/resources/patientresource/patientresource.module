@@ -189,25 +189,6 @@ function patientresource_permission() {
     );
 }
 
-
-//function patientresource_field_access($op, $field, $entity_type, $entity, $account) {
-//    echo "<div style='color:red; font-size:20px'>doing field access</div>";
-//}
-//
-//
-//echo "<pre>";
-////print_r(entity_get_info());
-////
-//print_r(drupal_schema_fields_sql('patient'));
-//
-//$my_array = entity_load('patient');
-//
-//print_r($my_array);
-//echo "<h1>field access</h1>";
-//print_r(field_access('view', 'subject', 'patient'));
-////
-//echo "</pre>";
-
 /**
  * Implementation of hook_services_resources().
  */
@@ -279,8 +260,9 @@ function patientresource_services_resources() {
             'help' => 'Creates a address',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_address'),
             'callback' => '_patientresource_address_create',
-            'access arguments' => array('patient resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_patientresource_address_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -399,8 +381,9 @@ function patientresource_services_resources() {
             'help' => 'Creates a patient',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
             'callback' => '_patientresource_identifier_create',
-            'access arguments' => array('patient resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_patientresource_identifier_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -456,6 +439,9 @@ function patientresource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'patientresource', 'name' => 'patientresource_identifier'),
             'callback' => '_patientresource_identifier_index',
+            'access callback' => '_patientresource_identifier_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -490,7 +476,6 @@ function patientresource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 
@@ -517,8 +502,9 @@ function patientresource_services_resources() {
             'help' => 'Creates a patient',
             'file' => array('file' => 'inc', 'module' => 'patientresource'),
             'callback' => '_patientresource_create',
-            'access arguments' => array('create patients'),
-            'access arguments append' => FALSE,
+            'access callback' => '_patientresource_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',

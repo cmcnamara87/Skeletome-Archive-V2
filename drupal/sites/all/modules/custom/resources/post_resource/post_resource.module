@@ -158,6 +158,30 @@ function vote_delete($id) {
     entity_delete('vote', $id);
 }
 
+function post_resource_permission() {
+    return array(
+        'view posts' => array(
+            'title' => t('View Posts'),
+        ),
+        'create posts' => array(
+            'title' => t('Create Posts'),
+        ),
+        'delete posts' => array(
+            'title' => t('Delete Posts')
+        ),
+
+        'view votes' => array(
+            'title' => t('View Votes'),
+        ),
+        'create votes' => array(
+            'title' => t('Create Votes'),
+        ),
+        'delete votes' => array(
+            'title' => t('Delete Votes')
+        )
+    );
+}
+
 /**
  * Implementation of hook_services_resources().
  */
@@ -192,40 +216,14 @@ function post_resource_services_resources() {
                 'name' => 'post_resource_vote'
             ),
             'callback' => '_post_resource_vote_create',
-            'access arguments' => array('post resource vote create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_post_resource_vote_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
                     'type' => 'struct',
                     'description' => 'The vote object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a post',
-            'file' => array('type' => 'inc',
-                'module' => 'post_resource',
-                'name' => 'post_resource_vote'
-            ),
-            'callback' => '_post_resource_vote_update',
-            'access callback' => '_post_resource_vote_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the vote to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The vote data object',
                     'source' => 'data',
                     'optional' => FALSE,
                 ),
@@ -255,6 +253,9 @@ function post_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource_vote'),
             'callback' => '_post_resource_vote_index',
+            'access callback' => '_post_resource_vote_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -289,7 +290,6 @@ function post_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         )
     );
     
@@ -360,37 +360,14 @@ function post_resource_services_resources() {
             'help' => 'Creates a discussion',
             'file' => array('file' => 'inc', 'module' => 'post_resource'),
             'callback' => '_post_resource_create',
-            'access arguments' => array('discussion resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_post_resource_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
                     'type' => 'struct',
                     'description' => 'The discussion object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a discussion',
-            'file' => array('file' => 'inc', 'module' => 'post_resource'),
-            'callback' => '_post_resource_update',
-            'access callback' => '_post_resource_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The discussion data object',
                     'source' => 'data',
                     'optional' => FALSE,
                 ),
@@ -417,6 +394,9 @@ function post_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'post_resource', 'name' => 'post_resource'),
             'callback' => '_post_resource_index',
+            'access callback' => '_post_resource_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -451,7 +431,6 @@ function post_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 

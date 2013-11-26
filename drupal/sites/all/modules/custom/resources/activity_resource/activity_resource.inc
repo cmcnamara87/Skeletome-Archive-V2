@@ -4,37 +4,12 @@
 
 function _activity_resource_index($user_id, $embed, $page, $fields, $parameters, $page_size) {
 
-    // Get out the user field
-    if($user_id > 0) {
-
-        // lets get all the groups first
-        $sql = "SELECT shares.id
-                FROM shares, members
-                WHERE members.user_id = :user_id
-                AND shares.group_id = members.group_id";
-
-        $results = db_query($sql, array(
-            'user_id' => $user_id
-        ));
-
-        $share_ids = array();
-        foreach($results as $result) {
-            $share_ids[] = $result->id;
-        }
-
-        if(count($share_ids)) {
-            $parameters['share_id'] = $share_ids;
-            $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
-        } else {
-            $activities = array();
-        }
-    } else {
-        $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
-    }
-
+    // Get all the activities that are accessible
+    $parameters["share_id"] = shares_filter_accessible($parameters["share_id"]);
+    $activities = resource_helper_index('activity', $page, $fields, $parameters, $page_size, "modified", "DESC");
 
     foreach($activities as &$activity) {
-        // embed the patient
+        // Embed some data (only on accessibly activities, so its all good)
 
         $share = share_load($activity->share_id);
         $activity->patient = patient_load($share->patient_id);
@@ -49,8 +24,9 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
 }
 
 
+
 /**
- * Access callback for the patient resource.
+ * Access callback for the activity resource.
  *
  * @param string $op
  *  The operation that's going to be performed.
@@ -59,29 +35,20 @@ function _activity_resource_index($user_id, $embed, $page, $fields, $parameters,
  * @return bool
  *  Whether access is given or not.
  */
-
-function _activity_resource_access($op, $args) {
+function _activity_resource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $activity = activity_load($args[0]);
+    }
+
     switch ($op) {
-        case 'view':
-            $patient = patient_load($args[0]);
-            $access = user_access('patient resource view any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
-            break;
-        case 'update':
-            $patient = patient_load($args[0]->id);
-            $access = user_access('patient resource edit any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
-            break;
-        case 'delete':
-            $patient = patient_load($args[0]);
-            $access = user_access('patient resource delete any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
+        case 'index':
+            $access = user_access('view activities');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }
+

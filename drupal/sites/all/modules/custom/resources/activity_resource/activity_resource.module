@@ -131,7 +131,8 @@ class PatientController extends EntityAPIController {
 */
 
 function activity_load($id, $reset = FALSE) {
-    return reset(activity_load_multiple(array($id), $reset));
+    $activity = activity_load_multiple(array($id), $reset);
+    return reset($activity);
 }
 function activity_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     $activities = array_values(entity_load('activity', $ids, $conditions, $reset));
@@ -145,7 +146,8 @@ function activity_delete($id) {
 }
 
 function reply_load($id, $reset = FALSE) {
-    return reset(reply_load_multiple(array($id), $reset));
+    $reply = reply_load_multiple(array($id), $reset);
+    return reset($reply);
 }
 function reply_load_multiple($ids = array(), $conditions = array(), $reset = FALSE) {
     $reply = array_values(entity_load('reply', $ids, $conditions, $reset));
@@ -156,6 +158,36 @@ function reply_save($entity) {
 }
 function reply_delete($id) {
     entity_delete('reply', $id);
+}
+
+
+function activity_resource_permission() {
+
+    $activities = array(
+        'view activities' => array(
+            'title' => t('Access Activities'),
+        ),
+        'create activities' => array(
+            'title' => t('Create Activities'),
+        ),
+        'delete activities' => array(
+            'title' => t('Delete Activities')
+        )
+    );
+
+    $replies = array(
+        'view replies' => array(
+            'title' => t('Access Replies'),
+        ),
+        'create replies' => array(
+            'title' => t('Create Replies'),
+        ),
+        'delete replies' => array(
+            'title' => t('Delete Replies')
+        )
+    );
+
+    return array_merge($activities, $replies);
 }
 
 
@@ -170,6 +202,9 @@ function activity_resource_services_resources() {
             'help' => 'List all activities',
             'file' => array('type' => 'inc', 'module' => 'activity_resource', 'name' => 'activity_resource'),
             'callback' => '_activity_resource_index',
+            'access callback' => '_activity_resource_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'user_id',
@@ -220,7 +255,6 @@ function activity_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 
@@ -247,37 +281,13 @@ function activity_resource_services_resources() {
             'file' => array('type' => 'inc', 'module' => 'activity_resource', 'name' => 'activity_resource_reply'),
             'callback' => '_activity_resource_reply_create',
             'access callback' => '_activity_resource_reply_access',
-            'access arguments' => array('patient resource create'),
-            'access arguments append' => FALSE,
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
                     'type' => 'struct',
                     'description' => 'The patient reply object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a reply',
-            'file' => array('type' => 'inc', 'module' => 'activity_resource', 'name' => 'activity_resource_reply'),
-            'callback' => '_activity_resource_reply_update',
-            'access callback' => '_activity_resource_reply_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The patient reply data object',
                     'source' => 'data',
                     'optional' => FALSE,
                 ),
@@ -304,6 +314,9 @@ function activity_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'activity_resource', 'name' => 'activity_resource_reply'),
             'callback' => '_activity_resource_reply_index',
+            'access callback' => '_activity_resource_reply_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -338,7 +351,6 @@ function activity_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 )
             ),
-            'access arguments' => array('access content'),
         ),
     );
 

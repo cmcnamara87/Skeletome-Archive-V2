@@ -6,6 +6,7 @@ core = 7.x
 
 dependencies[] = entity
 dependencies[] = rest_server
+dependencies[] = patientresource
 
 files[] = post_resource.inc
 files[] = post_resource.module

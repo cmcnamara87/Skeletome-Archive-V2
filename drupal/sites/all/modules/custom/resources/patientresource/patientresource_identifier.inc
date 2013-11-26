@@ -68,7 +68,7 @@ function _patientresource_identifier_delete($id) {
 
 
 function _patientresource_identifier_index($page, $fields, $parameters, $page_size) {
-    $parameters["patient_id"] = patients_accessible();
+    $parameters["patient_id"] = patients_filter_accessible($parameters["patient_id"]);
     $identifiers = resource_helper_index('identifier', $page, $fields, $parameters, $page_size);
     return $identifiers;
 }

@@ -97,71 +97,13 @@ function hpo_resource_services_resources() {
                 ),
             ),
         ),
-        'create' => array(
-            'help' => 'Creates a hpo',
-            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
-            'callback' => '_hpo_resource_create',
-            'access callback' => '_hpo_resource_access',
-            'access arguments' => array(),
-            'access arguments append' => FALSE,
-
-//            'access arguments' => array('hpo resource create'),
-//            'access arguments append' => FALSE,
-            'args' => array(
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The hpo object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a hpo',
-            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
-            'callback' => '_hpo_resource_update',
-            'access callback' => '_hpo_resource_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The hpo data object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'delete' => array(
-            'help' => 'Deletes a hpo',
-            'file' => array('file' => 'inc', 'module' => 'hpo_resource'),
-            'callback' => '_hpo_resource_delete',
-            'access callback' => '_hpo_resource_access',
-            'access arguments' => array('delete'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'nid',
-                    'type' => 'int',
-                    'description' => 'The id of the hpo to delete',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
         'index' => array(
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource'),
             'callback' => '_hpo_resource_index',
+            'access callback' => '_hpo_resource_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -196,7 +138,6 @@ function hpo_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 
@@ -222,8 +163,9 @@ function hpo_resource_services_resources() {
             'help' => 'Creates a patient',
             'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
             'callback' => '_hpo_resource_hpo_tag_create',
-            'access arguments' => array('patient resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_hpo_resource_hpo_tag_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -279,6 +221,9 @@ function hpo_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'hpo_resource', 'name' => 'hpo_resource_hpo_tag'),
             'callback' => '_hpo_resource_hpo_tag_index',
+            'access callback' => '_hpo_resource_hpo_tag_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -313,7 +258,6 @@ function hpo_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         ),
     );
 

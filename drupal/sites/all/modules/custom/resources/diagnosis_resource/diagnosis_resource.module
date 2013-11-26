@@ -119,21 +119,32 @@ function disorder_delete($id) {
 }
 
 
-
-
-
-
 function diagnosis_resource_permission() {
     return array(
-        'diagnosis resource vote create' => array(
-            'title' => t('Create vote'),
+        'view diagnoses' => array(
+            'title' => t('Access Diagnoses'),
         ),
-        'diagnosis resource disorder create' => array(
-            'title' => t('Create disorder'),
+        'create diagnoses' => array(
+            'title' => t('Create Diagnoses'),
         ),
-        'diagnosis resource create' => array(
-            'title' => t('Create diagnosis'),
-        )
+        'update diagnoses' => array(
+            'title' => t('Edit Diagnoses'),
+        ),
+        'delete diagnoses' => array(
+            'title' => t('Delete Diagnoses')
+        ),
+        'view disorders' => array(
+            'title' => t('Access Disorders'),
+        ),
+        'create disorders' => array(
+            'title' => t('Create Disorders'),
+        ),
+        'update disorders' => array(
+            'title' => t('Edit Disorders'),
+        ),
+        'delete disorders' => array(
+            'title' => t('Delete Disorders')
+        ),
     );
 }
 
@@ -169,8 +180,9 @@ function diagnosis_resource_services_resources() {
             'help' => 'Creates a diagnosis',
             'file' => array('file' => 'inc', 'module' => 'diagnosis_resource'),
             'callback' => '_diagnosis_resource_create',
-            'access arguments' => array('diagnosis resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_diagnosis_resource_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -226,6 +238,9 @@ function diagnosis_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource'),
             'callback' => '_diagnosis_resource_index',
+            'access callback' => '_diagnosis_resource_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -260,7 +275,6 @@ function diagnosis_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         )
     );
 
@@ -295,8 +309,9 @@ function diagnosis_resource_services_resources() {
                     'name' => 'diagnosis_resource_disorder'
                 ),
                 'callback' => '_diagnosis_resource_disorder_create',
-                'access arguments' => array('diagnosis resource disorder create'),
-                'access arguments append' => FALSE,
+                'access callback' => '_diagnosis_resource_disorder_access',
+                'access arguments' => array('create'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'data',
@@ -358,6 +373,9 @@ function diagnosis_resource_services_resources() {
                 'help' => 'List all nodes',
                 'file' => array('type' => 'inc', 'module' => 'diagnosis_resource', 'name' => 'diagnosis_resource_disorder'),
                 'callback' => '_diagnosis_resource_disorder_index',
+                'access callback' => '_diagnosis_resource_disorder_access',
+                'access arguments' => array('index'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'page',
@@ -392,7 +410,6 @@ function diagnosis_resource_services_resources() {
                         'source' => array('param' => 'pagesize'),
                     ),
                 ),
-                'access arguments' => array('access content'),
             ),
         ),
 

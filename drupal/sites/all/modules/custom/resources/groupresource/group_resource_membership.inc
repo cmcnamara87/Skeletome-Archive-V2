@@ -77,29 +77,27 @@ function _groupresource_membership_index($page, $fields, $parameters, $page_size
  * @return bool
  *  Whether access is given or not.
  */
-
-function _groupresource_membership_access($op, $args) {
+function _groupresource_membership_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
     switch ($op) {
         case 'view':
-            $group = membership_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view memberships');
+            break;
+        case 'index':
+            $access = user_access('view memberships');
             break;
         case 'update':
-            $group = membership_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update memberships');
             break;
         case 'delete':
-            $group = membership_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete memberships');
+            break;
+        case 'create':
+            $access = user_access('create memberships');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

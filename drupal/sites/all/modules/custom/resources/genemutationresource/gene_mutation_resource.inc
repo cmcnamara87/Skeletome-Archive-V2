@@ -66,6 +66,7 @@ function _gene_mutation_resource_delete($id) {
 
 
 function _gene_mutation_resource_index($page, $fields, $parameters, $page_size) {
+    $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
     return resource_helper_index('gene_mutation', $page, $fields, $parameters, $page_size);
 }
 
@@ -80,27 +81,31 @@ function _gene_mutation_resource_index($page, $fields, $parameters, $page_size) 
  *  Whether access is given or not.
  */
 
-function _gene_mutation_resource_access($op, $args) {
+function _gene_mutation_resource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $gene_mutation = gene_mutation_load($args[0]);
+    }
     switch ($op) {
         case 'view':
-            $group = gene_mutation_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view patients') && patients_is_accessible($gene_mutation->patient_id);
+            break;
+        case 'index':
+            $access = user_access('view patients');
             break;
         case 'update':
-            $group = gene_mutation_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update patients') && patients_is_accessible($gene_mutation->patient_id);
             break;
         case 'delete':
-            $group = gene_mutation_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete patients') && patients_is_accessible($gene_mutation->patient_id);
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
+
     return $access;
 }
+

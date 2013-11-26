@@ -61,6 +61,7 @@ function _post_resource_vote_delete($id) {
 
 
 function _post_resource_vote_index($page, $fields, $parameters, $page_size) {
+    $parameters['post_id'] = posts_filter_accessible($parameters['post_id']);
     return resource_helper_index('vote', $page, $fields, $parameters, $page_size);
 }
 
@@ -75,29 +76,30 @@ function _post_resource_vote_index($page, $fields, $parameters, $page_size) {
  * @return bool
  *  Whether access is given or not.
  */
-
-function _post_resource_vote_access($op, $args) {
+function _post_resource_vote_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if(isset($args[0])) {
+        $vote = vote_load($args[0]);
+    }
     switch ($op) {
         case 'view':
-            $group = vote_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view votes') && posts_is_accessible($vote->post_id);
+            break;
+        case 'index':
+            $access = user_access('view votes');
             break;
         case 'update':
-            $group = vote_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update votes') && posts_is_accessible($vote->post_id);
             break;
         case 'delete':
-            $group = vote_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete votes') && posts_is_accessible($vote->post_id);
+            break;
+        case 'create':
+            $access = user_access('create votes');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

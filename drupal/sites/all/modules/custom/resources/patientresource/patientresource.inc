@@ -105,6 +105,9 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
 
         return _patientresource_search_for_patient($query);
     } else {
+        // We dont need to filter the groups
+        // Because it just shows the patient overview,
+        // Not the FULL patient
         if ($group_id > 0) {
 
             // lets get all the groups first
@@ -115,7 +118,6 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
             $results = db_query($sql, array(
                 'group_id' => $group_id
             ));
-
             $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
 
             $parameters['id'] = $patient_ids;
@@ -159,7 +161,6 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
     return $patients;
 }
 
-
 /**
  * Access callback for the patient resource.
  *
@@ -192,6 +193,8 @@ function _patientresource_access($op, $args=array()) {
             $access = user_access('create patients');
             break;
     }
+
+
 
     return $access;
 }

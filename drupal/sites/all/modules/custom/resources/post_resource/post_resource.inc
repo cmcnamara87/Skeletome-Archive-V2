@@ -19,27 +19,6 @@ function _post_resource_create($data) {
     return (object)$data;
 }
 
-// post_resource.inc
-/**
- * Callback for updating post resources.
- *
- * @param int $id
- * @param object $data
- * @return object
- */
-function _post_resource_update($id, $data) {
-    global $user;
-    $post = post_load($id);
-
-    unset($data->created);
-    $data->id = $id;
-    $data->uid = $post->uid;
-    $data->modified = time();
-
-    post_save($data);
-
-    return (object)$data;
-}
 /**
  * Callback for retrieving post resources.
  *
@@ -65,6 +44,7 @@ function _post_resource_delete($id) {
 }
 
 function _post_resource_index($page, $fields, $parameters, $page_size) {
+    $parameters['share_id'] = shares_filter_accessible($parameters['share_id']);
     return resource_helper_index('post', $page, $fields, $parameters, $page_size);
 }
 
@@ -78,29 +58,31 @@ function _post_resource_index($page, $fields, $parameters, $page_size) {
  * @return bool
  *  Whether access is given or not.
  */
-
-function _post_resource_access($op, $args) {
+function _post_resource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if(isset($args[0])) {
+        $post = post_load($args[0]);
+    }
+
     switch ($op) {
         case 'view':
-            $post = post_load($args[0]);
-            $access = user_access('post resource view any post');
-            $access = $access || $post->uid == $user->uid && user_access('post resource view own posts');
+            $access = user_access('view posts') && shares_is_accessible($post->share_id);
+            break;
+        case 'index':
+            $access = user_access('view posts');
             break;
         case 'update':
-            $post = post_load($args[0]->id);
-            $access = user_access('post resource edit any post');
-            $access = $access || $post->uid == $user->uid && user_access('post resource edit own posts');
+            $access = user_access('update posts') && shares_is_accessible($post->share_id);
             break;
         case 'delete':
-            $post = post_load($args[0]);
-            $access = user_access('post resource delete any post');
-            $access = $access || $post->uid == $user->uid && user_access('post resource delete own posts');
+            $access = user_access('delete posts') && shares_is_accessible($post->share_id);
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

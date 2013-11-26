@@ -41,14 +41,6 @@ function diagnosis_resource_schema() {
                 'not null' => TRUE,
                 'default' => 0,
             ),
-            /** NOTE!! A diagnosis is either attached to a share, or a patient, not both. */
-            'share_id' => array(
-                'description' => t('The share that has this diagnosis.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
             'patient_id' => array(
                 'description' => t('The patient that has this diagnosis.'),
                 'type' => 'int',
@@ -260,7 +252,7 @@ function diagnosis_resource_install() {
         array('name' => 'Desbuquois dysplasia with accessory ossification center in digit 2','uri' => 'http://purl.org/skeletome/bonedysplasia#Desbuquois_dysplasia_with_accessory_ossification_center_in_digit_2'),
         array('name' => 'Desbuquois dysplasia with short metacarpals and elongated phalanges','uri' => 'http://purl.org/skeletome/bonedysplasia#Desbuquois_dysplasia_with_short_metacarpals_and_elongated_phalanges'),
         array('name' => 'Pseudodiastrophic dysplasia','uri' => 'http://purl.org/skeletome/bonedysplasia#Pseudodiastrophic_dysplasia'),
-        array('name' => 'Achondroplasia 2','uri' => 'http://purl.org/skeletome/bonedysplasia#Achondroplasia'),
+        array('name' => 'Achondroplasia','uri' => 'http://purl.org/skeletome/bonedysplasia#Achondroplasia'),
         array('name' => 'Camptodactyly tall stature and hearing loss syndrome','uri' => 'http://purl.org/skeletome/bonedysplasia#Camptodactyly_tall_stature_and_hearing_loss_syndrome'),
         array('name' => 'Hypochondroplasia','uri' => 'http://purl.org/skeletome/bonedysplasia#Hypochondroplasia'),
         array('name' => 'Hypochondroplasia-like dysplasia','uri' => 'http://purl.org/skeletome/bonedysplasia#Hypochondroplasia_like_dysplasia'),
@@ -605,4 +597,16 @@ function diagnosis_resource_install() {
     foreach($disorders as $disorder) {
         drupal_write_record('disorders', $disorder);
     }
+
+    $clinician_role = user_role_load_by_name('clinician');
+    user_role_grant_permissions($clinician_role->rid, array(
+        'view diagnoses',
+        'create diagnoses',
+        'update diagnoses',
+        'delete diagnoses',
+        'view disorders',
+        'create disorders',
+        'update disorders',
+        'delete disorders',
+    ));
 }

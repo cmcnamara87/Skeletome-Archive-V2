@@ -65,6 +65,7 @@ function _consent_resource_file_delete($id) {
 }
 
 function _consent_resource_file_index($page, $fields, $parameters, $page_size) {
+    $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
     return resource_helper_index('consentfile', $page, $fields, $parameters, $page_size);
 }
 
@@ -78,29 +79,30 @@ function _consent_resource_file_index($page, $fields, $parameters, $page_size) {
  * @return bool
  *  Whether access is given or not.
  */
-
-function _consent_resource_file_access($op, $args) {
+function _consent_resource_file_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $consent_file = consentfile_load($args[0]);
+    }
     switch ($op) {
         case 'view':
-            $consentfile = consentfile_load($args[0]);
-            $access = user_access('consentfile resource view any consentfile');
-            $access = $access || $consentfile->uid == $user->uid && user_access('consentfile resource view own consentfiles');
+            $access = user_access('view patients') && patients_is_accessible($consent_file->patient_id);
+            break;
+        case 'index':
+            $access = user_access('view patients');
             break;
         case 'update':
-            $consentfile = consentfile_load($args[0]->id);
-            $access = user_access('consentfile resource edit any consentfile');
-            $access = $access || $consentfile->uid == $user->uid && user_access('consentfile resource edit own consentfiles');
+            $access = user_access('update patients') && patients_is_accessible($consent_file->patient_id);
             break;
         case 'delete':
-            $consentfile = consentfile_load($args[0]);
-            $access = user_access('consentfile resource delete any consentfile');
-            $access = $access || $consentfile->uid == $user->uid && user_access('consentfile resource delete own consentfiles');
+            $access = user_access('delete patients') && patients_is_accessible($consent_file->patient_id);
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

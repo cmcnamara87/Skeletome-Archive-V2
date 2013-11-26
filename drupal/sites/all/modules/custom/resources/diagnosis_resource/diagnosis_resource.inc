@@ -77,6 +77,7 @@ function _diagnosis_resource_delete($id) {
 
 
 function _diagnosis_resource_index($page, $fields, $parameters, $page_size) {
+    $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
     return resource_helper_index('diagnosis', $page, $fields, $parameters, $page_size);
 }
 
@@ -92,28 +93,32 @@ function _diagnosis_resource_index($page, $fields, $parameters, $page_size) {
  *  Whether access is given or not.
  */
 
-function _diagnosis_resource_access($op, $args) {
+function _diagnosis_resource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if($args[0]) {
+        $diagnosis = diagnosis_load($args[0]);
+    }
     switch ($op) {
         case 'view':
-            $group = diagnosis_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view diagnoses') && patients_is_accessible($diagnosis->patient_id);
+            break;
+        case 'index':
+            $access = user_access('view diagnoses');
             break;
         case 'update':
-            $group = diagnosis_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update diagnoses') && patients_is_accessible($diagnosis->patient_id);
             break;
         case 'delete':
-            $group = diagnosis_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete diagnoses') && patients_is_accessible($diagnosis->patient_id);
+            break;
+        case 'create':
+            $access = user_access('create diagnoses');
             break;
     }
-    $access = TRUE;
+
+
 
     return $access;
 }

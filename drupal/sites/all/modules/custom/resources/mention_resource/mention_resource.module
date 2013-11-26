@@ -289,67 +289,6 @@ function mention_resource_services_resources() {
                 ),
             ),
         ),
-        'create' => array(
-            'help' => 'Creates a mention',
-            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
-            'callback' => '_mention_resource_create',
-            'access callback' => '_mention_resource_access',
-            'access arguments' => array(),
-            'access arguments append' => FALSE,
-
-//            'access arguments' => array('mention resource create'),
-//            'access arguments append' => FALSE,
-            'args' => array(
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The mention object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a mention',
-            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
-            'callback' => '_mention_resource_update',
-            'access callback' => '_mention_resource_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The mention data object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'delete' => array(
-            'help' => 'Deletes a mention',
-            'file' => array('file' => 'inc', 'module' => 'mention_resource'),
-            'callback' => '_mention_resource_delete',
-            'access callback' => '_mention_resource_access',
-            'access arguments' => array('delete'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'nid',
-                    'type' => 'int',
-                    'description' => 'The id of the mention to delete',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
         'index' => array(
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'mention_resource', 'name' => 'mention_resource'),

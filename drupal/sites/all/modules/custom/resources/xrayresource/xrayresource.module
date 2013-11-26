@@ -59,8 +59,9 @@ function xrayresource_services_resources() {
                 'help' => 'Creates a xray',
                 'file' => array('file' => 'inc', 'module' => 'xrayresource'),
                 'callback' => '_xray_resource_create',
-                'access arguments' => array('xray resource create'),
-                'access arguments append' => FALSE,
+                'access callback' => '_xray_resource_access',
+                'access arguments' => array('create'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'data',
@@ -116,9 +117,9 @@ function xrayresource_services_resources() {
                 'help' => 'Retrieves a listing of xrays',
                 'file' => array('file' => 'inc', 'module' => 'xrayresource'),
                 'callback' => '_xray_resource_index',
-                'access callback' => 'user_access',
-                'access arguments' => array('access content'),
-                'access arguments append' => FALSE,
+                'access callback' => '_xray_resource_access',
+                'access arguments' => array('index'),
+                'access arguments append' => TRUE,
                 'args' => array(
                     array(
                         'name' => 'page',

@@ -6,3 +6,4 @@ core = 7.x
 
 dependencies[] = entity
 dependencies[] = rest_server
+dependencies[] = patientresource

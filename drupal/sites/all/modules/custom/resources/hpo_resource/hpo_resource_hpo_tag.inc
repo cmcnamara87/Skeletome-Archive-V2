@@ -82,28 +82,53 @@ function _hpo_resource_hpo_tag_index($page, $fields, $parameters, $page_size) {
  *  Whether access is given or not.
  */
 
-function _hpo_resource_hpo_tag_access($op, $args) {
+function _hpo_resource_hpo_tag_access($op, $args=array()) {
     global $user;
-    $access = FALSE;
+    $access = true;
 
-    switch ($op) {
-        case 'view':
-            $patient = hpo_tag_load($args[0]);
-            $access = user_access('patient resource view any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource view own patients');
-            break;
-        case 'update':
-            $patient = hpo_tag_load($args[0]->id);
-            $access = user_access('patient resource edit any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource edit own patients');
-            break;
-        case 'delete':
-            $patient = hpo_tag_load($args[0]);
-            $access = user_access('patient resource delete any patient');
-            $access = $access || $patient->uid == $user->uid && user_access('patient resource delete own patients');
-            break;
-    }
-    $access = TRUE;
-
+//    if(isset($args[0])) {
+//        $hpo_tag = hpo_tag_load($args[0]);
+//        if($hpo_tag->object_type == "patient") {
+//
+//            switch ($op) {
+//                case 'view':
+//                    $access = user_access('view patients') && patients_is_accessible($hpo_tag->object_id);
+//                    break;
+//                case 'index':
+//                    $access = user_access('view patients');
+//                    break;
+//                case 'update':
+//                    $access = user_access('update patients') && patients_is_accessible($hpo_tag->object_id);
+//                    break;
+//                case 'delete':
+//                    $access = user_access('delete patients') && patients_is_accessible($hpo_tag->object_id);
+//                    break;
+//                case 'create':
+//                    $access = user_access('create patients');
+//                    break;
+//            }
+//
+//        } else if($hpo_tag->object_type == "xray") {
+//            $xray = xray_load($hpo_tag->object_id);
+//
+//            switch ($op) {
+//                case 'view':
+//                    $access = user_access('view patients') && patients_is_accessible($xray->patient_id);
+//                    break;
+//                case 'index':
+//                    $access = user_access('view patients');
+//                    break;
+//                case 'update':
+//                    $access = user_access('update patients') && patients_is_accessible($xray->patient_id);
+//                    break;
+//                case 'delete':
+//                    $access = user_access('delete patients') && patients_is_accessible($xray->patient_id);
+//                    break;
+//                case 'create':
+//                    $access = user_access('create patients');
+//                    break;
+//            }
+//        }
+//    }
     return $access;
 }

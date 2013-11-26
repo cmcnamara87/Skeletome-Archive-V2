@@ -6,67 +6,6 @@
  */
 function gene_mutation_resource_schema() {
 
-    $schema['genetic_reports'] = array(
-        'description' => t('Stores all the genetic reports.'),
-        'fields' => array(
-            'id' => array(
-                'description' => t('The primary identifier for a genetic report.'),
-                'type' => 'serial',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'gene_mutation_id' => array(
-                'description' => t('The id of the gene mutation.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-            ),
-            'patient_id' => array(
-                'description' => t('The id of the patient.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'uid' => array(
-                'description' => t('The user that created the post.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'created' => array(
-                'description' => t('The timestamp for when the gene mutation was created.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-            'modified' => array(
-                'description' => t('The timestamp for when the gene mutation was modified.'),
-                'type' => 'int',
-                'unsigned' => TRUE,
-                'not null' => TRUE,
-                'default' => 0,
-            ),
-        ),
-        'foreign keys' => array(
-            'creator' => array(
-                'table' => 'users',
-                'columns' => array('uid' => 'uid'),
-            ),
-            'gene_mutation' => array(
-                'table' => 'gene_mutations',
-                'columns' => array('uid' => 'gene_mutation_id'),
-            ),
-            'patient' => array(
-                'table' => 'patients',
-                'columns' => array('id' => 'patient_id'),
-            ),
-        ),
-        'primary key' => array('id'),
-    );
-
     $schema['gene_mutations'] = array(
         'description' => t('Stores gene mutations for a patient.'),
         'fields' => array(

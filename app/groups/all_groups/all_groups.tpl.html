@@ -6,7 +6,7 @@
             </div>
             <h1>All Groups</h1>
         </div>
-        <div class="nodata">
+        <div class="nodata" ng-show="!groups.length">
             No groups found.
         </div>
         <table class="table" ng-show="groups.length">
@@ -20,7 +20,7 @@
             <tr ng-repeat="group in groups | filter:search">
                 <!-- Groups -->
                 <td>
-                    <a href="#/group/{{ group.id }}" class="highlight">
+                    <a href="#/group/{{ group.id }}/summary" class="highlight">
                         <span ng-show="group.membership"><i class="icon icon-user"></i></span> {{ group.name }}
                     </a>
                 </td>

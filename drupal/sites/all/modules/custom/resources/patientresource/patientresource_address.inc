@@ -69,8 +69,7 @@ function _patientresource_address_delete($id) {
 
 
 function _patientresource_address_index($page, $fields, $parameters, $page_size) {
-    $patient_ids = patients_accessible();
-    $parameters["patient_id"] = $patient_ids;
+    $parameters["patient_id"] = patients_filter_accessible($parameters["patient_id"]);
     return resource_helper_index('address', $page, $fields, $parameters, $page_size);
 }
 

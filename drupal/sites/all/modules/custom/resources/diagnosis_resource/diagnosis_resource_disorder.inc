@@ -95,29 +95,28 @@ function _diagnosis_resource_disorder_description($id) {
  * @return bool
  *  Whether access is given or not.
  */
-
-function _diagnosis_resource_disorder_access($op, $args) {
+function _diagnosis_resource_disorder_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
     switch ($op) {
         case 'view':
-            $group = disorder_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view disorders');
+            break;
+        case 'index':
+            $access = user_access('view disorders');
             break;
         case 'update':
-            $group = disorder_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update disorders');
             break;
         case 'delete':
-            $group = disorder_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete disorders');
+            break;
+        case 'create':
+            $access = user_access('create disorders');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }
+

@@ -90,28 +90,27 @@ function _groupresource_index($page, $fields, $parameters, $page_size) {
  *  Whether access is given or not.
  */
 
-function _groupresource_access($op, $args) {
+function _groupresource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
     switch ($op) {
         case 'view':
-            $group = group_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view groups');
+            break;
+        case 'index':
+            $access = user_access('view groups');
             break;
         case 'update':
-            $group = group_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update groups');
             break;
         case 'delete':
-            $group = group_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete groups');
+            break;
+        case 'create':
+            $access = user_access('create groups');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }

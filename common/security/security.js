@@ -149,7 +149,9 @@ angular.module('security', [])
             if(!user) {
                 SessionService.currentUser = null;
             } else {
-                angular.copy(user, SessionService.currentUser);
+                if(user != SessionService.currentUser) {
+                    angular.copy(user, SessionService.currentUser);
+                }
             }
 
             if(user == null) {

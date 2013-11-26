@@ -28,7 +28,7 @@ angular.module('user', [])
             "use strict";
             // we have the file, add it to the user
             user.picture = file;
-            SessionService.setCurrentUser(user);
+            AuthService.setCurrentUser(user);
         }
 
     }]);

@@ -175,6 +175,9 @@ function gene_mutation_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_mutation_type'),
             'callback' => '_gene_mutation_resource_mutation_type_index',
+            'access callback' => '_gene_mutation_resource_mutation_type_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -209,7 +212,6 @@ function gene_mutation_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         )
     );
 
@@ -235,6 +237,9 @@ function gene_mutation_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_gene'),
             'callback' => '_gene_mutation_resource_gene_index',
+            'access callback' => '_gene_mutation_resource_gene_access',
+            'access arguments' => array('index'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'page',
@@ -269,7 +274,6 @@ function gene_mutation_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         )
     );
 
@@ -295,8 +299,9 @@ function gene_mutation_resource_services_resources() {
             'help' => 'Creates a Gene Mutation',
             'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
             'callback' => '_gene_mutation_resource_create',
-            'access arguments' => array('gene mutation resource create'),
-            'access arguments append' => FALSE,
+            'access callback' => '_gene_mutation_resource_access',
+            'access arguments' => array('create'),
+            'access arguments append' => TRUE,
             'args' => array(
                 array(
                     'name' => 'data',
@@ -352,124 +357,9 @@ function gene_mutation_resource_services_resources() {
             'help' => 'List all nodes',
             'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource'),
             'callback' => '_gene_mutation_resource_index',
-            'args' => array(
-                array(
-                    'name' => 'page',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'The zero-based index of the page to get, defaults to 0.',
-                    'default value' => 0,
-                    'source' => array('param' => 'page'),
-                ),
-                array(
-                    'name' => 'fields',
-                    'optional' => TRUE,
-                    'type' => 'string',
-                    'description' => 'The fields to get.',
-                    'default value' => '*',
-                    'source' => array('param' => 'fields'),
-                ),
-                array(
-                    'name' => 'parameters',
-                    'optional' => TRUE,
-                    'type' => 'array',
-                    'description' => 'Parameters array',
-                    'default value' => array(),
-                    'source' => array('param' => 'parameters'),
-                ),
-                array(
-                    'name' => 'pagesize',
-                    'optional' => TRUE,
-                    'type' => 'int',
-                    'description' => 'Number of records to get per page.',
-                    'default value' => variable_get('services_node_index_page_size', 20),
-                    'source' => array('param' => 'pagesize'),
-                ),
-            ),
-            'access arguments' => array('access content'),
-        )
-    );
-
-
-    $resources['genetic_report'] = array(
-        'retrieve' => array(
-            'help' => 'Retrieves a Genetic Report',
-            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_genetic_report'),
-            'callback' => '_gene_mutation_resource_genetic_report_retrieve',
-            'access callback' => '_gene_mutation_resource_genetic_report_access',
-            'access arguments' => array('view'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the gene mutation to get',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'create' => array(
-            'help' => 'Creates a Gene Mutation',
-            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_genetic_report'),
-            'callback' => '_gene_mutation_resource_genetic_report_create',
-            'access arguments' => array('gene mutation resource create'),
-            'access arguments append' => FALSE,
-            'args' => array(
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The gene mutation object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'update' => array(
-            'help' => 'Updates a Gene Mutation',
-            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_genetic_report'),
-            'callback' => '_gene_mutation_resource_genetic_report_update',
-            'access callback' => '_gene_mutation_resource_genetic_report_access',
-            'access arguments' => array('update'),
-            'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'id',
-                    'type' => 'int',
-                    'description' => 'The id of the node to update',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-                array(
-                    'name' => 'data',
-                    'type' => 'struct',
-                    'description' => 'The gene mutation data object',
-                    'source' => 'data',
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'delete' => array(
-            'help' => 'Deletes a Gene Mutation',
-            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_genetic_report'),
-            'callback' => '_gene_mutation_resource_genetic_report_delete',
             'access callback' => '_gene_mutation_resource_access',
-            'access arguments' => array('delete'),
+            'access arguments' => array('index'),
             'access arguments append' => TRUE,
-            'args' => array(
-                array(
-                    'name' => 'nid',
-                    'type' => 'int',
-                    'description' => 'The id of the gene mutation to delete',
-                    'source' => array('path' => '0'),
-                    'optional' => FALSE,
-                ),
-            ),
-        ),
-        'index' => array(
-            'help' => 'List all nodes',
-            'file' => array('type' => 'inc', 'module' => 'gene_mutation_resource', 'name' => 'gene_mutation_resource_genetic_report'),
-            'callback' => '_gene_mutation_resource_genetic_report_index',
             'args' => array(
                 array(
                     'name' => 'page',
@@ -504,10 +394,8 @@ function gene_mutation_resource_services_resources() {
                     'source' => array('param' => 'pagesize'),
                 ),
             ),
-            'access arguments' => array('access content'),
         )
     );
-
 
     return $resources;
 }

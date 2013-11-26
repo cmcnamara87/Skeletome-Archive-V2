@@ -1,5 +1,115 @@
 <?php
 
+function users_owner($uid) {
+    global $user;
+    return $uid == $user->uid;
+}
+
+function shares_accessible() {
+    global $user;
+
+    // lets get all the groups first
+    $sql = "SELECT shares.*
+            FROM shares, members
+            WHERE members.user_id = :user_id
+            AND shares.group_id = members.group_id";
+    $results = db_query($sql, array(
+        "user_id"  => $user->uid
+    ));
+
+    $ids = array_keys($results->fetchAllAssoc('id'));
+
+    return $ids;
+}
+function shares_is_accessible($share_id) {
+    $ids = shares_accessible();
+    return in_array($share_id, $ids);
+}
+/**
+ * Takes an array of share ids, and returns a subset of that array
+ * with only accessible share ids
+ *
+ * @param $ids
+ * @return array
+ */
+function shares_filter_accessible($ids) {
+    if(isset($ids)) {
+        if(!is_array($ids)) {
+            $ids = array($ids);
+        }
+        // It is set, so we need to filter with it
+        return array_intersect($ids, shares_accessible());
+
+    } else {
+        // nothing, filter to the max set
+        return shares_accessible();
+    }
+}
+
+function posts_accessible() {
+    global $user;
+    // lets get all the groups first
+    $sql = "SELECT posts.id
+            FROM posts, shares, members
+            WHERE members.user_id = :user_id
+            AND shares.group_id = members.group_id,
+            AND posts.share_id = shares.id";
+    $results = db_query($sql, array(
+        "user_id"  => $user->uid
+    ));
+    $ids = array_keys($results->fetchAllAssoc('id'));
+    return $ids;
+}
+function posts_is_accessible($activity_id) {
+    $ids = posts_accessible();
+    return in_array($activity_id, $ids);
+}
+function posts_filter_accessible($ids) {
+    if(isset($ids)) {
+        if(!is_array($ids)) {
+            $ids = array($ids);
+        }
+        // It is set, so we need to filter with it
+        return array_intersect($ids, posts_accessible());
+
+    } else {
+        // nothing, filter to the max set
+        return posts_accessible();
+    }
+}
+
+function activities_accessible() {
+    global $user;
+    // lets get all the groups first
+    $sql = "SELECT activities.id
+            FROM activities, shares, members
+            WHERE members.user_id = :user_id
+            AND shares.group_id = members.group_id,
+            AND activities.share_id = shares.id";
+    $results = db_query($sql, array(
+        "user_id"  => $user->uid
+    ));
+    $ids = array_keys($results->fetchAllAssoc('id'));
+    return $ids;
+}
+function activities_is_accessible($activity_id) {
+    $ids = activities_accessible();
+    return in_array($activity_id, $ids);
+}
+function activities_filter_accessible($ids) {
+    if(isset($ids)) {
+        if(!is_array($ids)) {
+            $ids = array($ids);
+        }
+        // It is set, so we need to filter with it
+        return array_intersect($ids, activities_accessible());
+
+    } else {
+        // nothing, filter to the max set
+        return activities_accessible();
+    }
+}
+
 /**
  * Get all patient ids the current user can access
  * @return array    An array of patient IDs
@@ -8,11 +118,11 @@ function patients_accessible() {
     global $user;
 
     $sql = "SELECT patients.id
-            FROM patients, members, shares
-            WHERE patients.uid = :uid
-            OR (members.user_id = :uid
-            AND shares.group_id = members.group_id
-            AND patients.id = shares.patient_id)";
+            FROM patients
+            LEFT JOIN members ON members.user_id = :uid
+            LEFT JOIN shares ON shares.group_id = members.group_id
+            WHERE patients.id = shares.patient_id
+            OR patients.uid = :uid";
 
     $results = db_query($sql, array(
         "uid"   => $user->uid
@@ -22,6 +132,19 @@ function patients_accessible() {
 
     return $ids;
 }
+function patients_filter_accessible($ids) {
+    if(isset($ids)) {
+        if(!is_array($ids)) {
+            $ids = array($ids);
+        }
+        // It is set, so we need to filter with it
+        return array_intersect($ids, patients_accessible());
+
+    } else {
+        // nothing, filter to the max set
+        return patients_accessible();
+    }
+}
 
 /**
  * Checks if a patient is accessible by the current user
@@ -30,6 +153,8 @@ function patients_accessible() {
  */
 function patients_is_accessible($patient_id) {
     $ids = patients_accessible();
+
+
     return in_array($patient_id, $ids);
 }
 
@@ -45,7 +170,13 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
             $query->propertyCondition($parameter, $value);
         } elseif(is_array($value)) {
             // its an array
-            $query->propertyCondition($parameter, $value, 'IN');
+            if(count($value)) {
+                $query->propertyCondition($parameter, $value, 'IN');
+            } else {
+                // We are looking for IN 'empty array'
+                // so we should always return nothing
+                return array();
+            }
         } else {
             // its a string, lets do a starts with
             $query->propertyCondition($parameter, $value, 'STARTS_WITH');

@@ -78,28 +78,41 @@ function _xray_resource_index($page, $fields, $parameters, $page_size) {
  *  Whether access is given or not.
  */
 
-function _xray_resource_access($op, $args) {
+/**
+ * Access callback for the patient resource.
+ *
+ * @param string $op
+ *  The operation that's going to be performed.
+ * @param array $args
+ *  The arguments that will be passed to the callback.
+ * @return bool
+ *  Whether access is given or not.
+ */
+
+function _xray_resource_access($op, $args=array()) {
     global $user;
     $access = FALSE;
 
+    if(isset($args[0])) {
+        $xray = xray_load($args[0]);
+    }
     switch ($op) {
         case 'view':
-            $group = xray_load($args[0]);
-            $access = user_access('group resource view any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource view own groups');
+            $access = user_access('view patients') && patients_is_accessible($xray->patient_id);
+            break;
+        case 'index':
+            $access = user_access('view patients');
             break;
         case 'update':
-            $group = xray_load($args[0]->id);
-            $access = user_access('group resource edit any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource edit own groups');
+            $access = user_access('update patients') && patients_is_accessible($xray->patient_id);
             break;
         case 'delete':
-            $group = xray_load($args[0]);
-            $access = user_access('group resource delete any group');
-            $access = $access || $group->uid == $user->uid && user_access('group resource delete own groups');
+            $access = user_access('delete patients') && patients_is_accessible($xray->patient_id);
+            break;
+        case 'create':
+            $access = user_access('create patients');
             break;
     }
-    $access = TRUE;
 
     return $access;
 }
