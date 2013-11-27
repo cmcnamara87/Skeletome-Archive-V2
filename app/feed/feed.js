@@ -12,26 +12,30 @@ angular.module('feed', [])
 
         $scope.isLoading = true;
 
+            console.log("Session service is", $scope.SessionService);
         // Load all patients
-        if(SessionService.isAuthenticated) {
-            ActivityModel.query({
-                user_id: SessionService.currentUser.uid,
-                embed: 1
-            }).$promise.then(function(activities) {
-                "use strict";
-                $scope.activities = activities;
-                $scope.isLoading = false;
+        $scope.$watch('SessionService.isAuthenticated', function(authenticated) {
+            "use strict";
+            console.log("hello?");
+            if(authenticated) {
+                ActivityModel.query({
+                    user_id: SessionService.currentUser.uid,
+                    embed: 1
+                }).$promise.then(function(activities) {
+                    "use strict";
+                    $scope.activities = activities;
+                    $scope.isLoading = false;
 
-                angular.forEach(activities, function(activity, activityIndex) {
-                    if(activityIndex % 2) {
-                        $scope.activitiesOdd.push(activity);
-                    } else {
-                        $scope.activitiesEven.push(activity);
-                    }
+                    angular.forEach(activities, function(activity, activityIndex) {
+                        if(activityIndex % 2) {
+                            $scope.activitiesOdd.push(activity);
+                        } else {
+                            $scope.activitiesEven.push(activity);
+                        }
+                    });
                 });
-            });
-        }
-
+            }
+        })
 
         // We need to split the activities into even and odd
         // just to fill in the 2 columns easily
