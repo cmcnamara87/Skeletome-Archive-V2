@@ -6,28 +6,18 @@ angular.module('patient.contact_information', [])
             templateUrl:'app/patients/patient/contact_information/contact_information.tpl.html',
             controller:'ContactInformationCtrl',
             resolve:{
-                patient: ['PatientModel', 'SessionService', '$route', '$q', function (PatientModel, SessionService, $route, $q) {
-
-                    var defer = $q.defer();
-
-                    if(SessionService.currentUser) {
-                        var patient = PatientModel.get({
-                            'id': $route.current.params.patient_id
-                        }, function() {
-                            console.log("logged in user", SessionService.currentUser.uid, patient.uid);
+                patient: ['PatientModel', 'SessionService', '$route', '$q', 'AuthService', function (PatientModel, SessionService, $route, $q, AuthService) {
+                    return AuthService.isAuthenticated().then(function() {
+                        "use strict";
+                        return PatientModel.get({'id': $route.current.params.patient_id}).$promise.then(function(patient) {
+                            console.log("patient is", patient);
                             if(patient.uid == SessionService.currentUser.uid) {
-                                patient.name_type = "name";
-                                defer.resolve(patient);
+                                return patient;
                             } else {
-                                alert("not user");
-                                defer.reject();
+                                return $q.reject("Not authorised to access this page");
                             }
-                        });
-                    } else {
-                        defer.reject();
-                    }
-
-                    return defer.promise;
+                        })
+                    })
                 }],
                 addresses: ['AddressModel', '$route', '$q', function(AddressModel, $route, $q) {
                     return AddressModel.index({
@@ -57,8 +47,8 @@ angular.module('patient.contact_information', [])
         ['$scope', '$location', 'patient', 'addresses', 'identifiers', 'shares', 'consentFiles', 'fileUploadUrl', 'AddressModel', 'IdentifierModel', 'ConsentFileModel', 'ShareModel', 'GroupModel',
             function ($scope, $location, patient, addresses, identifiers, shares, consentFiles, fileUploadUrl, AddressModel, IdentifierModel, ConsentFileModel, ShareModel, GroupModel) {
 
-
         $scope.patient = patient;
+        $scope.patient.name_type = "name";
         $scope.addresses = addresses;
         $scope.identifiers = identifiers;
         $scope.shares = shares;

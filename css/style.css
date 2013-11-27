@@ -1104,7 +1104,6 @@ html[xmlns] .clearfix {
 }
 .mentions a {
   transition: color 0.2s;
-  font-weight: 600;
   color: #494d4e;
 }
 .mentions:hover a {
