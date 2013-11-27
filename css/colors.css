@@ -249,8 +249,8 @@ Styleguide 2.1.3.
 }
 .label {
   background-color: white;
-  border: 1px solid #d1907b;
-  color: #d1907b;
+  border: 1px solid #f76969;
+  color: #f76969;
 }
 .label:hover {
   background-color: white;
@@ -701,8 +701,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  border: 1px solid #d1907b;
-  color: #d1907b;
+  border: 1px solid #f76969;
+  color: #f76969;
 }
 /**
  *
@@ -716,7 +716,6 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  position: fixed;
   top: 0px;
   width: 100%;
   transition: background-color 0.3s;
@@ -980,19 +979,19 @@ html[xmlns] .clearfix {
   padding-left: 0px;
   margin: 0px;
 }
-.sidebar .sidebar-menu .sidebar-menu-item {
+.sidebar .sidebar-menu li + li {
+  margin-top: 10px;
+}
+.sidebar-menu-item {
   color: #303334;
   display: block;
 }
-.sidebar .sidebar-menu .sidebar-menu-item.selected {
+.sidebar-menu-item.selected {
   color: #49a9ba;
 }
-.sidebar .sidebar-menu .sidebar-menu-item .icon {
+.sidebar-menu-item .icon {
   opacity: 0.6;
   margin-right: 10px;
-}
-.sidebar .sidebar-menu li + li {
-  margin-top: 10px;
 }
 .user .user-username {
   text-transform: capitalize;
@@ -1010,6 +1009,16 @@ html[xmlns] .clearfix {
 }
 .user .user-date {
   color: #aeb3b5;
+}
+.user-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+}
+.user-picture.user-picture-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
 }
 .table {
   border-top: none;
@@ -1165,11 +1174,42 @@ html[xmlns] .clearfix {
   height: auto;
   background-color: white;
   -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
   z-index: 2000;
   border-radius: 3px;
   box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
   border: 1px solid #dbe1e3;
   padding: 21px;
+}
+/* When hiding an element */
+.smodal.ng-hide-add {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.smodal.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+/* When showing an element */
+.smodal.ng-hide-remove {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  display: block!important;
+  opacity: 0;
+  top: 49%;
+}
+.smodal,
+.smodal.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  top: 50%;
 }
 /*
     The overlay that sits behind the modal box

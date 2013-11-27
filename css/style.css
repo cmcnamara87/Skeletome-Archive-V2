@@ -249,8 +249,8 @@ Styleguide 2.1.3.
 }
 .label {
   background-color: white;
-  border: 1px solid #d1907b;
-  color: #d1907b;
+  border: 1px solid #f76969;
+  color: #f76969;
 }
 .label:hover {
   background-color: white;
@@ -701,8 +701,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  border: 1px solid #d1907b;
-  color: #d1907b;
+  border: 1px solid #f76969;
+  color: #f76969;
 }
 /**
  *
