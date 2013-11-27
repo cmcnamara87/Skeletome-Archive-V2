@@ -79,7 +79,7 @@ function _diagnosis_resource_disorder_index($page, $fields, $parameters, $page_s
 
 function _diagnosis_resource_disorder_description($id) {
     $disorder = disorder_load($id);
-    $url = "http://knowledge.skeletome.org/api/bd?uri=" . urlencode($disorder->uri);
+    $url = "http://knowledge.skeletome.org/api/bd?uri=" . urlencode($disorder->uri) . "&time=" . time();
     $description = json_decode(file_get_contents($url));
 
     return $description;
@@ -100,6 +100,8 @@ function _diagnosis_resource_disorder_access($op, $args=array()) {
     $access = FALSE;
 
     switch ($op) {
+        case 'description':
+            $access = true;
         case 'view':
             $access = user_access('view disorders');
             break;

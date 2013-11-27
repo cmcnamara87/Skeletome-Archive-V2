@@ -228,7 +228,7 @@ function user_load_multiple_small($uids = array(), $conditions = array(), $reset
 //        $small_user->status = $user->status;
 //        $small_user->timezone = $user->timezone;
 
-        $small_users[] = $user;
+        $small_users[] = $small_user;
     }
 
     return $small_users;
