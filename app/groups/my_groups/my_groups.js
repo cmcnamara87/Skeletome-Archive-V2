@@ -5,19 +5,10 @@ angular.module('groups.my_groups', [])
             templateUrl:'app/groups/my_groups/my_groups.tpl.html',
             controller:'MyGroupsCtrl',
             resolve:{
-                memberships: ['MembershipModel', 'SessionService', '$q', function (MembershipModel, SessionService, $q) {
-
-                    var defer = $q.defer();
-
-                    var patients = MembershipModel.index({
-                        'user_id': SessionService.currentUser.uid
-                    }, function(memberships) {
-                        defer.resolve(memberships);
-                    }, function() {
-                        defer.reject();
+                memberships: ['MembershipModel', 'SessionService', '$q', 'AuthService', function (MembershipModel, SessionService, $q, AuthService) {
+                    return AuthService.isAuthenticated().then(function() {
+                        return MembershipModel.index({'user_id': SessionService.currentUser.uid}).$promise;
                     });
-
-                    return defer.promise;
                 }]
             }
         });

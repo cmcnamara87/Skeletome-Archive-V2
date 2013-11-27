@@ -716,7 +716,6 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  position: fixed;
   top: 0px;
   width: 100%;
   transition: background-color 0.3s;

@@ -5,8 +5,10 @@ angular.module('patients.my_patients', [])
             templateUrl:'app/patients/my_patients/my_patients.tpl.html',
             controller:'MyPatientsCtrl',
             resolve:{
-                patients: ['PatientModel', 'SessionService', '$q', function (PatientModel, SessionService, $q) {
-                    return PatientModel.queryParams({embed: 1}, {'uid': SessionService.currentUser.uid}).$promise;
+                patients: ['PatientModel', 'SessionService', 'AuthService', '$q', function (PatientModel, SessionService, AuthService, $q) {
+                    return AuthService.isAuthenticated().then(function() {
+                        return PatientModel.queryParams({embed: 1}, {'uid': SessionService.currentUser.uid}).$promise;
+                    });
                 }]
             }
         });
