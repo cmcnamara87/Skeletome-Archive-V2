@@ -237,6 +237,7 @@ function patientresource_install() {
         'create patients',
         'update patients',
         'delete patients',
+        'access user profiles'
     ));
 }
 function patientresource_uninstall() {

@@ -18,7 +18,7 @@
                 <div class="media-body">
                     <div class="user-date pull-right" ng-show="activity.created">{{ activity.created | relativedate }}</div>
                     <div>
-                        <span class="user-username"> {{ activity.user.name }}</span>
+                        <a href="#/user/{{ activity.user.uid }}" class="user-username"> {{ activity.user.name }}</a>
 
                         <span ng-show="activity.post.disorder_id > 0">added a diagnosis to</span>
                         <span ng-show="activity.post.text.length > 0 && activity.post.disorder_id == 0">wrote on </span>

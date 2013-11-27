@@ -1,7 +1,7 @@
 <div class="page">
     <div class="page-top">
         <div class="page-top-buttons">
-            <button class="btn btn-action" ng-click="logout()">Logout</button>
+            <button class="btn btn-action" ng-click="logout()" ng-show="user.uid == SessionService.currentUser.uid">Logout</button>
         </div>
         <h1>
             <a ng-show="user.uid == SessionService.currentUser.uid"
@@ -21,10 +21,9 @@
             <h2>Information</h2>
         </div>
         <div class="block-content" cm-resource="user" saved-fn="userSaved(user)">
-            {{ $isEditing }}
             <cm-display>
                 <div class="resource-controls">
-                    <cm-edit-delete delete-enabled="false"></cm-edit-delete>
+                    <!--<cm-edit-delete delete-enabled="false" edit-enabled="user.uid == SessionService.currentUser.uid"></cm-edit-delete>-->
                 </div>
 
                 <div class="resource-block">
@@ -37,13 +36,13 @@
                     <h3 class="resource-block-heading">
                         Roles
                     </h3>
-                    <div ng-repeat="role in user.roles">
+                    <div ng-repeat="role in user.roles" style="text-transform: capitalize">
                         {{ role }}
                     </div>
                 </div>
 
             </cm-display>
-            <cm-edit>
+            <!--<cm-edit>
                 <div class="resource-block">
                     <h3 class="resource-block-heading">
                         Email
@@ -62,7 +61,7 @@
                 <div class="resource-block">
                     <cm-save-cancel></cm-save-cancel>
                 </div>
-            </cm-edit>
+            </cm-edit>-->
         </div>
     </div>
 
@@ -71,7 +70,7 @@
             <h2>Memberships</h2>
         </div>
         <div class="block-content">
-            <div class="nodata">
+            <div class="nodata" ng-show="membership.length == 0">
                 No memberships found.
             </div>
             <div ng-repeat="membership in memberships">

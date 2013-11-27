@@ -11,13 +11,14 @@ angular.module('user', [])
                 },
                 user: function(UserModel, $route, SessionService, $q) {
                     "use strict";
-                    if($route.current.params.uid != SessionService.currentUser.uid) {
-                        console.log("Getting user (not current session user", SessionService.currentUser.uid);
-                        return UserModel.get({uid: $route.current.params.uid});
-                    } else {
-                        console.log("Getting current session user");
-                        return $q.when(SessionService.currentUser);
-                    }
+
+                    return UserModel.get({uid: $route.current.params.uid}).$promise.then(function(user) {
+                        if($route.current.params.uid == SessionService.currentUser.uid) {
+                            // Its the current user
+                            angular.copy(user, SessionService.currentUser);
+                        }
+                        return user;
+                    });
                 }
             }
         });
