@@ -10,7 +10,7 @@
             <div cm-resource="group">
                 <cm-display>
                     <div class="resource-controls">
-                        <cm-edit-delete></cm-edit-delete>
+                        <cm-edit-delete edit-enabled="group.access == 'administrator'" delete-enabled="false"></cm-edit-delete>
                     </div>
                     <div class="resource-block">
                         <h3 class="resource-block-heading">Group Name</h3>
@@ -47,14 +47,14 @@
         <div class="block-header">
             <h2>Members</h2>
             <div class="block-header-buttons">
-                <button class="btn btn-action" ng-click="addMember()">Add</button>
+                <button class="btn btn-action" ng-click="addMember()" ng-show="group.access == 'administrator'">Add</button>
             </div>
         </div>
         <div class="block-content">
             <div ng-repeat="member in members" cm-resource="member" remove-fn="removeMember(member)">
                 <cm-display>
                     <div class="resource-controls">
-                        <div class="btn-group pull-right" ng-show="member.user_id != group.uid">
+                        <div class="btn-group pull-right" ng-show="member.user_id != group.uid && group.access == 'administrator'">
                             <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon icon-angle-down"></i>
                             </button>

@@ -39,9 +39,12 @@ function groupresource_entity_info() {
 class GroupController extends EntityAPIController {
 
     public function load($ids = array(), $conditions = array()) {
+        global $user;
         $entities = parent::load($ids, $conditions);
 
         foreach($entities as &$entity) {
+            $entity->access = "none";
+
             // Used on group list pages
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'share');
@@ -68,6 +71,11 @@ class GroupController extends EntityAPIController {
                 // used on group list page
                 $ids = array_keys($results['membership']);
                 $entity->membership_id = $ids[0];
+                $entity->access = "member";
+            }
+
+            if($entity->administrator_id == $user->uid) {
+                $entity->access = "administrator";
             }
         }
 
