@@ -9,31 +9,31 @@
                     </a>
                 </li>
                 <li>
-                    <a class="submenubar-item" menu-item
+                    <a class="submenubar-item" menu-item ng-show="patient.uid == SessionService.currentUser.uid"
                        href="#/patient/{{ id }}/contact-information">
                         Patient Details
                     </a>
                 </li>
                 <li>
-                    <a class="submenubar-item" menu-item
+                    <a class="submenubar-item" menu-item ng-show="patient.access == 'owner' || patient.access == 'group'"
                        href="#/patient/{{ id }}/xrays">
                         X-Rays
                     </a>
                 </li>
                 <li>
-                    <a class="submenubar-item" menu-item
+                    <a class="submenubar-item" menu-item ng-show="patient.access == 'owner' || patient.access == 'group'"
                        href="#/patient/{{ id }}/genetic-reports">
                         Genetic Report
                     </a>
                 </li>
                 <li>
-                    <a class="submenubar-item" menu-item
+                    <a class="submenubar-item" menu-item ng-show="patient.access == 'owner' || patient.access == 'group'"
                        href="#/patient/{{ id }}/clinical-summary">
                         Clinical Summary
                     </a>
                 </li>
                 <li>
-                    <a class="submenubar-item" menu-item
+                    <a class="submenubar-item" menu-item ng-show="patient.access == 'owner' || patient.access == 'group'"
                        href="#/patient/{{ id }}/diagnoses">
                         Diagnoses
                     </a>

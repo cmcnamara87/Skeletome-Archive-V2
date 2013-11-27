@@ -10,7 +10,7 @@ angular.module('directives.input.cmEditDelete', [])
 
                 iAttrs.$observe('deleteEnabled', function(value) {
                     if(angular.isDefined(iAttrs.deleteEnabled)) {
-                        $scope.deleteEnabled = value;
+                        $scope.deleteEnabled = $scope.$eval(value);
                     } else {
                         $scope.deleteEnabled = true;
                     }
@@ -18,7 +18,7 @@ angular.module('directives.input.cmEditDelete', [])
 
                 iAttrs.$observe('editEnabled', function(value) {
                     if(angular.isDefined(iAttrs.editEnabled)) {
-                        $scope.editEnabled = value;
+                        $scope.editEnabled = $scope.$eval(value);
                     } else {
                         $scope.editEnabled = true;
                     }

@@ -2,7 +2,7 @@
     <div class="block">
         <div class="block-header">
             <div class="block-header-buttons">
-                <button class="btn btn-action" ng-click="addXRay()"><i class="icon icon-plus-sign"></i> Add</button>
+                <button class="btn btn-action" ng-click="addXRay()" ng-show="patient.access == 'owner'"><i class="icon icon-plus-sign"></i> Add</button>
             </div>
             <h2>X-Rays</h2>
         </div>
@@ -14,7 +14,7 @@
             <div ng-repeat="xray in xrays" cm-resource="xray" remove-fn="removeXRay(xray)"  saved-fn="xraySaved(xray)">
                 <cm-display>
                     <div class="resource-controls">
-                        <cm-edit-delete edit-enabled="false"></cm-edit-delete>
+                        <cm-edit-delete edit-enabled="false" delete-enabled="patient.access == 'owner'"></cm-edit-delete>
                     </div>
                     <div class="resource-block">
                         <img ng-src="{{ xray.thumb_url }}" alt="{{ xray.name }}" gallery="xrays" gallery-index="{{ $index }}">

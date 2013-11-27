@@ -178,7 +178,7 @@ function _patientresource_access($op, $args=array()) {
 
     switch ($op) {
         case 'view':
-            $access = user_access('view patients') && patients_is_accessible($args[0]);
+            $access = user_access('view patients');
             break;
         case 'index':
             $access = user_access('view patients');

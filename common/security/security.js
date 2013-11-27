@@ -18,7 +18,7 @@ angular.module('security', [])
                 if(response.status === 401) {
                     console.log("Security Provider: 401 Status");
                     if($location.path() != "/login") {
-                        $location.url('/login');
+                        $location.url('/feed');
                     }
                     return $q.reject(response);
                 }
@@ -44,14 +44,11 @@ angular.module('security', [])
                 $rootScope.error = null;
 
                 AuthService.isAuthenticated().then(function(path) {
-                    console.log("is logged in");
-
                     // Success
                     if($location.path() == "/register" || $location.path() == "/login") {
                         // Redirect them to the main page
                         $location.path('/feed');
                     }
-
                 }, function(reason){
                     // Not logged in
                     console.log("not logged in");
@@ -94,7 +91,7 @@ angular.module('security', [])
          */
         function setupCSRFToken() {
             return $http.post(tokenUrl).then(function(response) {
-//                $http.defaults.headers.common['X-CSRF-Token'] = response.data;
+                $http.defaults.headers.common['X-CSRF-Token'] = response.data;
                 $http.withCredentials = true;
                 return true;
             });
@@ -105,7 +102,7 @@ angular.module('security', [])
          * @param data
          */
         function storeLoginData(data) {
-            $cookies[data.session_name] = data.sessid;
+//            $cookies[data.session_name] = data.sessid;
             SessionService.sessionName = data.session_name;
             var user = new UserModel(data.user);
             angular.copy(user, SessionService.currentUser);

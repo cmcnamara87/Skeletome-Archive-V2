@@ -1,7 +1,7 @@
 angular.module('directives.activities', ['directives.activities.cmActivity'])
 
 // A simple directive to display a gravatar image given an email
-    .directive('activities', ['$location', '$rootScope', 'ShareModel', 'ActivityModel', function ($location, $rootScope, ShareModel, ActivityModel) {
+    .directive('activities', ['$location', '$rootScope', 'ShareModel', 'ActivityModel', 'PatientModel', function ($location, $rootScope, ShareModel, ActivityModel, PatientModel) {
 
         return {
             restrict: 'E',
@@ -20,7 +20,8 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                     // route changed
                     var parts = $location.path().split("/");
 
-                    if(!oldParts || parts[0] != oldParts[0] || parts[1] != oldParts[1]) {
+                    console.log("Activities: Route Change Success", parts, oldParts);
+                    if(!oldParts || parts[1] != oldParts[1] || parts[2] != oldParts[2]) {
                         console.log("ROUTE DCHANGE SUCCESS");
 
                         var parts = $location.path().split("/");
@@ -28,23 +29,28 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                         console.log("Activity Aside: Fetching new Activity List");
 
                         $scope.type = parts[1];
-
+                        $scope.id = parts[2];
                         if($scope.type == "patient") {
-                            $rootScope.showActivities = true;
-                            $scope.id = parts[2];
-                            // we need to laod in activity
-                            if($scope.type == "patient") {
-                                // load in for all shares
-                                ShareModel.index({
-                                    patient_id: $scope.id
-                                }, function(shares) {
-                                    $scope.shares = shares;
-                                    $scope.share = $scope.shares[0];
-                                    $scope.type = "all";
-                                });
-                            } else if($scope.type == "group") {
-                                // load in the shares for a particular group
-                            }
+                            PatientModel.get({
+                                id: $scope.id
+                            }).$promise.then(function(patient) {
+                                    "use strict";
+                                if(patient.access == "group" || patient.access == "owner") {
+                                    console.log("Show patient activities");
+                                    $rootScope.showActivities = true;
+                                    // we need to laod in activity
+                                    // load in for all shares
+                                    ShareModel.index({
+                                        patient_id: $scope.id
+                                    }, function(shares) {
+                                        $scope.shares = shares;
+                                        $scope.share = $scope.shares[0];
+                                        $scope.type = "all";
+                                    });
+                                } else {
+                                    $rootScope.showActivities = false;
+                                }
+                            })
                         } else {
                             $rootScope.showActivities = false;
                         }
