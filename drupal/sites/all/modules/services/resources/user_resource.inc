@@ -296,7 +296,6 @@ function _user_resource_create($account)
     // find and store the new user into the form_state
     if (isset($form_state['values']['uid'])) {
         $form_state['user'] = user_load($form_state['values']['uid']);
-
     }
 
     // Error if needed.
@@ -307,6 +306,19 @@ function _user_resource_create($account)
         if ($uri = services_resource_uri(array('user', $user['uid']))) {
             $user['uri'] = $uri;
         }
+
+
+        // Add clinician role
+        // Role to grant the permissions to
+        $clinician_role = user_role_load_by_name('clinician');
+        $clinician_rid = $clinician_role->rid;
+        $new_user_roles = array(
+            $clinician_rid => TRUE,
+        );
+        $new_user = user_load($user['uid']);
+        $new_user->roles = $new_user_roles;
+        user_save($new_user);
+
         return $user;
     }
 }

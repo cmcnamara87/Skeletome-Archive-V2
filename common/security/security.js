@@ -18,7 +18,7 @@ angular.module('security', [])
                 if(response.status === 401) {
                     console.log("Security Provider: 401 Status");
                     if($location.path() != "/login") {
-                        $location.url('/login?type=401');
+                        $location.url('/login');
                     }
                     return $q.reject(response);
                 }
@@ -94,7 +94,7 @@ angular.module('security', [])
          */
         function setupCSRFToken() {
             return $http.post(tokenUrl).then(function(response) {
-                $http.defaults.headers.common['X-CSRF-Token'] = response.data;
+//                $http.defaults.headers.common['X-CSRF-Token'] = response.data;
                 $http.withCredentials = true;
                 return true;
             });
@@ -171,6 +171,13 @@ angular.module('security', [])
                 return $http.post(apiUrl2 + "user/logout").then(function(response) {
                     return true;
                 });
+            },
+
+            /**
+             * Registers a user
+             */
+            register: function(user) {
+                return $http.post(apiUrl2 + "user/register", user);
             }
         };
 

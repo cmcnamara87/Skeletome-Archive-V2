@@ -102,9 +102,15 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                 }
 
-                $scope.allShares = ShareModel.index({
-                    patient_id: $routeParams.patient_id
+                $scope.$watch('SessionService.isAuthenticated', function(value) {
+                    "use strict";
+                    if(value) {
+                        $scope.allShares = ShareModel.index({
+                            patient_id: $routeParams.patient_id
+                        });
+                    }
                 });
+
 
                 $scope.addPost = function(newPost) {
 
