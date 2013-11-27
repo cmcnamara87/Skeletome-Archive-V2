@@ -12,8 +12,10 @@ angular.module('user', [])
                 user: function(UserModel, $route, SessionService, $q) {
                     "use strict";
                     if($route.current.params.uid != SessionService.currentUser.uid) {
+                        console.log("Getting user (not current session user", SessionService.currentUser.uid);
                         return UserModel.get({uid: $route.current.params.uid});
                     } else {
+                        console.log("Getting current session user");
                         return $q.when(SessionService.currentUser);
                     }
                 }
@@ -21,27 +23,38 @@ angular.module('user', [])
         });
     }])
 
-    .controller('UserCtrl', ['$scope', 'AuthService', 'SessionService', 'memberships', 'fileUploadUrl', '$location', 'user',
-        function ($scope, AuthService, SessionService, memberships, fileUploadUrl, $location, user) {
-        $scope.memberships = memberships;
-        $scope.fileUploadUrl = fileUploadUrl;
-        $scope.user = user;
+    .controller('UserCtrl', ['$scope', 'AuthService', 'SessionService', 'memberships', 'fileUploadUrl', '$location', 'user', 'SmodalService',
+        function ($scope, AuthService, SessionService, memberships, fileUploadUrl, $location, user, SmodalService) {
+            $scope.memberships = memberships;
+            $scope.fileUploadUrl = fileUploadUrl;
+            $scope.user = user;
+            $scope.profilePicture = null;
 
-        $scope.logout = function() {
-            AuthService.logout().then(function() {
+            $scope.logout = function() {
+                AuthService.logout().then(function() {
+                    "use strict";
+                    $location.path('/login');
+                });
+            }
+
+            $scope.profilePictureUploaded = function(file, user) {
                 "use strict";
-                $location.path('/login');
-            });
-        }
+                console.log("user profile file uploaded", file, user);
+                // we have the file, add it to the user
+                $scope.profilePicture = file;
+            }
 
-        $scope.profilePictureUploaded = function(file, user) {
-            "use strict";
-            console.log("user profile file uploaded", file, user);
-            // we have the file, add it to the user
-            user.$setPicture(file);
-            user.picture = file;
-            AuthService.setCurrentUser(user);
-        }
+            $scope.changeProfilePicture = function() {
+                "use strict";
+                SmodalService.show('picture');
+            }
+            $scope.saveProfilePicture = function() {
+                "use strict";
+                $scope.user.picture = $scope.profilePicture;
+                $scope.user.$setPicture($scope.profilePicture);
+                SessionService.currentUser.picture = $scope.profilePicture;
+                $scope.profilePicture = null;
+            }
 
     }]);
 

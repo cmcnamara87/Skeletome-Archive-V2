@@ -3,7 +3,7 @@
 
         <div class="media">
             <div class="pull-left">
-                <img class="user-picture user-picture-large" ng-src="{{ currentUser.picture.url }}" alt="">
+                <img class="user-picture user-picture-large" ng-src="{{ SessionService.currentUser.picture.thumb_url || SessionService.currentUser.picture.url || 'img/default.png' }}" alt="">
             </div>
             <div class="media-body user">
                 <a href="#/user/{{ SessionService.currentUser.uid }}" class="user-username sidebar-menu-item" menu-item>

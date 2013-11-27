@@ -12,7 +12,7 @@
 
             <!-- User icon -->
             <div class="pull-left">
-                <img src="img/shatner.png" alt="" style="width: 32px"/>
+                <img ng-src="{{ reply.user.picture.thumb_url || reply.user.picture.url || 'img/default.png' }}" alt="" class="user-picture"/>
             </div>
 
             <!-- User name + Date + Content -->

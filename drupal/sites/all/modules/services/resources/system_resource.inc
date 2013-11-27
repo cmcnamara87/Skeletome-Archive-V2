@@ -90,6 +90,7 @@ function _system_resource_definition() {
  */
 function _system_resource_connect() {
   global $user;
+    $user = user_load($user->uid);
   services_remove_user_data($user);
 
   $return = new stdClass();

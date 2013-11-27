@@ -13,7 +13,7 @@
         <div class="divided">
             <div class="media user">
                 <div class="pull-left">
-                    <img src="img/shatner.png" alt="" style="width: 32px;" />
+                    <img ng-src="{{ activity.user.picture.thumb_url || activity.user.picture.url || 'img/default.png' }}" alt="" class="user-picture" />
                 </div>
                 <div class="media-body">
                     <div class="user-date pull-right" ng-show="activity.created">{{ activity.created | relativedate }}</div>

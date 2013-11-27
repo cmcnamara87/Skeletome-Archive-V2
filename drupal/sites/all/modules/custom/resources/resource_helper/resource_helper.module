@@ -210,9 +210,15 @@ function user_load_multiple_small($uids = array(), $conditions = array(), $reset
 
     $small_users = array();
     foreach($users as $user) {
+
         $small_user = new stdClass();
         $small_user->uid = $user->uid;
         $small_user->name = $user->name;
+        $small_user->picture = $user->picture;
+        if(isset($user->picture->uri)) {
+//            $small_user->picture->url = file_create_url($user->picture->uri);
+            $small_user->picture->thumb_url = image_style_url('thumbnail', $user->picture->uri);
+        }
 //        $small_user->mail = $user->mail;
 //        $small_user->roles = $user->roles;
 //
@@ -222,7 +228,7 @@ function user_load_multiple_small($uids = array(), $conditions = array(), $reset
 //        $small_user->status = $user->status;
 //        $small_user->timezone = $user->timezone;
 
-        $small_users[] = $small_user;
+        $small_users[] = $user;
     }
 
     return $small_users;

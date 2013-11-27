@@ -3,7 +3,16 @@
         <div class="page-top-buttons">
             <button class="btn btn-action" ng-click="logout()">Logout</button>
         </div>
-        <h1><img class="user-picture user-picture-large" ng-src="{{ user.picture.url }}" alt=""/> {{ user.name }}</h1>
+        <h1>
+            <a ng-show="user.uid == SessionService.currentUser.uid"
+               href
+               ng-click="changeProfilePicture()">
+                <img class="user-picture user-picture-large" ng-src="{{ user.picture.thumb_url || user.picture.url || 'img/default.png' }}" alt=""/>
+            </a>
+
+            <img ng-show="user.uid != SessionService.currentUser.uid" class="user-picture user-picture-large" ng-src="{{ user.picture.url || user.picture.thumb_url || 'img/default.png' }}" alt=""/>
+
+            {{ user.name }}</h1>
     </div>
 </div>
 <div>
@@ -11,7 +20,8 @@
         <div class="block-header">
             <h2>Information</h2>
         </div>
-        <div class="block-content" cm-resource="user">
+        <div class="block-content" cm-resource="user" saved-fn="userSaved(user)">
+            {{ $isEditing }}
             <cm-display>
                 <div class="resource-controls">
                     <cm-edit-delete delete-enabled="false"></cm-edit-delete>
@@ -46,10 +56,7 @@
                         Profile Picture
                     </h3>
 
-                    <upload-block message="Drop a file here (or click)"
-                                  url="{{ fileUploadUrl }}"
-                                  autoremove="false"
-                                  uploaded-fn="profilePictureUploaded(file, user)">
+
                     </upload-block>
                 </div>
                 <div class="resource-block">
@@ -72,4 +79,24 @@
             </div>
         </div>
     </div>
+
+    <smodal name="picture">
+
+        <div class="smodal-title">
+            Profile Picture
+        </div>
+        <div class="smodal-content separated">
+            <upload-block message="Drop a file here (or click)"
+                          url="{{ fileUploadUrl }}"
+                          autoremove="false"
+                          uploaded-fn="profilePictureUploaded(file)"></upload-block>
+        </div>
+        <div class="smodal-buttons separated">
+            <div class="pull-right">
+                <button class="btn btn-action" ng-click="$close()">Cancel</button>
+                <button class="btn btn-action btn-action-selected" ng-click="saveProfilePicture(); $close();">Save</button>
+            </div>
+        </div>
+    </smodal>
+
 </div>

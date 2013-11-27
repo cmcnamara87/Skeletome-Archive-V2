@@ -980,19 +980,19 @@ html[xmlns] .clearfix {
   padding-left: 0px;
   margin: 0px;
 }
-.sidebar .sidebar-menu .sidebar-menu-item {
+.sidebar .sidebar-menu li + li {
+  margin-top: 10px;
+}
+.sidebar-menu-item {
   color: #303334;
   display: block;
 }
-.sidebar .sidebar-menu .sidebar-menu-item.selected {
+.sidebar-menu-item.selected {
   color: #49a9ba;
 }
-.sidebar .sidebar-menu .sidebar-menu-item .icon {
+.sidebar-menu-item .icon {
   opacity: 0.6;
   margin-right: 10px;
-}
-.sidebar .sidebar-menu li + li {
-  margin-top: 10px;
 }
 .user .user-username {
   text-transform: capitalize;
@@ -1012,8 +1012,8 @@ html[xmlns] .clearfix {
   color: #aeb3b5;
 }
 .user-picture {
-  width: 16px;
-  height: 16px;
+  width: 30px;
+  height: 30px;
   border-radius: 100px;
 }
 .user-picture.user-picture-large {
