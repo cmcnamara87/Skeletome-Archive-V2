@@ -49,7 +49,7 @@ function shares_filter_accessible($ids) {
 function posts_accessible() {
     global $user;
     // lets get all the groups first
-    $sql = "SELECT posts.id
+    $sql = "SELECT DISTINCT posts.id
             FROM posts, shares, members
             WHERE members.user_id = :user_id
             AND shares.group_id = members.group_id,
@@ -81,7 +81,7 @@ function posts_filter_accessible($ids) {
 function activities_accessible() {
     global $user;
     // lets get all the groups first
-    $sql = "SELECT activities.id
+    $sql = "SELECT DISTINCT activities.id
             FROM activities, shares, members
             WHERE members.user_id = :user_id
             AND shares.group_id = members.group_id,
@@ -117,19 +117,16 @@ function activities_filter_accessible($ids) {
 function patients_accessible() {
     global $user;
 
-    $sql = "SELECT patients.id
+    $sql = "SELECT DISTINCT patients.id
             FROM patients
             LEFT JOIN members ON members.user_id = :uid
             LEFT JOIN shares ON shares.group_id = members.group_id
             WHERE patients.id = shares.patient_id
             OR patients.uid = :uid";
-
     $results = db_query($sql, array(
         "uid"   => $user->uid
     ));
-
     $ids = array_keys($results->fetchAllAssoc('id'));
-
     return $ids;
 }
 function patients_filter_accessible($ids) {

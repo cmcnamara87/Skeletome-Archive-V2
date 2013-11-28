@@ -51,18 +51,18 @@ function _patientresource_update($id, $data) {
  */
 function _patientresource_retrieve($id) {
 
-    for($i = 5; $i < 754; $i++) {
-        $patient = patient_load($i);
-        $patient->uid = 1;
-        $patient->created = time();
-        $patient->updated = time();
-        patient_save($patient);
-        
-        $new_share = new stdClass();
-        $new_share->patient_id = $patient->id;
-        $new_share->group_id = 1;
-        share_save($new_share);
-    }
+//    for($i = 5; $i < 754; $i++) {
+//        $patient = patient_load($i);
+//        $patient->uid = 1;
+//        $patient->created = time();
+//        $patient->updated = time();
+//        patient_save($patient);
+//
+//        $new_share = new stdClass();
+//        $new_share->patient_id = $patient->id;
+//        $new_share->group_id = 1;
+//        share_save($new_share);
+//    }
     return patient_load($id);
 }
 
