@@ -61,7 +61,10 @@ angular.module('directives.mentions', [])
                         var re = new RegExp('\\b(' + mention.name + ')\\b', "gi");
                         formattedText = formattedText.replace(re, "<a href ng-click='mentionClicked(" + mentionIndex + ")' title='" + mention[mention.mentioned_type].name + "'>$1</a>");
                     });
-                    element.find('.mentions-text').html($compile(formattedText)($scope));
+                    var $formattedText = angular.element("<div>" + formattedText + "</div>");
+                    element.find('.mentions-text').html($formattedText);
+                    // Compile the formatted text
+                    $compile($formattedText)($scope);
                 }
 
             }
