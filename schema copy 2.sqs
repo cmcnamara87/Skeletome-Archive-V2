@@ -104,7 +104,7 @@
         <labelName><![CDATA[Patient]]></labelName>
         <labelUid><![CDATA[E3875E7C-E8A6-4888-AD79-38B3FF30E3A4]]></labelUid>
         <labelWindowIndex><![CDATA[2]]></labelWindowIndex>
-        <temporaryOriginalName><![CDATA[Table17]]></temporaryOriginalName>
+        <temporaryOriginalName><![CDATA[diagnoses]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[0334706D-F8C6-4A50-9A5C-E60FF6A00BF6]]></uid>
     </SQLTable>
@@ -1257,7 +1257,7 @@
         <labelName><![CDATA[Patient]]></labelName>
         <labelUid><![CDATA[E3875E7C-E8A6-4888-AD79-38B3FF30E3A4]]></labelUid>
         <labelWindowIndex><![CDATA[0]]></labelWindowIndex>
-        <temporaryOriginalName><![CDATA[hpos_patients]]></temporaryOriginalName>
+        <temporaryOriginalName><![CDATA[hpo_tags]]></temporaryOriginalName>
         <ui.treeExpanded><![CDATA[1]]></ui.treeExpanded>
         <uid><![CDATA[D2C0D5BE-9B10-48EC-9F4A-5FB5E40E1064]]></uid>
     </SQLTable>
@@ -1672,7 +1672,7 @@ mZkGaXNvLWE0hoaG
         <windowHeight><![CDATA[1264.000000]]></windowHeight>
         <windowLocationX><![CDATA[1152.000000]]></windowLocationX>
         <windowLocationY><![CDATA[154.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{111, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{0, 0}]]></windowScrollOrigin>
         <windowWidth><![CDATA[2331.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

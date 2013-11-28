@@ -1,0 +1,17 @@
+<div>
+    <div class="smodal-title">
+        Profile Picture
+    </div>
+    <div class="smodal-content separated">
+        <upload-block message="Drop a file here (or click)"
+                      url="{{ fileUploadUrl }}"
+                      autoremove="false"
+                      uploaded-fn="profilePictureUploaded(file)"></upload-block>
+    </div>
+    <div class="smodal-buttons separated">
+        <div class="pull-right">
+            <button class="btn btn-action" ng-click="$close()">Cancel</button>
+            <button class="btn btn-action btn-action-selected" ng-click="saveProfilePicture(); $close();">Save</button>
+        </div>
+    </div>
+</div>

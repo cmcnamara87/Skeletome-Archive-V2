@@ -254,9 +254,9 @@ myApp.services.factory('PatientModel', function ($resource, apiUrl, Param) {
         update: {method:'PUT'}
     });
 
-    MyResource.index = function(object, success, failure) {
+    MyResource.index = function(object) {
         console.log("making params");
-        return MyResource.query(Param.makeParams(object), success, failure);
+        return MyResource.query(Param.makeParams(object));
     }
     MyResource.queryParams = function(query, params) {
         var params = Param.makeParams(params);

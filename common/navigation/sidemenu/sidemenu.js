@@ -12,7 +12,7 @@ angular.module('directives.navigation.sidemenu', [])
                     var parts = $location.path().split("/");
 
                     $scope.type = parts[1];
-                    if($scope.type == "feed" || $scope.type == "patients" || $scope.type == "groups" || $scope.type == "user") {
+                    if($scope.type == "feed" || $scope.type == "patients" || $scope.type == "groups" || $scope.type == "user" || $scope.type == "search") {
                         $rootScope.showSidemenu = true;
                     } else {
                         $rootScope.showSidemenu = false;

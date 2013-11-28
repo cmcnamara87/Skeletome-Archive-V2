@@ -1,0 +1,26 @@
+<?php
+
+function esdn_import_install() {
+    $xml = simplexml_load_file(drupal_get_path('module', 'esdn_import') . "/data.xml");
+
+    $clinical_summaries = $xml->clinicalSummaries;
+    foreach($xml->patient as $patient) {
+        $new_patient = new stdClass();
+        $new_patient->alias = $patient->user;
+        $new_patient->clinical_summary = $patient->summary;
+        patient_save($new_patient);
+
+        $sql = "SELECT disorders.id
+                FROM disorders
+                WHERE disorders.uri = :uri";
+        $result = db_query($sql, array(
+            "uri"   =>  (string)$patient->diagnosis
+        ));
+        $disorder_id = array_keys($result->fetchAssoc('id'));
+
+        $new_diagnosis = new stdClass();
+        $new_diagnosis->patient_id = $new_patient->id;
+        $new_diagnosis->disorder_id = $disorder_id;
+        diagnosis_save($new_diagnosis);
+    }
+}

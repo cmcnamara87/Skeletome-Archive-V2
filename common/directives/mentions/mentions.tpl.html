@@ -23,10 +23,19 @@
                         <h3 class="resource-block-heading">Clinical Features</h3>
                         <ul>
                             <li ng-repeat="clinicalFeature in disorder.clinical_features">
-                                <pre>
-                                    {{ clinicalFeature | json }}
-                                </pre>
+                                <div class="pull-right">
+                                    <span class="label label-info">{{ clinicalFeature.disorder_count }} disorders</span>
+                                </div>
+
                                 <a href>{{ clinicalFeature.name }}</a>
+
+                                <div>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: {{ clinicalFeature.information_content }}%;">
+                                            <span class="sr-only">60% Complete</span>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                         </ul>
                     </div>

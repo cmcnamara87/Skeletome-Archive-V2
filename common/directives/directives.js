@@ -4,5 +4,6 @@ angular.module('directives',
         'directives.mentions',
         'directives.gallery',
         'directives.lookup',
-        'directives.patient_name'
+        'directives.patient_name',
+        'directives.modal'
     ]);

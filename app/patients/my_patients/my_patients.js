@@ -15,6 +15,7 @@ angular.module('patients.my_patients', [])
 
     }])
 
+
     .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients',
         function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
             $scope.patients = patients;

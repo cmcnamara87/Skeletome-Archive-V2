@@ -1,0 +1,10 @@
+name = A - ESDN Patient Import
+description = Load this module to import all patients from ESDN
+package = A - Resources
+
+core = 7.x
+dependencies[] = patientresource
+dependencies[] = groupresource
+dependencies[] = mention_resource
+dependencies[] = hpo_resource
+dependencies[] = diagnosis_resource

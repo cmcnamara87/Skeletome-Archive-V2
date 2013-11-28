@@ -50,6 +50,19 @@ function _patientresource_update($id, $data) {
  * @return object
  */
 function _patientresource_retrieve($id) {
+
+    for($i = 5; $i < 754; $i++) {
+        $patient = patient_load($i);
+        $patient->uid = 1;
+        $patient->created = time();
+        $patient->updated = time();
+        patient_save($patient);
+        
+        $new_share = new stdClass();
+        $new_share->patient_id = $patient->id;
+        $new_share->group_id = 1;
+        share_save($new_share);
+    }
     return patient_load($id);
 }
 
@@ -99,10 +112,61 @@ function _patientresource_search_for_patient($query) {
 
 function _patientresource_index($query, $group_id, $embed, $page, $fields, $parameters, $page_size) {
 
+    if(isset($parameters['disorder_id'])) {
+        $disorder_ids = json_decode($parameters['disorder_id']);
+        $disorder_ids_count = 0;
+        if(is_array($disorder_ids)) {
+            $disorder_ids_string = join(",", $disorder_ids);
+            $disorder_ids_count = count($disorder_ids);
+        } else {
+            $disorder_ids_string = $disorder_ids;
+            $disorder_ids_count = 1;
+        }
+
+        unset($parameters['disorder_id']);
+        $sql = "SELECT patient_id
+                FROM diagnoses
+                WHERE disorder_id IN ($disorder_ids_string)
+                GROUP BY patient_id
+                HAVING COUNT(*) = $disorder_ids_count";
+        $results = db_query($sql);
+
+        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+        $parameters['id'] = $patient_ids;
+    }
+
+    if(isset($parameters['hpo_id'])) {
+        $hpo_ids = json_decode($parameters['hpo_id']);
+        $hpo_ids_count = 0;
+        if(is_array($hpo_ids)) {
+            $hpo_ids_string = join(",", $hpo_ids);
+            $hpo_ids_count = count($hpo_ids);
+        } else {
+            $hpo_ids_string = $hpo_ids;
+            $hpo_ids_count = 1;
+        }
+        unset($parameters['hpo_id']);
+
+        $sql = "SELECT object_id as 'patient_id'
+                FROM hpos_tags
+                WHERE hpo_id IN ($hpo_ids_string)
+                AND object_type = 'patient'
+                GROUP BY object_id
+                HAVING COUNT(*) = $hpo_ids_count";
+
+        $results = db_query($sql);
+
+        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+
+        if(isset($parameters['id'])) {
+            $parameters['id'] = array_intersect($parameters['id'], $patient_ids);
+        } else {
+            $parameters['id'] = $patient_ids;
+        }
+    }
 
 
     if(strlen($query)) {
-
         return _patientresource_search_for_patient($query);
     } else {
         // We dont need to filter the groups

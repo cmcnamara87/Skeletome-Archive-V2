@@ -14,6 +14,7 @@ var myApp = angular.module('myApp', [
         'feed',
         'user',
         'login',
+        'search',
         'directives.navigation',
         'directives.smodal',
         'directives.activities',

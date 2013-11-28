@@ -57,9 +57,14 @@ class PatientController extends EntityAPIController {
         parent::save($entity, $transaction);
 
 //         Check if the clinical summary has changed, so we can do some term processing
-        if($entity->clinical_summary != $old_patient->clinical_summary) {
+        if(!$old_patient) {
+            // No old patient, so new summary
+            $clinical_summary_changed = true;
+        } else if($entity->clinical_summary != $old_patient->clinical_summary) {
+            // The summary has changed
             $clinical_summary_changed = true;
         } else {
+            // The summary hasnt changed
             $clinical_summary_changed = false;
         };
 
