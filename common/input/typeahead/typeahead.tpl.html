@@ -26,7 +26,7 @@
         />
         <div class="typeahead-options-wrapper">
             <ul class="typeahead-options typeahead-options-inside" ng-show="options.length" ng-mouseleave="$parent.selectedIndex = 0">
-                <li ng-repeat="option in options | filter:input"
+                <li ng-repeat="option in options | limitTo:10 | filter:input"
                     class="typeahead-option"
                     ng-class="{'selected': $parent.selectedIndex == $index}"
                     ng-click="addToken(option)"
