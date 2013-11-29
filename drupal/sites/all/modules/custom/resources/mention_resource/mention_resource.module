@@ -136,7 +136,13 @@ function mention_reindex($content_id, $content_type, $content)
     $annot_test = $annotator->annotate($content);
     $xmlData = simplexml_load_string($annot_test->data);
 
-    $annotations = $xmlData->data->annotatorResultBean->annotations->annotationBean;
+
+    if(isset($xmlData->data->annotatorResultBean->annotations->annotationBean)) {
+        $annotations = $xmlData->data->annotatorResultBean->annotations->annotationBean;
+    } else {
+        $annotations = null;
+    }
+
 
     // Go through and strip out all the stuff we dont really need
     if($annotations) {

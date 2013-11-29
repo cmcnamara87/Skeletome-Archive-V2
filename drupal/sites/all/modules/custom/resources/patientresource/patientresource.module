@@ -52,7 +52,11 @@ class PatientController extends EntityAPIController {
 
     public function save($entity, DatabaseTransaction $transaction = NULL) {
 
-        $old_patient = patient_load($entity->id);
+        if(isset($entity->id)) {
+            $old_patient = patient_load($entity->id);
+        } else {
+            $old_patient = null;
+        }
 
         parent::save($entity, $transaction);
 

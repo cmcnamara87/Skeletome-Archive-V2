@@ -1,0 +1,200 @@
+<?php
+
+function esdn_import_uninstall()
+{
+    // Find all users that start with 'user'
+    $sql = "SELECT uid
+            FROM users
+            WHERE name LIKE 'User%'";
+    $results = db_query($sql);
+    $users = $results->fetchAll();
+
+    // Destroy all the users stuff!
+    foreach($users as $user) {
+
+        $sql = "SELECT id
+                FROM patients
+                WHERE patients.uid = :uid";
+        $results = db_query($sql, array(
+            ":uid"  => $user->uid
+        ));
+        $patients = $results->fetchAll();
+        foreach($patients as $patient) {
+
+            // Delete all diagnoses for the patient
+            $sql = "SELECT id
+                    FROM diagnoses
+                    WHERE diagnoses.patient_id = :pid";
+            $results = db_query($sql, array(
+                "pid"   => $patient->id
+            ));
+            $diagnosis_ids = array_keys($results->fetchAllAssoc('id'));
+            foreach($diagnosis_ids as $diagnosis_id) {
+                diagnosis_delete($diagnosis_id);
+            }
+
+            // Delete all shares for the patient
+            $sql = "SELECT id
+                    FROM shares
+                    WHERE shares.patient_id = :pid";
+            $results = db_query($sql, array(
+                "pid"   => $patient->id
+            ));
+            $share_ids = array_keys($results->fetchAllAssoc('id'));
+            foreach($share_ids as $share_id) {
+                share_delete($share_id);
+            }
+
+            // Delete all mentions for the patient
+            $sql = "SELECT id
+                    FROM mentions
+                    WHERE mentions.content_id = :pid
+                    AND mentions.content_type = 'patient'";
+            $results = db_query($sql, array(
+                "pid"   => $patient->id
+            ));
+            $mention_ids = array_keys($results->fetchAllAssoc('id'));
+            foreach($mention_ids as $mention_id) {
+                mention_delete($mention_id);
+            }
+
+            // Delete the patient
+            patient_delete($patient->id);
+        }
+
+        // Deleted memberships
+        $sql = "SELECT members.id
+                FROM members
+                WHERE members.user_id = :uid";
+        $results = db_query($sql, array(
+            "uid"   => $user->uid
+        ));
+        $membership_ids = array_keys($results->fetchAllAssoc('id'));
+        foreach($membership_ids as $membership_id) {
+            membership_delete($membership_id);
+        }
+
+        // Delete the users
+        user_delete($user->uid);
+    }
+
+    // Delete the groups
+    $sql = "SELECT id
+            FROM groups
+            WHERE groups.name LIKE '%Imported%'";
+    $results = db_query($sql);
+    $group_ids = array_keys($results->fetchAllAssoc('id'));
+    foreach($group_ids as $group_id) {
+        group_delete($group_id);
+    }
+}
+
+/*
+function esdn_import_install()
+{
+    // Create n users
+    $user_count = 5;
+    $users = array();
+    for($i = 0; $i < $user_count; $i++) {
+        $user_number = $i + 1;
+        $new_user = array(
+            'name' => 'User ' . $user_number,
+            'pass' => 'user',
+            'mail' => 'user' .  $user_number . '@skeletome.org',
+            'status' => 1,
+            'field_first_name' => array(
+                'und' => array(
+                    0 => array(
+                        'value' => 'User',
+                    ),
+                ),
+            ),
+            'field_last_name' => array(
+                'und' => array(
+                    0 => array(
+                        'value' => $user_number,
+                    ),
+                ),
+            )
+        );
+        $account = user_save(NULL, $new_user);
+        $users[] = $account;
+    }
+
+    // Create 2 groups
+    $esdn_group = new stdClass();
+    $esdn_group->name = "ESDN (Imported)";
+    $esdn_group->administrator_id = 1;
+    $esdn_group->uid = 1;
+    $esdn_group->description = "ESDN provides an integrated research and diagnostic network for skeletal dysplasias";
+    $esdn_group->created = time();
+    $esdn_group->modified = time();
+    group_save($esdn_group);
+
+    $brisbane_group = new stdClass();
+    $brisbane_group->name = "Brisbane Group (Imported)";
+    $brisbane_group->administrator_id = 1;
+    $brisbane_group->uid = 1;
+    $brisbane_group->description = "Brisbane Group";
+    $brisbane_group->created = time();
+    $brisbane_group->modified = time();
+    group_save($brisbane_group);
+
+    $groups_for_users = array(
+        $esdn_group, $esdn_group, $esdn_group, $brisbane_group
+    );
+
+    // Make users join groups
+    for($i = 0; $i < count($groups_for_users); $i++) {
+        $group = $groups_for_users[$i];
+        $new_membership = new stdClass();
+        $new_membership->group_id = $group->id;
+        $new_membership->created = time();
+        $new_membership->modified = time();
+        $user = $users[$i];
+        $new_membership->user_id = $user->uid;
+        membership_save($new_membership);
+    }
+
+    $xml = simplexml_load_file(drupal_get_path('module', 'esdn_import') . "/data.xml");
+
+    foreach ($xml->patient as $patient) {
+        // Pick one of our users to assign to this patient
+        $user_index = rand(0,$user_count - 1);
+        $user = $users[$user_index];
+
+        $new_patient = new stdClass();
+        $new_patient->clinical_summary = $patient->summary;
+        $new_patient->uid = $user->uid;
+        $new_patient->created = time();
+        $new_patient->modified = time();
+        patient_save($new_patient);
+
+        $sql = "SELECT disorders.id
+                FROM disorders
+                WHERE disorders.uri = :uri";
+        $result = db_query($sql, array(
+            "uri" => (string)$patient->diagnosis
+        ));
+        $disorder_id = $result->fetchField();
+
+        $new_diagnosis = new stdClass();
+        $new_diagnosis->patient_id = $new_patient->id;
+        $new_diagnosis->disorder_id = $disorder_id;
+        $new_diagnosis->created = time();
+        $new_diagnosis->modified = time();
+        diagnosis_save($new_diagnosis);
+
+        if(isset($groups_for_users[$user_index])) {
+            // Do the share
+            $group = $groups_for_users[$user_index];
+            $new_share = new stdClass();
+            $new_share->uid = $user->uid;
+            $new_share->created = time();
+            $new_share->modified = time();
+            $new_share->patient_id = $new_patient->id;
+            $new_share->group_id = $group->id;
+            share_save($new_share);
+        }
+    }
+}*/
