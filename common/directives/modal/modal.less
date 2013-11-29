@@ -12,11 +12,12 @@
   transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
-  transition: 0.3s all;
+  transition: 0.2s all;
 
   // The modals content
   .mmodal-content {
     background-color: white;
+    border: 1px solid @borderColor;
   }
 
   // The animations on the content appearing and disappearing
@@ -36,7 +37,7 @@
     opacity: 0;
 
     display:block!important;
-    transition: 0.3s all;
+    transition: 0.2s all;
 
   }
 }
@@ -50,10 +51,10 @@
   left: 0;
   z-index: 1000;
   opacity: 1;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: rgba(242, 246, 247, 0.72);
 
   &.ng-enter, &.ng-leave {
-    transition: 0.3s all;
+    transition: 0.2s all;
   }
 
   &.ng-enter.ng-enter-active, &.ng-leave {

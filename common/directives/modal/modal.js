@@ -1,5 +1,9 @@
 angular.module('directives.modal', [])
 
+    .factory('createModal', function($templateCache, $http, $timeout, $compile) {
+        "use strict";
+
+    })
     .directive('modal', function ($templateCache, $http, $timeout, $compile) {
         return {
             restrict: 'A',

@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><a href="http://knowledge.skeletome.org?q=node/{{ disorder.nid }}">{{ disorder.title }}<a/></h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="separated">
+                <h3 class="resource-block-heading">Description</h3>
+                <span ng-bind-html="disorder.body_value | limitTo:400"></span>
+                <a href="http://knowledge.skeletome.org?q=node/{{ disorder.nid }}">Read More</a>
+            </div>
+
+            <div class="separated">
+                <h3 class="resource-block-heading">Clinical Features</h3>
+                <ul>
+                    <li ng-repeat="clinicalFeature in disorder.clinical_features">
+                        <div class="pull-right">
+                            <span class="label label-info">{{ clinicalFeature.disorder_count }} disorders</span>
+                        </div>
+
+                        <a href>{{ clinicalFeature.name }}</a>
+
+                        <div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: {{ clinicalFeature.information_content }}%;">
+                                    <span class="sr-only">60% Complete</span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="col-md-6">
+            <div>Patients with Disorder</div>
+            <ul>
+                <li ng-repeat="diagnosis in diagnoses">
+                    <a href="#/patient/{{ diagnosis.patient_id}}/summary">Patient #{{ diagnosis.patient_id }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
