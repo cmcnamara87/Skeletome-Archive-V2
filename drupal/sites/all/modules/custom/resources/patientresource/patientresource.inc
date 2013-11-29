@@ -138,7 +138,7 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
         }
         unset($parameters['hpo_id']);
 
-        $sql = "SELECT object_id as 'patient_id'
+        $sql = "SELECT DISTINCT object_id as 'patient_id'
                 FROM hpos_tags
                 WHERE hpo_id IN ($hpo_ids_string)
                 AND object_type = 'patient'
@@ -146,8 +146,18 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
                 HAVING COUNT(*) = $hpo_ids_count";
 
         $results = db_query($sql);
+        $patient_hpo_ids = array_keys($results->fetchAllAssoc('patient_id'));
 
-        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+        $sql = "SELECT DISTINCT content_id as 'patient_id'
+                FROM mentions
+                WHERE mentioned_id IN ($hpo_ids_string)
+                AND mentioned_type = 'hpo'
+                GROUP BY content_id
+                HAVING COUNT(*) = $hpo_ids_count";
+        $results = db_query($sql);
+        $patient_mentions_ids = array_keys($results->fetchAllAssoc('patient_id'));
+
+        $patient_ids = array_unique(array_merge($patient_hpo_ids, $patient_mentions_ids));
 
         if(isset($parameters['id'])) {
             $parameters['id'] = array_intersect($parameters['id'], $patient_ids);
