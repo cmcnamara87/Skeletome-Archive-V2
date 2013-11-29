@@ -50,19 +50,6 @@ function _patientresource_update($id, $data) {
  * @return object
  */
 function _patientresource_retrieve($id) {
-
-//    for($i = 5; $i < 754; $i++) {
-//        $patient = patient_load($i);
-//        $patient->uid = 1;
-//        $patient->created = time();
-//        $patient->updated = time();
-//        patient_save($patient);
-//
-//        $new_share = new stdClass();
-//        $new_share->patient_id = $patient->id;
-//        $new_share->group_id = 1;
-//        share_save($new_share);
-//    }
     return patient_load($id);
 }
 
@@ -132,7 +119,11 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
         $results = db_query($sql);
 
         $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
-        $parameters['id'] = $patient_ids;
+        if(isset($parameters['id'])) {
+            $parameters['id'] = array_intersect($parameters['id'], $patient_ids);
+        } else {
+            $parameters['id'] = $patient_ids;
+        }
     }
 
     if(isset($parameters['hpo_id'])) {
@@ -189,11 +180,13 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
         $patients = resource_helper_index('patient', $page, $fields, $parameters, $page_size);
     }
 
+
     if($embed) {
 
         foreach($patients as &$patient) {
 
-            if(patients_is_accessible($patient->id)) {
+//            continue;
+//            if(patients_is_accessible($patient->id)) {
                 $query = new EntityFieldQuery();
                 $query->entityCondition('entity_type', 'diagnosis');
                 $query->propertyCondition('patient_id', $patient->id);
@@ -218,7 +211,7 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
                 } else {
                     $patient->shares = array();
                 }
-            }
+//            }
         }
     }
 
