@@ -1,7 +1,7 @@
 angular.module('directives.mentions', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('mentions', ['apiUrl2', '$compile', '$http', 'DiagnosisModel', function (apiUrl2, $compile, $http, DiagnosisModel) {
+    .directive('mentions', ['apiUrl2', '$compile', '$http', 'DiagnosisModel', 'createModal', function (apiUrl2, $compile, $http, DiagnosisModel, createModal) {
 
         return {
             restrict: 'E',
@@ -51,6 +51,11 @@ angular.module('directives.mentions', [])
                             disorder_id: mention.disorder.id
                         })
                     }
+                    createModal({scope: $scope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                        console.log("resolved");
+                        modal.show();
+                    });
+
                 }
 
                 var markup = function(text, mentions) {

@@ -2,28 +2,26 @@
     <div ng-show="SessionService.isAuthenticated">
         <div class="menubar" ng-class="{'menubar-dark': content}">
 
-            <div class="menubar-left" ng-show="!content">
+            <div class="menubar-left">
                 <!-- stuff on the left side of the menu bar -->
                 <!-- The logo -->
-                <div class="menubar-item logo">
-                    <a href="#">
-                        <i class="icon icon-reorder"></i>
-                    </a>
-                    <a href="#/feed">
-                        Archive
-                    </a>
+                <div ng-show="!content" class="menubar-logo">
+                    <div class="menubar-item logo">
+                        <a href="#">
+                            <i class="icon icon-reorder"></i>
+                        </a>
+                        <a href="#/feed">
+                            Archive
+                        </a>
+                    </div>
                 </div>
-            </div>
 
-            <div class="menubar-left" ng-show="content">
-                <!-- stuff on the left side of the menu bar -->
-                <!-- The logo -->
-                <div class="menubar-item logo">
-                    <a href ng-click="back()">
-                        <i class="icon icon-arrow-left"></i>
-                    </a>
+                <div ng-show="content" class="menubar-title">
+                    <div class="menubar-item logo">
+                        <a href ng-click="back()">
+                            <i class="icon icon-arrow-left"></i>
+                        </a>
                     <span ng-show="tab == 'patient'">
-                        <span ng-show="!patient">Loading...</span>
                         <patient-name patient="patient"></patient-name>
                     </span>
                     <span ng-show="tab == 'group'">
@@ -33,6 +31,7 @@
                         {{ user.name }}
                     </span>
 
+                    </div>
                 </div>
             </div>
 

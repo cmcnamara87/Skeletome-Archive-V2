@@ -12,33 +12,51 @@
   transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
-  transition: 0.2s all;
+  transition: 0.3s all;
 
   // The modals content
   .mmodal-content {
     background-color: white;
     border: 1px solid @borderColor;
+    padding: 14px;
   }
 
   // The animations on the content appearing and disappearing
-  &.ng-enter.ng-enter-active .mmodal-content, &.ng-leave .mmodal-content {
+  &.ng-hide-add .mmodal-content, &.ng-hide-remove .mmodal-content {
+    transition: 0.2s ease-out all;
+  }
+  &.ng-hide-add, &.ng-hide-remove {
+    display:block!important;
+  }
+  // Showing
+  &.ng-hide-remove .mmodal-content {
+    -webkit-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -ms-transform: scale(0.7);
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  &.ng-hide-remove.ng-hide-remove-active .mmodal-content {
     -webkit-transform: scale(1);
     -moz-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
     opacity: 1;
   }
-  &.ng-enter .mmodal-content, &.ng-leave.ng-leave-active .mmodal-content {
-
+  // Hiding
+  &.ng-hide-add .mmodal-content {
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+  }
+  &.ng-hide-add.ng-hide-add-active .mmodal-content {
     -webkit-transform: scale(0.7);
     -moz-transform: scale(0.7);
     -ms-transform: scale(0.7);
     transform: scale(0.7);
     opacity: 0;
-
-    display:block!important;
-    transition: 0.2s all;
-
   }
 }
 
@@ -50,19 +68,24 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  opacity: 1;
   background-color: rgba(242, 246, 247, 0.72);
 
-  &.ng-enter, &.ng-leave {
-    transition: 0.2s all;
+  &.ng-hide-add, &.ng-hide-remove {
+    transition: 0.3s linear all;
+    display:block!important;
   }
 
-  &.ng-enter.ng-enter-active, &.ng-leave {
+  &.ng-hide-add {
     opacity: 1;
   }
-  &.ng-enter, &.ng-leave.ng-leave-active {
+  &.ng-hide-add.ng-hide-add-active {
     opacity: 0;
-
+  }
+  &.ng-hide-remove {
+    opacity: 0;
+  }
+  &.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
   }
 
 }

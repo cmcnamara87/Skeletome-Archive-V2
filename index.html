@@ -31,11 +31,9 @@
 
         <!-- Menu bar -->
         <menubar></menubar>
-
     <div>
         <submenubar></submenubar>
         <sidemenu></sidemenu>
-
         <div class="main" ng-class="{'main-loggedin': SessionService.isAuthenticated, 'main-sidebar': showSidemenu, 'main-submenubar': showSubmenuBar, 'main-activities': showActivities, 'main-feed': isFeed}">
             <div ng-view class="main-view"></div>
         </div>

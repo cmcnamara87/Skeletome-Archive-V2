@@ -24,8 +24,8 @@ angular.module('user', [])
         });
     }])
 
-    .controller('UserCtrl', ['$scope', 'AuthService', 'SessionService', 'memberships', 'fileUploadUrl', '$location', 'user', 'SmodalService',
-        function ($scope, AuthService, SessionService, memberships, fileUploadUrl, $location, user, SmodalService) {
+    .controller('UserCtrl', ['$scope', 'AuthService', 'SessionService', 'memberships', 'fileUploadUrl', '$location', 'user', 'SmodalService', 'createModal', '$timeout',
+        function ($scope, AuthService, SessionService, memberships, fileUploadUrl, $location, user, SmodalService, createModal, $timeout) {
             $scope.memberships = memberships;
             $scope.fileUploadUrl = fileUploadUrl;
             $scope.user = user;
@@ -35,6 +35,13 @@ angular.module('user', [])
                 AuthService.logout().then(function() {
                     "use strict";
                     $location.path('/login');
+                });
+            }
+
+            $scope.showProfilePictureUpload = function() {
+                "use strict";
+                createModal({scope:$scope, url:'app/user/modal_profile.tpl.html'}).then(function(modal) {
+                    modal.show();
                 });
             }
 
