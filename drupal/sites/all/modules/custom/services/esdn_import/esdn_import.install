@@ -89,7 +89,7 @@ function esdn_import_uninstall()
     }
 }
 
-/*
+
 function esdn_import_install()
 {
     // Create n users
@@ -197,4 +197,4 @@ function esdn_import_install()
             share_save($new_share);
         }
     }
-}*/
+}
