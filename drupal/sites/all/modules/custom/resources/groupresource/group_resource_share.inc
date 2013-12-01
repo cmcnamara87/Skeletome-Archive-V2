@@ -67,7 +67,7 @@ function _groupresource_share_index($page, $fields, $parameters, $page_size) {
     if(isset($parameters['id'])) {
         $parameters['id'] = shares_filter_accessible($parameters['id']);
     } else {
-        $parameters['id'] = share_accessible();
+        $parameters['id'] = shares_accessible();
     }
 
     return resource_helper_index('share', $page, $fields, $parameters, $page_size);
