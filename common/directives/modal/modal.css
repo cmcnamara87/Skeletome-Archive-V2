@@ -705,50 +705,6 @@ html[xmlns] .clearfix {
   border: 1px solid #f76969;
   color: #f76969;
 }
-.menubar-logo.ng-hide-add,
-.menubar-logo.ng-hide-remove {
-  transition: 0.2s linear all;
-  position: relative;
-  display: inline-block !important;
-}
-.menubar-logo.ng-hide-add {
-  left: 0;
-  opacity: 1;
-}
-.menubar-logo.ng-hide-add.ng-hide-add-active {
-  left: -50px;
-  opacity: 0;
-}
-.menubar-logo.ng-hide-remove {
-  left: -50px;
-  opacity: 0;
-}
-.menubar-logo.ng-hide-remove.ng-hide-remove-active {
-  left: 0;
-  opacity: 1;
-}
-.menubar-title.ng-hide-add,
-.menubar-title.ng-hide-remove {
-  transition: 0.2s linear all;
-  position: relative;
-  display: inline-block !important;
-}
-.menubar-title.ng-hide-add {
-  left: 0;
-  opacity: 1;
-}
-.menubar-title.ng-hide-add.ng-hide-add-active {
-  left: 50px;
-  opacity: 0;
-}
-.menubar-title.ng-hide-remove {
-  left: 50px;
-  opacity: 0;
-}
-.menubar-title.ng-hide-remove.ng-hide-remove-active {
-  left: 0;
-  opacity: 1;
-}
 /**
  *
  * The Manu BAR
@@ -1357,7 +1313,6 @@ html[xmlns] .clearfix {
 }
 .mmodal .mmodal-content {
   background-color: white;
-  padding: 14px;
 }
 .mmodal.ng-hide-add .mmodal-content,
 .mmodal.ng-hide-remove .mmodal-content {

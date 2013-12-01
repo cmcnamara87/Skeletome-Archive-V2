@@ -46,6 +46,9 @@ angular.module('directives.modal', [])
                                     newScope.$destroy();
                                 }, 1000)
                             }
+                            newScope.close = function() {
+                                modal.hide();
+                            }
 
                             console.log('resolving modal', modal);
                             deferred.resolve(modal);

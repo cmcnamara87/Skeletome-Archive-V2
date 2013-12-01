@@ -1,7 +1,8 @@
 angular.module('directives.mentions', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('mentions', ['apiUrl2', '$compile', '$http', 'DiagnosisModel', 'createModal', function (apiUrl2, $compile, $http, DiagnosisModel, createModal) {
+    .directive('mentions', ['apiUrl2', '$compile', '$http', 'DiagnosisModel', 'createModal', 'PatientModel',
+        function (apiUrl2, $compile, $http, DiagnosisModel, createModal, PatientModel) {
 
         return {
             restrict: 'E',
@@ -38,23 +39,34 @@ angular.module('directives.mentions', [])
 
                 $scope.mentionClicked = function(index) {
                     "use strict";
-                    $scope.disorder = null;
-                    var mention = $scope.mentions[index];
-                    console.log("mention is", mention);
+
+                    $scope.mention = $scope.mentions[index];
 
                     // Get the data
-                    if(mention.mentioned_type == "disorder") {
-                        $http.get(apiUrl2 + "disorder/" + mention.disorder.id + "/description").then(function(repsonse) {
+                    if($scope.mention.mentioned_type == "disorder") {
+                        $scope.disorder = null;
+                        $http.get(apiUrl2 + "disorder/" + $scope.mention.disorder.id + "/description").then(function(repsonse) {
                             $scope.disorder = repsonse.data;
                         });
                         $scope.diagnoses = DiagnosisModel.index({
-                            disorder_id: mention.disorder.id
+                            disorder_id: $scope.mention.disorder.id
                         })
+                        createModal({scope: $scope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                            console.log("resolved");
+                            modal.show();
+                        });
+                    } else if ($scope.mention.mentioned_type == "hpo") {
+                        PatientModel.queryParams({embed: 1}, {
+                            hpo_id: $scope.mention.hpo.id
+                        }).$promise.then(function(patients) {
+                            $scope.patients = patients;
+                        });
+                        createModal({scope: $scope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
+                            console.log("resolved");
+                            modal.show();
+                        });
                     }
-                    createModal({scope: $scope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
-                        console.log("resolved");
-                        modal.show();
-                    });
+
 
                 }
 

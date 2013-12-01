@@ -1113,6 +1113,17 @@ html[xmlns] .clearfix {
 .mentions a:hover {
   text-decoration: underline;
 }
+.mentions-modal {
+  padding: 21px;
+}
+.mentions-modal .mentions-modal-title {
+  font-size: 21px;
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+.mentions-modal p {
+  line-height: 28px;
+}
 .gallery {
   position: fixed;
   top: 0;
@@ -1313,7 +1324,6 @@ html[xmlns] .clearfix {
 }
 .mmodal .mmodal-content {
   background-color: white;
-  padding: 14px;
 }
 .mmodal.ng-hide-add .mmodal-content,
 .mmodal.ng-hide-remove .mmodal-content {

@@ -1,0 +1,18 @@
+<div class="mentions-modal">
+    <div ng-show="!patients" style="text-align: center">
+        <i class="icon icon-refresh icon-spin"></i>
+    </div>
+    <div ng-show="patients">
+        <div class="mentions-modal-title separated">{{ mention.hpo.name }}</div>
+        <table class="table separated">
+            <tr>
+                <th>Patient ID</th>
+                <th>Disorder</th>
+            </tr>
+            <tr ng-repeat="patient in patients">
+                <td><a href="#/patient/{{ patient.id }}/summary" ng-click="close()"><i class="icon icon-lock" ng-show="patient.access == 'none'"></i> {{ patient.name }}</a></td>
+                <td><span ng-repeat="diagnosis in patient.diagnoses">{{ diagnosis.disorder.name }}&nbsp;</span> </td>
+            </tr>
+        </table>
+    </div>
+</div>

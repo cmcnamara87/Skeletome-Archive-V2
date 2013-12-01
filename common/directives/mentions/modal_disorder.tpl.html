@@ -1,14 +1,14 @@
-<div>
+<div class="mentions-modal">
     <div ng-show="!disorder" style="text-align: center">
         <i class="icon icon-refresh icon-spin"></i>
     </div>
     <div ng-show="disorder">
-        <div>
+        <div class="mentions-modal-title separated">
             {{ disorder.title }}
         </div>
-        <div ng-bind-html="disorder.body_value">
+        <div ng-bind-html="disorder.body_value" class="separated">
         </div>
-        <table class="table">
+        <table class="table separated">
             <tr>
                 <th>Clinical Feature</th>
                 <th>Presence in {{ disorder.title }} Cases</th>
