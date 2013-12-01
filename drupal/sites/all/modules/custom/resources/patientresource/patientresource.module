@@ -112,20 +112,28 @@ class PatientController extends EntityAPIController {
 
                 $entity->name = "";
 
-                if(strlen($entity->first_name) || strlen($entity->last_name)) {
-                    $entity->name = $entity->first_name . ' ' . $entity->last_name;
-                }
-
-                if(strlen($entity->alias)) {
-                    if(strlen($entity->name)) {
-                        $entity->name .= " / ";
-                    }
-                    $entity->name .= $entity->alias;
-                }
-
                 if(!(strlen($entity->first_name) || strlen($entity->last_name) || strlen($entity->alias))) {
+                    // No names given, use ID
                     $entity->name = "Patient #" . $entity->id;
+                } else {
+                    // Has some info, use that
+                    if(strlen($entity->first_name) || strlen($entity->last_name)) {
+                        $entity->name = $entity->first_name . ' ' . $entity->last_name;
+                    }
+
+                    if(strlen($entity->alias)) {
+                        if(strlen($entity->name)) {
+                            $entity->name .= " / ";
+                        }
+                        $entity->name .= $entity->alias;
+                    }
+
+                    $entity->name .= " #" . $entity->id;
                 }
+
+
+
+
             }
             self::addRelated($entity);
         }
