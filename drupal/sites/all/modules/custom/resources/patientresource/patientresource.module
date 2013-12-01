@@ -106,7 +106,7 @@ class PatientController extends EntityAPIController {
                 } else {
                     $entity->access = "group";
                 }
-                $entity->name = "Patient #" . $entity->id;
+                $entity->name = "#" . $entity->id;
             } else {
                 $entity->access = "owner";
 

@@ -56,14 +56,16 @@ angular.module('directives.mentions', [])
                             modal.show();
                         });
                     } else if ($scope.mention.mentioned_type == "hpo") {
+                        $scope.patients = null;
+                        createModal({scope: $scope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
+                            console.log("resolved");
+                            modal.show();
+                        });
+
                         PatientModel.queryParams({embed: 1}, {
                             hpo_id: $scope.mention.hpo.id
                         }).$promise.then(function(patients) {
                             $scope.patients = patients;
-                        });
-                        createModal({scope: $scope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
-                            console.log("resolved");
-                            modal.show();
                         });
                     }
 
