@@ -6,8 +6,11 @@
   right: 0;
   overflow: auto;
   background-color: white;
-  top: 60px;
+  z-index: 99;
   border-right: 1px solid #dbe1e3;
+}
+.main-loggedin {
+  top: 60px;
 }
 .main-submenubar {
   top: 120px;
@@ -245,11 +248,28 @@ Styleguide 2.1.3.
   color: #49a9ba;
   padding: 0;
 }
+.label {
+  background-color: white;
+  border: 1px solid #f76969;
+  color: #f76969;
+}
+.label:hover {
+  background-color: white;
+}
+.label + .label {
+  margin-left: 2px;
+}
 .padded {
   padding: 14px;
 }
+.white {
+  background-color: white;
+}
 .separated + .separated {
   margin-top: 14px;
+}
+.separated.separated-small + .separated.separated-small {
+  margin-top: 7px;
 }
 .divided + .divided {
   margin-top: 14px;
@@ -279,6 +299,16 @@ Styleguide 2.1.3.
 .nodata {
   color: #949a9c;
 }
+.gallery-item {
+  float: left;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  text-align: center;
+  border: 1px solid red;
+  margin: 0px 14px 14px 0 !important;
+  cursor: pointer;
+}
 .resource {
   /** Height allows for the button */
   min-height: 35px;
@@ -302,8 +332,9 @@ Styleguide 2.1.3.
   border: none;
   padding: 0px;
 }
-.resource.is-editing input[type=text],
-.resource.is-editing textarea {
+.resource input[type=text],
+.resource input[type=password],
+.resource textarea {
   width: 100%;
   box-sizing: border-box;
 }
@@ -370,6 +401,9 @@ html[xmlns] .clearfix {
 * html .clearfix {
   height: 1%;
 }
+.comments {
+  background-color: #f3f6f7;
+}
 .comment {
   background-color: #f3f6f7;
   border-top: 1px solid #dbe1e3;
@@ -389,6 +423,37 @@ html[xmlns] .clearfix {
 .comments-more ::-webkit-input-placeholder {
   color: #949a9c;
 }
+.comment.ng-leave {
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  position: relative;
+  height: 50px;
+  overflow: hidden;
+  top: 0px;
+}
+.comment.ng-leave.ng-leave-active {
+  height: 0px;
+  top: -20px;
+  opacity: 0;
+  padding: 0px;
+  margin: 0px;
+  border-width: 0px;
+}
+.comment.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 0;
+  position: relative;
+  top: 25px;
+  z-index: 99;
+}
+.comment.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
+  z-index: 99;
+}
 /**
   * An individual activity */
 .activity {
@@ -406,6 +471,10 @@ html[xmlns] .clearfix {
 }
 .activity:hover .mentions a {
   text-decoration: underline;
+  color: #49a9ba !important;
+}
+.activity .activity-diagnosis-name {
+  font-weight: 600;
 }
 .activity .activity-content {
   padding: 14px;
@@ -422,16 +491,22 @@ html[xmlns] .clearfix {
 .activity .activity-group {
   font-size: 12px;
   text-transform: uppercase;
+  color: #798184;
 }
 .activity .activity-group .icon {
   margin-right: 7px;
 }
-.activity-patient h4 {
+.activity-patient-name {
   color: #303334;
   font-weight: 600;
-  font-size: 14px;
-  margin: 0;
-  margin-bottom: 14px;
+}
+.activity-patient-color {
+  display: inline-block;
+  height: 14px;
+  width: 14px;
+  position: relative;
+  top: 2px;
+  border-radius: 100px;
 }
 .activity-patient .activity-patient-more {
   margin-top: 14px;
@@ -464,8 +539,15 @@ html[xmlns] .clearfix {
   border: 1px solid #dbe1e3;
   padding: 14px;
 }
-.activity-diagnosis .activity-diagnosis-name {
-  font-weight: 600;
+.activity-icon {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-radius: 32px;
+  background-color: #FFBB7B;
+  text-align: center;
+  color: white;
+  font-size: 21px;
 }
 /**
   * Activity Adder
@@ -498,11 +580,34 @@ html[xmlns] .clearfix {
 }
 .adder-to {
   border: 1px solid #dbe1e3;
+  padding: 7px 14px;
+  list-style-type: none;
 }
-.adder-to input[type=text] {
-  box-sizing: border-box;
-  width: 100%;
-  border: none;
+.adder-to .adder-to-label {
+  margin-right: 14px;
+  position: relative;
+  top: 8px;
+  color: #949a9c;
+}
+.adder-to ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  margin-left: 7px;
+}
+.adder-to .adder-to-group {
+  display: inline-block;
+  padding: 7px 14px;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba !important;
+  margin-bottom: 2px;
+  font-weight: normal;
+  cursor: pointer;
+}
+.adder-to .adder-to-group + .adder-to-group {
+  margin-left: 3px;
 }
 .adder-to-selected {
   padding: 14px 14px 0 14px;
@@ -515,21 +620,6 @@ html[xmlns] .clearfix {
   padding: 0;
   margin: 0;
 }
-.adder-to-option {
-  display: block;
-  padding: 10px;
-}
-.adder-to-option.selected {
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba;
-}
-.adder-to-option label {
-  font-weight: normal;
-}
-.adder-to-option input {
-  margin-right: 7px;
-}
 .adder-to-option + .adder-to-option {
   border-top: 1px solid #dbe1e3;
 }
@@ -539,10 +629,10 @@ html[xmlns] .clearfix {
   bottom: 0;
   left: 0;
   right: 0;
-  overflow: auto;
   top: 60px;
   left: auto;
   width: 45%;
+  overflow: auto;
   /**
   Group activity title
   */
@@ -564,11 +654,38 @@ html[xmlns] .clearfix {
 .activities .activities-content {
   padding: 14px;
 }
+.activities-listitem.ng-enter {
+  /* standard transition code */
+  -webkit-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 0;
+  position: relative;
+  top: 10px;
+}
+.activities-listitem.ng-enter.is-adding {
+  top: -100px;
+}
+.activities-listitem.ng-enter-stagger,
+.activities-listitem.ng-leave-stagger {
+  /* this will have a 100ms delay between each successive leave animation */
+  -webkit-transition-delay: 0.1s;
+  transition-delay: 0.1s;
+  /* in case the stagger doesn't work then these two values
+   must be set to 0 to avoid an accidental CSS inheritance */
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
+}
+.activities-listitem.ng-enter.ng-enter-active {
+  /* standard transition styles */
+  opacity: 1;
+  top: 0px;
+}
 .label {
   font-weight: 400;
   letter-spacing: 0.5px;
 }
 .submenubar {
+  border-right: 1px solid #dbe1e3;
   background-color: white;
   height: 60px;
 }
@@ -593,8 +710,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  background-color: #D17F7F;
-  color: white;
+  border: 1px solid #f76969;
+  color: #f76969;
 }
 /**
  *
@@ -608,60 +725,87 @@ html[xmlns] .clearfix {
   color: #F3F3F3;
   vertical-align: middle;
   height: 60px;
-  position: relative;
+  top: 0px;
+  width: 100%;
+  transition: background-color 0.1s;
+  /* When showing an element */
 }
 .menubar.menubar-dark {
-  background-color: #0E2435;
+  background-color: #2c7684;
+}
+.menubar.menubar-dark .menubar-item.menubar-user {
+  border-left: 1px solid #2B636D;
 }
 .menubar .menubar-left {
   float: left;
   height: 60px;
 }
+.menubar .menubar-left.ng-hide-add {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  opacity: 1;
+}
+.menubar .menubar-left.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.menubar .menubar-left.ng-hide-remove {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  /* this needs to be here to make it visible during the animation
+       since the .ng-hide class is already on the element rendering
+       it as hidden. */
+  display: block!important;
+  opacity: 0;
+}
+.menubar .menubar-left,
+.menubar .menubar-left.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
 .menubar .menubar-right {
   float: right;
   height: 60px;
 }
-.menubar .menubar-logo {
-  font-size: 21px;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-.menubar .menubar-logo a {
-  color: white;
-}
-.menubar .menubar-logo .icon {
-  margin-right: 7px;
-}
 .menubar .menubar-notifications {
   font-size: 18px;
 }
-.menubar .menubar-search {
-  position: relative;
-}
-.menubar .menubar-search .icon {
-  position: absolute;
-  top: 22px;
-  left: 35px;
-  color: #5cabba;
-}
-.menubar .menubar-search ::-webkit-input-placeholder {
-  color: #5cabba;
-}
-.menubar .menubar-search input[type=text] {
-  padding: 8px 14px;
-  padding-left: 35px;
-  line-height: 14px;
-  border: none;
-  border-radius: 100px;
+.menubar .typeahead {
+  transition: 0.2s all;
   width: 150px;
-  background-color: #44919f;
-  transition: 0.1s ease-in;
+  border-radius: 100px;
+  position: relative;
+  top: 11px;
+  right: 11px;
+  padding: 0;
+  border: none;
 }
-.menubar .menubar-search input[type=text]:focus {
+.menubar .typeahead.focus {
   width: 300px;
+}
+.menubar .typeahead.focus input[type=text] {
   background-color: white;
+}
+.menubar .typeahead .icon {
+  top: 0px;
+}
+.menubar .typeahead .typeahead-option {
+  padding: 10px;
+  border: 1px solid #dbe1e3;
+  color: #616769;
+}
+.menubar .typeahead .typeahead-option.selected {
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba;
+}
+.menubar .typeahead input[type=text] {
+  background-color: #398997;
+  color: #49a9ba;
+  border-radius: 100px;
+  padding: 7px 14px;
 }
 .menubar .menubar-item {
   display: inline-block;
@@ -673,6 +817,29 @@ html[xmlns] .clearfix {
     The logo container for the sidebar
   */
 }
+.menubar .menubar-item.menubar-search {
+  line-height: inherit;
+}
+.menubar .menubar-item.menubar-user {
+  border-left: 1px solid #5298A5;
+  font-weight: normal;
+  color: #c3e0e6;
+  position: relative;
+  top: -2px;
+  transition: 0.3s color;
+}
+.menubar .menubar-item.menubar-user:hover,
+.menubar .menubar-item.menubar-user.selected {
+  color: white;
+}
+.menubar .menubar-item.menubar-user.selected {
+  background-color: white;
+}
+.menubar .menubar-item.menubar-user img {
+  margin-right: 7px;
+  position: relative;
+  top: -3px;
+}
 .menubar .menubar-item.menubar-title {
   font-size: 21px;
   font-weight: 300;
@@ -683,10 +850,10 @@ html[xmlns] .clearfix {
   height: 60px;
   font-size: 21px;
   color: white;
-  background-color: #0E2435;
+  background-color: #2A606F;
 }
 .menubar .menubar-item.menubar-back:hover {
-  background-color: #133047;
+  background-color: #0e3c48;
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab {
   color: #8999ab;
@@ -704,9 +871,6 @@ html[xmlns] .clearfix {
 .lookup-results {
   position: absolute;
   z-index: 99;
-}
-.menubar-user {
-  float: right;
 }
 /*
     A horizontal tab in the sidebar
@@ -847,22 +1011,23 @@ html[xmlns] .clearfix {
   padding-left: 0px;
   margin: 0px;
 }
-.sidebar .sidebar-menu .sidebar-menu-item {
-  color: #303334;
-  display: block;
-}
-.sidebar .sidebar-menu .sidebar-menu-item.selected {
-  color: #49a9ba;
-}
-.sidebar .sidebar-menu .sidebar-menu-item .icon {
-  opacity: 0.6;
-  margin-right: 10px;
-}
 .sidebar .sidebar-menu li + li {
   margin-top: 10px;
 }
+.sidebar-menu-item {
+  color: #303334;
+  display: block;
+}
+.sidebar-menu-item.selected {
+  color: #49a9ba;
+}
+.sidebar-menu-item .icon {
+  opacity: 0.6;
+  margin-right: 10px;
+}
 .user .user-username {
   text-transform: capitalize;
+  font-weight: 600;
 }
 .user .user-username a {
   color: #181919;
@@ -871,18 +1036,29 @@ html[xmlns] .clearfix {
 .user .user-username a:hover {
   text-decoration: underline;
 }
-.user .user-info {
-  color: #494d4e;
-}
 .user .user-date {
-  color: #798184;
+  color: #aeb3b5;
+}
+.user .user-userinfo {
+  color: #494d4e;
+  font-weight: 400;
+}
+.user-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 100px;
+}
+.user-picture.user-picture-large {
+  width: 40px;
+  height: 40px;
+  border-radius: 100px;
 }
 .table {
   border-top: none;
 }
 .table tbody > tr > th {
   background-color: #f4f6f7;
-  font-weight: 400;
+  font-weight: 600;
   border-top: none;
   color: #303334;
 }
@@ -891,6 +1067,9 @@ html[xmlns] .clearfix {
   padding: 6px !important;
   margin: 0px !important;
   vertical-align: middle;
+}
+.table tbody > tr > td a.highlight {
+  color: #49a9ba;
 }
 .table tr:hover.is-editing td {
   background-color: white;
@@ -958,7 +1137,6 @@ html[xmlns] .clearfix {
 }
 .mentions a {
   transition: color 0.2s;
-  font-weight: 600;
   color: #494d4e;
 }
 .mentions:hover a {
@@ -967,6 +1145,17 @@ html[xmlns] .clearfix {
 .mentions a:hover {
   text-decoration: underline;
 }
+.mentions-modal {
+  padding: 21px;
+}
+.mentions-modal .mentions-modal-title {
+  font-size: 21px;
+  margin-bottom: 14px;
+  font-weight: 300;
+}
+.mentions-modal p {
+  line-height: 28px;
+}
 .gallery {
   position: fixed;
   top: 0;
@@ -974,7 +1163,7 @@ html[xmlns] .clearfix {
   left: 0;
   right: 0;
   overflow: auto;
-  background-color: rgba(1, 3, 3, 0.8);
+  background-color: rgba(123, 134, 136, 0.95);
 }
 .gallery .gallery-content {
   position: fixed;
@@ -1028,11 +1217,42 @@ html[xmlns] .clearfix {
   height: auto;
   background-color: white;
   -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
   z-index: 2000;
   border-radius: 3px;
   box-shadow: 0px 3px 10px rgba(99, 124, 144, 0.3);
   border: 1px solid #dbe1e3;
   padding: 21px;
+}
+/* When hiding an element */
+.smodal.ng-hide-add {
+  -webkit-transition: 0.5s linear all;
+  -moz-transition: 0.5s linear all;
+  -o-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+  opacity: 1;
+}
+.smodal.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+/* When showing an element */
+.smodal.ng-hide-remove {
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
+  /* this needs to be here to make it visible during the animation
+     since the .ng-hide class is already on the element rendering
+     it as hidden. */
+  display: block!important;
+  opacity: 0;
+  top: 49%;
+}
+.smodal,
+.smodal.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+  top: 50%;
 }
 /*
     The overlay that sits behind the modal box
@@ -1075,15 +1295,208 @@ html[xmlns] .clearfix {
 .smodal-block-element.smodal-block-element:last-of-type {
   margin-bottom: 0px;
 }
-.activity-diagnosis .progress {
+.progress {
   height: 15px;
   margin: 0;
+}
+.progress .progress-bar {
+  background-color: #49a9ba;
+}
+.progress .progress-bar-danger {
+  background-color: #24565f;
+}
+.activity-diagnosis .activity-diagnosis-name {
+  font-weight: 600;
+}
+.activity-diagnosis .progress {
+  height: 5px;
+  margin: 0;
+  width: 182px;
 }
 .activity-diagnosis .progress .progress-bar {
   background-color: #49a9ba;
 }
 .activity-diagnosis .progress .progress-bar-danger {
   background-color: #24565f;
+}
+.lookup {
+  background-color: blue;
+}
+.lookup input {
+  background-color: red;
+}
+.lookup .lookup-results {
+  background-color: yellow;
+}
+.lookup .lookup-results a {
+  display: block;
+  padding: 14px;
+  background-color: orange;
+}
+.mmodal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 50%;
+  max-width: 630px;
+  min-width: 320px;
+  height: auto;
+  max-height: 80%;
+  z-index: 2000;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transition: 0.3s all;
+  overflow: auto;
+  box-shadow: 0px 0px 40px 0px rgba(30, 52, 57, 0.30000000000000004);
+}
+.mmodal.ng-animate {
+  border: 1px solid transparent;
+}
+.mmodal .mmodal-content {
+  background-color: white;
+  height: 100%;
+  overflow: auto;
+}
+.mmodal.mmodal-gallery {
+  max-width: 90%;
+  width: 70%;
+  max-height: 80%;
+  height: 80%;
+}
+.mmodal.ng-hide-add .mmodal-content,
+.mmodal.ng-hide-remove .mmodal-content {
+  transition: 0.2s ease-out all;
+}
+.mmodal.ng-hide-add,
+.mmodal.ng-hide-remove {
+  display: block!important;
+}
+.mmodal.ng-hide-remove .mmodal-content {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+}
+.mmodal.ng-hide-remove.ng-hide-remove-active .mmodal-content {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+.mmodal.ng-hide-add .mmodal-content {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+.mmodal.ng-hide-add.ng-hide-add-active .mmodal-content {
+  -webkit-transform: scale(0.7);
+  -moz-transform: scale(0.7);
+  -ms-transform: scale(0.7);
+  transform: scale(0.7);
+  opacity: 0;
+}
+.moverlay {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(242, 246, 247, 0.72);
+}
+.moverlay.ng-hide-add,
+.moverlay.ng-hide-remove {
+  transition: 0.3s linear all;
+  display: block!important;
+}
+.moverlay.ng-hide-add {
+  opacity: 1;
+}
+.moverlay.ng-hide-add.ng-hide-add-active {
+  opacity: 0;
+}
+.moverlay.ng-hide-remove {
+  opacity: 0;
+}
+.moverlay.ng-hide-remove.ng-hide-remove-active {
+  opacity: 1;
+}
+.login {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #dce2e4;
+}
+.logo {
+  font-size: 21px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.logo.logo-dark {
+  color: #000000;
+}
+.logo.logo-dark a {
+  color: #000000;
+}
+.logo a {
+  color: white;
+}
+.logo a:hover {
+  color: white;
+}
+.logo .icon {
+  margin-right: 7px;
+}
+.mentionmodal {
+  border: 1px solid #dbe1e3;
+  position: fixed;
+  z-index: 99999;
+  top: 10%;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  background-color: white;
+  padding: 14px;
+  overflow: auto;
+  box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
+}
+.xray-modal {
+  position: relative;
+  height: 100%;
+}
+.xray-modal .xray-modal-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background-color: black;
+  overflow: hidden;
+  line-height: 100%;
+}
+.xray-modal .xray-modal-image img {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  width: 100%;
+}
+.xray-modal .xray-modal-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 50%;
 }
 body {
   background-color: #e1e6e9;
@@ -1208,6 +1621,7 @@ textarea {
     Text inputs and text areas
 */
 input[type=text],
+input[type=password],
 textarea {
   padding: 10px 14px;
 }

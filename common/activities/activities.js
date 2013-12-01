@@ -48,7 +48,12 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                                     }).$promise.then(function(shares) {
                                         $scope.shares = shares;
                                         console.log("WE GOT THE NEW SHARES", $scope.shares);
-                                        $scope.share = $scope.shares[0];
+                                        if($scope.shares.length) {
+                                            $scope.share = $scope.shares[0];
+                                            if($scope.shares.length == 1) {
+                                                $scope.share.to = true;
+                                            }
+                                        }
                                         $scope.type = "all";
                                     });
                                 } else {
@@ -126,7 +131,10 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                     $scope.isAdding = true;
 
-                    angular.forEach(newPost.to, function(share, shareIndex) {
+                    angular.forEach($scope.shares, function(share, shareIndex) {
+                        if(!share.to) {
+                            return;
+                        }
 
                         var newSharePost = angular.copy(newPost);
                         newSharePost.share_id = share.id;

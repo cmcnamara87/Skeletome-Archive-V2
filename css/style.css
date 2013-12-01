@@ -544,7 +544,7 @@ html[xmlns] .clearfix {
   height: 32px;
   line-height: 32px;
   border-radius: 32px;
-  background-color: #BA6049;
+  background-color: #FFBB7B;
   text-align: center;
   color: white;
   font-size: 21px;
@@ -580,11 +580,34 @@ html[xmlns] .clearfix {
 }
 .adder-to {
   border: 1px solid #dbe1e3;
+  padding: 7px 14px;
+  list-style-type: none;
 }
-.adder-to input[type=text] {
-  box-sizing: border-box;
-  width: 100%;
-  border: none;
+.adder-to .adder-to-label {
+  margin-right: 14px;
+  position: relative;
+  top: 8px;
+  color: #949a9c;
+}
+.adder-to ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  margin-left: 7px;
+}
+.adder-to .adder-to-group {
+  display: inline-block;
+  padding: 7px 14px;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba !important;
+  margin-bottom: 2px;
+  font-weight: normal;
+  cursor: pointer;
+}
+.adder-to .adder-to-group + .adder-to-group {
+  margin-left: 3px;
 }
 .adder-to-selected {
   padding: 14px 14px 0 14px;
@@ -596,21 +619,6 @@ html[xmlns] .clearfix {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-.adder-to-option {
-  display: block;
-  padding: 10px;
-}
-.adder-to-option.selected {
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba;
-}
-.adder-to-option label {
-  font-weight: normal;
-}
-.adder-to-option input {
-  margin-right: 7px;
 }
 .adder-to-option + .adder-to-option {
   border-top: 1px solid #dbe1e3;

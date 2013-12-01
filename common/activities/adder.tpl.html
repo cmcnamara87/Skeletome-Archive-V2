@@ -20,7 +20,18 @@
 
         <!-- To field -->
         <div class="separated">
-            <typeahead multi="true" options-fn="findGroups(value)" model="newPost.to" placeholder="TO: Which groups do you want to send the message to?"></typeahead>
+            <div class="adder-to">
+                <div class="pull-left adder-to-label">TO:</div>
+                <ul>
+                    <li ng-repeat="share in shares">
+                        <label class="adder-to-group" ng-class="{'selected': share.to}">
+                            <input type="checkbox" ng-model="share.to"/> {{ share.name }}
+                        </label>
+                    </li>
+                </ul>
+            </div>
+
+            <!--<typeahead multi="true" options-fn="findGroups(value)" model="newPost.to" placeholder="TO: Which groups do you want to send the message to?"></typeahead>-->
         </div>
 
         <!-- The content -->
