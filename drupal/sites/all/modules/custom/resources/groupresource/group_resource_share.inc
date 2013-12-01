@@ -62,7 +62,6 @@ function _groupresource_share_delete($id) {
     );
 }
 
-I
 function _groupresource_share_index($page, $fields, $parameters, $page_size) {
     if(isset($parameters['id'])) {
         $parameters['id'] = shares_filter_accessible($parameters['id']);

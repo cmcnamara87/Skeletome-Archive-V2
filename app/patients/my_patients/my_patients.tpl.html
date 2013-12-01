@@ -12,7 +12,6 @@
         </div>
         <table class="table" ng-show="patients.length">
             <tr>
-                <th>ID</th>
                 <th>Patient</th>
                 <th>Diagnoses</th>
                 <th>Share</th>
@@ -58,11 +57,7 @@
                 </td>
             </tr>
             <tr ng-show="!$isEditing">
-                <td>
-                    <a href="#/patient/{{ patient.id }}/summary">
-                        #{{ patient.id }}
-                    </a>
-                </td>
+
                 <td>
                     <a href="#/patient/{{ patient.id }}/summary" class="highlight">
                         {{ patient.name }}

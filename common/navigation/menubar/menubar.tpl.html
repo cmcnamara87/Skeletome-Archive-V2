@@ -22,7 +22,7 @@
                     </a>
                     <div class="menubar-item logo">
                     <span ng-show="tab == 'patient'">
-                        {{ patient.name }} <span ng-show="patient.dob.length" style="font-weight: normal; font-size: 14px; opacity: 0.7"> Born: {{ patient.dob }}</span>
+                        {{ patient.name }} <span ng-show="patient.dob.length" style="font-weight: normal; font-size: 14px; opacity: 0.7"> {{ patient.dob }}</span>
                     </span>
                     <span ng-show="tab == 'group'">
                         {{ group.name }}
