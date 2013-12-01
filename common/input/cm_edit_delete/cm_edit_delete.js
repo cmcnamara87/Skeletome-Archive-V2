@@ -7,10 +7,10 @@ angular.module('directives.input.cmEditDelete', [])
             templateUrl: 'common/input/cm_edit_delete/cm_edit_delete.tpl.html',
             link: function($scope, iElement, iAttrs) {
 
-
                 iAttrs.$observe('deleteEnabled', function(value) {
                     if(angular.isDefined(iAttrs.deleteEnabled)) {
                         $scope.deleteEnabled = $scope.$eval(value);
+                        console.log("booof", $scope.deleteEnabled, value);
                     } else {
                         $scope.deleteEnabled = true;
                     }

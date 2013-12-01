@@ -1,0 +1,77 @@
+<div class="xray-modal">
+    <div class="xray-modal-image">
+        <img ng-src="{{ xray.file_url }}" alt=""/>
+    </div>
+    <div class="xray-modal-content">
+        <div class="block">
+            <div class="block-header">
+                <h2>X-Ray Details</h2>
+            </div>
+            <div class="block-content">
+                <div cm-resource="xray">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete delete-enabled="false" edit-enabled="{{ SessionService.currentUser.uid == xray.uid }}"></cm-edit-delete>
+                        </div>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <h3 class="resource-block-heading">Name</h3>
+                                {{ xray.name }}
+                            </div>
+                            <div class="resource-block-element">
+                                <h3 class="resource-block-heading">Description</h3>
+                                <div ng-show="!xray.description.length" class="nodata">No description</div>
+                                {{ xray.description }}
+                            </div>
+                        </div>
+                    </cm-display>
+
+                    <cm-edit>
+                        <div class="resource-block">
+                            <div class="resource-block-element">
+                                <h3 class="resource-block-heading">Name</h3>
+                                <input type="text" ng-model="xray.name" placeholder="Title of the X-Ray"/>
+                            </div>
+                            <div class="resource-block-element">
+                                <h3 class="resource-block-heading">Description</h3>
+                                <input type="text" ng-model="xray.description" placeholder="Describe the X-Ray"/>
+                            </div>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
+            </div>
+        </div>
+        <div class="block">
+            <div class="block-header">
+                <h2>HPO Terms</h2>
+                <div class="block-header-buttons">
+                    <button ng-click="addHpoTag()" class="btn btn-action" ng-show="patient.access == 'owner'">Add</button>
+                </div>
+            </div>
+            <div class="block-content">
+
+                <div ng-repeat="hpoTag in hpoTags" cm-resource="hpoTag" remove-fn="removeHpoTag(hpoTag)">
+                    <cm-display>
+                        <div class="resource-controls">
+                            <cm-edit-delete delete-enabled="{{ SessionService.currentUser.uid == xray.uid }}" edit-enabled="false"></cm-edit-delete>
+                        </div>
+                        <div class="resource-block">
+                            {{ hpoTag.hpo.name }}
+                        </div>
+                    </cm-display>
+                    <cm-edit>
+                        <div class="resource-block">
+                            <typeahead multi="false" model="hpo.hello" options-fn="findHPO(value)" token-chosen-fn="hpoChosen(token, hpoTag)"></typeahead>
+                        </div>
+                        <div class="resource-block">
+                            <cm-save-cancel></cm-save-cancel>
+                        </div>
+                    </cm-edit>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

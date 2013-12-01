@@ -16,8 +16,8 @@ angular.module('patient.xrays', [])
         });
     }])
 
-    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', 'fileUploadUrl', 'HPOModel', 'HPOTagModel', 'SessionService',
-        function ($scope, $location, $routeParams, XRayModel, xrays, fileUploadUrl, HPOModel, HPOTagModel, SessionService) {
+    .controller('XRayCtrl', ['$scope', '$location', '$routeParams', 'XRayModel', 'xrays', 'fileUploadUrl', 'HPOModel', 'HPOTagModel', 'SessionService', 'createModal',
+        function ($scope, $location, $routeParams, XRayModel, xrays, fileUploadUrl, HPOModel, HPOTagModel, SessionService, createModal) {
         $scope.xrays = xrays;
 
         SessionService.galleryImages = xrays;
@@ -64,4 +64,37 @@ angular.module('patient.xrays', [])
                 newHPOTag.$save();
             })
         }
+
+
+        $scope.showXray = function(xray) {
+            "use strict";
+            $scope.xray = xray;
+            $scope.hpoTags = HPOTagModel.index({
+                object_id: xray.id,
+                object_type: "xray"
+            });
+            createModal({url: 'app/patients/patient/xrays/modal_xray.tpl.html', scope: $scope, type: 'gallery'}).then(function(modal) {
+                // Modal is open now
+                modal.show();
+            })
+        }
+        $scope.addHpoTag = function() {
+            "use strict";
+            var newHpoTag = new HPOTagModel({
+                object_id: $scope.xray.id,
+                object_type: 'xray'
+            });
+            $scope.hpoTags.push(newHpoTag);
+        }
+            $scope.hpoChosen = function(hpo, hpoTag) {
+                "use strict";
+                console.log("hpo chosen", hpoTag);
+                hpoTag.hpo_id = hpo.id;
+                hpoTag.hpo = hpo;
+                console.log("hpo chosen", hpoTag);
+            }
+        $scope.removeHpoTag = function(hpoTag) {
+                var index = $scope.hpoTags.indexOf(hpoTag);
+                $scope.hpoTags.splice(index, 1);
+            }
     }]);
