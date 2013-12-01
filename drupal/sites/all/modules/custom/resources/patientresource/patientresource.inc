@@ -97,6 +97,19 @@ function _patientresource_search_for_patient($query) {
 
 }
 
+/**
+ * @param $query
+ * @param $group_id
+ * @param $embed
+ * @param $page
+ * @param $fields
+ * @param $parameters
+ *              id - patients ids
+ *              disorder_id - diagnoses the patients have
+ *              hpo_id - hpo tags the patient has
+ * @param $page_size
+ * @return array|mixed
+ */
 function _patientresource_index($query, $group_id, $embed, $page, $fields, $parameters, $page_size) {
 
     if(isset($parameters['disorder_id'])) {

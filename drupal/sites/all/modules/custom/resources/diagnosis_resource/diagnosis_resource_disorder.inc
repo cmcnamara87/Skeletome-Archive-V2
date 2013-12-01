@@ -80,9 +80,60 @@ function _diagnosis_resource_disorder_index($page, $fields, $parameters, $page_s
 function _diagnosis_resource_disorder_description($id) {
     $disorder = disorder_load($id);
     $url = "http://knowledge.skeletome.org/api/bd?uri=" . urlencode($disorder->uri) . "&time=" . time();
-    $description = json_decode(file_get_contents($url));
+    $bone_dysplasia = json_decode(file_get_contents($url));
 
-    return $description;
+
+    // Get a big list of clinical features
+    $clinical_features = $bone_dysplasia->clinical_features;
+
+    foreach($clinical_features as &$clinical_feature) {
+        // Replace URI with new form of URI
+        // http://purl.obolibrary.org/obo/HP_0000085 -> http://purl.org/obo/owl/HP#HP_0000085
+        $clinical_feature->uri = str_replace("http://purl.org/obo/owl/HP#", "http://purl.obolibrary.org/obo/", $clinical_feature->uri);
+    }
+
+    $sql = "SELECT *
+            FROM diagnoses
+            WHERE disorder_id = :id";
+    $result = db_query($sql, array(
+        "id"   => $id
+    ));
+
+    $bone_dysplasia->patient_count = $result->rowCount();
+
+    foreach($bone_dysplasia->clinical_features as &$clinical_feature) {
+        $sql = "SELECT object_id as 'patient_id'
+                FROM hpos_tags
+                INNER JOIN hpos ON hpos_tags.hpo_id = hpos.id
+                INNER JOIN diagnoses ON hpos_tags.object_id = diagnoses.patient_id
+                WHERE hpos.uri = :uri
+                AND object_type = 'patient'
+                AND diagnoses.disorder_id = :id";
+        $result = db_query($sql, array(
+            "uri"   => $clinical_feature->uri,
+            "id"    => $id
+        ));
+        $hpo_tag_count = $result->rowCount();
+
+        $sql = "SELECT DISTINCT content_id as 'patient_id'
+                FROM mentions
+                INNER JOIN hpos ON mentions.mentioned_id = hpos.id
+                INNER JOIN diagnoses ON mentions.content_id = diagnoses.patient_id
+                WHERE mentions.content_type = 'patient'
+                AND mentions.mentioned_type = 'hpo'
+                AND mentioned_id = hpos.id
+                AND hpos.uri = :uri
+                AND diagnoses.disorder_id = :id";
+        $result = db_query($sql, array(
+            "uri"   => $clinical_feature->uri,
+            "id"    => $id
+        ));
+        $mention_count = $result->rowCount();
+
+        $clinical_feature->patient_count = $mention_count + $hpo_tag_count;
+        $clinical_feature->patient_percent = round(($mention_count + $hpo_tag_count) / $bone_dysplasia->patient_count * 100, 0);
+    }
+    return $bone_dysplasia;
 }
 
 /**

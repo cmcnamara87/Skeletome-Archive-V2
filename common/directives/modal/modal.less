@@ -7,6 +7,8 @@
   max-width: 630px;
   min-width: 320px;
   height: auto;
+  max-height: 80%;
+  overflow: auto;
   z-index: 2000;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
@@ -14,10 +16,13 @@
   -ms-transform: translateX(-50%) translateY(-50%);
   transition: 0.3s all;
 
+  border: 1px solid @borderColor;
+  &.ng-animate {
+    border: 1px solid transparent;
+  }
   // The modals content
   .mmodal-content {
     background-color: white;
-    border: 1px solid @borderColor;
     padding: 14px;
   }
 

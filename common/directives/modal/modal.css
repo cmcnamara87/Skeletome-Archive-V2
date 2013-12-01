@@ -705,6 +705,50 @@ html[xmlns] .clearfix {
   border: 1px solid #f76969;
   color: #f76969;
 }
+.menubar-logo.ng-hide-add,
+.menubar-logo.ng-hide-remove {
+  transition: 0.2s linear all;
+  position: relative;
+  display: inline-block !important;
+}
+.menubar-logo.ng-hide-add {
+  left: 0;
+  opacity: 1;
+}
+.menubar-logo.ng-hide-add.ng-hide-add-active {
+  left: -50px;
+  opacity: 0;
+}
+.menubar-logo.ng-hide-remove {
+  left: -50px;
+  opacity: 0;
+}
+.menubar-logo.ng-hide-remove.ng-hide-remove-active {
+  left: 0;
+  opacity: 1;
+}
+.menubar-title.ng-hide-add,
+.menubar-title.ng-hide-remove {
+  transition: 0.2s linear all;
+  position: relative;
+  display: inline-block !important;
+}
+.menubar-title.ng-hide-add {
+  left: 0;
+  opacity: 1;
+}
+.menubar-title.ng-hide-add.ng-hide-add-active {
+  left: 50px;
+  opacity: 0;
+}
+.menubar-title.ng-hide-remove {
+  left: 50px;
+  opacity: 0;
+}
+.menubar-title.ng-hide-remove.ng-hide-remove-active {
+  left: 0;
+  opacity: 1;
+}
 /**
  *
  * The Manu BAR
@@ -1298,16 +1342,21 @@ html[xmlns] .clearfix {
   max-width: 630px;
   min-width: 320px;
   height: auto;
+  max-height: 80%;
+  overflow: auto;
   z-index: 2000;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transition: 0.3s all;
+  border: 1px solid #dbe1e3;
+}
+.mmodal.ng-animate {
+  border: 1px solid transparent;
 }
 .mmodal .mmodal-content {
   background-color: white;
-  border: 1px solid #dbe1e3;
   padding: 14px;
 }
 .mmodal.ng-hide-add .mmodal-content,

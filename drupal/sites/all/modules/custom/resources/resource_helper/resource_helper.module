@@ -189,7 +189,30 @@ function resource_helper_index($entity_type, $page, $fields, $parameters, $page_
 
         $entity_function = $entity_type . "_load_multiple";
 
-        return call_user_func($entity_function, $ids);
+        $entities = call_user_func($entity_function, $ids);
+
+        // Only get selected fields if thats what we requested
+        if($fields != "*") {
+            // Get array of fields
+            $fields_array = explode(",", $fields);
+
+
+            $new_entities = array();
+            foreach($entities as $entity) {
+                $new_entity = new stdClass();
+                foreach($fields_array as $field) {
+                    $field = trim($field);
+                    if(isset($entity->{$field})) {
+                        $new_entity->{$field} = $entity->{$field};
+                    } else {
+                        $new_entity->{$field} = null;
+                    }
+                }
+                $new_entities[] = $new_entity;
+            }
+            return $new_entities;
+        }
+        return $entities;
     } else {
         return array();
     }

@@ -1,8 +1,25 @@
 <div>
-    <div>
-        {{ disorder.title }}
+    <div ng-show="!disorder" style="text-align: center">
+        <i class="icon icon-refresh icon-spin"></i>
     </div>
-    <div>
-        {{ disorder.body_value }}
+    <div ng-show="disorder">
+        <div>
+            {{ disorder.title }}
+        </div>
+        <div ng-bind-html="disorder.body_value">
+        </div>
+        <table class="table">
+            <tr>
+                <th>Clinical Feature</th>
+                <th>Presence in {{ disorder.title }} Cases</th>
+                <th>Disorders with Feature</th>
+
+            </tr>
+            <tr ng-repeat="clinicalFeature in disorder.clinical_features">
+                <td>{{ clinicalFeature.name }}</td>
+                <td>{{ clinicalFeature.patient_percent }}%</td>
+                <td>{{ clinicalFeature.disorder_count }}</td>
+            </tr>
+        </table>
     </div>
 </div>

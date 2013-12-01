@@ -1213,7 +1213,7 @@
         <uid><![CDATA[C8E4BD58-E5D3-4848-9FF6-6AD9BED13E8C]]></uid>
     </SQLTable>
     <SQLTable>
-        <name><![CDATA[hpo_tags]]></name>
+        <name><![CDATA[hpos_tags]]></name>
         <schema><![CDATA[]]></schema>
         <location>
             <x>505.00</x>
@@ -1675,10 +1675,10 @@ mZkGaXNvLWE0hoaG
         <SourceSidebarWidth><![CDATA[276.000000]]></SourceSidebarWidth>
         <uid><![CDATA[3963F3A8-0EC7-47CE-B9FF-CF062B5B2BD0]]></uid>
         <windowHeight><![CDATA[1320.000000]]></windowHeight>
-        <windowLocationX><![CDATA[1450.000000]]></windowLocationX>
+        <windowLocationX><![CDATA[1455.000000]]></windowLocationX>
         <windowLocationY><![CDATA[98.000000]]></windowLocationY>
         <windowScrollOrigin><![CDATA[{179, 0}]]></windowScrollOrigin>
-        <windowWidth><![CDATA[2331.000000]]></windowWidth>
+        <windowWidth><![CDATA[2326.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>
     <containerName><![CDATA[model controller orginal container]]></containerName>

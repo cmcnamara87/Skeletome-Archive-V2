@@ -73,9 +73,8 @@ class PatientController extends EntityAPIController {
         };
 
         // Analyse the clinical summary for terms
-        $clinical_summary = str_replace("&nbsp;", " ", strip_tags($entity->clinical_summary));
-
         if($clinical_summary_changed) {
+            $clinical_summary = str_replace("&nbsp;", " ", strip_tags($entity->clinical_summary));
             mention_reindex($entity->id, "patient", $clinical_summary);
         }
 
