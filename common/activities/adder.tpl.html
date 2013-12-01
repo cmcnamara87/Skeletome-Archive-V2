@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="separated media-body">
+        <div class="separated media-body" ng-show="(newPost.text.length > 0 || newPost.disorder) && (shares | filter:{to: true}).length">
             <button ng-click="addPost(newPost)" class="btn btn-action btn-action-selected pull-right">
                 <i class="icon icon-envelope-alt"></i>
                 Post

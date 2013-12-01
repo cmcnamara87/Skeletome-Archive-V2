@@ -27,6 +27,7 @@ function _groupresource_share_create($data) {
     if($exists) {
         return services_error("Share already exists", 406);
     }
+
     share_save($data);
     return (object)$data;
 }

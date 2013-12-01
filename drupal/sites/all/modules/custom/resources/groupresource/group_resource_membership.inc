@@ -14,9 +14,21 @@ function _groupresource_membership_create($data) {
     $data->created = time();
     $data->modified = time();
 
+    // Check if a share exists
+    $sql = "SELECT *
+            FROM members
+            WHERE group_id = :group_id
+            AND user_id = :user_id";
+    $result = db_query($sql, array(
+        "group_id" => $data->group_id,
+        "user_id" => $data->user_id,
+    ));
+    $exists = $result->rowCount();
+    if($exists) {
+        return services_error("Membership already exists", 406);
+    }
+
     membership_save($data);
-
-
     return (object)$data;
 }
 
