@@ -196,6 +196,21 @@ function _user_resource_definition()
                     'access callback' => 'services_access_menu',
                     'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
                 ),
+                'reset' => array(
+                    'help' => 'Sends a "password reset" email to the user',
+                    'callback' => '_user_resource_password_reset',
+                    'args' => array(
+                        array(
+                            'name' => 'mail',
+                            'type' => 'string',
+                            'description' => 'A valid mail',
+                            'source' => array('data' => 'mail'),
+                            'optional' => FALSE,
+                        ),
+                    ),
+                    'access callback' => 'services_access_menu',
+                    'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
+                ),
 
                 'logout' => array(
                     'file' => array('type' => 'inc', 'module' => 'services', 'name' => 'resources/user_resource'),
@@ -429,6 +444,27 @@ function _user_resource_delete($uid)
     return TRUE;
 }
 
+function _user_resource_password_reset($mail) {
+
+    echo "hello world!";
+    die();
+    // Get the username
+    $sql = "SELECT users.name
+            FROM users
+            WHERE mail = :mail";
+
+    $results = db_query($sql, array(
+        'mail' => $mail
+    ));
+
+    $row = $results->fetch();
+    $username = $row->name;
+    $account = user_load_by_name($username);
+    $mail = _user_mail_notify('password_reset', $account);
+    if (!empty($mail)) {
+        watchdog('user', 'Password reset instructions mailed to %name at %email.', array('%name' => $account->name, '%email' => $account->mail));
+    }
+}
 /**
  * Login a email address using the specified credentials.
  *

@@ -52,7 +52,7 @@ angular.module('security', [])
                 }, function(reason){
                     // Not logged in
                     console.log("not logged in");
-                    if($location.path() == "/register" || $location.path() == "/login")  {
+                    if($location.path() == "/register" || $location.path() == "/login" || $location.path() == "/forgot")  {
                         // Going to login or register page, go to feed after logging in
                         SessionService.pathAfterLogin = "/feed";
                     } else {
@@ -175,6 +175,12 @@ angular.module('security', [])
              */
             register: function(user) {
                 return $http.post(apiUrl2 + "user/register", user);
+            },
+
+            resetPassword: function(mail) {
+                return $http.post(apiUrl2 + "user/reset", {
+                    mail: mail
+                });
             }
         };
 

@@ -11,9 +11,9 @@ angular.module('login', ['security'])
             controller:'RegisterCtrl'
         });
 
-        $routeProvider.when('/logout', {
-            templateUrl:'app/login/logout.tpl.html',
-            controller:'LogoutCtrl'
+        $routeProvider.when('/forgot', {
+            templateUrl:'app/login/forgot.tpl.html',
+            controller:'LoginCtrl'
         });
     }])
 
@@ -31,8 +31,23 @@ angular.module('login', ['security'])
             }, function(reason) {
                 "use strict";
                 console.log("error reason", reason);
-                $scope.error = reason.data[0];
+                if(reason.status != "401") {
+                    $scope.error = reason.data[0];
+                } else {
+                    $scope.error = "Incorrect username or password.";
+                }
+
             });
+        }
+
+        $scope.reset = function(mail) {
+            "use strict";
+            AuthService.resetPassword(mail).then(function() {
+                $scope.success = "Password reset email sent.";
+            }, function() {
+                $scope.error = "Failed to send reset password email.";
+            })
+
         }
     }])
 

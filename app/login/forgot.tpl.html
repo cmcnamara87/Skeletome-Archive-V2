@@ -3,18 +3,26 @@
         <div class="block">
             <div class="block-header">
                 <div class="block-header-buttons">
+                    <a class="btn btn-action" href="#/login">Login</a>
                     <a class="btn btn-action" href="#/register">Register</a>
                 </div>
                 <div class="logo logo-dark">
                     <i class="icon icon-reorder"></i>
-                    Archive
+                    Forgot your password?
                 </div>
             </div>
             <div class="block-content">
-                <form >
+                <div class="separated">
+                    Enter your email address below, and we will send you a new password to your email.
+                </div>
+                <form class="separated">
                     <div class="alert alert-danger alert-dismissable" ng-show="error">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong>Sorry!</strong> <span ng-bind-html="error"></span>
+                    </div>
+                    <div class="alert alert-success alert-dismissable" ng-show="success">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <span ng-bind-html="success"></span>
                     </div>
 
                     <div class="resource">
@@ -24,15 +32,8 @@
                             </h3>
                             <input type="text" ng-model="credentials.mail" class="full-width" placeholder="Enter your email address"/>
                         </div>
-                        <div class="resource-block">
-                            <h3 class="resource-block-heading">
-                                Password
-                            </h3>
-                            <input type="password" ng-model="credentials.password" class="full-width" placeholder="Enter your password" />
-                        </div>
                         <div class="resource-block media-body">
-                            <a href="#/forgot">Forgot your password?</a>
-                            <button class="btn btn-action btn-action-selected pull-right" ng-click="login(credentials)">Login</button>
+                            <button class="btn btn-action btn-action-selected pull-right" ng-click="reset(credentials.mail)">Reset Password</button>
                         </div>
                     </div>
                 </form>
