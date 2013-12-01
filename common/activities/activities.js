@@ -30,11 +30,14 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                         $scope.type = parts[1];
                         $scope.id = parts[2];
+                        console.log("Activity Aside: Type and ID", $scope.type, $scope.id);
                         if($scope.type == "patient") {
+                            console.log("getting patient");
                             PatientModel.get({
                                 id: $scope.id
                             }).$promise.then(function(patient) {
                                     "use strict";
+                                console.log("got patient, access is", patient.access);
                                 if(patient.access == "group" || patient.access == "owner") {
                                     console.log("Show patient activities");
                                     $rootScope.showActivities = true;
@@ -42,8 +45,9 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                                     // load in for all shares
                                     ShareModel.index({
                                         patient_id: $scope.id
-                                    }, function(shares) {
+                                    }).$promise.then(function(shares) {
                                         $scope.shares = shares;
+                                        console.log("WE GOT THE NEW SHARES", $scope.shares);
                                         $scope.share = $scope.shares[0];
                                         $scope.type = "all";
                                     });
@@ -108,14 +112,14 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
 
                 }
 
-                $scope.$watch('SessionService.isAuthenticated', function(value) {
-                    "use strict";
-                    if(value) {
-                        $scope.allShares = ShareModel.index({
-                            patient_id: $routeParams.patient_id
-                        });
-                    }
-                });
+//                $scope.$watch('SessionService.isAuthenticated', function(value) {
+//                    "use strict";
+//                    if(value) {
+//                        $scope.allShares = ShareModel.index({
+//                            patient_id: $routeParams.patient_id
+//                        });
+//                    }
+//                });
 
 
                 $scope.addPost = function(newPost) {
@@ -193,7 +197,9 @@ angular.module('directives.activities', ['directives.activities.cmActivity'])
                     // We have cached this data when the page loaded,
                     // so lets go through and find shares that match (no ajax needed)
                     var shareData = [];
-                    angular.forEach($scope.allShares, function(share, shareIndex) {
+
+                    console.log("all shares", $scope.shares);
+                    angular.forEach($scope.shares, function(share, shareIndex) {
                         if(share.name.toLowerCase().indexOf(name.toLowerCase()) != -1) {
                             shareData.push({id: share.id, name: share.name});
                         }
