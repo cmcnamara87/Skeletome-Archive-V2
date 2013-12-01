@@ -42,14 +42,13 @@
                     </td>
 
                     <td>
-
                         <div class="btn-group pull-right">
                             <button type="button" class="btn btn-action btn-action-small dropdown-toggle" data-toggle="dropdown">
                                 <i class="icon icon-angle-down"></i>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="" ng-click="showDeleteMembership(membership)"><i class="icon icon-arrow-left"></i> Leave</a></li>
-                                <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
+                                <li><a href="" ng-click="showDeleteMembership(membership)" ng-show="SessionService.currentUser.uid != membership.group.administrator_id"><i class="icon icon-arrow-left"></i> Leave</a></li>
+                                <li><a href="" ng-click="showDeleteGroup(membership)" ng-show="SessionService.currentUser.uid == membership.group.administrator_id"><i class="icon icon-trash"></i> Delete</a></li>
                             </ul>
                         </div>
                     </td>

@@ -67,6 +67,30 @@ function _groupresource_retrieve($id) {
 function _groupresource_delete($id) {
     group_delete($id);
 
+    // Delete all memberships
+    $sql = "SELECT members.id
+            FROM members
+            WHERE group_id = :id";
+    $result = db_query($sql, array(
+        "id" => $id
+    ));
+    $membership_ids = array_keys($result->fetchAllAssoc('id'));
+    foreach($membership_ids as $membership_id) {
+        membership_delete($membership_id);
+    }
+
+    // Delete all shares
+    $sql = "SELECT shares.id
+            FROM shares
+            WHERE group_id = :id";
+    $result = db_query($sql, array(
+        "id" => $id
+    ));
+    $share_ids = array_keys($result->fetchAllAssoc('id'));
+    foreach($share_ids as $share_id) {
+        share_delete($share_id);
+    }
+
     return (object)array(
         'id' => $id,
     );

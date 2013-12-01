@@ -58,6 +58,20 @@ function _groupresource_membership_retrieve($id) {
  * @return object
  */
 function _groupresource_membership_delete($id) {
+    // Delete all shares
+    $sql = "SELECT shares.id
+            FROM shares, members
+            WHERE members.id = :id
+            AND shares.group_id = members.group_id
+            AND shares.uid = members.user_id";
+    $result = db_query($sql, array(
+        "id" => $id
+    ));
+    $share_ids = array_keys($result->fetchAllAssoc('id'));
+    foreach($share_ids as $share_id) {
+        share_delete($share_id);
+    }
+
     return membership_delete($id);
 }
 
