@@ -14,6 +14,19 @@ function _groupresource_share_create($data) {
     $data->created = time();
     $data->modified = time();
 
+    // Check if a share exists
+    $sql = "SELECT *
+            FROM shares
+            WHERE group_id = :group_id
+            AND patient_id = :patient_id";
+    $result = db_query($sql, array(
+        "group_id" => $data->group_id,
+        "patient_id" => $data->patient_id,
+    ));
+    $exists = $result->rowCount();
+    if($exists) {
+        return services_error("Share already exists", 406);
+    }
     share_save($data);
     return (object)$data;
 }

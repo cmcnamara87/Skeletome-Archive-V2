@@ -46,7 +46,7 @@ angular.module('directives.input.cmResource', [])
                                 }
                             });
                         } else {
-                            resource.$save(function(resource) {
+                            resource.$save().then(function(resource) {
                                 "use strict";
                                 if(angular.isDefined(tAttrs.savedFn)) {
                                     var savedFn = $parse(tAttrs.savedFn);
@@ -56,6 +56,9 @@ angular.module('directives.input.cmResource', [])
                                     }
                                     savedFn(scope);
                                 }
+                            }, function(reason) {
+                                alert("Sorry, looks like we couldn't save that.", reason.data[0]);
+                                scope.$edit();
                             });
                         }
                     }

@@ -596,6 +596,12 @@ html[xmlns] .clearfix {
   overflow: auto;
   margin-left: 7px;
 }
+.adder-to ul li {
+  display: inline-block;
+}
+.adder-to ul li + li {
+  margin-left: 3px;
+}
 .adder-to .adder-to-group {
   display: inline-block;
   padding: 7px 14px;
