@@ -12,6 +12,9 @@ angular.module('feed', [])
 
         $scope.isLoading = true;
 
+            var page = 0;
+            $scope.isMoreToLoad = true;
+
             console.log("Session service is", $scope.SessionService);
         // Load all patients
         $scope.$watch('SessionService.isAuthenticated', function(authenticated) {
@@ -20,7 +23,8 @@ angular.module('feed', [])
             if(authenticated) {
                 ActivityModel.query({
                     user_id: SessionService.currentUser.uid,
-                    embed: 1
+                    embed: 1,
+                    page: page
                 }).$promise.then(function(activities) {
                     "use strict";
                     $scope.activities = activities;
@@ -45,9 +49,23 @@ angular.module('feed', [])
         $scope.activitiesEven = [];
 
 
-
-
-//        console.log("activities are ", activities);
+            $scope.loadMore = function() {
+                "use strict";
+                page++;
+                $scope.isLoadingMore = true;
+                ActivityModel.query({
+                    user_id: SessionService.currentUser.uid,
+                    embed: 1,
+                    page: page
+                }).$promise.then(function(activities) {
+                        "use strict";
+                        $scope.isLoadingMore = false;
+                    $scope.activities = $scope.activities.concat(activities);
+                        if(activities.length == 0) {
+                            $scope.isMoreToLoad = false;
+                        }
+                });
+            }
 
     }]);
 

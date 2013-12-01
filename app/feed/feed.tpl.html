@@ -32,6 +32,14 @@
                 <div ng-repeat="activity in activities" class="activities-listitem">
                     <cm-activity embed-content="true"></cm-activity>
                 </div>
+
+                <div ng-show="isMoreToLoad && activities" class="btn-more-wrapper">
+                    <i class="icon icon-refresh icon-spin" ng-show="isLoadingMore"></i>
+                    <button class="btn btn-more" ng-click="loadMore()" ng-show="!isLoadingMore">
+                        Load More
+                    </button>
+                </div>
+
             </div>
             <!--<div class="col-md-6">
                 <div ng-repeat="activity in activitiesOdd" class="activities-listitem">

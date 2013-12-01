@@ -51,8 +51,11 @@ angular.module('patients.my_patients', [])
 
             $scope.loadMore = function() {
                 page++;
+                $scope.isMoreToLoad = true;
+                $scope.isLoadingMore = true;
                 PatientModel.queryParams({embed: 1, page: page}, {uid: SessionService.currentUser.uid}).$promise.then(function(patients) {
                     "use strict";
+                    $scope.isLoadingMore = false;
                     $scope.patients = $scope.patients.concat(patients);
                     if(patients.length == 0) {
                         $scope.isMoreToLoad = false;
