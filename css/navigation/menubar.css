@@ -250,8 +250,8 @@ Styleguide 2.1.3.
 }
 .label {
   background-color: white;
-  border: 1px solid #f76969;
-  color: #f76969;
+  border: 1px solid #5cabba;
+  color: #5cabba;
 }
 .label:hover {
   background-color: white;
@@ -563,8 +563,9 @@ html[xmlns] .clearfix {
 .adder-tabs .adder-tab {
   position: relative;
   top: 1px;
-  padding: 10px 14px;
+  padding: 7px 14px;
   display: block;
+  font-weight: 600;
   background-color: #f2f5f6;
   border: 1px solid #f2f5f6;
   border: none;
@@ -573,6 +574,8 @@ html[xmlns] .clearfix {
   background-color: white;
   z-index: 1;
   border: 1px solid #dbe1e3;
+  border-left: none;
+  border-top: none;
   border-bottom: 0;
 }
 .adder-content {
@@ -595,6 +598,12 @@ html[xmlns] .clearfix {
   list-style: none;
   overflow: auto;
   margin-left: 7px;
+}
+.adder-to ul li {
+  display: inline-block;
+}
+.adder-to ul li + li {
+  margin-left: 3px;
 }
 .adder-to .adder-to-group {
   display: inline-block;
@@ -710,8 +719,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  border: 1px solid #f76969;
-  color: #f76969;
+  background-color: #5cabba;
+  color: white;
 }
 /**
  *
@@ -1486,24 +1495,21 @@ html[xmlns] .clearfix {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 50%;
+  width: 70%;
   background-color: black;
   overflow: hidden;
   line-height: 100%;
+  text-align: center;
 }
 .xray-modal .xray-modal-image img {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  width: 100%;
+  height: 100%;
 }
 .xray-modal .xray-modal-content {
   position: absolute;
   top: 0;
   bottom: 0;
   right: 0;
-  width: 50%;
+  width: 30%;
 }
 body {
   background-color: #e1e6e9;

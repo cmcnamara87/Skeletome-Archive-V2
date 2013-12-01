@@ -7,7 +7,7 @@ angular.module('patients.my_patients', [])
             resolve:{
                 patients: ['PatientModel', 'SessionService', 'AuthService', '$q', function (PatientModel, SessionService, AuthService, $q) {
                     return AuthService.isAuthenticated().then(function() {
-                        return PatientModel.queryParams({embed: 1}, {'uid': SessionService.currentUser.uid}).$promise;
+                        return PatientModel.queryParams({embed: 1, page: 0}, {'uid': SessionService.currentUser.uid}).$promise;
                     });
                 }]
             }
@@ -16,9 +16,12 @@ angular.module('patients.my_patients', [])
     }])
 
 
-    .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients',
-        function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients) {
+    .controller('MyPatientsCtrl', ['$scope', '$q', '$rootScope', '$location', 'SmodalService', 'PatientModel', 'ShareModel', 'GroupModel', 'patients', 'SessionService',
+        function ($scope, $q, $rootScope, $location, SmodalService, PatientModel, ShareModel, GroupModel, patients, SessionService) {
             $scope.patients = patients;
+
+            var page = 0;
+            $scope.isMoreToLoad = true;
 
             $scope.newPatient = new PatientModel({
                 name_type: "name"
@@ -46,7 +49,16 @@ angular.module('patients.my_patients', [])
                 })
             }
 
-
+            $scope.loadMore = function() {
+                page++;
+                PatientModel.queryParams({embed: 1, page: page}, {uid: SessionService.currentUser.uid}).$promise.then(function(patients) {
+                    "use strict";
+                    $scope.patients = $scope.patients.concat(patients);
+                    if(patients.length == 0) {
+                        $scope.isMoreToLoad = false;
+                    }
+                })
+            }
 
 
         $scope.showAutosharing = function() {

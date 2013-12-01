@@ -21,7 +21,7 @@
                             <div class="resource-block-element">
                                 <h3 class="resource-block-heading">Description</h3>
                                 <div ng-show="!xray.description.length" class="nodata">No description</div>
-                                <mentions text="xray.description" mentions="xray.mentions"></mentions>
+                                <mentions text="xray.description" mentions="xray.mentions" ng-show="xray.description.length"></mentions>
                             </div>
                         </div>
                     </cm-display>
