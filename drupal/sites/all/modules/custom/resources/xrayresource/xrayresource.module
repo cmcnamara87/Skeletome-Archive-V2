@@ -13,10 +13,36 @@ function xrayresource_entity_info() {
                 'id' => 'id',
             ),
             'entity class'           => 'Entity',
-            'controller class'       => 'EntityAPIController',
+            'controller class'       => 'XrayController',
         ),
     );
 }
+
+
+//mention_reindex($entity->id, "post", html_entity_decode(strip_tags($entity->text)));
+
+
+class XrayController extends EntityAPIController {
+
+    public function load($ids = array(), $conditions = array()) {
+        $entities = parent::load($ids, $conditions);
+
+        foreach($entities as &$entity) {
+            $entity->mentions = mention_load_from_content($entity->id, "xray");
+        }
+        return $entities;
+
+    }
+    public function save($entity, DatabaseTransaction $transaction = NULL) {
+        parent::save($entity, $transaction);
+
+//        $entity['test'] = "is this working?";
+        // Scan the text for mentions
+        $entity->mentions = mention_reindex($entity->id, "xray", html_entity_decode(strip_tags($entity->description)));
+
+    }
+}
+
 
 function xray_load($id, $reset = FALSE) {
     return reset(xray_load_multiple(array($id), $reset));

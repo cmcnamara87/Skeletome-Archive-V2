@@ -1274,7 +1274,7 @@
             <y>340.00</y>
         </location>
         <size>
-            <width>168.00</width>
+            <width>191.00</width>
             <height>100.00</height>
         </size>
         <zorder>3</zorder>
@@ -1307,6 +1307,7 @@
         <SQLField>
             <name><![CDATA[description]]></name>
             <type><![CDATA[VARCHAR(255)]]></type>
+            <temporaryOriginalName><![CDATA[description]]></temporaryOriginalName>
             <uid><![CDATA[CF40690F-2477-43D1-B2E1-E1180C96DFF0]]></uid>
         </SQLField>
         <labelColor><![CDATA[{1,0.914836,0,0.8}]]></labelColor>
@@ -1677,7 +1678,7 @@ mZkGaXNvLWE0hoaG
         <windowHeight><![CDATA[1320.000000]]></windowHeight>
         <windowLocationX><![CDATA[1455.000000]]></windowLocationX>
         <windowLocationY><![CDATA[98.000000]]></windowLocationY>
-        <windowScrollOrigin><![CDATA[{179, 0}]]></windowScrollOrigin>
+        <windowScrollOrigin><![CDATA[{226, 4}]]></windowScrollOrigin>
         <windowWidth><![CDATA[2326.000000]]></windowWidth>
     </SQLDocumentInfo>
     <AllowsIndexRenamingOnInsert><![CDATA[1]]></AllowsIndexRenamingOnInsert>

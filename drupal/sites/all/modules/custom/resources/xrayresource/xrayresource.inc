@@ -28,13 +28,13 @@ function _xray_resource_create($data) {
  * @return object
  */
 function _xray_resource_update($id, $data) {
-    $group = xray_load($id);
+    global $user;
+    if (isset($data) &&  is_array($data)) $data=(object) $data;
 
     unset($data->created);
     $data->id = $id;
-    $data->uid = $group->uid;
+    $data->uid = $user->uid;
     $data->modified = time();
-
     xray_save($data);
 
     return (object)$data;
@@ -46,9 +46,9 @@ function _xray_resource_update($id, $data) {
  * @return object
  */
 function _xray_resource_retrieve($id) {
-    $membership = xray_load($id);
+    $xray = xray_load($id);
 
-    return $membership;
+    return $xray;
 }
 
 /**

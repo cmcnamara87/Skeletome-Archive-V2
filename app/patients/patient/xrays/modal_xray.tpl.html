@@ -21,7 +21,7 @@
                             <div class="resource-block-element">
                                 <h3 class="resource-block-heading">Description</h3>
                                 <div ng-show="!xray.description.length" class="nodata">No description</div>
-                                {{ xray.description }}
+                                <mentions text="xray.description" mentions="xray.mentions"></mentions>
                             </div>
                         </div>
                     </cm-display>
@@ -34,7 +34,7 @@
                             </div>
                             <div class="resource-block-element">
                                 <h3 class="resource-block-heading">Description</h3>
-                                <input type="text" ng-model="xray.description" placeholder="Describe the X-Ray"/>
+                                <textarea type="text" ng-model="xray.description" placeholder="Describe the X-Ray" rows="5"></textarea>
                             </div>
                         </div>
                         <div class="resource-block">
