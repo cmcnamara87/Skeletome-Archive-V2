@@ -14,8 +14,10 @@
     <div ng-show="shares.length" class="divided">
         <activity-adder class="divided"></activity-adder>
         <div class="divided separated">
+            <h3 class="resource-block-heading">Recent Activity</h3>
+            <span>Group:&nbsp;</span>
             <select ng-options="share.name for share in shares" ng-model="share" ng-change="isAdding = false; newPost.to[0] = share"></select>
-
+            <span>&nbsp; &nbsp; Activity Type:&nbsp;</span>
             <select ng-model="type" >
                 <option value="all">All</option>
                 <option value="post">Post</option>
@@ -26,6 +28,7 @@
             <div ng-repeat="activity in activities | filter:filterPostType" class="separated activities-listitem" ng-class="{'is-adding': isAdding}">
                 <cm-activity embed-content="false"></cm-activity>
             </div>
+            <div ng-show="!(activities | filter:filterPostType).length" class="nodata">No activity.</div>
         </div>
     </div>
 
