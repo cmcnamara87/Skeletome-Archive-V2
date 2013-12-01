@@ -34,7 +34,7 @@ angular.module('directives.navigation.menubar', [])
                     if(!oldParts || parts[1] != oldParts[1] || parts[2] != oldParts[2]) {
                         $scope.tab = parts[1];
 
-                        if($scope.tab == "patient" || $scope.tab == "group") {
+                        if($scope.tab == "patient" || $scope.tab == "group" || $scope.tab == "user") {
                             // its a patient, show the dark menu
 
                             $scope.id = parts[2];

@@ -7,7 +7,7 @@
                 <!-- The logo -->
                 <div ng-show="!content" class="menubar-logo">
                     <div class="menubar-item logo">
-                        <a href="#">
+                        <a href="#/feed">
                             <i class="icon icon-reorder"></i>
                         </a>
                         <a href="#/feed">
@@ -17,10 +17,10 @@
                 </div>
 
                 <div ng-show="content" class="menubar-title">
+                    <a href ng-click="back()" class="menubar-item menubar-back">
+                        <i class="icon icon-arrow-left"></i>
+                    </a>
                     <div class="menubar-item logo">
-                        <a href ng-click="back()">
-                            <i class="icon icon-arrow-left"></i>
-                        </a>
                     <span ng-show="tab == 'patient'">
                         {{ patient.name }} <span ng-show="patient.dob.length" style="font-weight: normal; font-size: 14px; opacity: 0.7"> Born: {{ patient.dob }}</span>
                     </span>
@@ -40,7 +40,14 @@
             </div>
 
             <div class="menubar-right">
-                <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
+                <div class="menubar-item menubar-search">
+                    <typeahead multi="false" model="search" options-fn="findPatient(value)" token-chosen-fn="patientFound(token)"></typeahead>
+                </div>
+                <!--<a href="#/user/{{ SessionService.currentUser.uid }}" menu-item class="menubar-item menubar-user">
+                    <img class="user-picture"
+                         ng-src="{{ SessionService.currentUser.picture.thumb_url || SessionService.currentUser.picture.url || 'img/default.png' }}" alt="">
+                    Dr {{ SessionService.currentUser.name }}
+                </a>-->
             </div>
 
     </div>

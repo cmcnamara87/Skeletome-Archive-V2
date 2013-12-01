@@ -1,5 +1,5 @@
-@menubarTransitionTime: 0.3s;
-@menubarTransitionTime: 0.3s;
+@menubarTransitionTime: 0.1s;
+@menubarTransitionTime: 0.1s;
 
 .submenubar {
   &.submenubar-activities {
@@ -112,6 +112,9 @@
 
   &.menubar-dark {
     background-color: @menubarColorDark;
+    .menubar-item.menubar-user {
+      border-left: 1px solid #2B636D;
+    }
   }
 
 
@@ -239,6 +242,29 @@
     overflow: hidden;
     padding: 0px 21px;
 
+    &.menubar-search {
+      line-height: inherit;
+    }
+    &.menubar-user {
+      &:hover, &.selected {
+          color: white;
+      }
+      &.selected {
+        background-color: white;
+      }
+      border-left: 1px solid #5298A5;
+      font-weight: normal;
+      color: #c3e0e6;
+      position: relative;
+      top: -2px;
+      transition: 0.3s color;
+
+      img {
+        margin-right: 7px;
+        position: relative;
+        top: -3px;
+      }
+    }
     &.menubar-title {
       font-size: 21px;
       font-weight: 300;
@@ -248,13 +274,13 @@
 
     &.menubar-back {
       &:hover {
-        background-color: #133047;
+        background-color: #0e3c48;
       }
       height: @menubarHeight;
       font-size: 21px;
 
       color: white;
-      background-color: #0E2435;
+      background-color: #2A606F;
     }
 
     /*
@@ -288,10 +314,6 @@
 .lookup-results {
   position: absolute;
   z-index: 99;
-}
-
-.menubar-user {
-  float: right;
 }
 
 /*
