@@ -840,12 +840,6 @@ html[xmlns] .clearfix {
   position: relative;
   top: -3px;
 }
-.menubar .menubar-item.menubar-title {
-  font-size: 21px;
-  font-weight: 300;
-  color: white;
-  margin: 0;
-}
 .menubar .menubar-item.menubar-back {
   height: 60px;
   font-size: 21px;
@@ -867,6 +861,19 @@ html[xmlns] .clearfix {
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
+}
+.menubar-title {
+  font-size: 21px;
+  font-weight: 300;
+  color: white;
+  margin: 0;
+}
+.menubar-title .menubar-title-dob {
+  margin-left: 7px;
+  font-weight: normal;
+  font-size: 14px;
+  opacity: 0.7;
+  letter-spacing: 1px;
 }
 .lookup-results {
   position: absolute;
