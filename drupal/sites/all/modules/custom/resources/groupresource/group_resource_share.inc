@@ -64,10 +64,10 @@ function _groupresource_share_delete($id) {
 
 
 function _groupresource_share_index($page, $fields, $parameters, $page_size) {
-    if(isset($parameters['patient_id'])) {
-        $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
+    if(isset($parameters['id'])) {
+        $parameters['id'] = shares_filter_accessible($parameters['id']);
     } else {
-        $parameters['patient_id'] = patients_accessible();
+        $parameters['id'] = share_accessible();
     }
 
     return resource_helper_index('share', $page, $fields, $parameters, $page_size);
