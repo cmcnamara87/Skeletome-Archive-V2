@@ -23,7 +23,9 @@ angular.module('patient.diagnoses', [])
         });
     }])
 
-    .controller('PatientDiagnosesCtrl', ['$scope', '$q', '$location', '$routeParams', 'DiagnosisModel', 'DisorderModel', 'diagnoses', function ($scope, $q, $location, $routeParams, DiagnosisModel, DisorderModel, diagnoses) {
+    .controller('PatientDiagnosesCtrl',
+        ['$scope', '$q', '$location', '$routeParams', 'DiagnosisModel', 'DisorderModel', 'diagnoses', '$http', 'apiUrl2', 'createModal',
+            function ($scope, $q, $location, $routeParams, DiagnosisModel, DisorderModel, diagnoses, $http, apiUrl2, createModal) {
         console.log("in here");
         $scope.diagnoses = diagnoses;
 
@@ -53,5 +55,23 @@ angular.module('patient.diagnoses', [])
         $scope.removeDiagnosis = function(diagnosis) {
             var index = $scope.diagnoses.indexOf(diagnosis);
             $scope.diagnoses.splice(index, 1);
+        }
+
+        $scope.showDisorderModal = function(disorder) {
+            "use strict";
+            $scope.disorder = null;
+
+            // Create a new sub-scope for the modal
+            var newScope = $scope.$new();
+            $http.get(apiUrl2 + "disorder/" + disorder.id + "/description").then(function(repsonse) {
+                newScope.disorder = repsonse.data;
+            });
+            newScope.diagnoses = DiagnosisModel.index({
+                disorder_id: disorder.id
+            })
+            createModal({scope: newScope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                console.log("resolved");
+                modal.show();
+            });
         }
     }]);

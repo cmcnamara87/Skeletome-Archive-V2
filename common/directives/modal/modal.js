@@ -5,7 +5,7 @@ angular.module('directives.modal', [])
 
         return function(options) {
             var modal = function(options) {
-                var newScope = options.scope.$new();
+                var newScope = options.scope; // options.scope.$new();
                 newScope.isShowing = false;
 
                 // The defaults

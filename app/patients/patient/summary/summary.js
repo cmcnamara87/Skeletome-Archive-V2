@@ -60,10 +60,46 @@ angular.module('patient.summary', [])
         });
     }])
 
-    .controller('PatientSummaryCtrl', ['$scope', '$location', 'patient', 'diagnoses', 'geneMutations', 'patientHpos', 'mentions', function ($scope, $location, patient, diagnoses, geneMutations, patientHpos, mentions) {
+    .controller('PatientSummaryCtrl',
+        ['$scope', '$location', 'patient', 'diagnoses', 'geneMutations', 'patientHpos', 'mentions', '$http', 'apiUrl2', 'createModal', 'DiagnosisModel', 'PatientModel',
+            function ($scope, $location, patient, diagnoses, geneMutations, patientHpos, mentions, $http, apiUrl2, createModal, DiagnosisModel, PatientModel) {
         $scope.patient = patient;
         $scope.diagnoses = diagnoses;
         $scope.geneMutations = geneMutations;
         $scope.patientHpos = patientHpos;
         $scope.mentions = mentions;
+
+        $scope.showDisorderModal = function(disorder) {
+            "use strict";
+            $scope.disorder = null;
+
+            // Create a new sub-scope for the modal
+            var newScope = $scope.$new();
+            $http.get(apiUrl2 + "disorder/" + disorder.id + "/description").then(function(repsonse) {
+                newScope.disorder = repsonse.data;
+            });
+            newScope.diagnoses = DiagnosisModel.index({
+                disorder_id: disorder.id
+            })
+            createModal({scope: newScope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                console.log("resolved");
+                modal.show();
+            });
+        }
+
+         $scope.showHpoModal = function(hpo) {
+             "use strict";
+             var newScope = $scope.$new();
+             newScope.patients = null;
+             createModal({scope: newScope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
+                 modal.show();
+             });
+
+             PatientModel.queryParams({embed: 1}, {
+                 hpo_id: hpo.id
+             }).$promise.then(function(patients) {
+                 newScope.patients = patients;
+             });
+         }
+
     }]);

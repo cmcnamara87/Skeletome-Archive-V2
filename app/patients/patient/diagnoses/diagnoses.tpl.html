@@ -16,7 +16,7 @@
                         <cm-edit-delete edit-enabled="false" delete-enabled="patient.access == 'owner'"></cm-edit-delete>
                     </div>
                     <div class="resource-block">
-                        {{ diagnosis.disorder.name }}
+                        <a href ng-click="showDisorderModal(diagnosis.disorder)" class="highlight">{{ diagnosis.disorder.name }}</a>
                     </div>
                 </cm-display>
 

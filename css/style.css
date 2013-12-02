@@ -1593,6 +1593,13 @@ h4 {
 a {
   color: #616769;
 }
+a.highlight {
+  color: #49a9ba;
+}
+a.highlight:hover {
+  color: #49a9ba;
+  text-decoration: underline;
+}
 a:hover {
   text-decoration: none;
   color: #494d4e;

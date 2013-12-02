@@ -44,20 +44,22 @@ angular.module('directives.mentions', [])
 
                     // Get the data
                     if($scope.mention.mentioned_type == "disorder") {
-                        $scope.disorder = null;
+                        var newScope = $scope.$new();
+                        newScope.disorder = null;
                         $http.get(apiUrl2 + "disorder/" + $scope.mention.disorder.id + "/description").then(function(repsonse) {
-                            $scope.disorder = repsonse.data;
+                            newScope.disorder = repsonse.data;
                         });
-                        $scope.diagnoses = DiagnosisModel.index({
+                        newScope.diagnoses = DiagnosisModel.index({
                             disorder_id: $scope.mention.disorder.id
                         })
-                        createModal({scope: $scope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                        createModal({scope: newScope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
                             console.log("resolved");
                             modal.show();
                         });
                     } else if ($scope.mention.mentioned_type == "hpo") {
-                        $scope.patients = null;
-                        createModal({scope: $scope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
+                        var newScope = $scope.$new();
+                        newScope.patients = null;
+                        createModal({scope: newScope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
                             console.log("resolved");
                             modal.show();
                         });
@@ -65,7 +67,7 @@ angular.module('directives.mentions', [])
                         PatientModel.queryParams({embed: 1}, {
                             hpo_id: $scope.mention.hpo.id
                         }).$promise.then(function(patients) {
-                            $scope.patients = patients;
+                            newScope.patients = patients;
                         });
                     }
 

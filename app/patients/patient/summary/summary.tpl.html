@@ -8,10 +8,10 @@
         </div>
         <div class="block-content">
             <div ng-repeat="patientHpo in patientHpos" class="pills">
-                {{ patientHpo.hpo.name }}
+                <a href class="highlight" ng-click="showHpoModal(patientHpo.hpo)">{{ patientHpo.hpo.name }}</a>
             </div>
             <div ng-repeat="mention in mentions" class="pills">
-                {{ mention.hpo.name }}
+                <a href class="highlight" ng-click="showHpoModal(mention.hpo)">{{ mention.hpo.name }}</a>
             </div>
             <div ng-show="!patientHpos.length && !mentions.length" class="nodata">
                 No HPO terms.
@@ -60,7 +60,7 @@
                 </div>
 
                 <div ng-repeat="diagnosis in diagnoses">
-                    {{ diagnosis.disorder.name }}
+                    <a href class="highlight" ng-click="showDisorderModal(diagnosis.disorder)">{{ diagnosis.disorder.name }}</a>
                 </div>
             </div>
 

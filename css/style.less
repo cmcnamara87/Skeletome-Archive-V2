@@ -114,7 +114,15 @@ em {
 */
 a {
   color: @bodyTextColor;
+  &.highlight {
+    color: @highlightColor;
+    &:hover {
+      color: @highlightColor;
+      text-decoration: underline;
+    }
+  }
 }
+
 
 a:hover {
   text-decoration: none;
