@@ -633,7 +633,7 @@ function patientresource_services_resources() {
                     'optional' => TRUE,
                     'type' => 'int',
                     'description' => 'Number of records to get per page.',
-                    'default value' => variable_get('services_node_index_page_size', 50),
+                    'default value' => variable_get('services_node_index_page_size', 10),
                     'source' => array('param' => 'pagesize'),
                 ),
             ),

@@ -1,7 +1,7 @@
 angular.module('directives.navigation.sidemenu', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('sidemenu', ['$location', '$rootScope', 'AuthService', function ($location, $rootScope, AuthService) {
+    .directive('sidemenu', ['$location', '$rootScope', 'AuthService', 'SessionService', function ($location, $rootScope, AuthService, SessionService) {
 
         return {
             restrict: 'E',
@@ -11,8 +11,11 @@ angular.module('directives.navigation.sidemenu', [])
                     // route changed
                     var parts = $location.path().split("/");
 
+                    console.log("sidemenu", parts, event, current);
                     $scope.type = parts[1];
-                    if($scope.type == "feed" || $scope.type == "patients" || $scope.type == "groups" || $scope.type == "user" || $scope.type == "search") {
+                    if($scope.type == "feed" || $scope.type == "patients" || $scope.type == "groups" || $scope.type == "search") {
+                        $rootScope.showSidemenu = true;
+                    } else if($scope.type == "user" && parts[2] == SessionService.currentUser.uid) {
                         $rootScope.showSidemenu = true;
                     } else {
                         $rootScope.showSidemenu = false;

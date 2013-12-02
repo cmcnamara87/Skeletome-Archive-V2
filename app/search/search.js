@@ -13,6 +13,8 @@ angular.module('search', [])
 
         $scope.disorders = [];
 
+        var page = 0;
+
         $scope.findDisorders = function(name) {
             "use strict";
             return DisorderModel.index({
@@ -40,6 +42,16 @@ angular.module('search', [])
 
         var search = function() {
             "use strict";
+            page = 0;
+            doSearch().then(function(patients) {
+                $scope.patients = patients;
+                if(patients.length > 5) {
+                    $scope.isMoreToLoad = true;
+                }
+            });
+        }
+        var doSearch = function() {
+            "use strict";
             var hpo_ids = [];
             angular.forEach($scope.hpos, function(hpo, hpoIndex) {
                 hpo_ids.push(hpo.id);
@@ -56,7 +68,21 @@ angular.module('search', [])
             if(disorder_ids.length) {
                 params.disorder_id = JSON.stringify(disorder_ids)
             }
-            $scope.patients = PatientModel.queryParams({embed: 1}, params);
+            return PatientModel.queryParams({embed: 1, page: page}, params).$promise;
+        }
+
+        $scope.loadMore = function() {
+            "use strict";
+            page++;
+
+            $scope.isLoadingMore = true;
+            doSearch().then(function(patients) {
+                $scope.isLoadingMore = false;
+                $scope.patients = $scope.patients.concat(patients);
+                if(patients.length == 0) {
+                    $scope.isMoreToLoad = false;
+                }
+            });
         }
 
         // Find all patients

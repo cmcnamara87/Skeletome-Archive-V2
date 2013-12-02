@@ -7,63 +7,78 @@
     </div>
 
     <div>
-        <div class="nodata">
-            You can use the Case Finder to look for cases that have disorders and clinical features.
+        <div class="divided">
+            <div class="nodata separated">
+                You can use the Case Finder to look for cases that have disorders and clinical features.
+            </div>
+            <div class="separated">
+                <h3 class="resource-block-heading">Disorders</h3>
+                <typeahead multi="true" model="disorders"
+                           placeholder="What disorder do you want to look for?"
+                           options-fn="findDisorders(value)"
+                           token-chosen-fn="disorderChosen(token)"
+                        ></typeahead>
+            </div>
+            <div class="separated">
+                <h3 class="resource-block-heading">Clinical Features</h3>
+                <typeahead multi="true"
+                           model="hpos"
+                           placeholder="What clinical feature do you want to look for?"
+                           options-fn="findHpos(value)"></typeahead>
+            </div>
         </div>
-        <div class="separated">
-            <h3 class="resource-block-heading">Disorders</h3>
-            <typeahead multi="true" model="disorders"
-                       placeholder="What disorder do you want to look for?"
-                       options-fn="findDisorders(value)"
-                       token-chosen-fn="disorderChosen(token)"
-                    ></typeahead>
-        </div>
-        <div class="separated">
-            <h3 class="resource-block-heading">Clinical Features</h3>
-            <typeahead multi="true"
-                       model="hpos"
-                       placeholder="What clinical feature do you want to look for?"
-                       options-fn="findHpos(value)"></typeahead>
-        </div>
-        <div class="separated nodata" ng-show="!patients.length">
-            No patients recorded.
-        </div>
-        <table class="separated table" ng-show="patients.length">
-            <tr>
-                <th></th>
-                <th>Patient</th>
-                <th>Diagnoses</th>
-            </tr>
-            <tbody ng-repeat="patient in patients | orderBy:predicate:reverse" >
-            <tr>
-                <td>
-                    <a href="#/patient/{{ patient.id }}/summary">
-                        <i class="icon icon-lock" ng-show="patient.access == 'none'"></i>
-                    </a>
-                </td>
-                <td>
-                    <a href="#/patient/{{ patient.id }}/summary" class="highlight">
-                        {{ patient.name }}
-                    </a>
-                </td>
 
-                <td>
-                    <a href="#/patient/{{ patient.id }}/diagnoses"
-                       class="" ng-show="patient.diagnoses.length > 0">
-                        {{ patient.diagnoses[0].disorder.name }}
-                    </a>
-                    <a href="#/patient/{{ patient.id }}/diagnoses" ng-show="patient.diagnoses.length > 1"
-                       class="">
-                        + {{ patient.diagnoses.length - 1 }} more
-                    </a>
+        <div class="divided">
+            <div ng-show="!patients" style="text-align: center">
+                <i class="icon icon-refresh icon-spin"></i>
+            </div>
+            <div class="separated nodata" ng-show="patients.length == 0">
+                No patients recorded.
+            </div>
+            <table class="separated table" ng-show="patients.length">
+                <tr>
+                    <th></th>
+                    <th>Patient</th>
+                    <th>Diagnoses</th>
+                </tr>
+                <tbody ng-repeat="patient in patients | orderBy:predicate:reverse" >
+                <tr>
+                    <td>
+                        <a href="#/patient/{{ patient.id }}/summary">
+                            <i class="icon icon-lock" ng-show="patient.access == 'none'"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#/patient/{{ patient.id }}/summary" class="highlight">
+                            {{ patient.name }}
+                        </a>
+                    </td>
 
-                    <a ng-show="!patient.diagnoses.length" href="#/patient/{{ patient.id }}/diagnoses" class="nodata">
-                        No diagnosis
-                    </a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                    <td>
+                        <a href="#/patient/{{ patient.id }}/diagnoses"
+                           class="" ng-show="patient.diagnoses.length > 0">
+                            {{ patient.diagnoses[0].disorder.name }}
+                        </a>
+                        <a href="#/patient/{{ patient.id }}/diagnoses" ng-show="patient.diagnoses.length > 1"
+                           class="">
+                            + {{ patient.diagnoses.length - 1 }} more
+                        </a>
+
+                        <a ng-show="!patient.diagnoses.length" href="#/patient/{{ patient.id }}/diagnoses" class="nodata">
+                            No diagnosis
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div ng-show="isMoreToLoad && patients" class="btn-more-wrapper">
+                <i class="icon icon-refresh icon-spin" ng-show="isLoadingMore"></i>
+                <button class="btn btn-more" ng-click="loadMore()" ng-show="!isLoadingMore">
+                    Load More
+                </button>
+            </div>
+
+        </div>
     </div>
 
 

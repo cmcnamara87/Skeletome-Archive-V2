@@ -1,7 +1,7 @@
 angular.module('directives.navigation.menubar', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('menubar', ['$timeout', '$location', '$window', 'PatientModel', 'GroupModel', 'UserModel', function ($timeout, $location, $window, PatientModel, GroupModel, UserModel) {
+    .directive('menubar', ['$timeout', '$location', '$window', 'PatientModel', 'GroupModel', 'UserModel', '$rootScope', 'SessionService', function ($timeout, $location, $window, PatientModel, GroupModel, UserModel, $rootScope, SessionService) {
 
         return {
             restrict: 'E',
@@ -46,10 +46,11 @@ angular.module('directives.navigation.menubar', [])
                             } else if($scope.tab == "group") {
                                 $scope.content = true;
                                 $scope.group = GroupModel.get({id: $scope.id});
-                            } else {
-                                $scope.content = true;
-                                $scope.user = UserModel.get({uid: $scope.id});
                             }
+                        } else if($scope.tab == "user" && parts[2] != SessionService.currentUser.uid) {
+                            $rootScope.content = true;
+                            $scope.content = true;
+                            $scope.user = UserModel.get({uid: parts[2]});
                         } else {
                             $scope.content = false;
                         }
