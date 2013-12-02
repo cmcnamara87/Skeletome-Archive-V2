@@ -56,7 +56,7 @@
             <div ng-repeat="mention in patient.mentions">
                 <div class="resource" ng-if="mention.mentioned_type == 'hpo'">
                     <div class="resource-block" ng-class="{'mention-highlight': mention.highlight}">
-                        {{ mention.hpo.name }}
+                        <a href class="highlight" ng-click="showHpoModal(mention.hpo)">{{ mention.hpo.name }}</a>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <cm-edit-delete edit-enabled="false" delete-enabled="patient.access == 'owner'"></cm-edit-delete>
                 </div>
                 <div class="resource-block no-edit">
-                    {{ patientHPO.hpo.name }}
+                    <a href class="highlight" ng-click="showHpoModal(patientHpo.hpo)">{{ patientHPO.hpo.name }}</a>
                 </div>
 
             </div>

@@ -21,7 +21,8 @@ angular.module('patient.clinical_summary', [])
         });
     }])
 
-    .controller('ClinicalSummaryCtrl', ['$scope', '$q', '$location','$http', 'patient', 'patientHPOs', 'HPOModel', 'HPOTagModel', function ($scope, $q, $location, $http, patient, patientHPOs, HPOModel, HPOTagModel) {
+    .controller('ClinicalSummaryCtrl', ['$scope', '$q', '$location','$http', 'patient', 'patientHPOs', 'HPOModel', 'HPOTagModel', 'createModal', 'apiUrl2', 'PatientModel',
+        function ($scope, $q, $location, $http, patient, patientHPOs, HPOModel, HPOTagModel, createModal, apiUrl2, PatientModel) {
         $scope.patient = patient;
         $scope.patientHPOs = patientHPOs;
 
@@ -80,6 +81,40 @@ angular.module('patient.clinical_summary', [])
             $scope.patientHPOs.splice(index, 1);
         }
 
-//
+
+        $scope.showDisorderModal = function(disorder) {
+            "use strict";
+            $scope.disorder = null;
+
+            // Create a new sub-scope for the modal
+            var newScope = $scope.$new();
+            $http.get(apiUrl2 + "disorder/" + disorder.id + "/description").then(function(repsonse) {
+                newScope.disorder = repsonse.data;
+            });
+            newScope.diagnoses = DiagnosisModel.index({
+                disorder_id: disorder.id
+            })
+            createModal({scope: newScope, url: 'common/directives/mentions/modal_disorder.tpl.html'}).then(function(modal) {
+                console.log("resolved");
+                modal.show();
+            });
+        }
+
+        $scope.showHpoModal = function(hpo) {
+            "use strict";
+            var newScope = $scope.$new();
+            newScope.patients = null;
+            newScope.hpo = hpo;
+            createModal({scope: newScope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
+                modal.show();
+            });
+
+            PatientModel.queryParams({embed: 1}, {
+                hpo_id: hpo.id
+            }).$promise.then(function(patients) {
+                newScope.patients = patients;
+            });
+        }
+
 //
     }]);
