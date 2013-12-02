@@ -1,7 +1,7 @@
 <div class="submenubar" ng-show="showSubmenuBar" ng-class="{'submenubar-activities': showActivities}">
     <div ng-switch on="type">
         <div ng-switch-when="patient">
-            <ul>
+            <ul class="submenubar-patient">
                 <li>
                     <a class="submenubar-item" menu-item
                        href="#/patient/{{ id }}/summary">
@@ -42,7 +42,7 @@
         </div>
 
         <div ng-switch-when="group">
-            <ul>
+            <ul class="submenubar-group">
                 <li>
                     <a class="submenubar-item" menu-item
                        ng-href="#/group/{{ group.id }}/summary">

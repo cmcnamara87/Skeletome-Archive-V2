@@ -40,7 +40,7 @@ angular.module('directives.navigation.submenubar', ['directives.navigation.subme
 
                 var resize = function() {
                     "use strict";
-                    var outerHeight = $('ul', element).outerHeight();
+                    var outerHeight = $('ul', element).outerHeight(true);
                     console.log("outer hiehgt is ", outerHeight);
                     $('.main').css('top', $('.menubar').outerHeight() + outerHeight + "px");
                     $('.submenubar', element).height(outerHeight);
