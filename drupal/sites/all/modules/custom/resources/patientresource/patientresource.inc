@@ -139,6 +139,34 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
         }
     }
 
+    if(isset($parameters['gene_id'])) {
+        $gene_ids = json_decode($parameters['gene_id']);
+        $gene_ids_count = 0;
+        if(is_array($gene_ids)) {
+            $gene_ids_string = join(",", $gene_ids);
+            $gene_ids_count = count($gene_ids);
+        } else {
+            $gene_ids_string = $gene_ids;
+            $gene_ids_count = 1;
+        }
+
+        unset($parameters['gene_id']);
+        $sql = "SELECT patient_id
+                FROM gene_mutations
+                WHERE gene_id IN ($gene_ids_string)
+                GROUP BY patient_id
+                HAVING COUNT(*) = $gene_ids_count";
+        $results = db_query($sql);
+
+        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+        if(isset($parameters['id'])) {
+            $parameters['id'] = array_intersect($parameters['id'], $patient_ids);
+        } else {
+            $parameters['id'] = $patient_ids;
+        }
+    }
+
+
     if(isset($parameters['hpo_id'])) {
         $hpo_ids = json_decode($parameters['hpo_id']);
         $hpo_ids_count = 0;

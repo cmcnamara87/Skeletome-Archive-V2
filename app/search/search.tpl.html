@@ -26,6 +26,13 @@
                            placeholder="What clinical feature do you want to look for?"
                            options-fn="findHpos(value)"></typeahead>
             </div>
+            <div class="separated">
+                <h3 class="resource-block-heading">Genes</h3>
+                <typeahead multi="true"
+                           model="genes"
+                           placeholder="What genes do you want to to look for?"
+                           options-fn="findGenes(value)"></typeahead>
+            </div>
         </div>
 
         <div class="divided">

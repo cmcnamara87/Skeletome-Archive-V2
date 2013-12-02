@@ -7,11 +7,13 @@ angular.module('search', [])
         });
     }])
 
-    .controller('SearchCtrl', function ($scope, PatientModel, DisorderModel, HPOModel) {
+    .controller('SearchCtrl', function ($scope, PatientModel, DisorderModel, HPOModel, GeneModel) {
         var test = new Array();
         test.push(149);
 
         $scope.disorders = [];
+        $scope.genes = [];
+        $scope.hpos = [];
 
         var page = 0;
 
@@ -27,6 +29,12 @@ angular.module('search', [])
                 name: name
             }).$promise;
         }
+        $scope.findGenes = function(name) {
+            "use strict";
+            return GeneModel.index({
+                name: name
+            }).$promise;
+        }
 
         $scope.$watch('disorders', function(disorders) {
             "use strict";
@@ -37,18 +45,27 @@ angular.module('search', [])
             "use strict";
             console.log("hpos are now", $scope.hpos);
             search();
+        }, true);
+
+        $scope.$watch('genes', function(genes) {
+            "use strict";
+            console.log("genes are now", $scope.genes);
+            search();
         }, true)
 
 
         var search = function() {
             "use strict";
             page = 0;
-            doSearch().then(function(patients) {
-                $scope.patients = patients;
-                if(patients.length > 5) {
-                    $scope.isMoreToLoad = true;
-                }
-            });
+            $scope.patients = [];
+            if($scope.hpos.length || $scope.disorders.length || $scope.genes.length) {
+                doSearch().then(function(patients) {
+                    $scope.patients = patients;
+                    if(patients.length > 5) {
+                        $scope.isMoreToLoad = true;
+                    }
+                });
+            }
         }
         var doSearch = function() {
             "use strict";
@@ -60,13 +77,19 @@ angular.module('search', [])
             angular.forEach($scope.disorders, function(disorder, disorderIndex) {
                 disorder_ids.push(disorder.id);
             });
-
+            var gene_ids = [];
+            angular.forEach($scope.genes, function(gene, geneIndex) {
+                gene_ids.push(gene.id);
+            });
             var params = {};
             if(hpo_ids.length) {
                 params.hpo_id = JSON.stringify(hpo_ids)
             }
             if(disorder_ids.length) {
                 params.disorder_id = JSON.stringify(disorder_ids)
+            }
+            if(gene_ids.length) {
+                params.gene_id = JSON.stringify(gene_ids)
             }
             return PatientModel.queryParams({embed: 1, page: page}, params).$promise;
         }
