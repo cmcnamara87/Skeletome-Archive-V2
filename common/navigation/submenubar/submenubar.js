@@ -24,11 +24,37 @@ angular.module('directives.navigation.submenubar', ['directives.navigation.subme
                             });
                         }
                         $rootScope.showSubmenuBar = true;
+                        setTimeout(function() {
+                            resize();
+                            $( window ).resize(resize);
+                        }, 100)
                     } else {
                         console.log("Hide sub menu bar");
                         $rootScope.showSubmenuBar = false;
+                        $('.main').css('top', $('.menubar').outerHeight() + "px");
+                        $( window ).unbind('resize', resize);
                     }
                 });
+
+
+
+                var resize = function() {
+                    "use strict";
+                    var outerHeight = $('ul', element).outerHeight();
+                    console.log("outer hiehgt is ", outerHeight);
+                    $('.main').css('top', $('.menubar').outerHeight() + outerHeight + "px");
+                    $('.submenubar', element).height(outerHeight);
+                }
+
+
+                // Watch for size changes
+                $scope.$watch(function() {
+                    "use strict";
+                    return $('ul', element).width();
+                }, function(width) {
+                    "use strict";
+                    console.log("Submenubar: Width is", width);
+                })
             }
         };
     }]);
