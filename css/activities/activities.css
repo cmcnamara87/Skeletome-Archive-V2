@@ -542,6 +542,14 @@ html[xmlns] .clearfix {
   border: 1px solid #dbe1e3;
   padding: 14px;
 }
+.activity-patient .activity-patient-content .activity-patient-content-xray {
+  display: inline-block;
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+.activity-patient .activity-patient-content .activity-patient-content-xray img {
+  width: 50px;
+}
 .activity-icon {
   width: 32px;
   height: 32px;
@@ -1592,6 +1600,13 @@ h4 {
 */
 a {
   color: #616769;
+}
+a.highlight {
+  color: #49a9ba;
+}
+a.highlight:hover {
+  color: #49a9ba;
+  text-decoration: underline;
 }
 a:hover {
   text-decoration: none;

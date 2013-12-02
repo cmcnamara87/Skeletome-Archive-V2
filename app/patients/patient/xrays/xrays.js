@@ -68,12 +68,13 @@ angular.module('patient.xrays', [])
 
         $scope.showXray = function(xray) {
             "use strict";
-            $scope.xray = xray;
-            $scope.hpoTags = HPOTagModel.index({
+            var newScope = $scope.$new();
+            newScope.xray = xray;
+            newScope.hpoTags = HPOTagModel.index({
                 object_id: xray.id,
                 object_type: "xray"
             });
-            createModal({url: 'app/patients/patient/xrays/modal_xray.tpl.html', scope: $scope, type: 'gallery'}).then(function(modal) {
+            createModal({url: 'app/patients/patient/xrays/modal_xray.tpl.html', scope: newScope, type: 'gallery'}).then(function(modal) {
                 // Modal is open now
                 modal.show();
             })

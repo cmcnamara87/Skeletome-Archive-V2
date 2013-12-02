@@ -1,7 +1,8 @@
 angular.module('directives.activities.cmActivity.cmActivityPatient', [])
 
 // A simple directive to display a gravatar image given an email
-    .directive('cmActivityPatient', ['XRayModel', 'GeneMutationModel', function (XRayModel, GeneMutationModel) {
+    .directive('cmActivityPatient', ['XRayModel', 'GeneMutationModel', 'HPOTagModel', 'createModal',
+        function (XRayModel, GeneMutationModel, HPOTagModel, createModal) {
         return {
             restrict: 'E',
             scope: true,
@@ -11,6 +12,19 @@ angular.module('directives.activities.cmActivity.cmActivityPatient', [])
                 $scope.patientInfo = "clinicalSummary";
 
 
+                $scope.showXray = function(xray) {
+                    "use strict";
+                    var newScope = $scope.$new();
+                    newScope.xray = xray;
+                    newScope.hpoTags = HPOTagModel.index({
+                        object_id: xray.id,
+                        object_type: "xray"
+                    });
+                    createModal({url: 'app/patients/patient/xrays/modal_xray.tpl.html', scope: newScope, type: 'gallery'}).then(function(modal) {
+                        // Modal is open now
+                        modal.show();
+                    })
+                }
 
                 $scope.$watch('patientInfo', function(patientInfo) {
                     "use strict";

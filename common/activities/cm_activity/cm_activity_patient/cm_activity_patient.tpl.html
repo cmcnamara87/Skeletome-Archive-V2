@@ -33,9 +33,9 @@
                     <div ng-show="activity.patient.xrays && !activity.patient.xrays.length">
                         No xrays.
                     </div>
-                    <div ng-repeat="xray in activity.patient.xrays">
+                    <a ng-repeat="xray in activity.patient.xrays" class="activity-patient-content-xray" ng-click="showXray(xray)">
                         <img ng-src="{{ xray.thumb_url }}" alt=""/>
-                    </div>
+                    </a>
                 </div>
                 <div ng-switch-when="geneticReport">
                     <div ng-show="activity.patient.genetic_reports && !activity.patient.genetic_reports.length">
