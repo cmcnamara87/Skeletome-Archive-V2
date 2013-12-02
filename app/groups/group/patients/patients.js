@@ -7,7 +7,7 @@ angular.module('group.patients', [])
             resolve:{
                 patients: ['PatientModel', 'ShareModel', '$route', '$q', function (PatientModel, ShareModel, $route, $q) {
 
-                    return PatientModel.query({
+                    return PatientModel.index({
                         group_id: $route.current.params.group_id
                     }).$promise;
                 }]
@@ -15,7 +15,23 @@ angular.module('group.patients', [])
         });
     }])
 
-    .controller('GroupPatientsCtrl', ['$scope', '$location', 'patients', function ($scope, $location, patients) {
+    .controller('GroupPatientsCtrl', ['$scope', '$location', 'patients', 'PatientModel', function ($scope, $location, patients, PatientModel) {
         $scope.patients = patients;
+
+        $scope.isMoreToLoad = true;
+        var page = 0;
+        $scope.loadMore = function() {
+            page++;
+            $scope.isMoreToLoad = true;
+            $scope.isLoadingMore = true;
+            PatientModel.queryParams({page: page}, {group_id: $scope.group.id}).$promise.then(function(patients) {
+                "use strict";
+                $scope.isLoadingMore = false;
+                $scope.patients = $scope.patients.concat(patients);
+                if(patients.length == 0) {
+                    $scope.isMoreToLoad = false;
+                }
+            })
+        }
     }]);
 

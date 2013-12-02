@@ -166,6 +166,33 @@ function _patientresource_index($query, $group_id, $embed, $page, $fields, $para
         }
     }
 
+    if(isset($parameters['group_id'])) {
+        $group_ids = json_decode($parameters['group_id']);
+        $group_ids_count = 0;
+        if(is_array($group_ids)) {
+            $group_ids_string = join(",", $group_ids);
+            $group_ids_count = count($group_ids);
+        } else {
+            $group_ids_string = $group_ids;
+            $group_ids_count = 1;
+        }
+
+        unset($parameters['group_id']);
+        $sql = "SELECT patient_id
+                FROM shares
+                WHERE group_id IN ($group_ids_string)
+                GROUP BY patient_id
+                HAVING COUNT(*) = $group_ids_count";
+        $results = db_query($sql);
+
+        $patient_ids = array_keys($results->fetchAllAssoc('patient_id'));
+        if(isset($parameters['id'])) {
+            $parameters['id'] = array_intersect($parameters['id'], $patient_ids);
+        } else {
+            $parameters['id'] = $patient_ids;
+        }
+    }
+
 
     if(isset($parameters['hpo_id'])) {
         $hpo_ids = json_decode($parameters['hpo_id']);

@@ -25,6 +25,14 @@
                     </td>
                 </tr>
             </table>
+
+            <div ng-show="isMoreToLoad" class="btn-more-wrapper">
+                <i class="icon icon-refresh icon-spin" ng-show="isLoadingMore"></i>
+                <button class="btn btn-more" ng-click="loadMore()" ng-show="!isLoadingMore">
+                    Load More
+                </button>
+            </div>
+
         </div>
     </div>
 </div>

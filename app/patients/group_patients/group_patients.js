@@ -16,30 +16,10 @@ angular.module('patients.group_patients', [])
                     return defer.promise;
                 }],
                 patients: ['ShareModel', 'PatientModel', '$route', '$q', function (ShareModel, PatientModel, $route, $q) {
-                    var defer = $q.defer();
 
-                    var patients = [];
-
-                    ShareModel.index({
+                    return PatientModel.query({
                         group_id: $route.current.params.group_id
-                    }, function(shares) {
-                        // Get the patient for the shares
-                        // todo: make this so only does 1 request, and sends all the ids
-                        angular.forEach(shares, function(share, shareIndex) {
-                            PatientModel.get({id: share.patient_id}, function(patient) {
-                                patients.push(patient);
-                            }, function() {
-                                console.log("fail");
-                            });
-                        });
-
-                        defer.resolve(patients);
-
-                    }, function() {
-
-                    });
-
-                    return defer.promise;
+                    }).$promise;
                 }]
             }
         });
