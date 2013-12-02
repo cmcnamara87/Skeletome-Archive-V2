@@ -71,8 +71,17 @@ angular.module('directives.mentions', [])
                             newScope.patients = patients;
                         });
                     }
+                }
 
-
+                $scope.enteredMention = function(index) {
+                    "use strict";
+                    var mention = $scope.mentions[index];
+                    mention.highlight = true;
+                }
+                $scope.leftMention = function(index) {
+                    "use strict";
+                    var mention = $scope.mentions[index];
+                    mention.highlight = false;
                 }
 
                 var markup = function(text, mentions) {
@@ -81,12 +90,14 @@ angular.module('directives.mentions', [])
                     angular.forEach(mentions, function(mention, mentionIndex) {
 //                        href='" + apiUrl2 + "disorder/" + mention[mention.mentioned_type].id + "/description'
                         var re = new RegExp('\\b(' + mention.name + ')\\b', "gi");
-                        formattedText = formattedText.replace(re, "<a href ng-click='mentionClicked(" + mentionIndex + ")' title='" + mention[mention.mentioned_type].name + "'>$1</a>");
+                        formattedText = formattedText.replace(re, "<a href class='mention' ng-mouseenter='enteredMention(" + mentionIndex + ")' ng-mouseleave='leftMention(" + mentionIndex + ")' ng-click='mentionClicked(" + mentionIndex + ")' title='" + mention[mention.mentioned_type].name + "'>$1</a>");
                     });
                     var $formattedText = angular.element("<div>" + formattedText + "</div>");
                     element.find('.mentions-text').html($formattedText);
                     // Compile the formatted text
                     $compile($formattedText)($scope);
+
+                    $('.mention', $formattedText).tooltip({delay: 0});
                 }
 
             }

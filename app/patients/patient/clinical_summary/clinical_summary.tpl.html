@@ -55,7 +55,7 @@
 
             <div ng-repeat="mention in patient.mentions">
                 <div class="resource" ng-if="mention.mentioned_type == 'hpo'">
-                    <div class="resource-block" >
+                    <div class="resource-block" ng-class="{'mention-highlight': mention.highlight}">
                         {{ mention.hpo.name }}
                     </div>
                 </div>
