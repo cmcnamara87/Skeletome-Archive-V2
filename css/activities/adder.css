@@ -164,6 +164,9 @@ table.table-content {
 .btn:active {
   box-shadow: none;
 }
+.btn-more-wrapper {
+  text-align: center;
+}
 .btn-more {
   background-color: transparent;
   border: none;
@@ -250,8 +253,8 @@ Styleguide 2.1.3.
 }
 .label {
   background-color: white;
-  border: 1px solid #f76969;
-  color: #f76969;
+  border: 1px solid #5cabba;
+  color: #5cabba;
 }
 .label:hover {
   background-color: white;
@@ -565,10 +568,11 @@ html[xmlns] .clearfix {
   top: 1px;
   padding: 7px 14px;
   display: block;
-  font-weight: 600;
+  font-weight: 400;
   background-color: #f2f5f6;
   border: 1px solid #f2f5f6;
   border: none;
+  color: #95bfc7;
 }
 .adder-tabs .adder-tab.active {
   background-color: white;
@@ -577,6 +581,7 @@ html[xmlns] .clearfix {
   border-left: none;
   border-top: none;
   border-bottom: 0;
+  color: #57ADBD;
 }
 .adder-content {
   margin-top: 0px;
@@ -614,6 +619,10 @@ html[xmlns] .clearfix {
   margin-bottom: 2px;
   font-weight: normal;
   cursor: pointer;
+  border-radius: 3px;
+}
+.adder-to .adder-to-group input {
+  margin-right: 4px;
 }
 .adder-to .adder-to-group + .adder-to-group {
   margin-left: 3px;
@@ -719,8 +728,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  border: 1px solid #f76969;
-  color: #f76969;
+  background-color: #5cabba;
+  color: white;
 }
 /**
  *

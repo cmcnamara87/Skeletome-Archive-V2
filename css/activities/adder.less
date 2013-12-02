@@ -22,17 +22,19 @@
       border-left: none;
       border-top: none;
       border-bottom: 0;
+      color: #57ADBD;
     }
 
     position: relative;
     top: 1px;
     padding: 7px 14px;
     display: block;
-    font-weight: 600;
+    font-weight: 400;
     @inactiveAdderTabBackgroundColor: #F2F5F6;
     background-color: @inactiveAdderTabBackgroundColor;
     border: 1px solid @inactiveAdderTabBackgroundColor;
     border: none;
+    color: #95bfc7;
   }
 }
 
@@ -72,9 +74,15 @@
     background-color: #ddeff2;
     border: 1px solid #93ccd6;
     color: #49a9ba !important;
+//    background-color: #abe2ed;
+//    color: #FCFEFF;
     margin-bottom: 2px;
     font-weight: normal;
     cursor: pointer;
+    border-radius: 3px;
+    input {
+      margin-right: 4px;
+    }
   }
   .adder-to-group + .adder-to-group {
     margin-left: 3px;

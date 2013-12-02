@@ -24,10 +24,11 @@
                             <div class="resource-block">
                                 <div class="resource-block-element">
                                     <label class="label-top resource-block-heading">
-                                        Name
+                                        Mutation Description
                                     </label>
 
-                                    <input type="text" ng-model="geneMutation.name" placeholder="What is text name of the gene mutation?"/>
+                                    <input type="text" ng-model="geneMutation.name"
+                                           placeholder="Enter mutation description in HGVS nomenclature (Example: AB026906.1:c.274G>T)"/>
                                 </div>
                                 <div class="resource-block-element">
                                     <label class="label-top resource-block-heading">
@@ -46,9 +47,11 @@
                                         Pathogenicity
                                     </label>
                                     <select ng-model="geneMutation.pathogenic">
-                                        <option value="High">High</option>
-                                        <option value="Medium">Medium</option>
-                                        <option value="Low">Low</option>
+                                        <option value="Definitively Pathogenic">Definitively Pathogenic</option>
+                                        <option value="Likely Pathogenic">Likely Pathogenic</option>
+                                        <option value="Uncertain">Uncertain</option>
+                                        <option value="Likely Not Pathogenic">Likely Not Pathogenic</option>
+                                        <option value="Not Pathogenic">Not Pathogenic</option>
                                     </select>
                                 </div>
                             </div>
