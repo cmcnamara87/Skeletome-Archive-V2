@@ -164,6 +164,9 @@ table.table-content {
 .btn:active {
   box-shadow: none;
 }
+.btn-more-wrapper {
+  text-align: center;
+}
 .btn-more {
   background-color: transparent;
   border: none;
@@ -250,8 +253,8 @@ Styleguide 2.1.3.
 }
 .label {
   background-color: white;
-  border: 1px solid #f76969;
-  color: #f76969;
+  border: 1px solid #5cabba;
+  color: #5cabba;
 }
 .label:hover {
   background-color: white;
@@ -539,12 +542,20 @@ html[xmlns] .clearfix {
   border: 1px solid #dbe1e3;
   padding: 14px;
 }
+.activity-patient .activity-patient-content .activity-patient-content-xray {
+  display: inline-block;
+  margin-right: 3px;
+  margin-bottom: 3px;
+}
+.activity-patient .activity-patient-content .activity-patient-content-xray img {
+  height: 50px;
+}
 .activity-icon {
   width: 32px;
   height: 32px;
   line-height: 32px;
   border-radius: 32px;
-  background-color: #BA6049;
+  background-color: #FFBB7B;
   text-align: center;
   color: white;
   font-size: 21px;
@@ -563,28 +574,66 @@ html[xmlns] .clearfix {
 .adder-tabs .adder-tab {
   position: relative;
   top: 1px;
-  padding: 10px 14px;
+  padding: 7px 14px;
   display: block;
+  font-weight: 400;
   background-color: #f2f5f6;
   border: 1px solid #f2f5f6;
   border: none;
+  color: #95bfc7;
 }
 .adder-tabs .adder-tab.active {
   background-color: white;
   z-index: 1;
   border: 1px solid #dbe1e3;
+  border-left: none;
+  border-top: none;
   border-bottom: 0;
+  color: #57ADBD;
 }
 .adder-content {
   margin-top: 0px;
 }
 .adder-to {
   border: 1px solid #dbe1e3;
+  padding: 7px 14px;
+  list-style-type: none;
 }
-.adder-to input[type=text] {
-  box-sizing: border-box;
-  width: 100%;
-  border: none;
+.adder-to .adder-to-label {
+  margin-right: 14px;
+  position: relative;
+  top: 8px;
+  color: #949a9c;
+}
+.adder-to ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  margin-left: 7px;
+}
+.adder-to ul li {
+  display: inline-block;
+}
+.adder-to ul li + li {
+  margin-left: 3px;
+}
+.adder-to .adder-to-group {
+  display: inline-block;
+  padding: 7px 14px;
+  background-color: #ddeff2;
+  border: 1px solid #93ccd6;
+  color: #49a9ba !important;
+  margin-bottom: 2px;
+  font-weight: normal;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.adder-to .adder-to-group input {
+  margin-right: 4px;
+}
+.adder-to .adder-to-group + .adder-to-group {
+  margin-left: 3px;
 }
 .adder-to-selected {
   padding: 14px 14px 0 14px;
@@ -596,21 +645,6 @@ html[xmlns] .clearfix {
   list-style: none;
   padding: 0;
   margin: 0;
-}
-.adder-to-option {
-  display: block;
-  padding: 10px;
-}
-.adder-to-option.selected {
-  background-color: #ddeff2;
-  border: 1px solid #93ccd6;
-  color: #49a9ba;
-}
-.adder-to-option label {
-  font-weight: normal;
-}
-.adder-to-option input {
-  margin-right: 7px;
 }
 .adder-to-option + .adder-to-option {
   border-top: 1px solid #dbe1e3;
@@ -702,8 +736,8 @@ html[xmlns] .clearfix {
   border-radius: 100px;
 }
 .submenubar .submenubar-item.selected {
-  border: 1px solid #f76969;
-  color: #f76969;
+  background-color: #5cabba;
+  color: white;
 }
 /**
  *
@@ -719,31 +753,34 @@ html[xmlns] .clearfix {
   height: 60px;
   top: 0px;
   width: 100%;
-  transition: background-color 0.3s;
+  transition: background-color 0.1s;
   /* When showing an element */
 }
 .menubar.menubar-dark {
   background-color: #2c7684;
+}
+.menubar.menubar-dark .menubar-item.menubar-user {
+  border-left: 1px solid #2B636D;
 }
 .menubar .menubar-left {
   float: left;
   height: 60px;
 }
 .menubar .menubar-left.ng-hide-add {
-  -webkit-transition: 0.3s linear all;
-  -moz-transition: 0.3s linear all;
-  -o-transition: 0.3s linear all;
-  transition: 0.3s linear all;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
   opacity: 1;
 }
 .menubar .menubar-left.ng-hide-add.ng-hide-add-active {
   opacity: 0;
 }
 .menubar .menubar-left.ng-hide-remove {
-  -webkit-transition: 0.3s linear all;
-  -moz-transition: 0.3s linear all;
-  -o-transition: 0.3s linear all;
-  transition: 0.3s linear all;
+  -webkit-transition: 0.1s linear all;
+  -moz-transition: 0.1s linear all;
+  -o-transition: 0.1s linear all;
+  transition: 0.1s linear all;
   /* this needs to be here to make it visible during the animation
        since the .ng-hide class is already on the element rendering
        it as hidden. */
@@ -806,20 +843,37 @@ html[xmlns] .clearfix {
     The logo container for the sidebar
   */
 }
-.menubar .menubar-item.menubar-title {
-  font-size: 21px;
-  font-weight: 300;
+.menubar .menubar-item.menubar-search {
+  line-height: inherit;
+}
+.menubar .menubar-item.menubar-user {
+  border-left: 1px solid #5298A5;
+  font-weight: normal;
+  color: #c3e0e6;
+  position: relative;
+  top: -2px;
+  transition: 0.3s color;
+}
+.menubar .menubar-item.menubar-user:hover,
+.menubar .menubar-item.menubar-user.selected {
   color: white;
-  margin: 0;
+}
+.menubar .menubar-item.menubar-user.selected {
+  background-color: white;
+}
+.menubar .menubar-item.menubar-user img {
+  margin-right: 7px;
+  position: relative;
+  top: -3px;
 }
 .menubar .menubar-item.menubar-back {
   height: 60px;
   font-size: 21px;
   color: white;
-  background-color: #0E2435;
+  background-color: #2A606F;
 }
 .menubar .menubar-item.menubar-back:hover {
-  background-color: #133047;
+  background-color: #0e3c48;
 }
 .menubar .menubar-item .menubar .menubar-item.menubar-tab {
   color: #8999ab;
@@ -834,12 +888,22 @@ html[xmlns] .clearfix {
 .menubar .menubar-item .menubar .menubar-item.menubar-tab.selected {
   color: white;
 }
+.menubar-title {
+  font-size: 21px;
+  font-weight: 300;
+  color: white;
+  margin: 0;
+}
+.menubar-title .menubar-title-dob {
+  margin-left: 7px;
+  font-weight: normal;
+  font-size: 14px;
+  opacity: 0.7;
+  letter-spacing: 1px;
+}
 .lookup-results {
   position: absolute;
   z-index: 99;
-}
-.menubar-user {
-  float: right;
 }
 /*
     A horizontal tab in the sidebar
@@ -1005,11 +1069,12 @@ html[xmlns] .clearfix {
 .user .user-username a:hover {
   text-decoration: underline;
 }
-.user .user-info {
-  color: #494d4e;
-}
 .user .user-date {
   color: #aeb3b5;
+}
+.user .user-userinfo {
+  color: #494d4e;
+  font-weight: 400;
 }
 .user-picture {
   width: 30px;
@@ -1116,10 +1181,28 @@ html[xmlns] .clearfix {
 .mentions-modal {
   padding: 21px;
 }
+.mentions-modal.mentions-modal-disorder {
+  padding: 0px;
+}
+.mentions-modal.mentions-modal-disorder .knowledge-logo {
+  position: relative;
+  top: 9px;
+  right: 14px;
+  height: 30px;
+}
+.mentions-modal.mentions-modal-disorder .mentions-modal-title {
+  color: white;
+  padding: 14px;
+  background-color: #3E5164;
+}
+.mentions-modal.mentions-modal-disorder .mentions-modal-content {
+  padding: 14px 28px;
+}
 .mentions-modal .mentions-modal-title {
   font-size: 21px;
   margin-bottom: 14px;
   font-weight: 300;
+  color: #000000;
 }
 .mentions-modal p {
   line-height: 28px;
@@ -1310,20 +1393,28 @@ html[xmlns] .clearfix {
   min-width: 320px;
   height: auto;
   max-height: 80%;
-  overflow: auto;
   z-index: 2000;
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   -moz-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transition: 0.3s all;
-  border: 1px solid #dbe1e3;
+  overflow: auto;
+  box-shadow: 0px 0px 40px 0px rgba(30, 52, 57, 0.30000000000000004);
 }
 .mmodal.ng-animate {
   border: 1px solid transparent;
 }
 .mmodal .mmodal-content {
   background-color: white;
+  height: 100%;
+  overflow: auto;
+}
+.mmodal.mmodal-gallery {
+  max-width: 90%;
+  width: 70%;
+  max-height: 80%;
+  height: 80%;
 }
 .mmodal.ng-hide-add .mmodal-content,
 .mmodal.ng-hide-remove .mmodal-content {
@@ -1430,6 +1521,31 @@ html[xmlns] .clearfix {
   overflow: auto;
   box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.5);
 }
+.xray-modal {
+  position: relative;
+  height: 100%;
+}
+.xray-modal .xray-modal-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70%;
+  background-color: black;
+  overflow: hidden;
+  line-height: 100%;
+  text-align: center;
+}
+.xray-modal .xray-modal-image img {
+  height: 100%;
+}
+.xray-modal .xray-modal-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 30%;
+}
 body {
   background-color: #e1e6e9;
   color: #616769;
@@ -1502,6 +1618,13 @@ h4 {
 */
 a {
   color: #616769;
+}
+a.highlight {
+  color: #49a9ba;
+}
+a.highlight:hover {
+  color: #49a9ba;
+  text-decoration: underline;
 }
 a:hover {
   text-decoration: none;

@@ -59,6 +59,7 @@ angular.module('directives.mentions', [])
                     } else if ($scope.mention.mentioned_type == "hpo") {
                         var newScope = $scope.$new();
                         newScope.patients = null;
+                        newScope.hpo = $scope.mention.hpo;
                         createModal({scope: newScope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
                             console.log("resolved");
                             modal.show();

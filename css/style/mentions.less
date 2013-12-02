@@ -12,10 +12,29 @@
 .mentions-modal {
   padding: 21px;
 
+  &.mentions-modal-disorder {
+    .knowledge-logo {
+      position: relative;
+      top: 9px;
+      right: 14px;
+      height: 30px;
+    }
+    .mentions-modal-title {
+      color: white;
+      padding: 14px;
+      background-color: #3E5164;
+    }
+    padding: 0px;
+
+    .mentions-modal-content {
+      padding: 14px 28px;
+    }
+  }
   .mentions-modal-title {
     font-size: 21px;
     margin-bottom: 14px;
     font-weight: 300;
+    color: @headingColor;
   }
   p {
     line-height: 28px;

@@ -1181,10 +1181,28 @@ html[xmlns] .clearfix {
 .mentions-modal {
   padding: 21px;
 }
+.mentions-modal.mentions-modal-disorder {
+  padding: 0px;
+}
+.mentions-modal.mentions-modal-disorder .knowledge-logo {
+  position: relative;
+  top: 9px;
+  right: 14px;
+  height: 30px;
+}
+.mentions-modal.mentions-modal-disorder .mentions-modal-title {
+  color: white;
+  padding: 14px;
+  background-color: #3E5164;
+}
+.mentions-modal.mentions-modal-disorder .mentions-modal-content {
+  padding: 14px 28px;
+}
 .mentions-modal .mentions-modal-title {
   font-size: 21px;
   margin-bottom: 14px;
   font-weight: 300;
+  color: #000000;
 }
 .mentions-modal p {
   line-height: 28px;

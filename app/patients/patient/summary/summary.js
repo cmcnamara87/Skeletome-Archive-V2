@@ -91,6 +91,7 @@ angular.module('patient.summary', [])
              "use strict";
              var newScope = $scope.$new();
              newScope.patients = null;
+             newScope.hpo = hpo;
              createModal({scope: newScope, url: 'common/directives/mentions/modal_hpo.tpl.html'}).then(function(modal) {
                  modal.show();
              });
