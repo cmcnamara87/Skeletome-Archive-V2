@@ -11,11 +11,7 @@ angular.module('directives.activities.cmActivity', ['directives.activities.cmAct
                 $scope.patientInfo = null;//"clinicalSummary";
 
                 console.log("embed patient", tAttrs.embedContent);
-                if(tAttrs.embedContent == "true") {
-                    $scope.embedContent = true;
-                } else {
-                    $scope.embedContent = false;
-                }
+                $scope.embedContent = $scope.$eval(tAttrs.embedContent)
 
                 $scope.$addReplyToActivity = function(text, activity) {
                     var newReply = new ReplyModel({

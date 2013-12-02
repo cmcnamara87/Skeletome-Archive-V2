@@ -9,56 +9,64 @@
 
     <div class="white padded">
 
-
-        <div class="divided">
+        <div class="divided separated">
             <div class="media user">
                 <div class="pull-left">
-                    <img ng-src="{{ activity.user.picture.thumb_url || activity.user.picture.url || 'img/default.png' }}" alt="" class="user-picture" />
+                    <img ng-src="{{ activity.user.picture.thumb_url || activity.user.picture.url || 'img/default.png' }}" alt="" class="user-picture" ng-class="{'user-picture-small': !embedContent}" />
                 </div>
                 <div class="media-body">
+                    <!-- Activity relative date -->
                     <div class="user-date pull-right" ng-show="activity.created">{{ activity.created | relativedate }}</div>
+
+                    <!-- The 'status' message about the activity -->
                     <div>
                         <a href="#/user/{{ activity.user.uid }}" class="user-username"> {{ activity.user.name }}</a>
 
-                        <span ng-show="activity.post.disorder_id > 0">added a diagnosis to</span>
-                        <span ng-show="activity.post.text.length > 0 && activity.post.disorder_id == 0">wrote on </span>
-                        <span ng-show="activity.type == 'share'">shared </span>
+                        <span ng-show="activity.post.disorder_id > 0">added a diagnosis <span ng-show="embedContent">to</span></span>
+                        <span ng-show="activity.post.text.length > 0 && activity.post.disorder_id == 0">wrote <span ng-show="embedContent">on</span> </span>
+                        <span ng-show="activity.type == 'share'">shared <span ng-show="!embedContent"><b>{{ activity.patient.name }}</b></span></span>
                     </div>
-                    <div class="separated">
-                        <a href="" ng-click="activity.$isShowingPatientInfo = !activity.$isShowingPatientInfo" class="activity-patient-name">{{ activity.patient.name }}</a> in
 
-                        <a href="#/group/{{ activity.group.id }}/summary">{{ activity.group.name }}</a>
-                    </div>
-                    <div ng-show="activity.$isShowingPatientInfo" class="separated">
-                        <cm-activity-patient></cm-activity-patient>
+                    <!-- Extra embedded info about the patient -->
+                    <div ng-show="embedContent">
+                        <div class="separated">
+                            <a href="" ng-click="activity.$isShowingPatientInfo = !activity.$isShowingPatientInfo" class="activity-patient-name">{{ activity.patient.name }}</a> in
+                            <a href="#/group/{{ activity.group.id }}/summary">{{ activity.group.name }}</a>
+                        </div>
+                        <div ng-show="activity.$isShowingPatientInfo" class="separated">
+                            <cm-activity-patient></cm-activity-patient>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
 
-        <div class="divided" ng-if="activity.post.text.length">
+        <div class="separated" ng-if="activity.post.text.length" ng-class="{'divided': embedContent }">
             <div class="media">
                 <div class="pull-left">
-                    <div class="activity-icon">
+                    <div class="activity-icon" ng-show="embedContent">
                         <i class="icon icon-comment-alt"></i>
                     </div>
                 </div>
                 <div class="media-body">
-                    <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
+                    <div ng-class="{'activity-space': !embedContent }">
+                        <mentions text="activity.post.text" mentions="activity.post.mentions"></mentions>
+                    </div>
+
                 </div>
             </div>
 
 
         </div>
-        <div class="divided separated" ng-if="activity.post.disorder_id > 0">
+        <div class="separated" ng-if="activity.post.disorder_id > 0" ng-class="{'divided': embedContent }">
             <div class="media">
                 <div class="pull-left">
-                    <div class="activity-icon">
+                    <div class="activity-icon" ng-show="embedContent">
                         <i class="icon icon-stethoscope"></i>
                     </div>
                 </div>
-                <div class="media-body">
+                <div class="media-body" ng-class="{'activity-space': !embedContent }">
                     <cm-activity-diagnosis diagnosis-post="activity.post"></cm-activity-diagnosis>
                 </div>
             </div>
