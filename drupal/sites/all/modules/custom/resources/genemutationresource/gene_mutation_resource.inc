@@ -66,7 +66,7 @@ function _gene_mutation_resource_delete($id) {
 
 
 function _gene_mutation_resource_index($page, $fields, $parameters, $page_size) {
-    $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
+//    $parameters['patient_id'] = patients_filter_accessible($parameters['patient_id']);
     return resource_helper_index('gene_mutation', $page, $fields, $parameters, $page_size);
 }
 
