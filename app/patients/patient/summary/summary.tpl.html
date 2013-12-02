@@ -75,7 +75,7 @@
         </div>
         <div class="block-content">
             <div style="vertical-align: middle" class="user">
-                <img ng-src="{{ reply.user.picture.thumb_url || reply.user.picture.url || 'img/default.png' }}" alt="" class="user-picture"/>
+                <img ng-src="{{ patient.user.picture.thumb_url || patient.user.picture.url || 'img/default.png' }}" alt="" class="user-picture" style="margin-right: 5px;"/>
                 <a href="#/user/{{ patient.user.uid }}" class="user-username">
                     Dr {{ patient.user.name }}
                 </a>
