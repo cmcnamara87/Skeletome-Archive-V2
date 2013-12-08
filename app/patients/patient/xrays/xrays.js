@@ -79,13 +79,19 @@ angular.module('patient.xrays', [])
                 modal.show();
             })
         }
-        $scope.addHpoTag = function() {
+            
+        /**
+         * Adds a HPO Tag to the xray
+         * @param xray      The xray we should add the hpo tag to
+         * @param hpoTags   The list of hpoTags for the xray
+         */
+        $scope.addHpoTag = function(xray, hpoTags) {
             "use strict";
             var newHpoTag = new HPOTagModel({
-                object_id: $scope.xray.id,
+                object_id: xray.id,
                 object_type: 'xray'
             });
-            $scope.hpoTags.push(newHpoTag);
+            hpoTags.push(newHpoTag);
         }
             $scope.hpoChosen = function(hpo, hpoTag) {
                 "use strict";
